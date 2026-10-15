@@ -7,7 +7,7 @@
     "tipo": "Diver",
     "data_compra": "2026-08-31",
     "valor": 395,
-    "origem": "",
+    "origem": "Compra",
     "rating_tipo": "star",
     "rating_valor": "5",
     "calibre": "Quartzo",
@@ -22,14 +22,13 @@
     "historia": "",
     "fotos": [
       "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792060957934-2415DY1A.jpeg",
-      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062936449-0-2415DY1A1.jpeg",
-      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062938084-1-2415DY1A2.jpeg",
-      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062939564-2-2415DY1A3.jpeg",
-      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062940966-3-2415DY1A4.jpeg",
-      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062942720-4-2415DY1A5.jpeg",
-      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062944360-5-2415DY1A6.jpeg",
       "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062946064-6-2415DY1A7.jpeg",
-      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062947377-7-2415DY1A8.jpeg"
+      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062942720-4-2415DY1A5.jpeg",
+      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062939564-2-2415DY1A3.jpeg",
+      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062936449-0-2415DY1A1.jpeg",
+      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062944360-5-2415DY1A6.jpeg",
+      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062938084-1-2415DY1A2.jpeg",
+      "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062940966-3-2415DY1A4.jpeg"
     ]
   }
 ]
