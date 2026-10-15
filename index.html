@@ -23,25 +23,27 @@
       position: relative;
     }
     
-    /* Fundo suave com a textura Porsche Lume em opacidade sutil */
+    /* Fundo com presença elegante: o relógio aparece nítido no centro e escurece suavemente nas bordas */
     .bg-luxury-pattern {
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(circle at center, rgba(3, 6, 10, 0.88) 0%, rgba(3, 6, 10, 0.98) 100%), url('images/relogiocapa.jpeg');
+      background-image: 
+        radial-gradient(circle at center, rgba(3, 6, 10, 0.55) 0%, rgba(3, 6, 10, 0.85) 60%, rgba(3, 6, 10, 0.98) 100%), 
+        url('images/relogiocapa.jpeg');
       background-size: cover;
-      background-position: center;
+      background-position: center center;
       background-repeat: no-repeat;
       pointer-events: none;
       z-index: -1;
-      opacity: 0.22;
+      opacity: 0.65; /* Calibrado para dar nitidez ao lume verde e ao mostrador */
     }
 
     .font-serif-lux { font-family: 'Cinzel', serif; }
     
     .card-navy {
-      background: linear-gradient(180deg, rgba(11, 20, 36, 0.85) 0%, rgba(6, 12, 22, 0.95) 100%);
+      background: linear-gradient(180deg, rgba(11, 20, 36, 0.88) 0%, rgba(6, 12, 22, 0.96) 100%);
       border: 1px solid rgba(30, 52, 84, 0.6);
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .card-navy:hover {
@@ -59,6 +61,7 @@
     ::-webkit-scrollbar-thumb { background: #172842; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
   </style>
+
 </head>
 <body class="flex flex-col justify-between">
   <!-- Camada de background sutil -->
