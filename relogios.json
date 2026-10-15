@@ -1,6 +1,37 @@
 {
   "relogios": [
     {
+      "id": "rlg-1792068328361",
+      "ordem": 2,
+      "marca": "Pagani Design",
+      "modelo": "PD1762",
+      "tipo": "GMT",
+      "data_compra": "2026-08-28",
+      "valor": 857,
+      "origem": "Compra",
+      "rating_tipo": "heart",
+      "rating_valor": "5",
+      "calibre": "Automatico / TMI NH34A",
+      "diametro": "40",
+      "cor_caixa": "Cinza",
+      "cor_bisel": "Cinza",
+      "material_correia": "Silicone",
+      "tipo_correia": "Flexível",
+      "cor_correia": "Laranja",
+      "tipo_fecho": "Fivela",
+      "descricao": "Bisel de escala 24 horas unidirecional\nMovimiento automático japonés TMI NH34A, ampla reserva de marcha\nCoroa rosqueável na posição de 3 horas\nIndices e ponteiro com alto nível de lumen\nCaixa de aço inoxidavel e polido\nTratamento anti-arranhões\nCristal de zafira sintético e anti-reflexo\nTampa traseira maciça \nResistencia a agua de 100 metros",
+      "historia": "Primeiro relogio sport",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068317185-0-PD17627.webp",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068318760-1-PD1762.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068320205-2-PD17621.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068322017-3-PD17623.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068323752-4-PD17624.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068325238-5-PD17625.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068326674-6-PD17626.jpeg"
+      ]
+    },
+    {
       "id": "rlg-1792067145760",
       "ordem": 1,
       "marca": "Bulgari",
