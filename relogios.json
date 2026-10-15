@@ -184,6 +184,38 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
       ]
+    },
+    {
+      "id": "rlg-1792080353963",
+      "ordem": 999,
+      "marca": "Technos",
+      "modelo": "Acqua Diver Pepsi",
+      "tipo": "Diver",
+      "data_compra": "2026-09-30",
+      "valor": 579,
+      "origem": "Presente",
+      "rating_tipo": "heart",
+      "rating_valor": "5",
+      "calibre": "Quartzo",
+      "diametro": "44",
+      "cor_caixa": "Prata",
+      "cor_bisel": "Azul / Vermelho",
+      "material_correia": "Aço",
+      "tipo_correia": "Elos Padrão",
+      "cor_correia": "Prata",
+      "tipo_fecho": "Fivela",
+      "descricao": "Referencia: 2415EL1A\nLinha: Acqua\nVidro: Cristal Mineral\nMaterial da Caixa: Aço Inoxidável\nMaterial da Pulseira: Aço Inoxidável\nModelo: Analógico\nMecanismo: Quartzo\nAlimentação: Óxido de Prata\nResistência à Água: 15ATM\nDiâmetro da Caixa: 44,5mm (sem coroa)\nPeso: 155g",
+      "historia": "Mãe e Penha - Presente - Aniversário",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080341486-0-Techonos2415EL1A.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080343179-1-Techonos2415EL1A1.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080344867-2-Techonos2415EL1A2.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080346349-3-Techonos2415EL1A3.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080347858-4-Techonos2415EL1A4.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080349490-5-Techonos2415EL1A5.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080350903-6-Techonos2415EL1A6.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080352409-7-Techonos2415EL1A7.jpeg"
+      ]
     }
   ],
   "caixas": [
