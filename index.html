@@ -115,7 +115,7 @@
       </div>
       
       <div class="flex items-center gap-1.5 sm:gap-2">
-        <!-- Botão de Instalar PWA (aparece se disponível) -->
+        <!-- Botão de Instalar PWA -->
         <button id="btn-pwa-install" onclick="instalarPWA()" class="hidden bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 hover:bg-emerald-600/30 px-2.5 py-1.5 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1.5">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">Instalar App</span>
@@ -144,22 +144,25 @@
 
   <!-- Conteúdo Principal -->
   <main class="max-w-7xl mx-auto px-3.5 sm:px-6 py-4 sm:py-6 flex-1 w-full">
-    <!-- Abas & Filtros -->
+    <!-- Abas com Cores Distintas & Filtros -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 mb-5 sm:mb-6 pb-3 border-b border-slate-200 dark:border-[#122238]">
       <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
-        <button onclick="alternarAba('relogios')" id="tab-btn-relogios" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-sm">
+        <!-- Aba 1: Relógios (Destaque Azul Safira) -->
+        <button onclick="alternarAba('relogios')" id="tab-btn-relogios" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
           <i data-lucide="watch" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
           <span>Relógios</span>
-          <span id="badge-count-relogios" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold">0</span>
+          <span id="badge-count-relogios" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
         </button>
         
-        <button onclick="alternarAba('caixas')" id="tab-btn-caixas" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400">
+        <!-- Aba 2: Caixas (Destaque Ouro Champanhe) -->
+        <button onclick="alternarAba('caixas')" id="tab-btn-caixas" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
           <i data-lucide="box" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
           <span>Caixas</span>
-          <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300">0</span>
+          <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
         </button>
 
-        <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400">
+        <!-- Aba 3: Geral (Destaque Esmeralda Nobre) -->
+        <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
           <i data-lucide="bar-chart-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
           <span>Geral</span>
         </button>
@@ -193,7 +196,7 @@
       <div id="grid-caixas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"></div>
     </section>
 
-    <!-- VIEW 3: Dashboard Geral -->
+    <!-- VIEW 3: Dashboard Geral Premium -->
     <section id="view-geral" class="hidden space-y-5">
       <!-- Métricas Principais -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
@@ -228,22 +231,22 @@
         </div>
       </div>
 
-      <!-- Gráficos -->
+      <!-- Gráficos com Visual Sofisticado -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="card-navy p-4 rounded-xl">
           <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-3 tracking-wider flex items-center gap-2">
             <i data-lucide="pie-chart" class="w-4 h-4"></i> Distribuição por Marca
           </h4>
-          <div class="h-60 flex items-center justify-center">
+          <div class="h-64 flex items-center justify-center">
             <canvas id="chartMarcas"></canvas>
           </div>
         </div>
 
         <div class="card-navy p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-3 tracking-wider flex items-center gap-2">
+          <h4 class="text-xs uppercase font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-3 tracking-wider flex items-center gap-2">
             <i data-lucide="compass" class="w-4 h-4"></i> Estilos e Categorias
           </h4>
-          <div class="h-60 flex items-center justify-center">
+          <div class="h-64 flex items-center justify-center">
             <canvas id="chartTipos"></canvas>
           </div>
         </div>
@@ -252,10 +255,10 @@
       <!-- Movimento e Maiores Valores -->
       <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
         <div class="md:col-span-5 card-navy p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-3 tracking-wider flex items-center gap-2">
+          <h4 class="text-xs uppercase font-serif-lux font-bold text-emerald-600 dark:text-emerald-400 mb-3 tracking-wider flex items-center gap-2">
             <i data-lucide="cpu" class="w-4 h-4"></i> Mecanismos / Calibres
           </h4>
-          <div class="h-60 flex items-center justify-center">
+          <div class="h-64 flex items-center justify-center">
             <canvas id="chartMovimentos"></canvas>
           </div>
         </div>
@@ -264,7 +267,7 @@
           <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-3 tracking-wider flex items-center gap-2">
             <i data-lucide="trending-up" class="w-4 h-4"></i> Top Valores Investidos (R$)
           </h4>
-          <div class="h-60">
+          <div class="h-64">
             <canvas id="chartValores"></canvas>
           </div>
         </div>
@@ -272,7 +275,7 @@
     </section>
   </main>
 
-  <!-- Modal Visual Deploy 15s -->
+  <!-- Modal Deploy 15s -->
   <div id="modal-deploy" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl flex flex-col items-center">
       <div class="w-14 h-14 rounded-full bg-sky-100 dark:bg-sky-950/60 border border-sky-400/40 flex items-center justify-center mb-3.5 deploy-pulse">
@@ -321,7 +324,7 @@
     </div>
   </div>
 
-  <!-- Modal Cadastro/Edição de Relógio -->
+  <!-- Modal Cadastro/Edição de Relógio (Atualizado com nova linha de avaliação + Cor do Mostrador) -->
   <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
     <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
       <button onclick="fecharModalCadastro()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -365,19 +368,20 @@
           </div>
         </div>
 
+        <!-- Seção Ajustada: Ícone e Nota Menores + Maquinário na mesma linha -->
         <div class="bg-slate-50 dark:bg-[#070e1a] p-3 rounded-lg border border-slate-200 dark:border-[#162740]">
-          <label class="text-sky-600 dark:text-sky-300 font-semibold block mb-2 text-[11px] uppercase tracking-wide">Avaliação Pessoal</label>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="text-slate-600 dark:text-slate-400 block mb-1">Ícone</label>
+          <label class="text-sky-600 dark:text-sky-300 font-semibold block mb-2 text-[11px] uppercase tracking-wide">Avaliação & Mecanismo</label>
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+            <div class="sm:col-span-3">
+              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Ícone</label>
               <select id="rating-tipo" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
                 <option value="star">Estrelas (★)</option>
                 <option value="dollar">Cifrões ($)</option>
                 <option value="heart">Corações (♥)</option>
               </select>
             </div>
-            <div>
-              <label class="text-slate-600 dark:text-slate-400 block mb-1">Nota</label>
+            <div class="sm:col-span-3">
+              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Nota</label>
               <select id="rating-valor" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
                 <option value="5">5 de 5</option>
                 <option value="4">4 de 5</option>
@@ -386,13 +390,18 @@
                 <option value="1">1 de 5</option>
               </select>
             </div>
+            <div class="sm:col-span-6">
+              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Maquinário / Calibre *</label>
+              <input required type="text" id="calibre" placeholder="Ex: Automático TMI NH34A" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
+            </div>
           </div>
         </div>
 
+        <!-- Seção de Caixa & Mostrador (Cor do Mostrador no lugar de Maquinário) -->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
-            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Maquinário / Calibre *</label>
-            <input required type="text" id="calibre" placeholder="Ex: Automático TMI NH34A" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Cor do Mostrador</label>
+            <input type="text" id="cor_mostrador" placeholder="Ex: Preto, Azul Sunburst" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Diâmetro Caixa</label>
@@ -400,11 +409,11 @@
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Cor da Caixa</label>
-            <input type="text" id="cor_caixa" placeholder="Ex: Cinza" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="cor_caixa" placeholder="Ex: Aço / Prata" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Cor do Bisel</label>
-            <input type="text" id="cor_bisel" placeholder="Ex: Cinza" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="cor_bisel" placeholder="Ex: Preto e Azul" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
         </div>
 
@@ -460,7 +469,7 @@
     <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
       <button onclick="fecharModalCaixa()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       
-      <h3 id="modal-caixa-title" class="text-sm sm:text-base font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-4 border-b border-slate-200 dark:border-[#172944] pb-2 tracking-wider">Cadastrar Caixa</h3>
+      <h3 id="modal-caixa-title" class="text-sm sm:text-base font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-4 border-b border-slate-200 dark:border-[#172944] pb-2 tracking-wider">Cadastrar Caixa</h3>
       
       <form id="form-caixa" onsubmit="salvarCaixa(event)" class="space-y-3.5 text-xs">
         <input type="hidden" id="edit-caixa-id" value="">
@@ -468,31 +477,31 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Identificação da Caixa *</label>
-            <input required type="text" id="caixa-nome" placeholder="Ex: Estojo Couro 10 Slots" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input required type="text" id="caixa-nome" placeholder="Ex: Estojo Couro 10 Slots" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-amber-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Capacidade (Slots) *</label>
-            <input required type="number" id="caixa-capacidade" placeholder="Ex: 10" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input required type="number" id="caixa-capacidade" placeholder="Ex: 10" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-amber-500 outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Data de Aquisição</label>
-            <input type="date" id="caixa-data" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="date" id="caixa-data" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-amber-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Status Atual</label>
-            <input type="text" id="caixa-status" placeholder="Ex: Em preenchimento" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="caixa-status" placeholder="Ex: Em preenchimento" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-amber-500 outline-none">
           </div>
         </div>
 
         <div class="bg-slate-50 dark:bg-[#070e1a] p-3 rounded-lg border border-slate-200 dark:border-[#162740]">
           <div class="flex justify-between items-center mb-1">
-            <label class="text-sky-600 dark:text-sky-300 font-semibold block text-[11px] uppercase tracking-wide">Fotos de Evolução</label>
+            <label class="text-amber-600 dark:text-amber-400 font-semibold block text-[11px] uppercase tracking-wide">Fotos de Evolução</label>
             <span class="text-[10px] text-slate-400">Registros do acervo</span>
           </div>
-          <input type="file" id="caixa-fotos-files" accept="image/*" multiple class="w-full text-slate-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:bg-sky-100 dark:file:bg-[#12233b] file:text-sky-700 dark:file:text-sky-300 cursor-pointer">
+          <input type="file" id="caixa-fotos-files" accept="image/*" multiple class="w-full text-slate-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:bg-amber-100 dark:file:bg-[#2e1d0d] file:text-amber-700 dark:file:text-amber-300 cursor-pointer">
           <div id="caixa-fotos-container" class="mt-3 hidden">
             <div id="caixa-fotos-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
           </div>
@@ -500,17 +509,17 @@
 
         <div>
           <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Observações</label>
-          <textarea id="caixa-obs" rows="3" placeholder="Linha do tempo desta caixa..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea>
+          <textarea id="caixa-obs" rows="3" placeholder="Linha do tempo desta caixa..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-amber-500 outline-none"></textarea>
         </div>
 
-        <button type="submit" id="btn-salvar-caixa" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-3 rounded-lg transition tracking-widest uppercase text-xs">
+        <button type="submit" id="btn-salvar-caixa" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-3 rounded-lg transition tracking-widest uppercase text-xs">
           Salvar Caixa
         </button>
       </form>
     </div>
   </div>
 
-  <!-- Modal Fotos & Zoom (Mobile Friendly) -->
+  <!-- Modal Fotos & Zoom -->
   <div id="modal-galeria" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex items-center justify-center p-2.5 sm:p-4">
     <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col p-3.5 sm:p-5 relative shadow-2xl">
       <button onclick="fecharModalGaleria()" class="absolute top-3 right-3 text-slate-400 hover:text-white z-10 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -523,7 +532,7 @@
       <div class="img-zoom-box rounded-xl border border-slate-200 dark:border-[#192b47] bg-slate-100 dark:bg-[#03070d] flex-1 max-h-[50vh] min-h-[240px] flex items-center justify-center relative overflow-hidden select-none">
         <img id="galeria-img-zoom" src="" alt="Foto" class="max-h-[50vh] w-auto max-w-full object-contain pointer-events-none">
       </div>
-      <p class="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-1.5">Toque ou passe o cursor sobre a imagem para ampliar.</p>
+      <p class="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-1.5">Passe o cursor sobre a imagem para ampliar.</p>
 
       <div id="galeria-thumbs" class="flex gap-2 mt-2.5 overflow-x-auto pb-1 pt-1 justify-start"></div>
     </div>
@@ -616,16 +625,15 @@
 
     inicializarTema();
 
-    // PWA Service Worker Registration
+    // PWA Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('PWA ServiceWorker registrado:', reg.scope))
-          .catch(err => console.log('PWA falhou ao registrar:', err));
+          .then(reg => console.log('ServiceWorker PWA pronto:', reg.scope))
+          .catch(err => console.log('Falha no PWA SW:', err));
       });
     }
 
-    // PWA Install Prompt Event
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
@@ -652,23 +660,41 @@
       return dataStr;
     }
 
+    // Alternar Abas com Cores Distintas e Sofisticadas
     function alternarAba(aba) {
       abaAtiva = aba;
       const btnRelogios = document.getElementById('tab-btn-relogios');
       const btnCaixas = document.getElementById('tab-btn-caixas');
       const btnGeral = document.getElementById('tab-btn-geral');
+      const badgeRelogios = document.getElementById('badge-count-relogios');
+      const badgeCaixas = document.getElementById('badge-count-caixas');
+      
       const viewRelogios = document.getElementById('view-relogios');
       const viewCaixas = document.getElementById('view-caixas');
       const viewGeral = document.getElementById('view-geral');
       const controlesRelogios = document.getElementById('controles-relogios');
       const labelBtn = document.getElementById('label-btn-adicionar');
 
-      const inativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400";
-      const ativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-sm";
+      const estiloBaseInativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400 hover:border-slate-400";
+      
+      // Estilos ativos com tons nobres distintos
+      const estiloAtivoRelogios = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]";
+      const estiloAtivoCaixas = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-amber-500 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.2)]";
+      const estiloAtivoGeral = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]";
 
-      btnRelogios.className = aba === 'relogios' ? ativo : inativo;
-      btnCaixas.className = aba === 'caixas' ? ativo : inativo;
-      btnGeral.className = aba === 'geral' ? ativo : inativo;
+      // Aplicar classes nas abas
+      btnRelogios.className = aba === 'relogios' ? estiloAtivoRelogios : estiloBaseInativo;
+      btnCaixas.className = aba === 'caixas' ? estiloAtivoCaixas : estiloBaseInativo;
+      btnGeral.className = aba === 'geral' ? estiloAtivoGeral : estiloBaseInativo;
+
+      // Badges
+      badgeRelogios.className = aba === 'relogios' 
+        ? "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold"
+        : "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+
+      badgeCaixas.className = aba === 'caixas'
+        ? "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold"
+        : "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
 
       viewRelogios.classList.toggle('hidden', aba !== 'relogios');
       viewCaixas.classList.toggle('hidden', aba !== 'caixas');
@@ -734,6 +760,7 @@
         }
       }
       renderizarTudo();
+      alternarAba('relogios');
     }
 
     function processarDadosRecebidos(json) {
@@ -921,7 +948,7 @@
           <div class="col-span-full py-16 text-center text-slate-500">
             <i data-lucide="package" class="w-10 h-10 mx-auto mb-2 opacity-40"></i>
             <p>Nenhuma caixa catalogada.</p>
-            <button onclick="abrirModalCaixa()" class="mt-2 text-sky-500 hover:underline text-xs">Adicionar a primeira caixa</button>
+            <button onclick="abrirModalCaixa()" class="mt-2 text-amber-500 hover:underline text-xs">Adicionar a primeira caixa</button>
           </div>
         `;
         lucide.createIcons();
@@ -935,7 +962,7 @@
         <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between">
           <div class="relative h-60 sm:h-64 overflow-hidden bg-slate-900 flex items-center justify-center group">
             <img id="caixa-card-img-${c.id}" data-idx="0" src="${fotoCapa}" alt="${c.nome}" class="w-full h-full object-cover transition duration-500" onerror="this.src='https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto'">
-            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2.5 py-1 rounded-full text-[10px] font-semibold text-sky-300 z-10">
+            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2.5 py-1 rounded-full text-[10px] font-semibold text-amber-300 z-10">
               ${c.capacidade} Posições
             </span>
             ${c.status ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded z-10">${c.status}</span>` : ''}
@@ -955,18 +982,18 @@
             <div>
               <h3 class="text-base font-semibold text-slate-900 dark:text-white tracking-tight">${c.nome}</h3>
               <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5">
-                <i data-lucide="calendar" class="w-3.5 h-3.5 text-sky-500"></i>
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-500"></i>
                 Início: <strong class="text-slate-800 dark:text-slate-200">${formatarData(c.data_aquisicao)}</strong>
               </p>
               ${c.observacoes ? `<p class="text-[11px] text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">${c.observacoes}</p>` : ''}
             </div>
 
             <div class="mt-3.5 pt-3 border-t border-slate-200 dark:border-[#132238] flex items-center gap-2">
-              <button onclick="abrirGaleriaCaixa('${c.id}')" class="flex-1 bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-sky-400 text-slate-700 dark:text-slate-200 hover:text-sky-600 dark:hover:text-sky-300 text-xs py-2 rounded-lg transition flex items-center justify-center gap-1.5">
+              <button onclick="abrirGaleriaCaixa('${c.id}')" class="flex-1 bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-amber-400 text-slate-700 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-300 text-xs py-2 rounded-lg transition flex items-center justify-center gap-1.5">
                 <i data-lucide="images" class="w-3.5 h-3.5"></i>
                 <span>Ver Evolução (${c.fotos.length})</span>
               </button>
-              <button onclick="editarCaixa('${c.id}')" title="Editar Caixa" class="bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-sky-400 text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-300 p-2 rounded-lg transition flex items-center justify-center">
+              <button onclick="editarCaixa('${c.id}')" title="Editar Caixa" class="bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-amber-400 text-slate-500 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-300 p-2 rounded-lg transition flex items-center justify-center">
                 <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
               </button>
               <button onclick="removerCaixa('${c.id}')" title="Remover Caixa" class="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 hover:bg-red-100 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 p-2 rounded-lg transition flex items-center justify-center">
@@ -980,12 +1007,26 @@
       lucide.createIcons();
     }
 
+    // Dashboard Geral Sofisticado
     function carregarDashboardGeral() {
       const relogios = bancoDados.relogios;
       const caixas = bancoDados.caixas;
       const isDark = document.documentElement.classList.contains('dark');
       const textColor = isDark ? '#94a3b8' : '#475569';
-      const gridColor = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+      const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)';
+      const borderColor = isDark ? '#0b1424' : '#ffffff';
+
+      // Paleta Sofisticada de Alta Relojoaria (Safira, Champanhe, Platina, Esmeralda, Titânio, Vinho)
+      const luxPalette = [
+        '#38bdf8', // Safira Glacial
+        '#d4af37', // Ouro Champanhe
+        '#10b981', // Esmeralda Nobre
+        '#94a3b8', // Platina / Aço
+        '#f59e0b', // Âmbar Dourado
+        '#818cf8', // Azul Meia-Noite
+        '#be185d', // Vinho Royal
+        '#64748b'  // Titânio Escovado
+      ];
 
       const totalPecas = relogios.length;
       const valorTotal = relogios.reduce((acc, r) => acc + (parseFloat(r.valor) || 0), 0);
@@ -999,7 +1040,7 @@
       document.getElementById('metric-ocupacao').innerText = `${ocupacaoPct}%`;
       document.getElementById('metric-vagas-texto').innerText = `${totalPecas} / ${capacidadeTotal} slots`;
 
-      // 1. Marcas
+      // 1. Gráfico de Marcas (Donut Fino de Alta Joalheria)
       const contagemMarcas = {};
       relogios.forEach(r => {
         const m = (r.marca || 'Outros').toUpperCase();
@@ -1014,48 +1055,76 @@
           labels: Object.keys(contagemMarcas),
           datasets: [{
             data: Object.values(contagemMarcas),
-            backgroundColor: ['#38bdf8', '#818cf8', '#34d399', '#f59e0b', '#f43f5e', '#a855f7', '#64748b'],
-            borderWidth: 2
+            backgroundColor: luxPalette,
+            borderColor: borderColor,
+            borderWidth: 2,
+            hoverOffset: 6
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          cutout: '72%',
           plugins: {
-            legend: { position: 'bottom', labels: { color: textColor, boxWidth: 10, font: { size: 10 } } }
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: textColor,
+                boxWidth: 8,
+                boxHeight: 8,
+                usePointStyle: true,
+                pointStyle: 'circle',
+                font: { size: 10, family: 'Inter' },
+                padding: 12
+              }
+            }
           }
         }
       });
 
-      // 2. Tipos
+      // 2. Gráfico de Estilos (Também em Donut Fino e Harmonioso)
       const contagemTipos = {};
       relogios.forEach(r => {
-        const t = r.tipo ? r.tipo.trim() : 'Não informado';
+        const t = r.tipo ? r.tipo.trim() : 'Geral';
         contagemTipos[t] = (contagemTipos[t] || 0) + 1;
       });
 
       if (chartTiposInst) chartTiposInst.destroy();
       const ctxTipos = document.getElementById('chartTipos').getContext('2d');
       chartTiposInst = new Chart(ctxTipos, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
           labels: Object.keys(contagemTipos),
           datasets: [{
             data: Object.values(contagemTipos),
-            backgroundColor: ['#60a5fa', '#34d399', '#fbbf24', '#f87171', '#c084fc'],
-            borderWidth: 2
+            backgroundColor: ['#d4af37', '#38bdf8', '#10b981', '#f59e0b', '#94a3b8', '#ec4899'],
+            borderColor: borderColor,
+            borderWidth: 2,
+            hoverOffset: 6
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          cutout: '72%',
           plugins: {
-            legend: { position: 'bottom', labels: { color: textColor, boxWidth: 10, font: { size: 10 } } }
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: textColor,
+                boxWidth: 8,
+                boxHeight: 8,
+                usePointStyle: true,
+                pointStyle: 'circle',
+                font: { size: 10, family: 'Inter' },
+                padding: 12
+              }
+            }
           }
         }
       });
 
-      // 3. Mecanismos / Calibres
+      // 3. Gráfico de Mecanismos / Calibres
       const contagemMovimentos = { 'Automático': 0, 'Quartzo': 0, 'Manual': 0, 'Outros': 0 };
       relogios.forEach(r => {
         const cal = (r.calibre || '').toLowerCase();
@@ -1082,38 +1151,59 @@
           labels: Object.keys(contagemMovimentos),
           datasets: [{
             data: Object.values(contagemMovimentos),
-            backgroundColor: ['#38bdf8', '#fbbf24', '#34d399', '#a855f7'],
-            borderWidth: 2
+            backgroundColor: ['#10b981', '#38bdf8', '#d4af37', '#94a3b8'],
+            borderColor: borderColor,
+            borderWidth: 2,
+            hoverOffset: 6
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          cutout: '72%',
           plugins: {
-            legend: { position: 'bottom', labels: { color: textColor, boxWidth: 10, font: { size: 10 } } }
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: textColor,
+                boxWidth: 8,
+                boxHeight: 8,
+                usePointStyle: true,
+                pointStyle: 'circle',
+                font: { size: 10, family: 'Inter' },
+                padding: 12
+              }
+            }
           }
         }
       });
 
-      // 4. Maiores Valores
+      // 4. Maiores Valores com Gradiente Vertical Translúcido
       const pecasOrdenadasValor = [...relogios]
         .filter(r => (parseFloat(r.valor) || 0) > 0)
         .sort((a, b) => (b.valor || 0) - (a.valor || 0))
-        .slice(0, 8);
+        .slice(0, 7);
 
       if (chartValoresInst) chartValoresInst.destroy();
       const ctxValores = document.getElementById('chartValores').getContext('2d');
+
+      // Criação de gradiente premium no canvas
+      const gradient = ctxValores.createLinearGradient(0, 0, 0, 240);
+      gradient.addColorStop(0, 'rgba(56, 189, 248, 0.85)');
+      gradient.addColorStop(1, 'rgba(56, 189, 248, 0.08)');
+
       chartValoresInst = new Chart(ctxValores, {
         type: 'bar',
         data: {
-          labels: pecasOrdenadasValor.map(r => `${r.marca} ${r.modelo}`.substring(0, 14)),
+          labels: pecasOrdenadasValor.map(r => `${r.marca} ${r.modelo}`.substring(0, 13)),
           datasets: [{
             label: 'Valor (R$)',
             data: pecasOrdenadasValor.map(r => r.valor),
-            backgroundColor: 'rgba(56, 189, 248, 0.75)',
+            backgroundColor: gradient,
             borderColor: '#38bdf8',
-            borderWidth: 1,
-            borderRadius: 6
+            borderWidth: { top: 2, right: 0, bottom: 0, left: 0 },
+            borderRadius: { topLeft: 6, topRight: 6 },
+            barPercentage: 0.55
           }]
         },
         options: {
@@ -1121,15 +1211,28 @@
           maintainAspectRatio: false,
           scales: {
             y: {
-              grid: { color: gridColor },
-              ticks: { color: textColor, callback: val => `R$ ${val}` }
+              grid: { color: gridColor, drawBorder: false },
+              ticks: { color: textColor, font: { size: 9 }, callback: val => `R$ ${val}` }
             },
             x: {
-              grid: { display: false },
+              grid: { display: false, drawBorder: false },
               ticks: { color: textColor, font: { size: 9 } }
             }
           },
-          plugins: { legend: { display: false } }
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: isDark ? 'rgba(11, 20, 36, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+              titleColor: isDark ? '#ffffff' : '#0f172a',
+              bodyColor: isDark ? '#38bdf8' : '#0284c7',
+              borderColor: isDark ? '#1e3860' : '#cbd5e1',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                label: (context) => ` R$ ${context.parsed.y.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
+              }
+            }
+          }
         }
       });
     }
@@ -1200,6 +1303,7 @@
       const campos = [
         { label: 'Tipo', valor: r.tipo },
         { label: 'Maquinário / Calibre', valor: r.calibre, destaque: true },
+        { label: 'Cor do Mostrador', valor: r.cor_mostrador },
         { label: 'Diâmetro da Caixa', valor: r.diametro },
         { label: 'Cor da Caixa', valor: r.cor_caixa },
         { label: 'Cor do Bisel', valor: r.cor_bisel },
@@ -1281,6 +1385,7 @@
       document.getElementById('rating-tipo').value = r.rating_tipo || 'star';
       document.getElementById('rating-valor').value = r.rating_valor || '5';
       document.getElementById('calibre').value = r.calibre || '';
+      document.getElementById('cor_mostrador').value = r.cor_mostrador || '';
       document.getElementById('diametro').value = r.diametro || '';
       document.getElementById('cor_caixa').value = r.cor_caixa || '';
       document.getElementById('cor_bisel').value = r.cor_bisel || '';
@@ -1415,18 +1520,18 @@
       list.innerHTML = fotosCaixaAtual.map((foto, index) => {
         const isCapa = index === 0;
         return `
-          <div class="relative bg-slate-100 dark:bg-[#03070d] border ${isCapa ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
+          <div class="relative bg-slate-100 dark:bg-[#03070d] border ${isCapa ? 'border-amber-500 ring-2 ring-amber-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
             <img src="${foto}" class="w-full h-20 object-cover rounded">
-            ${isCapa ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
+            ${isCapa ? '<span class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
             <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
               <button type="button" onclick="definirFotoPrincipalCaixa(${index})" class="text-[11px] ${isCapa ? 'text-amber-500' : 'text-slate-400 hover:text-amber-400'}">
                 <i data-lucide="star" class="w-3.5 h-3.5 ${isCapa ? 'fill-amber-500' : ''}"></i>
               </button>
               <div class="flex gap-1">
-                <button type="button" onclick="moverFotoCaixa(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-sky-500"'}>
+                <button type="button" onclick="moverFotoCaixa(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-amber-500"'}>
                   <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
                 </button>
-                <button type="button" onclick="moverFotoCaixa(${index}, 1)" ${index === fotosCaixaAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-sky-500"'}>
+                <button type="button" onclick="moverFotoCaixa(${index}, 1)" ${index === fotosCaixaAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-amber-500"'}>
                   <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
@@ -1549,6 +1654,7 @@
           rating_tipo: document.getElementById('rating-tipo').value,
           rating_valor: document.getElementById('rating-valor').value,
           calibre: document.getElementById('calibre').value.trim(),
+          cor_mostrador: document.getElementById('cor_mostrador').value.trim(),
           diametro: document.getElementById('diametro').value.trim(),
           cor_caixa: document.getElementById('cor_caixa').value.trim(),
           cor_bisel: document.getElementById('cor_bisel').value.trim(),
@@ -1568,7 +1674,6 @@
           bancoDados.relogios.push(dadosRelogio);
         }
 
-        // Ordenação cronológica automática pela data
         bancoDados.relogios.sort((a, b) => new Date(a.data_compra || 0) - new Date(b.data_compra || 0));
 
         await salvarJsonGithub(`chore: atualizar relógio ${dadosRelogio.marca} ${dadosRelogio.modelo}`);
@@ -1710,7 +1815,8 @@
         (r.marca && r.marca.toLowerCase().includes(termo)) || 
         (r.modelo && r.modelo.toLowerCase().includes(termo)) ||
         (r.tipo && r.tipo.toLowerCase().includes(termo)) ||
-        (r.calibre && r.calibre.toLowerCase().includes(termo))
+        (r.calibre && r.calibre.toLowerCase().includes(termo)) ||
+        (r.cor_mostrador && r.cor_mostrador.toLowerCase().includes(termo))
       );
 
       filtrados.sort((a, b) => {
