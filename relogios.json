@@ -1,12 +1,24 @@
 [
   {
+    "id": "rlg-1792060960507",
+    "marca": "Technos",
+    "modelo": "2415DY/1A",
+    "data_compra": "2026-08-31",
+    "valor": 395,
+    "origem": "",
+    "calibre": "Quartzo",
+    "diametro": "42",
+    "historia": "",
+    "foto": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792060957934-2415DY1A.jpeg"
+  },
+  {
     "id": "rlg-001",
     "marca": "Omega",
     "modelo": "Speedmaster Professional Moonwatch",
     "referencia": "310.30.42.50.01.002",
     "aquisicao": {
       "data": "2026-04-10",
-      "valor": 45000.00,
+      "valor": 45000,
       "origem": "Presente de Aniversário (Esposa)",
       "motivo": "Comemoração de 10 anos de carreira"
     },
