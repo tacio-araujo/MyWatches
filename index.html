@@ -12,7 +12,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Chart.js para os gráficos da aba Geral -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <style>
@@ -60,6 +59,14 @@
     ::-webkit-scrollbar-track { background: #03060a; }
     ::-webkit-scrollbar-thumb { background: #172842; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.8)); }
+    }
+    .deploy-pulse {
+      animation: pulse-glow 2s infinite ease-in-out;
+    }
   </style>
 </head>
 <body class="flex flex-col justify-between">
@@ -89,37 +96,35 @@
     <!-- Abas & Contadores -->
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#122238]">
       <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-        <!-- Aba 1: Relógios -->
         <button onclick="alternarAba('relogios')" id="tab-btn-relogios" class="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-400/80 bg-sky-950/40 text-sky-300 shadow-sm">
           <i data-lucide="watch" class="w-4 h-4"></i>
           <span>Meus Relógios</span>
           <span id="badge-count-relogios" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500 text-slate-950 font-bold">0</span>
         </button>
         
-        <!-- Aba 2: Caixas -->
         <button onclick="alternarAba('caixas')" id="tab-btn-caixas" class="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-[#1b2f4d] bg-[#070e1a] text-slate-400 hover:text-slate-200">
           <i data-lucide="box" class="w-4 h-4"></i>
           <span>Minhas Caixas</span>
           <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-300">0</span>
         </button>
 
-        <!-- Aba 3: Geral (Dashboard) -->
         <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-[#1b2f4d] bg-[#070e1a] text-slate-400 hover:text-slate-200">
           <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
           <span>Geral</span>
         </button>
       </div>
 
-      <!-- Filtros e Ordenação (Apenas aba Relógios) -->
+      <!-- Filtros e Ordenação -->
       <div id="controles-relogios" class="flex flex-col sm:flex-row gap-3">
         <div class="relative">
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-500"></i>
           <input type="text" id="search" placeholder="Buscar por marca, modelo..." class="w-full sm:w-60 bg-[#070e1a] border border-[#172b47] text-xs rounded-lg pl-9 pr-3 py-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition" />
         </div>
         <select id="sort-select" onchange="aplicarFiltrosEOrdem()" class="bg-[#070e1a] border border-[#172b47] text-xs rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-sky-400 cursor-pointer">
+          <option value="data_asc" selected>Data de Aquisição (Cronológica)</option>
+          <option value="data_desc">Data de Aquisição (Mais Recentes)</option>
           <option value="ordem_asc">Ordem Pessoal (Crescente)</option>
           <option value="ordem_desc">Ordem Pessoal (Decrescente)</option>
-          <option value="data_desc">Data de Aquisição (Recentes)</option>
           <option value="valor_desc">Maior Valor</option>
           <option value="valor_asc">Menor Valor</option>
           <option value="marca_asc">Marca (A-Z)</option>
@@ -172,7 +177,7 @@
         </div>
       </div>
 
-      <!-- Gráficos -->
+      <!-- Gráficos: Marcas & Tipos -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div class="card-navy p-5 rounded-xl border border-[#192b47]">
           <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-400 mb-4 tracking-wider flex items-center gap-2">
@@ -193,17 +198,54 @@
         </div>
       </div>
 
-      <!-- Gráfico de Maiores Peças por Investimento -->
-      <div class="card-navy p-5 rounded-xl border border-[#192b47]">
-        <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-400 mb-4 tracking-wider flex items-center gap-2">
-          <i data-lucide="trending-up" class="w-4 h-4"></i> Top Peças por Valor Investido (R$)
-        </h4>
-        <div class="h-72">
-          <canvas id="chartValores"></canvas>
+      <!-- Gráfico de Movimentos / Calibres + Top Valores -->
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+        <!-- Movimentos dos Relógios -->
+        <div class="md:col-span-5 card-navy p-5 rounded-xl border border-[#192b47]">
+          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-400 mb-4 tracking-wider flex items-center gap-2">
+            <i data-lucide="cpu" class="w-4 h-4"></i> Mostrador de Movimentos (Calibres)
+          </h4>
+          <div class="h-64 flex items-center justify-center">
+            <canvas id="chartMovimentos"></canvas>
+          </div>
+        </div>
+
+        <!-- Top Peças por Investimento -->
+        <div class="md:col-span-7 card-navy p-5 rounded-xl border border-[#192b47]">
+          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-400 mb-4 tracking-wider flex items-center gap-2">
+            <i data-lucide="trending-up" class="w-4 h-4"></i> Top Peças por Valor Investido (R$)
+          </h4>
+          <div class="h-64">
+            <canvas id="chartValores"></canvas>
+          </div>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- Modal Visual de Deploy & Sincronização (15 Segundos) -->
+  <div id="modal-deploy" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
+    <div class="bg-[#0b1424] border border-[#1d3356] rounded-2xl max-w-md w-full p-6 sm:p-8 text-center relative shadow-2xl flex flex-col items-center">
+      <div class="w-16 h-16 rounded-full bg-sky-950/60 border border-sky-400/40 flex items-center justify-center mb-4 deploy-pulse">
+        <i data-lucide="cloud-check" class="w-8 h-8 text-sky-400"></i>
+      </div>
+      
+      <h3 class="text-base font-serif-lux font-bold text-white tracking-widest uppercase mb-1">Dados Salvos com Sucesso!</h3>
+      <p class="text-xs text-slate-400 mb-5 leading-relaxed">
+        Sincronizando com o GitHub Pages. Aguarde a publicação das alterações...
+      </p>
+
+      <!-- Contador regressivo -->
+      <div class="text-3xl font-mono font-bold text-sky-400 mb-3" id="deploy-countdown">15s</div>
+
+      <!-- Barra de Progresso Animada -->
+      <div class="w-full bg-[#060c16] rounded-full h-2.5 p-0.5 border border-[#172b47] overflow-hidden mb-2">
+        <div id="deploy-progress-bar" class="bg-gradient-to-r from-sky-500 to-emerald-400 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%"></div>
+      </div>
+
+      <span class="text-[10px] text-slate-500 font-mono tracking-wider">A página será atualizada automaticamente</span>
+    </div>
+  </div>
 
   <!-- Modal Configurações GitHub -->
   <div id="modal-config" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -259,8 +301,8 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
-            <label class="text-slate-400 block mb-1">Data da Compra</label>
-            <input type="date" id="data_compra" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+            <label class="text-slate-400 block mb-1">Data da Compra *</label>
+            <input required type="date" id="data_compra" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
           <div>
             <label class="text-slate-400 block mb-1">Valor Pago (R$)</label>
@@ -271,8 +313,8 @@
             <input type="text" id="origem" placeholder="Ex: Compra / Presente" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
           <div>
-            <label class="text-slate-400 block mb-1">Ordem de Exibição</label>
-            <input type="number" id="ordem" placeholder="1, 2, 3..." class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+            <label class="text-slate-400 block mb-1">Ordem Manual (Opcional)</label>
+            <input type="number" id="ordem" placeholder="Auto por data" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
         </div>
 
@@ -421,7 +463,7 @@
     </div>
   </div>
 
-  <!-- Modal 1: Fotos & Zoom (Compacto sem scroll) -->
+  <!-- Modal 1: Fotos & Zoom -->
   <div id="modal-galeria" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex items-center justify-center p-3 sm:p-4">
     <div class="bg-[#0b1424] border border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[90vh] flex flex-col p-4 sm:p-5 relative shadow-2xl">
       <button onclick="fecharModalGaleria()" class="absolute top-4 right-4 text-slate-400 hover:text-white z-10"><i data-lucide="x" class="w-5 h-5"></i></button>
@@ -431,18 +473,16 @@
         <h3 id="galeria-modelo" class="text-base sm:text-lg font-bold text-white"></h3>
       </div>
 
-      <!-- Container dimensionado para não ultrapassar a tela -->
       <div class="img-zoom-box rounded-xl border border-[#192b47] bg-[#03070d] flex-1 max-h-[50vh] min-h-[260px] flex items-center justify-center relative overflow-hidden select-none">
         <img id="galeria-img-zoom" src="" alt="Foto" class="max-h-[50vh] w-auto max-w-full object-contain pointer-events-none">
       </div>
       <p class="text-[10px] text-slate-400 text-center mt-1.5">Passe o cursor sobre a imagem para ampliar os detalhes.</p>
 
-      <!-- Miniaturas logo abaixo, sem scroll da janela -->
       <div id="galeria-thumbs" class="flex gap-2 mt-2.5 overflow-x-auto pb-1 pt-1 justify-center sm:justify-start"></div>
     </div>
   </div>
 
-  <!-- Modal 2: Ficha Técnica (Reestruturado: Foto + Descrição ao lado de Atributos + História) -->
+  <!-- Modal 2: Ficha Técnica -->
   <div id="modal-detalhes" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
     <div class="bg-[#0b1424] border border-[#1d3356] rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 relative shadow-2xl">
       <button onclick="fecharModalDetalhes()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
@@ -453,7 +493,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-        <!-- Coluna Esquerda: Foto Menor + Descrição do Modelo -->
         <div class="md:col-span-5 flex flex-col space-y-3">
           <div class="w-full bg-[#03070d] border border-[#192b47] rounded-xl overflow-hidden p-2 flex items-center justify-center h-[210px]">
             <img id="detalhe-foto" src="" alt="Foto Principal" class="max-h-[190px] w-auto object-contain">
@@ -462,18 +501,15 @@
             <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i> Ver Fotos com Zoom
           </button>
 
-          <!-- Descrição do Modelo (agora abaixo da foto) -->
           <div id="detalhe-box-descricao" class="hidden">
             <h4 class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Descrição do Modelo</h4>
             <p id="detalhe-descricao" class="text-[11px] text-slate-300 whitespace-pre-line leading-relaxed bg-[#070e1a] p-3 rounded-lg border border-[#162740]"></p>
           </div>
         </div>
 
-        <!-- Coluna Direita: Ficha Técnica + História e Significado -->
         <div class="md:col-span-7 flex flex-col space-y-3">
           <div id="detalhes-grid" class="bg-[#070e1a] p-3.5 rounded-xl border border-[#162740] space-y-1.5 text-xs"></div>
 
-          <!-- História & Significado (lado a lado com a descrição) -->
           <div id="detalhe-box-historia" class="hidden">
             <h4 class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">História & Significado</h4>
             <p id="detalhe-historia" class="text-[11px] text-slate-300 leading-relaxed bg-[#070e1a] p-3 rounded-lg border border-[#162740]"></p>
@@ -490,17 +526,17 @@
   <script>
     let bancoDados = { relogios: [], caixas: [] };
     let fileSha = "";
-    let abaAtiva = 'relogios'; // 'relogios' | 'caixas' | 'geral'
+    let abaAtiva = 'relogios';
     
     let fotosRelogioAtual = [];
     let fotosRelogioExcluir = [];
     let fotosCaixaAtual = [];
     let fotosCaixaExcluir = [];
 
-    // Instâncias dos gráficos para limpeza antes de atualizar
     let chartMarcasInst = null;
     let chartTiposInst = null;
     let chartValoresInst = null;
+    let chartMovimentosInst = null;
 
     const CONFIG = {
       user: localStorage.getItem('gh_user') || 'tacio-araujo',
@@ -526,7 +562,6 @@
       const controlesRelogios = document.getElementById('controles-relogios');
       const labelBtn = document.getElementById('label-btn-adicionar');
 
-      // Reseta classes dos botões
       const inativo = "flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-[#1b2f4d] bg-[#070e1a] text-slate-400 hover:text-slate-200";
       const ativo = "flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-400/80 bg-sky-950/40 text-sky-300 shadow-sm";
 
@@ -577,8 +612,7 @@
       localStorage.setItem('gh_token', CONFIG.token);
 
       fecharModalConfig();
-      alert("Credenciais salvas com sucesso!");
-      location.reload();
+      iniciarContadorDeploy();
     }
 
     async function carregarDados() {
@@ -682,7 +716,7 @@
       renderCaixas();
     }
 
-    // Navegação rápida de fotos dentro do card
+    // Navegação rápida de fotos dentro do card do relógio
     function mudarFotoCard(id, direcao, event) {
       event.stopPropagation();
       const r = bancoDados.relogios.find(item => item.id === id);
@@ -701,7 +735,26 @@
       if (counterEl) counterEl.innerText = `${currentIdx + 1}/${r.fotos.length}`;
     }
 
-    // Render Cards de Relógios (Com setas no card)
+    // Navegação rápida de fotos dentro do card da caixa
+    function mudarFotoCardCaixa(id, direcao, event) {
+      event.stopPropagation();
+      const c = bancoDados.caixas.find(item => item.id === id);
+      if (!c || !c.fotos || c.fotos.length <= 1) return;
+
+      const imgEl = document.getElementById(`caixa-card-img-${id}`);
+      const counterEl = document.getElementById(`caixa-card-photo-idx-${id}`);
+      let currentIdx = parseInt(imgEl.dataset.idx || '0');
+
+      currentIdx += direcao;
+      if (currentIdx < 0) currentIdx = c.fotos.length - 1;
+      if (currentIdx >= c.fotos.length) currentIdx = 0;
+
+      imgEl.src = c.fotos[currentIdx];
+      imgEl.dataset.idx = currentIdx;
+      if (counterEl) counterEl.innerText = `${currentIdx + 1}/${c.fotos.length}`;
+    }
+
+    // Render Cards de Relógios
     function renderRelogios(lista) {
       const grid = document.getElementById('grid-relogios');
       grid.innerHTML = lista.map((r) => {
@@ -715,7 +768,6 @@
             ${renderRatingBadge(r.rating_tipo, r.rating_valor)}
             ${r.tipo ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded tracking-wide z-10">${r.tipo}</span>` : ''}
 
-            <!-- Setas Laterais de Navegação Rápida no Card -->
             ${fotosQtd > 1 ? `
               <button onclick="mudarFotoCard('${r.id}', -1, event)" title="Foto Anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-1.5 rounded-full backdrop-blur-sm transition opacity-0 group-hover:opacity-100 z-20">
                 <i data-lucide="chevron-left" class="w-4 h-4"></i>
@@ -741,7 +793,6 @@
               </div>
             </div>
 
-            <!-- Botões de Ação em Linha Única -->
             <div class="mt-4 pt-3 border-t border-[#132238] flex items-center gap-1.5">
               <button onclick="abrirGaleriaRelogio('${r.id}')" title="Fotos & Zoom" class="flex-1 bg-[#0b1626] border border-[#1b2f4d] hover:border-sky-400 text-slate-200 hover:text-sky-300 text-[11px] py-1.5 px-1.5 rounded-lg transition flex items-center justify-center gap-1">
                 <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
@@ -765,7 +816,7 @@
       lucide.createIcons();
     }
 
-    // Render Cards da Aba Caixas
+    // Render Cards da Aba Caixas (Com setas no card)
     function renderCaixas() {
       const grid = document.getElementById('grid-caixas');
       if (bancoDados.caixas.length === 0) {
@@ -781,15 +832,27 @@
       }
 
       grid.innerHTML = bancoDados.caixas.map((c) => {
-        const fotoCapa = c.fotos[0] || 'https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto';
+        const fotosQtd = c.fotos ? c.fotos.length : 0;
+        const fotoCapa = fotosQtd > 0 ? c.fotos[0] : 'https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto';
         return `
         <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between">
-          <div class="relative h-64 overflow-hidden bg-[#03070d] flex items-center justify-center">
-            <img src="${fotoCapa}" alt="${c.nome}" class="w-full h-full object-cover transition duration-500 hover:scale-105" onerror="this.src='https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto'">
-            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2.5 py-1 rounded-full text-[10px] font-semibold text-sky-300">
+          <div class="relative h-64 overflow-hidden bg-[#03070d] flex items-center justify-center group">
+            <img id="caixa-card-img-${c.id}" data-idx="0" src="${fotoCapa}" alt="${c.nome}" class="w-full h-full object-cover transition duration-500" onerror="this.src='https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto'">
+            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2.5 py-1 rounded-full text-[10px] font-semibold text-sky-300 z-10">
               ${c.capacidade} Posições
             </span>
-            ${c.status ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded">${c.status}</span>` : ''}
+            ${c.status ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded z-10">${c.status}</span>` : ''}
+
+            <!-- Setas Laterais de Navegação Rápida na Caixa -->
+            ${fotosQtd > 1 ? `
+              <button onclick="mudarFotoCardCaixa('${c.id}', -1, event)" title="Foto Anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-1.5 rounded-full backdrop-blur-sm transition opacity-0 group-hover:opacity-100 z-20">
+                <i data-lucide="chevron-left" class="w-4 h-4"></i>
+              </button>
+              <button onclick="mudarFotoCardCaixa('${c.id}', 1, event)" title="Próxima Foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-1.5 rounded-full backdrop-blur-sm transition opacity-0 group-hover:opacity-100 z-20">
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+              </button>
+              <span id="caixa-card-photo-idx-${c.id}" class="absolute bottom-2.5 right-2.5 bg-black/70 backdrop-blur text-[9px] text-slate-300 px-1.5 py-0.5 rounded font-mono z-10 pointer-events-none">1/${fotosQtd}</span>
+            ` : ''}
           </div>
 
           <div class="p-5 flex-1 flex flex-col justify-between">
@@ -821,12 +884,11 @@
       lucide.createIcons();
     }
 
-    // Dashboard Geral: Cálculos & Gráficos
+    // Dashboard Geral: Cálculos & Gráficos com Movimentos
     function carregarDashboardGeral() {
       const relogios = bancoDados.relogios;
       const caixas = bancoDados.caixas;
 
-      // Métricas
       const totalPecas = relogios.length;
       const valorTotal = relogios.reduce((acc, r) => acc + (parseFloat(r.valor) || 0), 0);
       const valorMedio = totalPecas > 0 ? valorTotal / totalPecas : 0;
@@ -897,7 +959,49 @@
         }
       });
 
-      // 3. Gráfico Top Peças por Valor
+      // 3. Mostrador de Movimentos / Calibres
+      const contagemMovimentos = { 'Automático': 0, 'Quartzo': 0, 'Manual': 0, 'Outros': 0 };
+      relogios.forEach(r => {
+        const cal = (r.calibre || '').toLowerCase();
+        if (cal.includes('autom') || cal.includes('nh34') || cal.includes('nh35') || cal.includes('miyota')) {
+          contagemMovimentos['Automático']++;
+        } else if (cal.includes('quart') || cal.includes('bateria')) {
+          contagemMovimentos['Quartzo']++;
+        } else if (cal.includes('manual') || cal.includes('corda')) {
+          contagemMovimentos['Manual']++;
+        } else {
+          contagemMovimentos['Outros']++;
+        }
+      });
+
+      // Remove chaves zeradas
+      Object.keys(contagemMovimentos).forEach(k => {
+        if (contagemMovimentos[k] === 0) delete contagemMovimentos[k];
+      });
+
+      if (chartMovimentosInst) chartMovimentosInst.destroy();
+      const ctxMovimentos = document.getElementById('chartMovimentos').getContext('2d');
+      chartMovimentosInst = new Chart(ctxMovimentos, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(contagemMovimentos),
+          datasets: [{
+            data: Object.values(contagemMovimentos),
+            backgroundColor: ['#38bdf8', '#fbbf24', '#34d399', '#a855f7'],
+            borderColor: '#0b1424',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', boxWidth: 12, font: { size: 11 } } }
+          }
+        }
+      });
+
+      // 4. Top Peças por Valor
       const pecasOrdenadasValor = [...relogios]
         .filter(r => (parseFloat(r.valor) || 0) > 0)
         .sort((a, b) => (b.valor || 0) - (a.valor || 0))
@@ -1283,6 +1387,35 @@
       });
     }
 
+    // Modal de Deploy com Temporizador de 15s
+    function iniciarContadorDeploy() {
+      const modalDeploy = document.getElementById('modal-deploy');
+      const progressBar = document.getElementById('deploy-progress-bar');
+      const countdown = document.getElementById('deploy-countdown');
+      
+      modalDeploy.classList.remove('hidden');
+      lucide.createIcons();
+
+      let tempoRestante = 15;
+      countdown.innerText = `${tempoRestante}s`;
+      progressBar.style.width = '0%';
+
+      const intervalo = setInterval(() => {
+        tempoRestante--;
+        countdown.innerText = `${tempoRestante}s`;
+        const progresso = ((15 - tempoRestante) / 15) * 100;
+        progressBar.style.width = `${progresso}%`;
+
+        if (tempoRestante <= 0) {
+          clearInterval(intervalo);
+          countdown.innerText = `Atualizando...`;
+          setTimeout(() => {
+            location.reload();
+          }, 600);
+        }
+      }, 1000);
+    }
+
     async function salvarRelogio(e) {
       e.preventDefault();
       const btn = document.getElementById('btn-salvar');
@@ -1345,16 +1478,18 @@
           const idx = bancoDados.relogios.findIndex(r => r.id === editId);
           if (idx !== -1) bancoDados.relogios[idx] = dadosRelogio;
         } else {
-          bancoDados.relogios.unshift(dadosRelogio);
+          bancoDados.relogios.push(dadosRelogio);
         }
 
+        // Ordenação cronológica automática no banco de dados (data_compra)
+        bancoDados.relogios.sort((a, b) => new Date(a.data_compra || 0) - new Date(b.data_compra || 0));
+
         await salvarJsonGithub(`chore: atualizar relógio ${dadosRelogio.marca} ${dadosRelogio.modelo}`);
-        alert("Relógio salvo com sucesso!");
         fecharModalCadastro();
-        location.reload();
+        iniciarContadorDeploy();
 
       } catch (err) {
-        alert("Erro: " + err.message);
+        alert("Erro ao salvar: " + err.message);
         btn.innerText = "Salvar Relógio";
         btn.disabled = false;
       }
@@ -1408,16 +1543,18 @@
           const idx = bancoDados.caixas.findIndex(c => c.id === editId);
           if (idx !== -1) bancoDados.caixas[idx] = dadosCaixa;
         } else {
-          bancoDados.caixas.unshift(dadosCaixa);
+          bancoDados.caixas.push(dadosCaixa);
         }
 
+        // Ordena caixas por data de aquisição cronológica
+        bancoDados.caixas.sort((a, b) => new Date(a.data_aquisicao || 0) - new Date(b.data_aquisicao || 0));
+
         await salvarJsonGithub(`chore: atualizar caixa ${dadosCaixa.nome}`);
-        alert("Caixa salva com sucesso!");
         fecharModalCaixa();
-        location.reload();
+        iniciarContadorDeploy();
 
       } catch (err) {
-        alert("Erro: " + err.message);
+        alert("Erro ao salvar caixa: " + err.message);
         btn.innerText = "Salvar Caixa";
         btn.disabled = false;
       }
@@ -1452,8 +1589,7 @@
         }
         bancoDados.relogios.splice(idx, 1);
         await salvarJsonGithub(`chore: remover relógio ${relogio.modelo}`);
-        alert("Relógio removido!");
-        location.reload();
+        iniciarContadorDeploy();
       } catch (e) {
         alert("Erro ao remover: " + e.message);
       }
@@ -1474,8 +1610,7 @@
         }
         bancoDados.caixas.splice(idx, 1);
         await salvarJsonGithub(`chore: remover caixa ${caixa.nome}`);
-        alert("Caixa removida!");
-        location.reload();
+        iniciarContadorDeploy();
       } catch (e) {
         alert("Erro ao remover: " + e.message);
       }
@@ -1493,9 +1628,10 @@
       );
 
       filtrados.sort((a, b) => {
+        if (criterio === 'data_asc') return new Date(a.data_compra || 0) - new Date(b.data_compra || 0);
+        if (criterio === 'data_desc') return new Date(b.data_compra || 0) - new Date(a.data_compra || 0);
         if (criterio === 'ordem_asc') return (a.ordem || 999) - (b.ordem || 999);
         if (criterio === 'ordem_desc') return (b.ordem || 999) - (a.ordem || 999);
-        if (criterio === 'data_desc') return new Date(b.data_compra || 0) - new Date(a.data_compra || 0);
         if (criterio === 'valor_desc') return (b.valor || 0) - (a.valor || 0);
         if (criterio === 'valor_asc') return (a.valor || 0) - (b.valor || 0);
         if (criterio === 'marca_asc') return (a.marca || '').localeCompare(b.marca || '');
