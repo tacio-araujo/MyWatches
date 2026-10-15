@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Coleção de Relógios</title>
   
+  <!-- Favicon com a imagem Relogio Capa Lume -->
+  <link rel="icon" type="image/jpeg" href="images/relogiocapa.jpeg" id="dynamic-favicon">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,17 +17,31 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background: radial-gradient(circle at 50% 0%, #0a1322 0%, #050a12 60%, #03060a 100%);
+      background-color: #03060a;
       color: #e2e8f0;
       min-height: 100vh;
+      position: relative;
     }
+    
+    /* Fundo suave com a textura Porsche Lume em opacidade sutil */
+    .bg-luxury-pattern {
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle at center, rgba(3, 6, 10, 0.88) 0%, rgba(3, 6, 10, 0.98) 100%), url('images/bg-porsche.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.22;
+    }
+
     .font-serif-lux { font-family: 'Cinzel', serif; }
     
-    /* Efeito de Card Sofisticado - Azul Meia-Noite & Titânio */
     .card-navy {
-      background: linear-gradient(180deg, rgba(13, 23, 40, 0.85) 0%, rgba(8, 15, 27, 0.95) 100%);
-      border: 1px solid rgba(34, 56, 88, 0.6);
-      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(11, 20, 36, 0.85) 0%, rgba(6, 12, 22, 0.95) 100%);
+      border: 1px solid rgba(30, 52, 84, 0.6);
+      backdrop-filter: blur(10px);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
     .card-navy:hover {
@@ -38,28 +55,29 @@
     .img-zoom-box:hover img { transform: scale(2.6); }
 
     ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: #050a12; }
-    ::-webkit-scrollbar-thumb { background: #1a2c47; border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+    ::-webkit-scrollbar-track { background: #03060a; }
+    ::-webkit-scrollbar-thumb { background: #172842; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
   </style>
 </head>
 <body class="flex flex-col justify-between">
+  <!-- Camada de background sutil -->
+  <div class="bg-luxury-pattern"></div>
 
   <!-- Header -->
-  <header class="border-b border-[#132238] bg-[#060c16]/90 backdrop-blur-md sticky top-0 z-40">
+  <header class="border-b border-[#132238] bg-[#050a12]/90 backdrop-blur-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
       <div>
         <h1 class="text-xl sm:text-2xl font-bold tracking-[0.2em] text-[#e8f0f8] font-serif-lux uppercase">Coleção de Relógios</h1>
         <p class="text-xs text-sky-400/80 tracking-widest uppercase text-[10px]">Desde 2026</p>
       </div>
       <div class="flex items-center gap-2 sm:gap-3">
-        <button onclick="abrirModalConfig()" title="Configurações de Acesso" class="p-2 text-slate-400 hover:text-sky-300 transition rounded-lg hover:bg-[#0f1d33]">
+        <button onclick="abrirModalConfig()" title="Configurações de Acesso" class="p-2 text-slate-400 hover:text-sky-300 transition rounded-lg hover:bg-[#0c182b]">
           <i data-lucide="settings" class="w-4 h-4"></i>
         </button>
-        <button onclick="abrirModalCadastro()" class="bg-gradient-to-r from-sky-600/30 to-blue-600/30 border border-sky-400/50 text-sky-200 hover:text-white hover:border-sky-300 hover:bg-sky-500/30 px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wider transition flex items-center gap-2">
+        <button id="btn-adicionar-principal" onclick="acaoBotaoAdicionar()" class="bg-gradient-to-r from-sky-600/30 to-blue-600/30 border border-sky-400/50 text-sky-200 hover:text-white hover:border-sky-300 hover:bg-sky-500/30 px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wider transition flex items-center gap-2">
           <i data-lucide="plus" class="w-4 h-4"></i>
-          <span class="hidden sm:inline">Adicionar Peça</span>
-          <span class="sm:hidden">Novo</span>
+          <span id="label-btn-adicionar">Adicionar Relógio</span>
         </button>
       </div>
     </div>
@@ -67,19 +85,31 @@
 
   <!-- Conteúdo Principal -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full">
-    <!-- Barra de Filtros e Ordenação -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-4 border-b border-[#111f33]">
-      <div>
-        <h2 class="text-base font-semibold tracking-widest text-[#f1f5f9] border-l-2 border-sky-400 pl-3 uppercase text-xs">Meus Relógios</h2>
-        <p class="text-xs text-slate-400 pl-3 mt-0.5"><span id="total-count" class="text-sky-400 font-semibold">0</span> relógios catalogados</p>
+    <!-- Abas & Contadores -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-[#122238]">
+      <div class="flex items-center gap-3">
+        <!-- Aba 1: Relógios -->
+        <button onclick="alternarAba('relogios')" id="tab-btn-relogios" class="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-400/80 bg-sky-950/40 text-sky-300 shadow-sm">
+          <i data-lucide="watch" class="w-4 h-4"></i>
+          <span>Meus Relógios</span>
+          <span id="badge-count-relogios" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500 text-slate-950 font-bold">0</span>
+        </button>
+        
+        <!-- Aba 2: Caixas -->
+        <button onclick="alternarAba('caixas')" id="tab-btn-caixas" class="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-[#1b2f4d] bg-[#070e1a] text-slate-400 hover:text-slate-200">
+          <i data-lucide="box" class="w-4 h-4"></i>
+          <span>Minhas Caixas</span>
+          <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-800 text-slate-300">0</span>
+        </button>
       </div>
-      
-      <div class="flex flex-col sm:flex-row gap-3">
+
+      <!-- Filtros e Ordenação (Apenas aba Relógios) -->
+      <div id="controles-relogios" class="flex flex-col sm:flex-row gap-3">
         <div class="relative">
           <i data-lucide="search" class="w-4 h-4 absolute left-3 top-2.5 text-slate-500"></i>
-          <input type="text" id="search" placeholder="Buscar por marca, modelo, calibre..." class="w-full sm:w-64 bg-[#0a1322] border border-[#1b2f4d] text-xs rounded-lg pl-9 pr-3 py-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition" />
+          <input type="text" id="search" placeholder="Buscar por marca, modelo..." class="w-full sm:w-60 bg-[#070e1a] border border-[#172b47] text-xs rounded-lg pl-9 pr-3 py-2 text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 transition" />
         </div>
-        <select id="sort-select" onchange="aplicarFiltrosEOrdem()" class="bg-[#0a1322] border border-[#1b2f4d] text-xs rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-sky-400 cursor-pointer">
+        <select id="sort-select" onchange="aplicarFiltrosEOrdem()" class="bg-[#070e1a] border border-[#172b47] text-xs rounded-lg px-3 py-2 text-slate-200 focus:outline-none focus:border-sky-400 cursor-pointer">
           <option value="ordem_asc">Ordem Pessoal (Crescente)</option>
           <option value="ordem_desc">Ordem Pessoal (Decrescente)</option>
           <option value="data_desc">Data de Aquisição (Recentes)</option>
@@ -90,8 +120,15 @@
       </div>
     </div>
 
-    <!-- Grid dos Relógios: 4 por linha em telas grandes -->
-    <div id="grid-relogios" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+    <!-- VIEW 1: Grid de Relógios -->
+    <section id="view-relogios">
+      <div id="grid-relogios" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+    </section>
+
+    <!-- VIEW 2: Grid de Caixas -->
+    <section id="view-caixas" class="hidden">
+      <div id="grid-caixas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
   </main>
 
   <!-- Modal Configurações GitHub -->
@@ -99,7 +136,7 @@
     <div class="bg-[#0b1424] border border-[#1d3356] rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
       <button onclick="fecharModalConfig()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       <h3 class="text-base font-serif-lux font-bold text-sky-300 mb-1 tracking-wider">Credenciais do GitHub</h3>
-      <p class="text-xs text-slate-400 mb-4">Salvo apenas localmente no navegador (sem upload de token).</p>
+      <p class="text-xs text-slate-400 mb-4">Salvo apenas no localStorage deste navegador.</p>
       
       <form onsubmit="salvarConfig(event)" class="space-y-3 text-xs">
         <div>
@@ -121,7 +158,7 @@
     </div>
   </div>
 
-  <!-- Modal Cadastro / Edição -->
+  <!-- Modal Cadastro/Edição de Relógio -->
   <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
     <div class="bg-[#0b1424] border border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 relative shadow-2xl">
       <button onclick="fecharModalCadastro()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
@@ -131,7 +168,6 @@
       <form id="form-relogio" onsubmit="salvarRelogio(event)" class="space-y-4 text-xs">
         <input type="hidden" id="edit-id" value="">
 
-        <!-- Linha 1: Marca, Modelo e Tipo -->
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div class="sm:col-span-4">
             <label class="text-slate-400 block mb-1">Marca *</label>
@@ -147,7 +183,6 @@
           </div>
         </div>
 
-        <!-- Linha 2: Aquisição & Ordem -->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
             <label class="text-slate-400 block mb-1">Data da Compra</label>
@@ -167,16 +202,15 @@
           </div>
         </div>
 
-        <!-- Linha 3: Classificação -->
         <div class="bg-[#070e1a] p-3 rounded-lg border border-[#162740]">
-          <label class="text-sky-300 font-semibold block mb-2 text-[11px] tracking-wide uppercase">Classificação do Relógio</label>
+          <label class="text-sky-300 font-semibold block mb-2 text-[11px] tracking-wide uppercase">Classificação</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="text-slate-400 block mb-1">Ícone</label>
               <select id="rating-tipo" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
-                <option value="star">Estrelas (★) - Apreço Geral</option>
-                <option value="dollar">Cifrões ($) - Custo / Valor</option>
-                <option value="heart">Corações (♥) - Sentimental / Apego</option>
+                <option value="star">Estrelas (★)</option>
+                <option value="dollar">Cifrões ($)</option>
+                <option value="heart">Corações (♥)</option>
               </select>
             </div>
             <div>
@@ -192,7 +226,6 @@
           </div>
         </div>
 
-        <!-- Linha 4: Máquina & Caixa -->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
             <label class="text-slate-400 block mb-1">Maquinário / Calibre *</label>
@@ -200,30 +233,29 @@
           </div>
           <div>
             <label class="text-slate-400 block mb-1">Diâmetro Caixa</label>
-            <input type="text" id="diametro" placeholder="Ex: 42mm ou 4,5 cm" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+            <input type="text" id="diametro" placeholder="Ex: 42mm" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
           <div>
             <label class="text-slate-400 block mb-1">Cor da Caixa</label>
-            <input type="text" id="cor_caixa" placeholder="Ex: Prateado, Preto" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+            <input type="text" id="cor_caixa" placeholder="Ex: Prateado" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
           <div>
             <label class="text-slate-400 block mb-1">Cor do Bisel</label>
-            <input type="text" id="cor_bisel" placeholder="Ex: Azul, Preto" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+            <input type="text" id="cor_bisel" placeholder="Ex: Azul" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
         </div>
 
-        <!-- Linha 5: Pulseira -->
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
-            <label class="text-slate-400 block mb-1">Material da Correia</label>
+            <label class="text-slate-400 block mb-1">Material Correia</label>
             <input type="text" id="material_correia" placeholder="Ex: Aço inoxidável" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
           <div>
-            <label class="text-slate-400 block mb-1">Tipo da Correia</label>
+            <label class="text-slate-400 block mb-1">Tipo Correia</label>
             <input type="text" id="tipo_correia" placeholder="Ex: Malha (Mesh)" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
           <div>
-            <label class="text-slate-400 block mb-1">Cor da Correia</label>
+            <label class="text-slate-400 block mb-1">Cor Correia</label>
             <input type="text" id="cor_correia" placeholder="Ex: Prata" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
           </div>
           <div>
@@ -232,35 +264,84 @@
           </div>
         </div>
 
-        <!-- Linha 6: Gerenciamento Avançado de Fotos -->
         <div class="bg-[#070e1a] p-3 rounded-lg border border-[#162740]">
           <div class="flex justify-between items-center mb-1">
             <label class="text-sky-300 font-semibold block text-[11px] tracking-wide uppercase">Fotos do Relógio</label>
-            <span class="text-[10px] text-slate-400">A 1ª foto com estrela é a principal do card</span>
+            <span class="text-[10px] text-slate-400">A 1ª foto com estrela é a capa</span>
           </div>
           <input type="file" id="fotos-files" accept="image/*" multiple class="w-full text-slate-400 file:mr-4 file:py-2 file:px-3 file:rounded file:border-0 file:text-xs file:bg-[#12233b] file:text-sky-300 hover:file:bg-[#193254] cursor-pointer">
-
-          <!-- Galeria de Imagens com Ordenação e Seleção de Principal -->
           <div id="fotos-manager-container" class="mt-3 hidden">
-            <p class="text-[10px] text-slate-400 mb-2">Imagens cadastradas (clique na estrela para definir como principal):</p>
             <div id="fotos-manager-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
           </div>
         </div>
 
-        <!-- Linha 7: Descrição Técnica -->
         <div>
           <label class="text-slate-400 block mb-1">Descrição Técnica / Destaques</label>
           <textarea id="descricao" rows="3" placeholder="Resistência 150m (15 ATM), Mostrador azul com lupa de calendário..." class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none"></textarea>
         </div>
 
-        <!-- Linha 8: História -->
         <div>
           <label class="text-slate-400 block mb-1">História / Significado Pessoal</label>
-          <textarea id="historia" rows="2" placeholder="Histórico, ocasião de compra ou recebimento..." class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none"></textarea>
+          <textarea id="historia" rows="2" placeholder="Histórico, ocasião..." class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none"></textarea>
         </div>
 
         <button type="submit" id="btn-salvar" class="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-slate-950 font-bold py-3 rounded-lg transition tracking-widest uppercase text-xs">
-          Salvar no Catálogo
+          Salvar Relógio
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Cadastro/Edição de Caixa -->
+  <div id="modal-caixa" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-[#0b1424] border border-[#1d3356] rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 relative shadow-2xl">
+      <button onclick="fecharModalCaixa()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+      
+      <h3 id="modal-caixa-title" class="text-base font-serif-lux font-bold text-sky-300 mb-4 border-b border-[#172944] pb-2 tracking-wider">Cadastrar Estojo / Caixa</h3>
+      
+      <form id="form-caixa" onsubmit="salvarCaixa(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="edit-caixa-id" value="">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-slate-400 block mb-1">Nome / Identificação da Caixa *</label>
+            <input required type="text" id="caixa-nome" placeholder="Ex: Estojo de Couro 10 Posições" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+          </div>
+          <div>
+            <label class="text-slate-400 block mb-1">Capacidade (Slots) *</label>
+            <input required type="number" id="caixa-capacidade" placeholder="Ex: 10 ou 12" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="text-slate-400 block mb-1">Data de Aquisição do Estojo</label>
+            <input type="date" id="caixa-data" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+          </div>
+          <div>
+            <label class="text-slate-400 block mb-1">Status Atual</label>
+            <input type="text" id="caixa-status" placeholder="Ex: Em preenchimento, Completa" class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none">
+          </div>
+        </div>
+
+        <div class="bg-[#070e1a] p-3 rounded-lg border border-[#162740]">
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-sky-300 font-semibold block text-[11px] tracking-wide uppercase">Fotos de Evolução da Caixa</label>
+            <span class="text-[10px] text-slate-400">Adicione registros do preenchimento</span>
+          </div>
+          <input type="file" id="caixa-fotos-files" accept="image/*" multiple class="w-full text-slate-400 file:mr-4 file:py-2 file:px-3 file:rounded file:border-0 file:text-xs file:bg-[#12233b] file:text-sky-300 hover:file:bg-[#193254] cursor-pointer">
+          <div id="caixa-fotos-container" class="mt-3 hidden">
+            <div id="caixa-fotos-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-slate-400 block mb-1">Observações / Linha do Tempo</label>
+          <textarea id="caixa-obs" rows="3" placeholder="Ex: Caixa iniciada em 2026 com os primeiros 5 relógios, finalizada em outubro..." class="w-full bg-[#060c16] border border-[#1b2f4d] rounded p-2 text-white focus:border-sky-400 outline-none"></textarea>
+        </div>
+
+        <button type="submit" id="btn-salvar-caixa" class="w-full bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-slate-950 font-bold py-3 rounded-lg transition tracking-widest uppercase text-xs">
+          Salvar Caixa
         </button>
       </form>
     </div>
@@ -277,7 +358,7 @@
       </div>
 
       <div class="img-zoom-box rounded-xl border border-[#192b47] bg-[#03070d] flex-1 min-h-[340px] sm:min-h-[500px] flex items-center justify-center relative overflow-hidden select-none">
-        <img id="galeria-img-zoom" src="" alt="Relógio" class="max-h-[70vh] w-auto max-w-full object-contain pointer-events-none">
+        <img id="galeria-img-zoom" src="" alt="Foto" class="max-h-[70vh] w-auto max-w-full object-contain pointer-events-none">
       </div>
       <p class="text-[11px] text-slate-400 text-center mt-2">Passe o cursor sobre a imagem para ampliar os detalhes.</p>
 
@@ -327,18 +408,60 @@
   </footer>
 
   <script>
-    let relogios = [];
+    let bancoDados = { relogios: [], caixas: [] };
     let fileSha = "";
+    let abaAtiva = 'relogios'; // 'relogios' | 'caixas'
     
-    // Gerenciamento de fotos no modal
-    let listaFotosAtual = []; 
-    let fotosMarcadasParaExclusao = [];
+    // Fotos do formulário ativo
+    let fotosRelogioAtual = [];
+    let fotosRelogioExcluir = [];
+    let fotosCaixaAtual = [];
+    let fotosCaixaExcluir = [];
 
     const CONFIG = {
       user: localStorage.getItem('gh_user') || 'tacio-araujo',
       repo: localStorage.getItem('gh_repo') || 'MyWatches',
       token: localStorage.getItem('gh_token') || ''
     };
+
+    function formatarData(dataStr) {
+      if (!dataStr) return "N/A";
+      const partes = dataStr.split('-');
+      if (partes.length === 3) return `${partes[2]}/${partes[1]}/${partes[0]}`;
+      return dataStr;
+    }
+
+    function alternarAba(aba) {
+      abaAtiva = aba;
+      const btnRelogios = document.getElementById('tab-btn-relogios');
+      const btnCaixas = document.getElementById('tab-btn-caixas');
+      const viewRelogios = document.getElementById('view-relogios');
+      const viewCaixas = document.getElementById('view-caixas');
+      const controlesRelogios = document.getElementById('controles-relogios');
+      const labelBtn = document.getElementById('label-btn-adicionar');
+
+      if (aba === 'relogios') {
+        btnRelogios.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-400/80 bg-sky-950/40 text-sky-300 shadow-sm";
+        btnCaixas.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-[#1b2f4d] bg-[#070e1a] text-slate-400 hover:text-slate-200";
+        viewRelogios.classList.remove('hidden');
+        viewCaixas.classList.add('hidden');
+        controlesRelogios.classList.remove('hidden');
+        labelBtn.innerText = "Adicionar Relógio";
+      } else {
+        btnCaixas.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-400/80 bg-sky-950/40 text-sky-300 shadow-sm";
+        btnRelogios.className = "flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-[#1b2f4d] bg-[#070e1a] text-slate-400 hover:text-slate-200";
+        viewCaixas.classList.remove('hidden');
+        viewRelogios.classList.add('hidden');
+        controlesRelogios.classList.add('hidden');
+        labelBtn.innerText = "Adicionar Caixa";
+      }
+      lucide.createIcons();
+    }
+
+    function acaoBotaoAdicionar() {
+      if (abaAtiva === 'relogios') abrirModalCadastro();
+      else abrirModalCaixa();
+    }
 
     function abrirModalConfig() {
       document.getElementById('cfg-user').value = CONFIG.user;
@@ -367,29 +490,44 @@
       location.reload();
     }
 
-    // Leitura pública dos relógios
-    async function carregarRelogios() {
+    // Carregamento do banco unificado
+    async function carregarDados() {
       try {
         const resLocal = await fetch(`relogios.json?t=${Date.now()}`);
         if (!resLocal.ok) throw new Error("Erro local");
-        relogios = await resLocal.json();
+        const json = await resLocal.json();
+        processarDadosRecebidos(json);
       } catch (e) {
         try {
           const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`);
           const data = await res.json();
           fileSha = data.sha;
           const decoded = decodeURIComponent(escape(atob(data.content)));
-          relogios = JSON.parse(decoded);
+          processarDadosRecebidos(JSON.parse(decoded));
         } catch (err) {
-          relogios = [];
+          bancoDados = { relogios: [], caixas: [] };
         }
       }
-      relogios.forEach(r => {
+      renderizarTudo();
+    }
+
+    function processarDadosRecebidos(json) {
+      if (Array.isArray(json)) {
+        bancoDados = { relogios: json, caixas: [] };
+      } else {
+        bancoDados = {
+          relogios: json.relogios || [],
+          caixas: json.caixas || []
+        };
+      }
+      bancoDados.relogios.forEach(r => {
         if (!r.fotos && r.foto) r.fotos = [r.foto];
         if (!r.fotos) r.fotos = [];
         if (r.ordem === undefined) r.ordem = 999;
       });
-      aplicarFiltrosEOrdem();
+      bancoDados.caixas.forEach(c => {
+        if (!c.fotos) c.fotos = [];
+      });
     }
 
     async function obterShaAtual() {
@@ -403,7 +541,6 @@
       }
     }
 
-    // Função que remove arquivo físico do repositório no GitHub
     async function deletarArquivoFisicoGithub(urlFoto) {
       if (!CONFIG.token || !urlFoto) return;
       try {
@@ -430,7 +567,7 @@
           })
         });
       } catch (err) {
-        console.warn("Falha ao deletar arquivo físico:", err);
+        console.warn("Falha ao deletar arquivo:", err);
       }
     }
 
@@ -448,11 +585,16 @@
       `;
     }
 
-    // Renderização dos cards (4 por linha)
-    function renderCards(lista) {
-      const grid = document.getElementById('grid-relogios');
-      document.getElementById('total-count').innerText = lista.length;
+    function renderizarTudo() {
+      document.getElementById('badge-count-relogios').innerText = bancoDados.relogios.length;
+      document.getElementById('badge-count-caixas').innerText = bancoDados.caixas.length;
+      aplicarFiltrosEOrdem();
+      renderCaixas();
+    }
 
+    // Render Cards de Relógios (Com "Entrou para a coleção em: ...")
+    function renderRelogios(lista) {
+      const grid = document.getElementById('grid-relogios');
       grid.innerHTML = lista.map((r) => {
         const fotoPrincipal = r.fotos[0] || 'https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto';
         return `
@@ -470,12 +612,17 @@
                 <span class="text-[10px] text-slate-400 font-mono">${r.calibre || ''}</span>
               </div>
               <h3 class="text-sm font-semibold text-white tracking-tight mt-0.5">${r.modelo}</h3>
-              ${r.descricao ? `<p class="text-[11px] text-slate-400 mt-1.5 line-clamp-2">${r.descricao}</p>` : ''}
+              
+              <!-- Data de entrada limpa e elegante -->
+              <div class="mt-2 text-[11px] text-slate-400 flex items-center gap-1.5">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-sky-400/80"></i>
+                <span>Entrou para a coleção em: <strong class="text-slate-200 font-medium">${formatarData(r.data_compra)}</strong></span>
+              </div>
             </div>
 
-            <!-- Botões alinhados em UMA ÚNICA LINHA -->
+            <!-- Botões em uma única linha -->
             <div class="mt-4 pt-3 border-t border-[#132238] flex items-center gap-1.5">
-              <button onclick="abrirGaleria('${r.id}')" title="Fotos & Zoom" class="flex-1 bg-[#0b1626] border border-[#1b2f4d] hover:border-sky-400 text-slate-200 hover:text-sky-300 text-[11px] py-1.5 px-1.5 rounded-lg transition flex items-center justify-center gap-1">
+              <button onclick="abrirGaleriaRelogio('${r.id}')" title="Fotos & Zoom" class="flex-1 bg-[#0b1626] border border-[#1b2f4d] hover:border-sky-400 text-slate-200 hover:text-sky-300 text-[11px] py-1.5 px-1.5 rounded-lg transition flex items-center justify-center gap-1">
                 <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
                 <span>Fotos</span>
               </button>
@@ -497,22 +644,84 @@
       lucide.createIcons();
     }
 
-    // Galeria com Zoom
-    function abrirGaleria(id) {
-      const r = relogios.find(item => item.id === id);
-      if (!r || !r.fotos || r.fotos.length === 0) {
-        alert("Nenhuma foto disponível para esta peça.");
+    // Render Cards da Aba Caixas
+    function renderCaixas() {
+      const grid = document.getElementById('grid-caixas');
+      if (bancoDados.caixas.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-500">
+            <i data-lucide="package" class="w-10 h-10 mx-auto mb-2 opacity-40"></i>
+            <p>Nenhuma caixa de relógios catalogada ainda.</p>
+            <button onclick="abrirModalCaixa()" class="mt-3 text-sky-400 hover:underline text-xs">Adicionar a primeira caixa</button>
+          </div>
+        `;
+        lucide.createIcons();
         return;
       }
 
-      document.getElementById('galeria-marca').innerText = r.marca;
-      document.getElementById('galeria-modelo').innerText = r.modelo;
+      grid.innerHTML = bancoDados.caixas.map((c) => {
+        const fotoCapa = c.fotos[0] || 'https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto';
+        return `
+        <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between">
+          <div class="relative h-64 overflow-hidden bg-[#03070d] flex items-center justify-center">
+            <img src="${fotoCapa}" alt="${c.nome}" class="w-full h-full object-cover transition duration-500 hover:scale-105" onerror="this.src='https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto'">
+            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2.5 py-1 rounded-full text-[10px] font-semibold text-sky-300">
+              ${c.capacidade} Posições
+            </span>
+            ${c.status ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded">${c.status}</span>` : ''}
+          </div>
+
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-semibold text-white tracking-tight">${c.nome}</h3>
+              <p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1.5">
+                <i data-lucide="calendar" class="w-3.5 h-3.5 text-sky-400"></i>
+                Início: <strong class="text-slate-200">${formatarData(c.data_aquisicao)}</strong>
+              </p>
+              ${c.observacoes ? `<p class="text-[11px] text-slate-400 mt-2 line-clamp-2">${c.observacoes}</p>` : ''}
+            </div>
+
+            <div class="mt-4 pt-3 border-t border-[#132238] flex items-center gap-2">
+              <button onclick="abrirGaleriaCaixa('${c.id}')" class="flex-1 bg-[#0b1626] border border-[#1b2f4d] hover:border-sky-400 text-slate-200 hover:text-sky-300 text-xs py-2 rounded-lg transition flex items-center justify-center gap-1.5">
+                <i data-lucide="images" class="w-3.5 h-3.5"></i>
+                <span>Ver Evolução (${c.fotos.length})</span>
+              </button>
+              <button onclick="editarCaixa('${c.id}')" title="Editar Caixa" class="bg-[#0b1626] border border-[#1b2f4d] hover:border-sky-400 text-slate-400 hover:text-sky-300 p-2 rounded-lg transition flex items-center justify-center">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              </button>
+              <button onclick="removerCaixa('${c.id}')" title="Remover Caixa" class="bg-red-950/30 border border-red-900/50 hover:bg-red-900/60 text-red-400 hover:text-red-200 p-2 rounded-lg transition flex items-center justify-center">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    // Galeria Unificada para Relógio e Caixa
+    function abrirGaleriaRelogio(id) {
+      const r = bancoDados.relogios.find(item => item.id === id);
+      if (!r || !r.fotos || r.fotos.length === 0) return alert("Nenhuma foto disponível.");
+      exibirModalGaleria(r.marca, r.modelo, r.fotos);
+    }
+
+    function abrirGaleriaCaixa(id) {
+      const c = bancoDados.caixas.find(item => item.id === id);
+      if (!c || !c.fotos || c.fotos.length === 0) return alert("Nenhuma foto cadastrada para esta caixa.");
+      exibirModalGaleria("Evolução da Caixa", c.nome, c.fotos);
+    }
+
+    function exibirModalGaleria(titulo, subtitulo, fotos) {
+      document.getElementById('galeria-marca').innerText = titulo;
+      document.getElementById('galeria-modelo').innerText = subtitulo;
 
       const imgZoom = document.getElementById('galeria-img-zoom');
-      imgZoom.src = r.fotos[0];
+      imgZoom.src = fotos[0];
 
       const thumbs = document.getElementById('galeria-thumbs');
-      thumbs.innerHTML = r.fotos.map((url, i) => `
+      thumbs.innerHTML = fotos.map((url, i) => `
         <img src="${url}" onclick="selecionarFotoZoom('${url}')" class="w-14 h-14 rounded-lg border ${i === 0 ? 'border-sky-400' : 'border-[#1b2f4d]'} object-cover cursor-pointer hover:border-sky-300 transition flex-shrink-0">
       `).join('');
 
@@ -541,9 +750,9 @@
       document.getElementById('modal-galeria').classList.add('hidden');
     }
 
-    // Modal de Detalhes
+    // Modal de Detalhes do Relógio
     function abrirDetalhes(id) {
-      const r = relogios.find(item => item.id === id);
+      const r = bancoDados.relogios.find(item => item.id === id);
       if (!r) return;
 
       document.getElementById('detalhe-marca').innerText = r.marca;
@@ -552,7 +761,7 @@
 
       document.getElementById('btn-ver-todas-fotos').onclick = () => {
         fecharModalDetalhes();
-        abrirGaleria(r.id);
+        abrirGaleriaRelogio(r.id);
       };
 
       const grid = document.getElementById('detalhes-grid');
@@ -567,7 +776,7 @@
         { label: 'Cor da Correia', valor: r.cor_correia },
         { label: 'Tipo de Fecho', valor: r.tipo_fecho },
         { label: 'Origem / Quem Deu', valor: r.origem },
-        { label: 'Data de Entrada', valor: r.data_compra },
+        { label: 'Entrou para a coleção em', valor: formatarData(r.data_compra) },
         { 
           label: 'Valor Investido', 
           valor: r.valor ? r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : null,
@@ -604,7 +813,7 @@
       document.getElementById('modal-detalhes').classList.add('hidden');
     }
 
-    // Modal de Cadastro & Edição
+    // Formulário de Relógio
     function abrirModalCadastro() {
       if (!CONFIG.token) {
         alert("Configure primeiro seu token de acesso no ícone da engrenagem!");
@@ -614,9 +823,9 @@
       document.getElementById('form-relogio').reset();
       document.getElementById('edit-id').value = '';
       document.getElementById('modal-form-title').innerText = "Cadastrar Novo Relógio";
-      listaFotosAtual = [];
-      fotosMarcadasParaExclusao = [];
-      renderGerenciadorFotos();
+      fotosRelogioAtual = [];
+      fotosRelogioExcluir = [];
+      renderGerenciadorFotosRelogio();
       document.getElementById('modal-cadastro').classList.remove('hidden');
     }
 
@@ -626,7 +835,7 @@
         abrirModalConfig();
         return;
       }
-      const r = relogios.find(item => item.id === id);
+      const r = bancoDados.relogios.find(item => item.id === id);
       if (!r) return;
 
       document.getElementById('modal-form-title').innerText = `Editar: ${r.marca} ${r.modelo}`;
@@ -651,52 +860,42 @@
       document.getElementById('descricao').value = r.descricao || '';
       document.getElementById('historia').value = r.historia || '';
 
-      listaFotosAtual = [...(r.fotos || [])];
-      fotosMarcadasParaExclusao = [];
-      renderGerenciadorFotos();
+      fotosRelogioAtual = [...(r.fotos || [])];
+      fotosRelogioExcluir = [];
+      renderGerenciadorFotosRelogio();
 
       document.getElementById('modal-cadastro').classList.remove('hidden');
       lucide.createIcons();
     }
 
-    // Renderiza e controla a ordem/capa das fotos existentes
-    function renderGerenciadorFotos() {
+    function renderGerenciadorFotosRelogio() {
       const container = document.getElementById('fotos-manager-container');
       const list = document.getElementById('fotos-manager-list');
-
-      if (listaFotosAtual.length === 0) {
+      if (fotosRelogioAtual.length === 0) {
         container.classList.add('hidden');
         list.innerHTML = '';
         return;
       }
-
       container.classList.remove('hidden');
-      list.innerHTML = listaFotosAtual.map((foto, index) => {
+      list.innerHTML = fotosRelogioAtual.map((foto, index) => {
         const isPrincipal = index === 0;
         return `
           <div class="relative bg-[#03070d] border ${isPrincipal ? 'border-sky-400 ring-1 ring-sky-400/50' : 'border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
             <img src="${foto}" class="w-full h-20 object-cover rounded">
-            
-            ${isPrincipal ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Principal</span>' : ''}
-            
+            ${isPrincipal ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
             <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
-              <!-- Botão Tornar Principal -->
-              <button type="button" onclick="definirFotoPrincipal(${index})" title="${isPrincipal ? 'Foto Principal' : 'Definir como Principal'}" class="text-[11px] ${isPrincipal ? 'text-amber-400' : 'text-slate-500 hover:text-amber-300'}">
+              <button type="button" onclick="definirFotoPrincipalRelogio(${index})" class="text-[11px] ${isPrincipal ? 'text-amber-400' : 'text-slate-500 hover:text-amber-300'}">
                 <i data-lucide="star" class="w-3.5 h-3.5 ${isPrincipal ? 'fill-amber-400' : ''}"></i>
               </button>
-              
-              <!-- Mover Esquerda / Direita -->
               <div class="flex gap-1">
-                <button type="button" onclick="moverFoto(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-400 hover:text-white"'}>
+                <button type="button" onclick="moverFotoRelogio(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-400 hover:text-white"'}>
                   <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
                 </button>
-                <button type="button" onclick="moverFoto(${index}, 1)" ${index === listaFotosAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-400 hover:text-white"'}>
+                <button type="button" onclick="moverFotoRelogio(${index}, 1)" ${index === fotosRelogioAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-400 hover:text-white"'}>
                   <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
                 </button>
               </div>
-
-              <!-- Excluir Foto -->
-              <button type="button" onclick="removerFotoGerenciador(${index})" title="Remover Foto" class="text-red-400 hover:text-red-300">
+              <button type="button" onclick="removerFotoRelogio(${index})" class="text-red-400 hover:text-red-300">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
               </button>
             </div>
@@ -706,30 +905,135 @@
       lucide.createIcons();
     }
 
-    function definirFotoPrincipal(index) {
+    function definirFotoPrincipalRelogio(index) {
       if (index === 0) return;
-      const [foto] = listaFotosAtual.splice(index, 1);
-      listaFotosAtual.unshift(foto);
-      renderGerenciadorFotos();
+      const [foto] = fotosRelogioAtual.splice(index, 1);
+      fotosRelogioAtual.unshift(foto);
+      renderGerenciadorFotosRelogio();
     }
 
-    function moverFoto(index, direcao) {
+    function moverFotoRelogio(index, direcao) {
       const novoIndex = index + direcao;
-      if (novoIndex < 0 || novoIndex >= listaFotosAtual.length) return;
-      const temp = listaFotosAtual[index];
-      listaFotosAtual[index] = listaFotosAtual[novoIndex];
-      listaFotosAtual[novoIndex] = temp;
-      renderGerenciadorFotos();
+      if (novoIndex < 0 || novoIndex >= fotosRelogioAtual.length) return;
+      const temp = fotosRelogioAtual[index];
+      fotosRelogioAtual[index] = fotosRelogioAtual[novoIndex];
+      fotosRelogioAtual[novoIndex] = temp;
+      renderGerenciadorFotosRelogio();
     }
 
-    function removerFotoGerenciador(index) {
-      const fotoRemovida = listaFotosAtual.splice(index, 1)[0];
-      fotosMarcadasParaExclusao.push(fotoRemovida);
-      renderGerenciadorFotos();
+    function removerFotoRelogio(index) {
+      const removida = fotosRelogioAtual.splice(index, 1)[0];
+      fotosRelogioExcluir.push(removida);
+      renderGerenciadorFotosRelogio();
     }
 
     function fecharModalCadastro() {
       document.getElementById('modal-cadastro').classList.add('hidden');
+    }
+
+    // Formulário de Caixa
+    function abrirModalCaixa() {
+      if (!CONFIG.token) {
+        alert("Configure primeiro seu token de acesso no ícone da engrenagem!");
+        abrirModalConfig();
+        return;
+      }
+      document.getElementById('form-caixa').reset();
+      document.getElementById('edit-caixa-id').value = '';
+      document.getElementById('modal-caixa-title').innerText = "Cadastrar Estojo / Caixa";
+      fotosCaixaAtual = [];
+      fotosCaixaExcluir = [];
+      renderGerenciadorFotosCaixa();
+      document.getElementById('modal-caixa').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function editarCaixa(id) {
+      if (!CONFIG.token) {
+        alert("Configure primeiro seu token de acesso!");
+        abrirModalConfig();
+        return;
+      }
+      const c = bancoDados.caixas.find(item => item.id === id);
+      if (!c) return;
+
+      document.getElementById('modal-caixa-title').innerText = `Editar: ${c.nome}`;
+      document.getElementById('edit-caixa-id').value = c.id;
+      document.getElementById('caixa-nome').value = c.nome || '';
+      document.getElementById('caixa-capacidade').value = c.capacidade || '';
+      document.getElementById('caixa-data').value = c.data_aquisicao || '';
+      document.getElementById('caixa-status').value = c.status || '';
+      document.getElementById('caixa-obs').value = c.observacoes || '';
+
+      fotosCaixaAtual = [...(c.fotos || [])];
+      fotosCaixaExcluir = [];
+      renderGerenciadorFotosCaixa();
+
+      document.getElementById('modal-caixa').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function renderGerenciadorFotosCaixa() {
+      const container = document.getElementById('caixa-fotos-container');
+      const list = document.getElementById('caixa-fotos-list');
+      if (fotosCaixaAtual.length === 0) {
+        container.classList.add('hidden');
+        list.innerHTML = '';
+        return;
+      }
+      container.classList.remove('hidden');
+      list.innerHTML = fotosCaixaAtual.map((foto, index) => {
+        const isCapa = index === 0;
+        return `
+          <div class="relative bg-[#03070d] border ${isCapa ? 'border-sky-400 ring-1 ring-sky-400/50' : 'border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
+            <img src="${foto}" class="w-full h-20 object-cover rounded">
+            ${isCapa ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
+            <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
+              <button type="button" onclick="definirFotoPrincipalCaixa(${index})" class="text-[11px] ${isCapa ? 'text-amber-400' : 'text-slate-500 hover:text-amber-300'}">
+                <i data-lucide="star" class="w-3.5 h-3.5 ${isCapa ? 'fill-amber-400' : ''}"></i>
+              </button>
+              <div class="flex gap-1">
+                <button type="button" onclick="moverFotoCaixa(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-400 hover:text-white"'}>
+                  <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                </button>
+                <button type="button" onclick="moverFotoCaixa(${index}, 1)" ${index === fotosCaixaAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-400 hover:text-white"'}>
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+              <button type="button" onclick="removerFotoCaixa(${index})" class="text-red-400 hover:text-red-300">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function definirFotoPrincipalCaixa(index) {
+      if (index === 0) return;
+      const [foto] = fotosCaixaAtual.splice(index, 1);
+      fotosCaixaAtual.unshift(foto);
+      renderGerenciadorFotosCaixa();
+    }
+
+    function moverFotoCaixa(index, direcao) {
+      const novoIndex = index + direcao;
+      if (novoIndex < 0 || novoIndex >= fotosCaixaAtual.length) return;
+      const temp = fotosCaixaAtual[index];
+      fotosCaixaAtual[index] = fotosCaixaAtual[novoIndex];
+      fotosCaixaAtual[novoIndex] = temp;
+      renderGerenciadorFotosCaixa();
+    }
+
+    function removerFotoCaixa(index) {
+      const removida = fotosCaixaAtual.splice(index, 1)[0];
+      fotosCaixaExcluir.push(removida);
+      renderGerenciadorFotosCaixa();
+    }
+
+    function fecharModalCaixa() {
+      document.getElementById('modal-caixa').classList.add('hidden');
     }
 
     function toBase64(file) {
@@ -741,25 +1045,21 @@
       });
     }
 
-    // Salvar Relógio e atualizar repositório
+    // Salvar Relógio (JSON + Imagens)
     async function salvarRelogio(e) {
       e.preventDefault();
       const btn = document.getElementById('btn-salvar');
-      btn.innerText = "Processando imagens e dados...";
+      btn.innerText = "Processando fotos e dados...";
       btn.disabled = true;
 
       try {
         await obterShaAtual();
 
-        const editId = document.getElementById('edit-id').value;
-        const inputFiles = document.getElementById('fotos-files').files;
-
-        // 1. Deletar arquivos físicos das fotos removidas
-        for (const url of fotosMarcadasParaExclusao) {
+        for (const url of fotosRelogioExcluir) {
           await deletarArquivoFisicoGithub(url);
         }
 
-        // 2. Fazer upload das novas fotos selecionadas
+        const inputFiles = document.getElementById('fotos-files').files;
         for (let i = 0; i < inputFiles.length; i++) {
           const file = inputFiles[i];
           btn.innerText = `Enviando foto ${i + 1} de ${inputFiles.length}...`;
@@ -768,25 +1068,18 @@
           const nomeArquivo = `images/${Date.now()}-${i}-${nomeLimpo}`;
           const base64Content = await toBase64(file);
 
-          const uploadImgRes = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
+          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
             method: 'PUT',
-            headers: {
-              Authorization: `token ${CONFIG.token}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              message: `upload: ${nomeLimpo}`,
-              content: base64Content
-            })
+            headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: `upload: ${nomeLimpo}`, content: base64Content })
           });
 
-          if (!uploadImgRes.ok) throw new Error(`Falha no upload de ${file.name}`);
-          const imgData = await uploadImgRes.json();
-          listaFotosAtual.push(imgData.content.download_url);
+          if (!res.ok) throw new Error(`Falha no upload de ${file.name}`);
+          const imgData = await res.json();
+          fotosRelogioAtual.push(imgData.content.download_url);
         }
 
-        btn.innerText = "Atualizando catálogo...";
-
+        const editId = document.getElementById('edit-id').value;
         const dadosRelogio = {
           id: editId || `rlg-${Date.now()}`,
           ordem: parseInt(document.getElementById('ordem').value) || 999,
@@ -808,87 +1101,146 @@
           tipo_fecho: document.getElementById('tipo_fecho').value.trim(),
           descricao: document.getElementById('descricao').value.trim(),
           historia: document.getElementById('historia').value.trim(),
-          fotos: listaFotosAtual
+          fotos: fotosRelogioAtual
         };
 
         if (editId) {
-          const index = relogios.findIndex(item => item.id === editId);
-          if (index !== -1) relogios[index] = dadosRelogio;
+          const idx = bancoDados.relogios.findIndex(r => r.id === editId);
+          if (idx !== -1) bancoDados.relogios[idx] = dadosRelogio;
         } else {
-          relogios.unshift(dadosRelogio);
+          bancoDados.relogios.unshift(dadosRelogio);
         }
 
-        // 3. Atualizar relogios.json no GitHub
-        const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(relogios, null, 2))));
-        const updateJsonRes = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
-          method: 'PUT',
-          headers: {
-            Authorization: `token ${CONFIG.token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: `chore: catálogo atualizado (${dadosRelogio.marca} ${dadosRelogio.modelo})`,
-            content: updatedJsonContent,
-            sha: fileSha
-          })
-        });
-
-        if (!updateJsonRes.ok) throw new Error("Erro ao salvar no relogios.json.");
-
-        alert("Operação realizada com sucesso!");
+        await salvarJsonGithub(`chore: atualizar relógio ${dadosRelogio.marca} ${dadosRelogio.modelo}`);
+        alert("Relógio salvo com sucesso!");
         fecharModalCadastro();
         location.reload();
 
       } catch (err) {
         alert("Erro: " + err.message);
-        btn.innerText = "Salvar no Catálogo";
+        btn.innerText = "Salvar Relógio";
         btn.disabled = false;
       }
     }
 
-    // Exclusão completa: relógio do JSON + fotos físicas do GitHub
-    async function removerRelogio(id) {
-      if (!CONFIG.token) {
-        alert("Configure seu token de acesso no ícone da engrenagem.");
-        abrirModalConfig();
-        return;
-      }
-
-      const index = relogios.findIndex(r => r.id === id);
-      if (index === -1) return;
-
-      const relogio = relogios[index];
-      if (!confirm(`Deseja realmente remover "${relogio.modelo}" e apagar todas as fotos do repositório?`)) return;
+    // Salvar Caixa (JSON + Imagens)
+    async function salvarCaixa(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-salvar-caixa');
+      btn.innerText = "Processando fotos da caixa...";
+      btn.disabled = true;
 
       try {
         await obterShaAtual();
 
-        // 1. Deleta todas as fotos físicas vinculadas a este relógio
-        if (relogio.fotos && relogio.fotos.length > 0) {
-          for (const url of relogio.fotos) {
-            await deletarArquivoFisicoGithub(url);
-          }
+        for (const url of fotosCaixaExcluir) {
+          await deletarArquivoFisicoGithub(url);
         }
 
-        // 2. Remove do array e comita a atualização no relogios.json
-        relogios.splice(index, 1);
-        const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(relogios, null, 2))));
+        const inputFiles = document.getElementById('caixa-fotos-files').files;
+        for (let i = 0; i < inputFiles.length; i++) {
+          const file = inputFiles[i];
+          btn.innerText = `Enviando imagem ${i + 1} de ${inputFiles.length}...`;
 
-        const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
-          method: 'PUT',
-          headers: {
-            Authorization: `token ${CONFIG.token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: `chore: remoção completa de ${relogio.marca} ${relogio.modelo}`,
-            content: updatedJsonContent,
-            sha: fileSha
-          })
-        });
+          const nomeLimpo = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+          const nomeArquivo = `images/caixa-${Date.now()}-${i}-${nomeLimpo}`;
+          const base64Content = await toBase64(file);
 
-        if (!res.ok) throw new Error("Falha ao atualizar o JSON no GitHub.");
-        alert("Peça e arquivos removidos com sucesso!");
+          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
+            method: 'PUT',
+            headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: `upload: ${nomeLimpo}`, content: base64Content })
+          });
+
+          if (!res.ok) throw new Error(`Falha no upload de ${file.name}`);
+          const imgData = await res.json();
+          fotosCaixaAtual.push(imgData.content.download_url);
+        }
+
+        const editId = document.getElementById('edit-caixa-id').value;
+        const dadosCaixa = {
+          id: editId || `box-${Date.now()}`,
+          nome: document.getElementById('caixa-nome').value.trim(),
+          capacidade: parseInt(document.getElementById('caixa-capacidade').value) || 0,
+          data_aquisicao: document.getElementById('caixa-data').value,
+          status: document.getElementById('caixa-status').value.trim(),
+          observacoes: document.getElementById('caixa-obs').value.trim(),
+          fotos: fotosCaixaAtual
+        };
+
+        if (editId) {
+          const idx = bancoDados.caixas.findIndex(c => c.id === editId);
+          if (idx !== -1) bancoDados.caixas[idx] = dadosCaixa;
+        } else {
+          bancoDados.caixas.unshift(dadosCaixa);
+        }
+
+        await salvarJsonGithub(`chore: atualizar caixa ${dadosCaixa.nome}`);
+        alert("Caixa salva com sucesso!");
+        fecharModalCaixa();
+        location.reload();
+
+      } catch (err) {
+        alert("Erro: " + err.message);
+        btn.innerText = "Salvar Caixa";
+        btn.disabled = false;
+      }
+    }
+
+    async function salvarJsonGithub(mensagemCommit) {
+      const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(bancoDados, null, 2))));
+      const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+        method: 'PUT',
+        headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: mensagemCommit,
+          content: updatedJsonContent,
+          sha: fileSha
+        })
+      });
+      if (!res.ok) throw new Error("Erro ao atualizar relogios.json no GitHub.");
+    }
+
+    // Exclusão de Relógio
+    async function removerRelogio(id) {
+      if (!CONFIG.token) return abrirModalConfig();
+      const idx = bancoDados.relogios.findIndex(r => r.id === id);
+      if (idx === -1) return;
+      const relogio = bancoDados.relogios[idx];
+
+      if (!confirm(`Deseja remover "${relogio.modelo}" e apagar fotos do repositório?`)) return;
+
+      try {
+        await obterShaAtual();
+        if (relogio.fotos) {
+          for (const url of relogio.fotos) await deletarArquivoFisicoGithub(url);
+        }
+        bancoDados.relogios.splice(idx, 1);
+        await salvarJsonGithub(`chore: remover relógio ${relogio.modelo}`);
+        alert("Relógio removido!");
+        location.reload();
+      } catch (e) {
+        alert("Erro ao remover: " + e.message);
+      }
+    }
+
+    // Exclusão de Caixa
+    async function removerCaixa(id) {
+      if (!CONFIG.token) return abrirModalConfig();
+      const idx = bancoDados.caixas.findIndex(c => c.id === id);
+      if (idx === -1) return;
+      const caixa = bancoDados.caixas[idx];
+
+      if (!confirm(`Deseja remover "${caixa.nome}" e apagar as fotos de evolução?`)) return;
+
+      try {
+        await obterShaAtual();
+        if (caixa.fotos) {
+          for (const url of caixa.fotos) await deletarArquivoFisicoGithub(url);
+        }
+        bancoDados.caixas.splice(idx, 1);
+        await salvarJsonGithub(`chore: remover caixa ${caixa.nome}`);
+        alert("Caixa removida!");
         location.reload();
       } catch (e) {
         alert("Erro ao remover: " + e.message);
@@ -899,7 +1251,7 @@
       const termo = (document.getElementById('search').value || '').toLowerCase();
       const criterio = document.getElementById('sort-select').value;
 
-      let filtrados = relogios.filter(r => 
+      let filtrados = bancoDados.relogios.filter(r => 
         (r.marca && r.marca.toLowerCase().includes(termo)) || 
         (r.modelo && r.modelo.toLowerCase().includes(termo)) ||
         (r.tipo && r.tipo.toLowerCase().includes(termo)) ||
@@ -916,11 +1268,11 @@
         return 0;
       });
 
-      renderCards(filtrados);
+      renderRelogios(filtrados);
     }
 
     document.getElementById('search').addEventListener('input', aplicarFiltrosEOrdem);
-    window.onload = carregarRelogios;
+    window.onload = carregarDados;
   </script>
 </body>
 </html>
