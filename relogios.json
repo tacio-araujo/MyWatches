@@ -91,5 +91,18 @@
       ]
     }
   ],
-  "caixas": []
+  "caixas": [
+    {
+      "id": "box-1792069849142",
+      "nome": "Caixa - Couro PU",
+      "capacidade": 12,
+      "data_aquisicao": "2026-06-26",
+      "status": "",
+      "observacoes": "Primeira caixa",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1792069845802-0-caixa1.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1792069847343-1-caixa2.jpeg"
+      ]
+    }
+  ]
 }
