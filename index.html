@@ -30,7 +30,7 @@
         <p class="text-xs text-neutral-400">Coleção Particular</p>
       </div>
       <div class="flex items-center gap-4">
-        <button onclick="configurarGitHub()" title="Configurar Token" class="p-2 text-neutral-400 hover:text-amber-500 transition">
+        <button onclick="abrirModalConfig()" title="Configurações de Acesso" class="p-2 text-neutral-400 hover:text-amber-500 transition">
           <i data-lucide="settings" class="w-5 h-5"></i>
         </button>
         <button onclick="abrirModalCadastro()" class="bg-amber-600/20 border border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition flex items-center gap-2">
@@ -49,6 +49,33 @@
 
     <div id="grid-relogios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
   </main>
+
+  <!-- Modal de Configuração de Token (Mascarado) -->
+  <div id="modal-config" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#12161c] border border-neutral-800 rounded-2xl max-w-md w-full p-6 relative">
+      <button onclick="fecharModalConfig()" class="absolute top-4 right-4 text-neutral-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <h3 class="text-base font-serif-lux font-bold text-amber-500 mb-2">Credenciais do GitHub</h3>
+      <p class="text-xs text-neutral-400 mb-4">Esses dados ficam salvos localmente no seu navegador e não sobem para o repositório.</p>
+      
+      <form onsubmit="salvarConfig(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="text-neutral-400 block mb-1">Usuário GitHub</label>
+          <input type="text" id="cfg-user" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2 text-white outline-none focus:border-amber-500" required>
+        </div>
+        <div>
+          <label class="text-neutral-400 block mb-1">Nome do Repositório</label>
+          <input type="text" id="cfg-repo" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2 text-white outline-none focus:border-amber-500" required>
+        </div>
+        <div>
+          <label class="text-neutral-400 block mb-1">Token de Acesso Pessoal (PAT)</label>
+          <input type="password" id="cfg-token" placeholder="••••••••••••••••••••••••••••••••••••••••" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2 text-white outline-none focus:border-amber-500" required>
+        </div>
+        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-semibold py-2 rounded transition uppercase tracking-wider text-xs mt-2">
+          Salvar Localmente
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Modal Cadastro de Peça -->
   <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
@@ -80,14 +107,14 @@
           </div>
           <div>
             <label class="text-neutral-400 block mb-1">Quem deu / Onde comprou</label>
-            <input type="text" id="origem" placeholder="Ex: Comprei em viagem / Presente do Pai" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+            <input type="text" id="origem" placeholder="Ex: Presente do Pai" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="text-neutral-400 block mb-1">Maquinário / Calibre *</label>
-            <input required type="text" id="calibre" placeholder="Ex: Automático Calibre 3861 / NH35" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+            <input required type="text" id="calibre" placeholder="Ex: Automático NH35" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
           </div>
           <div>
             <label class="text-neutral-400 block mb-1">Diâmetro da Caixa (mm)</label>
@@ -102,7 +129,7 @@
 
         <div>
           <label class="text-neutral-400 block mb-1">História / Significado da Peça</label>
-          <textarea id="historia" rows="3" placeholder="Conte como conseguiu esse relógio, marco de carreira, lembrança de família..." class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none"></textarea>
+          <textarea id="historia" rows="3" placeholder="Histórico, lembrança de família..." class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none"></textarea>
         </div>
 
         <button type="submit" id="btn-salvar" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-semibold py-3 rounded-lg transition tracking-wider uppercase text-xs">
@@ -126,44 +153,76 @@
 
   <script>
     let relogios = [];
-    let fileSha = ""; // Necessário para atualizar o arquivo na GitHub API
+    let fileSha = "";
 
-    // Configurações do seu repositório no GitHub
+    // Pega as credenciais de forma segura do localStorage do seu navegador
     const CONFIG = {
-      user: localStorage.getItem('gh_user') || 'SEU_USUARIO_GITHUB',
-      repo: localStorage.getItem('gh_repo') || 'SEU_REPOSITORIO',
+      user: localStorage.getItem('gh_user') || 'tacio-araujo',
+      repo: localStorage.getItem('gh_repo') || 'MyWatches',
       token: localStorage.getItem('gh_token') || ''
     };
 
-    function configurarGitHub() {
-      const user = prompt("Seu usuário do GitHub:", CONFIG.user);
-      const repo = prompt("Nome do repositório:", CONFIG.repo);
-      const token = prompt("Seu Personal Access Token (ghp_...):", CONFIG.token);
-      
-      if(user && repo && token) {
-        localStorage.setItem('gh_user', user);
-        localStorage.setItem('gh_repo', repo);
-        localStorage.setItem('gh_token', token);
-        location.reload();
+    function abrirModalConfig() {
+      document.getElementById('cfg-user').value = CONFIG.user;
+      document.getElementById('cfg-repo').value = CONFIG.repo;
+      document.getElementById('cfg-token').value = CONFIG.token;
+      document.getElementById('modal-config').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function fecharModalConfig() {
+      document.getElementById('modal-config').classList.add('hidden');
+    }
+
+    function salvarConfig(e) {
+      e.preventDefault();
+      const user = document.getElementById('cfg-user').value.trim();
+      const repo = document.getElementById('cfg-repo').value.trim();
+      const token = document.getElementById('cfg-token').value.trim();
+
+      localStorage.setItem('gh_user', user);
+      localStorage.setItem('gh_repo', repo);
+      localStorage.setItem('gh_token', token);
+
+      CONFIG.user = user;
+      CONFIG.repo = repo;
+      CONFIG.token = token;
+
+      fecharModalConfig();
+      alert("Credenciais salvas com sucesso no seu navegador!");
+      location.reload();
+    }
+
+    // Leitura pública (não queima requisições e funciona para qualquer visitante)
+    async function carregarRelogios() {
+      try {
+        const resLocal = await fetch(`relogios.json?t=${Date.now()}`);
+        if (!resLocal.ok) throw new Error("Erro ao ler relogios.json");
+        relogios = await resLocal.json();
+        renderCards(relogios);
+      } catch (e) {
+        console.warn("Tentando carregar via API do GitHub...");
+        try {
+          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`);
+          const data = await res.json();
+          fileSha = data.sha;
+          const decoded = decodeURIComponent(escape(atob(data.content)));
+          relogios = JSON.parse(decoded);
+          renderCards(relogios);
+        } catch (err) {
+          console.error("Não foi possível carregar o acervo:", err);
+        }
       }
     }
 
-    async function carregarRelogios() {
-      try {
-        const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
-          headers: CONFIG.token ? { Authorization: `token ${CONFIG.token}` } : {}
-        });
-        if (!res.ok) throw new Error("Não foi possível carregar o JSON.");
+    // Busca o SHA atual antes de tentar salvar/deletar
+    async function obterShaAtual() {
+      const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+        headers: { Authorization: `token ${CONFIG.token}` }
+      });
+      if (res.ok) {
         const data = await res.json();
         fileSha = data.sha;
-        const decoded = decodeURIComponent(escape(atob(data.content)));
-        relogios = JSON.parse(decoded);
-        renderCards(relogios);
-      } catch (e) {
-        console.warn("Tentando carregar localmente via fetch simples...");
-        const resLocal = await fetch('relogios.json');
-        relogios = await resLocal.json();
-        renderCards(relogios);
       }
     }
 
@@ -198,9 +257,9 @@
     }
 
     function abrirModalCadastro() {
-      if(!CONFIG.token) {
-        alert("Configure primeiro seu Token do GitHub no ícone de engrenagem!");
-        configurarGitHub();
+      if (!CONFIG.token) {
+        alert("Antes de cadastrar, insira seu token de acesso no ícone de engrenagem.");
+        abrirModalConfig();
         return;
       }
       document.getElementById('modal-cadastro').classList.remove('hidden');
@@ -210,7 +269,6 @@
       document.getElementById('modal-cadastro').classList.add('hidden');
     }
 
-    // Leitura do arquivo para Base64
     function toBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -223,12 +281,15 @@
     async function salvarRelogio(e) {
       e.preventDefault();
       const btn = document.getElementById('btn-salvar');
-      btn.innerText = "Salvando no GitHub...";
+      btn.innerText = "Enviando imagem...";
       btn.disabled = true;
 
       try {
+        await obterShaAtual();
+
         const file = document.getElementById('foto-file').files[0];
-        const nomeArquivo = `images/${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
+        const nomeLimpo = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+        const nomeArquivo = `images/${Date.now()}-${nomeLimpo}`;
         const base64Content = await toBase64(file);
 
         // 1. Upload da imagem via GitHub API
@@ -239,16 +300,18 @@
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            message: `upload: foto ${file.name}`,
+            message: `upload: foto ${nomeLimpo}`,
             content: base64Content
           })
         });
 
-        if (!uploadImgRes.ok) throw new Error("Erro ao fazer upload da imagem.");
+        if (!uploadImgRes.ok) throw new Error("Erro ao subir a imagem no GitHub.");
         const imgData = await uploadImgRes.json();
         const rawImageUrl = imgData.content.download_url;
 
-        // 2. Monta o objeto do novo relógio
+        btn.innerText = "Atualizando catálogo...";
+
+        // 2. Novo Objeto
         const novoRelogio = {
           id: `rlg-${Date.now()}`,
           marca: document.getElementById('marca').value,
@@ -262,10 +325,9 @@
           foto: rawImageUrl
         };
 
-        // Adiciona à lista existente
         relogios.unshift(novoRelogio);
 
-        // 3. Atualiza o relogios.json no GitHub
+        // 3. Atualiza relogios.json
         const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(relogios, null, 2))));
         const updateJsonRes = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
           method: 'PUT',
@@ -280,27 +342,34 @@
           })
         });
 
-        if (!updateJsonRes.ok) throw new Error("Erro ao atualizar relogios.json.");
+        if (!updateJsonRes.ok) throw new Error("Erro ao atualizar o arquivo relogios.json.");
 
-        alert("Relógio adicionado com sucesso!");
+        alert("Peça cadastrada com sucesso!");
         fecharModalCadastro();
         location.reload();
 
       } catch (err) {
-        alert("Erro: " + err.message);
+        alert("Erro no processo: " + err.message);
         btn.innerText = "Salvar no Catálogo";
         btn.disabled = false;
       }
     }
 
     async function removerRelogio(index) {
-      if(!confirm(`Deseja realmente remover o relógio "${relogios[index].modelo}"?`)) return;
+      if (!CONFIG.token) {
+        alert("Configure seu token de acesso no ícone de engrenagem para excluir.");
+        abrirModalConfig();
+        return;
+      }
+
+      if (!confirm(`Remover "${relogios[index].modelo}" do acervo?`)) return;
 
       try {
+        await obterShaAtual();
         relogios.splice(index, 1);
         const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(relogios, null, 2))));
         
-        await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+        const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
           method: 'PUT',
           headers: {
             Authorization: `token ${CONFIG.token}`,
@@ -313,7 +382,9 @@
           })
         });
 
-        alert("Relógio removido!");
+        if (!res.ok) throw new Error("Falha ao atualizar o JSON no GitHub.");
+
+        alert("Peça removida com sucesso!");
         location.reload();
       } catch (e) {
         alert("Erro ao remover: " + e.message);
