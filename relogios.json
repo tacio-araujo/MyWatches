@@ -1,6 +1,35 @@
 {
   "relogios": [
     {
+      "id": "rlg-1792074805018",
+      "ordem": 3,
+      "marca": "POEDAGAR",
+      "modelo": "815B",
+      "tipo": "Cronografo",
+      "data_compra": "2026-08-09",
+      "valor": 130,
+      "origem": "Presente",
+      "rating_tipo": "heart",
+      "rating_valor": "5",
+      "calibre": "Quartzo",
+      "diametro": "44",
+      "cor_caixa": "Prata",
+      "cor_bisel": "Azul",
+      "material_correia": "Aço",
+      "tipo_correia": "Diamante",
+      "cor_correia": "Prata",
+      "tipo_fecho": "Borboleta",
+      "descricao": "Vidro: Hardlex (mais resistente a riscos)\nResistência à água: 3 ATM\nCronômetro de minutos\nCronômetro de segundos\nSubmostrador de 24 horas\nCalendário com exibição de data\nEscala taquímetro no aro (visual esportivo)",
+      "historia": "Presente - Kaique - Dias Dos Pais",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074798367-1-Poedagar815B2.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074800166-2-Poedagar815B3.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074801891-3-Poedagar815B4.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074803333-4-Poedagar815B5.jpeg"
+      ]
+    },
+    {
       "id": "rlg-1792073641907",
       "ordem": 4,
       "marca": "ADDIESDIVE",
@@ -96,7 +125,7 @@
     },
     {
       "id": "rlg-1792060960507",
-      "ordem": 3,
+      "ordem": 999,
       "marca": "Technos",
       "modelo": "2415DY/1A",
       "tipo": "Diver",
