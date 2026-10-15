@@ -5,9 +5,9 @@
       "ordem": 1,
       "marca": "Bulgari",
       "modelo": "Aluminium",
-      "tipo": "Sport",
+      "tipo": "Cronografo",
       "data_compra": "2026-05-22",
-      "valor": 297,
+      "valor": 346.66,
       "origem": "Compra",
       "rating_tipo": "star",
       "rating_valor": "5",
@@ -19,12 +19,12 @@
       "tipo_correia": "",
       "cor_correia": "Cinza",
       "tipo_fecho": "Fivela",
-      "descricao": "Mostrador Branco Pulseira Cinza",
+      "descricao": "Mostrador Branco",
       "historia": "Primeiro da coleção",
       "fotos": [
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067140663-0-Bulgari.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067143986-2-Bulgari2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067142157-1-Bulgari1.jpeg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067143986-2-Bulgari2.jpeg"
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067140663-0-Bulgari.jpeg"
       ]
     },
     {
