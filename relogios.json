@@ -10,36 +10,5 @@
     "diametro": "42",
     "historia": "",
     "foto": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792060957934-2415DY1A.jpeg"
-  },
-  {
-    "id": "rlg-001",
-    "marca": "Omega",
-    "modelo": "Speedmaster Professional Moonwatch",
-    "referencia": "310.30.42.50.01.002",
-    "aquisicao": {
-      "data": "2026-04-10",
-      "valor": 45000,
-      "origem": "Presente de Aniversário (Esposa)",
-      "motivo": "Comemoração de 10 anos de carreira"
-    },
-    "especificacoes": {
-      "tipo_movimento": "Corda Manual",
-      "calibre": "Co-Axial Master Chronometer 3861",
-      "reserva_marcha": "50 horas",
-      "diametro": "42 mm",
-      "material_caixa": "Aço Inoxidável",
-      "vidro": "Cristal de Safira"
-    },
-    "historia": "Peça histórica adquirida após a conclusão do projeto de expansão de infraestrutura.",
-    "fotos": [
-      {
-        "url": "images/speedmaster-front.jpg",
-        "legenda": "Mostrador preto clássico e ponteiros com Super-LumiNova"
-      },
-      {
-        "url": "images/speedmaster-caseback.jpg",
-        "legenda": "Fundo em safira transparente mostrando o Calibre 3861"
-      }
-    ]
   }
 ]
