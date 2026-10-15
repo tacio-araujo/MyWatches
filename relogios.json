@@ -1,6 +1,42 @@
 {
   "relogios": [
     {
+      "id": "rlg-1792073641907",
+      "ordem": 4,
+      "marca": "ADDIESDIVE",
+      "modelo": "MY-H3AC BLACK",
+      "tipo": "Diver",
+      "data_compra": "2026-09-09",
+      "valor": 1099,
+      "origem": "Compra",
+      "rating_tipo": "star",
+      "rating_valor": "5",
+      "calibre": "Automatico / NH35A",
+      "diametro": "41",
+      "cor_caixa": "Prata",
+      "cor_bisel": "Preto",
+      "material_correia": "Aço",
+      "tipo_correia": "",
+      "cor_correia": "Prata",
+      "tipo_fecho": "Fecho Dobrável com Trava de Segurança",
+      "descricao": "Cristal de safira sintética\nResistência à Água: 200 metros\nLumes: Marcadores e ponteiros luminosos (com aplicação de composto luminoso suíço BGW9 ou C3).\nBisel: Giratório unidirecional em cerâmica ou metal com marcações",
+      "historia": "Primeiro Diver Submariner Inspirado nas cores dos Rolex",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073623725-1-caixa2-MY-H3AC.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073625101-2-caixa3-MY-H3AC.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073628900-4-MY-H3AC.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073630246-5-MY-H3AC1.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073631929-6-MY-H3AC2.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073633680-7-MY-H3AC3.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073635209-8-MY-H3AC4.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073636877-9-MY-H3AC5.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073638659-10-MY-H3AC6.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073640209-11-MY-H3AC7.jpeg"
+      ]
+    },
+    {
       "id": "rlg-1792068328361",
       "ordem": 2,
       "marca": "Pagani Design",
