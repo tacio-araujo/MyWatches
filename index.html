@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Watch Vault - Acervo Pessoal</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #0b0d10; color: #e2e8f0; }
+    .font-serif-lux { font-family: 'Cinzel', serif; }
+    .card-glow:hover { box-shadow: 0 0 25px rgba(212, 175, 55, 0.15); border-color: rgba(212, 175, 55, 0.4); }
+    .img-zoom-container { overflow: hidden; cursor: crosshair; }
+    .img-zoom-container img { transition: transform 0.2s ease; }
+    .img-zoom-container:hover img { transform: scale(2.4); }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+  <!-- Header -->
+  <header class="border-b border-neutral-800 bg-[#0e1116]/80 backdrop-blur sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div>
+        <h1 class="text-xl font-bold tracking-widest text-amber-500 font-serif-lux uppercase">The Watch Vault</h1>
+        <p class="text-xs text-neutral-400">Coleção Particular</p>
+      </div>
+      <div class="flex items-center gap-4">
+        <button onclick="configurarGitHub()" title="Configurar Token" class="p-2 text-neutral-400 hover:text-amber-500 transition">
+          <i data-lucide="settings" class="w-5 h-5"></i>
+        </button>
+        <button onclick="abrirModalCadastro()" class="bg-amber-600/20 border border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-black px-4 py-2 rounded-lg text-xs font-semibold tracking-wider transition flex items-center gap-2">
+          <i data-lucide="plus" class="w-4 h-4"></i> Adicionar Peça
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Catálogo -->
+  <main class="max-w-7xl mx-auto px-6 py-10 flex-1 w-full">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-lg font-semibold tracking-wide text-white border-l-2 border-amber-500 pl-3">Minhas Peças</h2>
+      <input type="text" id="search" placeholder="Buscar por marca, calibre..." class="bg-neutral-900 border border-neutral-800 text-xs rounded-lg px-4 py-2 text-white focus:outline-none focus:border-amber-500 w-64" />
+    </div>
+
+    <div id="grid-relogios" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+  </main>
+
+  <!-- Modal Cadastro de Peça -->
+  <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#12161c] border border-neutral-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+      <button onclick="fecharModalCadastro()" class="absolute top-4 right-4 text-neutral-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+      
+      <h3 class="text-lg font-serif-lux font-bold text-amber-500 mb-4 border-b border-neutral-800 pb-2">Cadastrar Novo Relógio</h3>
+      
+      <form id="form-relogio" onsubmit="salvarRelogio(event)" class="space-y-4 text-xs">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-neutral-400 block mb-1">Marca *</label>
+            <input required type="text" id="marca" placeholder="Ex: Omega, Seiko, Rolex" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="text-neutral-400 block mb-1">Modelo *</label>
+            <input required type="text" id="modelo" placeholder="Ex: Speedmaster Professional" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="text-neutral-400 block mb-1">Data da Compra/Recebimento</label>
+            <input type="date" id="data_compra" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="text-neutral-400 block mb-1">Valor Pago (R$)</label>
+            <input type="number" step="0.01" id="valor" placeholder="0.00" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="text-neutral-400 block mb-1">Quem deu / Onde comprou</label>
+            <input type="text" id="origem" placeholder="Ex: Comprei em viagem / Presente do Pai" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="text-neutral-400 block mb-1">Maquinário / Calibre *</label>
+            <input required type="text" id="calibre" placeholder="Ex: Automático Calibre 3861 / NH35" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+          </div>
+          <div>
+            <label class="text-neutral-400 block mb-1">Diâmetro da Caixa (mm)</label>
+            <input type="text" id="diametro" placeholder="Ex: 40mm, 42.5mm" class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="text-neutral-400 block mb-1">Foto Principal (Upload) *</label>
+          <input required type="file" id="foto-file" accept="image/*" class="w-full text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:bg-neutral-800 file:text-amber-400 hover:file:bg-neutral-700 cursor-pointer">
+        </div>
+
+        <div>
+          <label class="text-neutral-400 block mb-1">História / Significado da Peça</label>
+          <textarea id="historia" rows="3" placeholder="Conte como conseguiu esse relógio, marco de carreira, lembrança de família..." class="w-full bg-neutral-900 border border-neutral-800 rounded p-2.5 text-white focus:border-amber-500 outline-none"></textarea>
+        </div>
+
+        <button type="submit" id="btn-salvar" class="w-full bg-amber-500 hover:bg-amber-400 text-black font-semibold py-3 rounded-lg transition tracking-wider uppercase text-xs">
+          Salvar no Catálogo
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal Detalhes com Zoom Dinâmico -->
+  <div id="modal-view" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-[#12161c] border border-neutral-800 rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-6 relative">
+      <button onclick="fecharModalView()" class="absolute top-4 right-4 text-neutral-400 hover:text-white"><i data-lucide="x" class="w-6 h-6"></i></button>
+      <div id="modal-view-content" class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4"></div>
+    </div>
+  </div>
+
+  <footer class="border-t border-neutral-800 py-6 text-center text-xs text-neutral-500">
+    The Watch Vault &copy; Acervo Pessoal.
+  </footer>
+
+  <script>
+    let relogios = [];
+    let fileSha = ""; // Necessário para atualizar o arquivo na GitHub API
+
+    // Configurações do seu repositório no GitHub
+    const CONFIG = {
+      user: localStorage.getItem('gh_user') || 'SEU_USUARIO_GITHUB',
+      repo: localStorage.getItem('gh_repo') || 'SEU_REPOSITORIO',
+      token: localStorage.getItem('gh_token') || ''
+    };
+
+    function configurarGitHub() {
+      const user = prompt("Seu usuário do GitHub:", CONFIG.user);
+      const repo = prompt("Nome do repositório:", CONFIG.repo);
+      const token = prompt("Seu Personal Access Token (ghp_...):", CONFIG.token);
+      
+      if(user && repo && token) {
+        localStorage.setItem('gh_user', user);
+        localStorage.setItem('gh_repo', repo);
+        localStorage.setItem('gh_token', token);
+        location.reload();
+      }
+    }
+
+    async function carregarRelogios() {
+      try {
+        const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+          headers: CONFIG.token ? { Authorization: `token ${CONFIG.token}` } : {}
+        });
+        if (!res.ok) throw new Error("Não foi possível carregar o JSON.");
+        const data = await res.json();
+        fileSha = data.sha;
+        const decoded = decodeURIComponent(escape(atob(data.content)));
+        relogios = JSON.parse(decoded);
+        renderCards(relogios);
+      } catch (e) {
+        console.warn("Tentando carregar localmente via fetch simples...");
+        const resLocal = await fetch('relogios.json');
+        relogios = await resLocal.json();
+        renderCards(relogios);
+      }
+    }
+
+    function renderCards(lista) {
+      const grid = document.getElementById('grid-relogios');
+      grid.innerHTML = lista.map((r, index) => `
+        <div class="card-glow bg-[#12161c] border border-neutral-800/80 rounded-xl overflow-hidden flex flex-col justify-between transition duration-300">
+          <div class="relative h-64 overflow-hidden bg-neutral-950">
+            <img src="${r.foto}" alt="${r.modelo}" class="w-full h-full object-cover object-center transition duration-500 hover:scale-105" onerror="this.src='https://placehold.co/600x400/12161c/amber?text=Sem+Foto'">
+            <span class="absolute top-3 right-3 bg-black/60 backdrop-blur text-amber-400 border border-amber-500/20 text-xs px-2.5 py-1 rounded-full font-serif-lux">
+              ${r.calibre}
+            </span>
+          </div>
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="text-xs uppercase tracking-widest text-amber-500 font-bold mb-1">${r.marca}</p>
+              <h3 class="text-lg font-semibold text-white tracking-tight">${r.modelo}</h3>
+              <p class="text-xs text-neutral-400 mt-2 line-clamp-2">${r.historia || 'Sem descrição.'}</p>
+            </div>
+            <div class="mt-5 flex gap-2">
+              <button onclick="abrirView(${index})" class="flex-1 bg-neutral-900 border border-neutral-700 hover:border-amber-500 text-neutral-200 hover:text-amber-400 text-xs py-2 rounded-lg transition flex items-center justify-center gap-2">
+                <i data-lucide="eye" class="w-4 h-4"></i> Detalhes & Zoom
+              </button>
+              <button onclick="removerRelogio(${index})" title="Remover" class="bg-red-950/30 border border-red-900/40 text-red-400 hover:bg-red-900 hover:text-white px-3 rounded-lg transition">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function abrirModalCadastro() {
+      if(!CONFIG.token) {
+        alert("Configure primeiro seu Token do GitHub no ícone de engrenagem!");
+        configurarGitHub();
+        return;
+      }
+      document.getElementById('modal-cadastro').classList.remove('hidden');
+    }
+
+    function fecharModalCadastro() {
+      document.getElementById('modal-cadastro').classList.add('hidden');
+    }
+
+    // Leitura do arquivo para Base64
+    function toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result.split(',')[1]);
+        reader.onerror = error => reject(error);
+      });
+    }
+
+    async function salvarRelogio(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-salvar');
+      btn.innerText = "Salvando no GitHub...";
+      btn.disabled = true;
+
+      try {
+        const file = document.getElementById('foto-file').files[0];
+        const nomeArquivo = `images/${Date.now()}-${file.name.replace(/\s+/g, '_')}`;
+        const base64Content = await toBase64(file);
+
+        // 1. Upload da imagem via GitHub API
+        const uploadImgRes = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${CONFIG.token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `upload: foto ${file.name}`,
+            content: base64Content
+          })
+        });
+
+        if (!uploadImgRes.ok) throw new Error("Erro ao fazer upload da imagem.");
+        const imgData = await uploadImgRes.json();
+        const rawImageUrl = imgData.content.download_url;
+
+        // 2. Monta o objeto do novo relógio
+        const novoRelogio = {
+          id: `rlg-${Date.now()}`,
+          marca: document.getElementById('marca').value,
+          modelo: document.getElementById('modelo').value,
+          data_compra: document.getElementById('data_compra').value,
+          valor: parseFloat(document.getElementById('valor').value) || 0,
+          origem: document.getElementById('origem').value,
+          calibre: document.getElementById('calibre').value,
+          diametro: document.getElementById('diametro').value,
+          historia: document.getElementById('historia').value,
+          foto: rawImageUrl
+        };
+
+        // Adiciona à lista existente
+        relogios.unshift(novoRelogio);
+
+        // 3. Atualiza o relogios.json no GitHub
+        const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(relogios, null, 2))));
+        const updateJsonRes = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${CONFIG.token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `feat: adicionado relógio ${novoRelogio.marca} ${novoRelogio.modelo}`,
+            content: updatedJsonContent,
+            sha: fileSha
+          })
+        });
+
+        if (!updateJsonRes.ok) throw new Error("Erro ao atualizar relogios.json.");
+
+        alert("Relógio adicionado com sucesso!");
+        fecharModalCadastro();
+        location.reload();
+
+      } catch (err) {
+        alert("Erro: " + err.message);
+        btn.innerText = "Salvar no Catálogo";
+        btn.disabled = false;
+      }
+    }
+
+    async function removerRelogio(index) {
+      if(!confirm(`Deseja realmente remover o relógio "${relogios[index].modelo}"?`)) return;
+
+      try {
+        relogios.splice(index, 1);
+        const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(relogios, null, 2))));
+        
+        await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+          method: 'PUT',
+          headers: {
+            Authorization: `token ${CONFIG.token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            message: `chore: removido relógio da coleção`,
+            content: updatedJsonContent,
+            sha: fileSha
+          })
+        });
+
+        alert("Relógio removido!");
+        location.reload();
+      } catch (e) {
+        alert("Erro ao remover: " + e.message);
+      }
+    }
+
+    function abrirView(index) {
+      const r = relogios[index];
+      const content = document.getElementById('modal-view-content');
+
+      content.innerHTML = `
+        <div>
+          <div class="img-zoom-container rounded-lg border border-neutral-800 h-80 bg-black flex items-center justify-center relative">
+            <img id="zoom-img" src="${r.foto}" alt="${r.modelo}" class="w-full h-full object-cover">
+          </div>
+          <p class="text-[11px] text-neutral-500 text-center mt-2">Passe o cursor sobre a foto para inspecionar em alta resolução.</p>
+        </div>
+
+        <div class="flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-serif-lux uppercase text-amber-500 tracking-wider">${r.marca}</span>
+            <h2 class="text-2xl font-bold text-white mb-3">${r.modelo}</h2>
+            
+            <div class="bg-neutral-900/60 p-4 rounded-lg border border-neutral-800 space-y-2 text-xs">
+              <p><span class="text-neutral-500">Maquinário / Calibre:</span> <span class="text-amber-400 font-semibold">${r.calibre}</span></p>
+              <p><span class="text-neutral-500">Diâmetro da Caixa:</span> <span class="text-white">${r.diametro || 'N/A'}</span></p>
+              <p><span class="text-neutral-500">Origem / Quem Deu:</span> <span class="text-white">${r.origem || 'N/A'}</span></p>
+              <p><span class="text-neutral-500">Data de Entrada:</span> <span class="text-white">${r.data_compra || 'N/A'}</span></p>
+              <p><span class="text-neutral-500">Valor Investido:</span> <span class="text-emerald-400 font-semibold">${(r.valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span></p>
+            </div>
+
+            <h4 class="text-xs uppercase tracking-wider text-neutral-400 font-semibold mt-4 mb-1">História</h4>
+            <p class="text-xs text-neutral-300 leading-relaxed">${r.historia || 'Nenhuma história cadastrada.'}</p>
+          </div>
+        </div>
+      `;
+
+      const container = document.querySelector('.img-zoom-container');
+      const img = document.getElementById('zoom-img');
+      container.addEventListener('mousemove', (e) => {
+        const { left, top, width, height } = container.getBoundingClientRect();
+        img.style.transformOrigin = `${((e.clientX - left) / width) * 100}% ${((e.clientY - top) / height) * 100}%`;
+      });
+
+      document.getElementById('modal-view').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function fecharModalView() {
+      document.getElementById('modal-view').classList.add('hidden');
+    }
+
+    document.getElementById('search').addEventListener('input', (e) => {
+      const termo = e.target.value.toLowerCase();
+      const filtrados = relogios.filter(r => 
+        r.marca.toLowerCase().includes(termo) || 
+        r.modelo.toLowerCase().includes(termo) ||
+        r.calibre.toLowerCase().includes(termo)
+      );
+      renderCards(filtrados);
+    });
+
+    window.onload = carregarRelogios;
+  </script>
+</body>
+</html>
