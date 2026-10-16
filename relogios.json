@@ -128,6 +128,7 @@
       "rating_tipo": "heart",
       "rating_valor": "5",
       "calibre": "Quartzo",
+      "cor_mostrador": "",
       "diametro": "38",
       "cor_caixa": "Prata",
       "cor_bisel": "",
@@ -138,11 +139,11 @@
       "descricao": "Design: Possui uma forma quadrada\nIluminação: de gás tritium para visibilidade em baixa luz.\nVisualização de ponteiros clássicos com função de calendário.\nResistência à água: desempenho impermeável.\nVidro: Espelho de vidro reforçado mineral protege contra arranhões.\n- Coroa & Fivela: Design da coroa espiral emparelhado com fivela do pino de aço inoxidável.",
       "historia": "Presente - Day - Dia dos Pais",
       "fotos": [
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078122461-0-ciloa.jpeg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078125492-2-ciloa2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078127381-3-ciloa3.jpeg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg"
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078122461-0-ciloa.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg"
       ]
     },
     {
