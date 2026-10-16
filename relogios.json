@@ -79,11 +79,11 @@
       "cor_correia": "Preta",
       "tipo_fecho": "Fecho",
       "descricao": "Caixa de 45mm— tamanho ideal para pulsos médios e largos.\nAço inoxidável — sem descascar, sem manchas, aparência intacta com o tempo.\nCronógrafo integrado + janela de data — funcionalidade real no dia a dia.\nCristal Hardlex — resiste a impactos e arranhões.\nQuartzo Japonês — sem dar corda, sem atraso, manutenção mínima por anos.\nResistência à água de 30m — chuva, lavagem das mãos, uso urbano sem preocupação.\nCaixa de presente inclusa — pronto pra presentear, sem custo extra.",
-      "historia": "Compra por empolgação, é bonito mas muito grande no pulso",
+      "historia": "Compra por empolgação, é bonito mas .uito grande no pulso",
       "fotos": [
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114019331-0-1000393459.jpg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114020938-1-1000393464.jpg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114022808-2-1000393462.jpg"
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113682127-0-1000392710.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113684245-1-1000392709.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113686486-2-1000392712.heic"
       ]
     },
     {
@@ -243,6 +243,36 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073623725-1-caixa2-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
+      ]
+    },
+    {
+      "id": "rlg-1792114425209",
+      "ordem": 999,
+      "marca": "Seiko",
+      "modelo": "FIfa 2002 Limited Edition",
+      "tipo": "Sport",
+      "data_compra": "2026-09-10",
+      "valor": 599,
+      "origem": "Compra",
+      "rating_tipo": "star",
+      "rating_valor": "5",
+      "calibre": "Quartzo",
+      "cor_mostrador": "Branco",
+      "diametro": "37",
+      "cor_caixa": "Aco",
+      "cor_bisel": "Aco",
+      "material_correia": "Aco",
+      "tipo_correia": "Elo padrao",
+      "cor_correia": "Aco",
+      "tipo_fecho": "Fecho",
+      "descricao": "Brand: Seiko\nModel: 2002 FIFA World Cup Limited Edition\nMovement: Quartz (Battery)\nDial Color: White\nCase Size: approx. 37mm (excluding crown)\nWrist Size: approx. 17cm (6.7 inch)\nBand Material: Stainless Steel\nAccessories: Original Box, Manual\nWorking Perfectly\nNew Battery Replaced: May 1, 2026",
+      "historia": "Relogio Raro Colecionador - Hexa",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114414890-0-1000386331.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114416743-1-1000386329.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114418958-2-1000386340.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114421114-3-1000386334.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114423163-4-1000386337.jpg"
       ]
     },
     {
