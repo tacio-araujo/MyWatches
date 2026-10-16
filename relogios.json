@@ -147,6 +147,37 @@
       ]
     },
     {
+      "id": "rlg-1792115285419",
+      "ordem": 999,
+      "marca": "Orient",
+      "modelo": "Solartech MBSSC288 S1SX",
+      "tipo": "Cronografo",
+      "data_compra": "2026-08-17",
+      "valor": 1198,
+      "origem": "Compra",
+      "rating_tipo": "heart",
+      "rating_valor": "5",
+      "calibre": "Solar",
+      "cor_mostrador": "Branco",
+      "diametro": "42",
+      "cor_caixa": "Prata",
+      "cor_bisel": "Preto",
+      "material_correia": "Aco",
+      "tipo_correia": "Elo padrao",
+      "cor_correia": "Prata",
+      "tipo_fecho": "Fecho com Trava de Segurança",
+      "descricao": "Tipo de tela\tAnálogico\nAssistir Movimento\tSolar\nCaracterísticas especiais\tCronógrafo\nFonte de energia\tEnergia Solar\nTipo de alça\tAço\nProfundidade de resistência à água\t100 Metros\nTipo de esporte\tCasual\nTipo de fecho\tFivela\nNível de resistência à água\tResistente à água\nRecurso de enfeite\tMostrador Em Camadas\nTipo de fechamento\tFivela\nEstilo\nEstilo\tCronógrafo\nFormato do item\tRedondo\nCor da pulseira\tPrata\nCor do mostrador\tBranco\nTema\tClássico\nEstampa\tCronógrafo\nEstilo da face\tCronógrafo\nCor do Inserto da Moldura\tPrata\nCor da Moldura\tPrata\nDetalhes do Produto\nNome da marca\tOrient\nNome do modelo\tMbssc288 S1sx\nComponentes Incluídos\tRelógio\nNúmero do modelo\tMbssc288\nNúmero de série\t69\nPeso do item\t300 g",
+      "historia": "Primeiro Relógio de Marca Conceituada",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115271251-0-1000392704.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115274868-1-1000392705.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115277227-2-1000392706.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115279226-3-1000392707.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115281193-4-1000392708.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115283323-5-1000392709.heic"
+      ]
+    },
+    {
       "id": "rlg-1792068328361",
       "ordem": 2,
       "marca": "Pagani Design",
