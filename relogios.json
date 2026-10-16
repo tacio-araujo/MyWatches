@@ -3,7 +3,7 @@
     {
       "id": "rlg-1792067145760",
       "ordem": 1,
-      "marca": "Bulgari",
+      "marca": "Bvlgari",
       "modelo": "Aluminium",
       "tipo": "Cronografo",
       "data_compra": "2026-05-22",
@@ -12,6 +12,7 @@
       "rating_tipo": "star",
       "rating_valor": "5",
       "calibre": "Quartzo",
+      "cor_mostrador": "",
       "diametro": "43",
       "cor_caixa": "Cinza",
       "cor_bisel": "Cinza",
