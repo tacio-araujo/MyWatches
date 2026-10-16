@@ -29,6 +29,37 @@
       ]
     },
     {
+      "id": "rlg-1792116018462",
+      "ordem": 999,
+      "marca": "Omega",
+      "modelo": "SpeedMaster Snoopy",
+      "tipo": "Cronografo",
+      "data_compra": "2026-05-31",
+      "valor": 597,
+      "origem": "Compra",
+      "rating_tipo": "star",
+      "rating_valor": "3",
+      "calibre": "Quartzo",
+      "cor_mostrador": "Branco e Azul",
+      "diametro": "42",
+      "cor_caixa": "Prata",
+      "cor_bisel": "Azul",
+      "material_correia": "Aco",
+      "tipo_correia": "Fecho",
+      "cor_correia": "Prata + Azul",
+      "tipo_fecho": "Borboleta",
+      "descricao": "Réplica",
+      "historia": "Sonho de consumo, mas a compra foi réplica",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116005369-0-1000344786.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116007546-1-1000342330.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116009787-2-1000392716.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116011611-3-1000392717.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116013342-4-1000392719.heic",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116015837-5-1000392720.heic"
+      ]
+    },
+    {
       "id": "rlg-1792113087155",
       "ordem": 999,
       "marca": "Poedagar",
