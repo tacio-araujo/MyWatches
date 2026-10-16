@@ -29,6 +29,36 @@
       ]
     },
     {
+      "id": "rlg-1792113087155",
+      "ordem": 999,
+      "marca": "Poedagar",
+      "modelo": "Nautilus",
+      "tipo": "Cronografo",
+      "data_compra": "2026-07-04",
+      "valor": 259,
+      "origem": "Presente",
+      "rating_tipo": "heart",
+      "rating_valor": "5",
+      "calibre": "Quartzo",
+      "cor_mostrador": "Preto",
+      "diametro": "42",
+      "cor_caixa": "Preto",
+      "cor_bisel": "",
+      "material_correia": "Aco",
+      "tipo_correia": "Elo padrao",
+      "cor_correia": "Preta",
+      "tipo_fecho": "Fecho com botao oculto",
+      "descricao": "Material da Pulseira: Aço Inoxidável\nMaterial da Caixa: Aço Inoxidável\nMovimento: Quartz\nMaterial do Visor: Vidro Hardlex\nDiâmetro da Caixa: 42mm\nEspessura da Caixa: 10mm\nLargura da Pulseira: 22mm\nComprimento da Pulseira: 20cm\nFecho: Fecho com botão oculto\nResistência à Água: Suporta respingos e exposição à chuva leve. Não é indicado para mergulho.\nFunções: Data automática, cronógrafo, ponteiros luminosos",
+      "historia": "Presente - Day - Primeiro",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113069778-0-1000393418.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113071538-1-1000393421.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113073417-2-1000393425.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113082854-3-1000393428.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113085523-4-1000393416.jpg"
+      ]
+    },
+    {
       "id": "rlg-1792074805018",
       "ordem": 2,
       "marca": "POEDAGAR",
