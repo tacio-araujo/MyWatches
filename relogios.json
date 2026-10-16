@@ -390,7 +390,10 @@
       "data_aquisicao": "2026-09-10",
       "status": "Em Uso",
       "observacoes": "Presente - Daniel",
-      "fotos": []
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1792116780585-0-1000393520.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1792116782524-1-1000393522.jpg"
+      ]
     }
   ]
 }
