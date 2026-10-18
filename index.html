@@ -576,41 +576,56 @@
       }
       return 'compra';
     }
+function getWatchRatings(rel) {
+  if (!rel) return { prestigio: 0, afeto: 0, valor: 0 };
+  
+  // Formato novo com tríade completa
+  if (rel.ratings && typeof rel.ratings === 'object') {
+    return {
+      prestigio: Number(rel.ratings.prestigio) || 0,
+      afeto: Number(rel.ratings.afeto) || 0,
+      valor: Number(rel.ratings.valor) || 0
+    };
+  }
 
-    function getWatchRatings(rel) {
-      if (!rel) return { prestigio: 0, afeto: 0, valor: 0 };
-      if (rel.ratings && typeof rel.ratings === 'object') {
-        return {
-          prestigio: Number(rel.ratings.prestigio) || 0,
-          afeto: Number(rel.ratings.afeto) || 0,
-          valor: Number(rel.ratings.valor) || 0
-        };
-      }
-      let p = 0, a = 0, v = 0;
-      if (rel.rating) {
-        const val = Number(rel.rating.valor) || 0;
-        if (rel.rating.tipo === 'star') p = val;
-        else if (rel.rating.tipo === 'heart') a = val;
-        else if (rel.rating.tipo === 'dollar') v = val;
-      }
-      return { prestigio: p, afeto: a, valor: v };
-    }
+  // Formato intermediário com objeto único
+  let p = 0, a = 0, v = 0;
+  if (rel.rating && typeof rel.rating === 'object') {
+    const val = Number(rel.rating.valor) || 0;
+    if (rel.rating.tipo === 'star') p = val;
+    else if (rel.rating.tipo === 'heart') a = val;
+    else if (rel.rating.tipo === 'dollar') v = val;
+    return { prestigio: p, afeto: a, valor: v };
+  }
+
+  // Formato legado com propriedades soltas no JSON original
+  const tipoLegado = rel.rating_tipo;
+  const valLegado = Number(rel.rating_valor) || 0;
+  if (tipoLegado === 'star') p = valLegado;
+  else if (tipoLegado === 'heart') a = valLegado;
+  else if (tipoLegado === 'dollar') v = valLegado;
+
+  return { prestigio: p, afeto: a, valor: v };
+}
 
     // --- CARREGAMENTO RESILIENTE (NÃO QUEBRA INDEPENDENTE DO FORMATO) ---
     async function carregarDadosIniciais() {
       let relogiosLocaisValidos = false;
       let caixasLocaisValidas = false;
 
-      // 1. Tenta carregar dados locais (suporta formato antigo e novo de chaves)
       const localRel = localStorage.getItem('mywatches_relogios') || localStorage.getItem('mw_relogios');
       const localCax = localStorage.getItem('mywatches_caixas') || localStorage.getItem('mw_caixas');
 
       if (localRel) {
         try {
           const dados = JSON.parse(localRel);
-          if (Array.isArray(dados)) {
-            relogios = dados;
-            relogiosLocaisValidos = true;
+          if (Array.isArray(dados) && dados.length > 0) {
+            // Se todos os preços locais forem 0 ou vazios, o cache está corrompido: força busca do JSON remoto
+            const temPrecosValidos = dados.some(r => (Number(r.preco) > 0 || Number(r.valor) > 0));
+            if (temPrecosValidos) {
+              relogios = dados;
+              relogiosLocaisValidos = true;
+            }
           }
         } catch (e) {
           console.warn("Erro ao ler relógios locais:", e);
@@ -620,7 +635,7 @@
       if (localCax) {
         try {
           const dados = JSON.parse(localCax);
-          if (Array.isArray(dados)) {
+          if (Array.isArray(dados) && dados.length > 0) {
             caixas = dados;
             caixasLocaisValidas = true;
           }
@@ -629,7 +644,7 @@
         }
       }
 
-      // 2. Se não houver dados locais, busca no arquivo remoto relogios.json
+      // Busca do JSON remoto se não houver dados locais válidos
       if (!relogiosLocaisValidos || !caixasLocaisValidas) {
         try {
           const resposta = await fetch(`./relogios.json?t=${Date.now()}`, { cache: 'no-store' });
@@ -674,23 +689,11 @@
         }
       }
 
-      // 3. Blindagem: Garante que relógios e caixas sejam impreterivelmente Arrays
       if (!Array.isArray(relogios)) relogios = [];
       if (!Array.isArray(caixas)) caixas = [];
 
-      // 4. Normalização de campos legados
-      relogios = relogios.map(r => ({
-        ...r,
-        id: r.id ? String(r.id) : (Date.now() + Math.random()).toString(),
-        marca: r.marca || '',
-        modelo: r.modelo || '',
-        tipo: r.tipo || '',
-        calibre: r.calibre || '',
-        preco: Number(r.preco) || 0,
-        foto: r.foto || (Array.isArray(r.fotos) && r.fotos[0] ? r.fotos[0] : ''),
-        tipo_aquisicao: getTipoAquisicao(r),
-        ratings: getWatchRatings(r)
-      }));
+      // Aplica normalização unificada
+      relogios = relogios.map(normalizarRelogio);
 
       caixas = caixas.map(c => ({
         ...c,
@@ -1276,14 +1279,14 @@
       if (radio) radio.checked = true;
       atualizarCamposAquisicao();
 
-      document.getElementById('rel-preco').value = r.preco || '';
+      document.getElementById('rel-preco').value = (r.preco !== undefined && r.preco !== 0) ? r.preco : (r.valor || '');
+      document.getElementById('rel-data').value = r.data_aquisicao || r.data_compra || '';
       document.getElementById('rel-origem').value = r.origem || '';
       document.getElementById('rel-marca').value = r.marca || '';
       document.getElementById('rel-modelo').value = r.modelo || '';
       document.getElementById('rel-tipo').value = r.tipo || '';
       document.getElementById('rel-calibre').value = r.calibre || '';
       document.getElementById('rel-diametro').value = r.diametro || '';
-      document.getElementById('rel-data').value = r.data_aquisicao || '';
       document.getElementById('rel-mostrador').value = r.cor_mostrador || '';
       document.getElementById('rel-pulseira').value = r.material_correia || r.pulseira || '';
       document.getElementById('rel-caixa-id').value = r.caixa_id || '';
@@ -1309,28 +1312,36 @@
       const id = document.getElementById('rel-id').value;
       const tipoAq = document.querySelector('input[name="tipo_aquisicao"]:checked').value;
 
-      const dados = {
-        id: id ? id : Date.now().toString(),
-        tipo_aquisicao: tipoAq,
-        preco: parseFloat(document.getElementById('rel-preco').value) || 0,
-        origem: document.getElementById('rel-origem').value.trim(),
-        marca: document.getElementById('rel-marca').value.trim(),
-        modelo: document.getElementById('rel-modelo').value.trim(),
-        tipo: document.getElementById('rel-tipo').value.trim(),
-        calibre: document.getElementById('rel-calibre').value.trim(),
-        diametro: document.getElementById('rel-diametro').value.trim(),
-        data_aquisicao: document.getElementById('rel-data').value,
-        cor_mostrador: document.getElementById('rel-mostrador').value.trim(),
-        material_correia: document.getElementById('rel-pulseira').value.trim(),
-        caixa_id: document.getElementById('rel-caixa-id').value,
-        foto: document.getElementById('rel-foto-url').value.trim(),
-        descricao: document.getElementById('rel-descricao').value.trim(),
-        ratings: {
-          prestigio: Number(document.getElementById('rel-rating-prestigio').value) || 0,
-          afeto: Number(document.getElementById('rel-rating-afeto').value) || 0,
-          valor: Number(document.getElementById('rel-rating-valor').value) || 0
-        }
-      };
+      const precoInformado = parseFloat(document.getElementById('rel-preco').value) || 0;
+const dataInformada = document.getElementById('rel-data').value;
+const pulseiraInformada = document.getElementById('rel-pulseira').value.trim();
+
+const dados = {
+  id: id ? id : Date.now().toString(),
+  tipo_aquisicao: tipoAq,
+  preco: precoInformado,
+  valor: precoInformado, // Garante compatibilidade com o formato legado
+  origem: document.getElementById('rel-origem').value.trim(),
+  marca: document.getElementById('rel-marca').value.trim(),
+  modelo: document.getElementById('rel-modelo').value.trim(),
+  tipo: document.getElementById('rel-tipo').value.trim(),
+  calibre: document.getElementById('rel-calibre').value.trim(),
+  diametro: document.getElementById('rel-diametro').value.trim(),
+  data_aquisicao: dataInformada,
+  data_compra: dataInformada, // Garante compatibilidade
+  cor_mostrador: document.getElementById('rel-mostrador').value.trim(),
+  material_correia: pulseiraInformada,
+  pulseira: pulseiraInformada, // Garante compatibilidade
+  caixa_id: document.getElementById('rel-caixa-id').value,
+  foto: document.getElementById('rel-foto-url').value.trim(),
+  fotos: [document.getElementById('rel-foto-url').value.trim()],
+  descricao: document.getElementById('rel-descricao').value.trim(),
+  ratings: {
+    prestigio: Number(document.getElementById('rel-rating-prestigio').value) || 0,
+    afeto: Number(document.getElementById('rel-rating-afeto').value) || 0,
+    valor: Number(document.getElementById('rel-rating-valor').value) || 0
+  }
+};
 
       if (id) {
         const index = relogios.findIndex(r => String(r.id) === String(id));
@@ -1643,7 +1654,7 @@
       lucide.createIcons();
     }
 function normalizarRelogio(r) {
-  // 1. Extração do Valor / Preço (seu JSON usa "valor": 346.66)
+  // 1. Extração do Preço/Valor
   let precoFinal = 0;
   if (r.valor !== undefined && r.valor !== null && r.valor !== '') {
     precoFinal = Number(r.valor) || 0;
@@ -1651,10 +1662,10 @@ function normalizarRelogio(r) {
     precoFinal = Number(r.preco) || 0;
   }
 
-  // 2. Data de aquisição (seu JSON usa "data_compra")
+  // 2. Data de aquisição
   const dataFinal = r.data_compra || r.data_aquisicao || r.data || '';
 
-  // 3. Imagens (seu JSON tem fotos como Array: ["url1", "url2"])
+  // 3. Imagens
   let listaFotos = [];
   if (Array.isArray(r.fotos) && r.fotos.length > 0) {
     listaFotos = r.fotos;
@@ -1663,40 +1674,24 @@ function normalizarRelogio(r) {
   }
   const fotoPrincipal = listaFotos[0] || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&auto=format&fit=crop&q=80';
 
-  // 4. Tipo de Aquisição (Compra x Presente)
-  // No seu JSON está: "origem": "Compra" ou "origem": "Presente"
-  let tipoAq = 'compra';
-  const textoOrigem = String(r.origem || r.tipo_aquisicao || '').toLowerCase();
-  if (textoOrigem.includes('presente') || textoOrigem.includes('ganhei')) {
-    tipoAq = 'presente';
-  }
+  // 4. Tipo de Aquisição
+  const tipoAq = getTipoAquisicao(r);
 
-  // 5. Tríade de Ratings / Avaliações
-  // No seu JSON: rating_tipo: "star"|"heart"|"dollar" e rating_valor: "5"
-  let ratings = { prestigio: 0, afeto: 0, valor: 0 };
-
-  if (r.ratings && typeof r.ratings === 'object') {
-    ratings.prestigio = Number(r.ratings.prestigio) || 0;
-    ratings.afeto = Number(r.ratings.afeto) || 0;
-    ratings.valor = Number(r.ratings.valor) || 0;
-  } else if (r.rating_tipo && r.rating_valor !== undefined) {
-    const nota = Number(r.rating_valor) || 0;
-    if (r.rating_tipo === 'star') ratings.prestigio = nota;
-    else if (r.rating_tipo === 'heart') ratings.afeto = nota;
-    else if (r.rating_tipo === 'dollar') ratings.valor = nota;
-  }
+  // 5. Tríade de Avaliações
+  const ratings = getWatchRatings(r);
 
   return {
     ...r,
-    id: r.id || ('rlg-' + Date.now()),
+    id: r.id ? String(r.id) : ('rlg-' + Date.now() + Math.random()),
     preco: precoFinal,
-    valor: precoFinal,                // mantém ambos preenchidos
+    valor: precoFinal,
     data_aquisicao: dataFinal,
-    data_compra: dataFinal,           // mantém ambos preenchidos
+    data_compra: dataFinal,
     fotos: listaFotos,
     foto: fotoPrincipal,
     tipo_aquisicao: tipoAq,
     origem: r.origem || (tipoAq === 'presente' ? 'Presente' : 'Compra'),
+    descricao: r.descricao || r.historia || '',
     ratings: ratings
   };
 }
