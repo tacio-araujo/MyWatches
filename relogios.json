@@ -374,6 +374,36 @@
       ]
     },
     {
+      "id": "rlg-1792290668615",
+      "ordem": 999,
+      "marca": "Omega x Swatch",
+      "modelo": "Moonwatch Mission To Earthphase Gold",
+      "tipo": "Cronografo",
+      "data_compra": "2026-09-15",
+      "valor": 3700,
+      "origem": "Compra",
+      "rating_tipo": "dollar",
+      "rating_valor": "5",
+      "calibre": "Quartzo",
+      "cor_mostrador": "Branco e Azul",
+      "diametro": "42",
+      "cor_caixa": "Branco Bioceramica",
+      "cor_bisel": "Branco",
+      "material_correia": "Nylon",
+      "tipo_correia": "Velcro",
+      "cor_correia": "Branco",
+      "tipo_fecho": "Velcro",
+      "descricao": "Caixa em Bioceramic branca – leve, resistente e moderna\nDetalhes em Moonshine™ Gold – ponteiros e elementos do mostrador com acabamento dourado exclusivo\nComplicação Earthphase – exibição das fases da Terra, um diferencial raro e especial\nMostrador branco clean com ilustração do Snoopy\nMovimento quartzo suíço de alta precisão\nVelcro strap estilo espacial, inspirado nos trajes de astronautas",
+      "historia": "Primeiro Suíço Original - Importado Novo",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290685683-0-1000394524.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290687435-1-1000394525.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290689229-2-1000394527.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290691114-3-1000394528.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290692753-4-1000394526.jpg"
+      ]
+    },
+    {
       "id": "rlg-1792080353963",
       "ordem": 999,
       "marca": "Technos",
