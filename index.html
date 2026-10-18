@@ -97,30 +97,30 @@
     }
   </style>
 </head>
-<body class="bg-[#03060a] text-slate-100 dark:bg-[#03060a] dark:text-slate-100 flex flex-col justify-between select-none sm:select-auto">
+<body class="bg-[#03060a] text-slate-100 dark:bg-[#03060a] dark:text-slate-100 flex flex-col justify-between select-none sm:select-auto min-h-screen">
   <div class="bg-luxury-pattern"></div>
 
   <!-- Header -->
   <header class="border-b border-slate-200/80 dark:border-[#132238] bg-white/80 dark:bg-[#050a12]/90 backdrop-blur-md sticky top-0 z-40 transition-colors">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-4 flex justify-between items-center">
-      <div class="flex items-center gap-2">
-        <img src="images/relogiocapa.jpeg" alt="Logo" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-cover border border-sky-500/40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3.5 flex justify-between items-center">
+      <div class="flex items-center gap-2.5">
+        <img src="images/relogiocapa.jpeg" alt="Logo" class="w-8 h-8 rounded-full object-cover border border-sky-500/40 shadow-sm sm:hidden">
         <div>
-          <h1 class="text-sm sm:text-2xl font-bold tracking-[0.15em] sm:tracking-[0.2em] text-slate-900 dark:text-[#e8f0f8] font-serif-lux uppercase">MyWatches</h1>
-          <p class="text-[8px] sm:text-[10px] text-sky-600 dark:text-sky-400/80 tracking-widest uppercase font-semibold">Coleção Desde 2026</p>
+          <h1 class="text-base sm:text-2xl font-bold tracking-[0.15em] sm:tracking-[0.2em] text-slate-900 dark:text-[#e8f0f8] font-serif-lux uppercase">MyWatches</h1>
+          <p class="text-[9px] sm:text-[10px] text-sky-600 dark:text-sky-400/80 tracking-widest uppercase font-semibold">Coleção Pessoal</p>
         </div>
       </div>
       
-      <div class="flex items-center gap-1 sm:gap-2">
+      <div class="flex items-center gap-1.5 sm:gap-2">
         <!-- Botão Sincronizar Tudo -->
-        <button id="btn-sync-all" onclick="sincronizarTudoComGithub()" class="hidden bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/50 hover:bg-emerald-600/30 px-2.5 py-1 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-          <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i>
+        <button id="btn-sync-all" onclick="sincronizarTudoComGithub()" class="hidden bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/50 hover:bg-emerald-600/30 px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1.5 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.2)]">
+          <i data-lucide="cloud-upload" class="w-4 h-4"></i>
           <span class="hidden sm:inline">Sincronizar</span>
           <span id="badge-sync-count" class="bg-emerald-500 text-slate-950 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
         </button>
 
         <!-- Botão Instalar PWA -->
-        <button id="btn-pwa-install" onclick="instalarPWA()" class="hidden bg-slate-200 dark:bg-[#0c182b] text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-[#1b2f4d] px-2 py-1 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1">
+        <button id="btn-pwa-install" onclick="instalarPWA()" class="hidden bg-slate-200 dark:bg-[#0c182b] text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-[#1b2f4d] px-2.5 py-1.5 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1.5">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">App</span>
         </button>
@@ -137,10 +137,10 @@
         </button>
 
         <!-- Adicionar Item -->
-        <button id="btn-adicionar-principal" onclick="acaoBotaoAdicionar()" class="bg-sky-500 text-slate-950 dark:bg-gradient-to-r dark:from-sky-600/30 dark:to-blue-600/30 dark:border dark:border-sky-400/50 dark:text-sky-200 hover:opacity-90 px-2.5 py-1 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold tracking-wider transition flex items-center gap-1">
-          <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+        <button id="btn-adicionar-principal" onclick="acaoBotaoAdicionar()" class="bg-sky-500 text-slate-950 dark:bg-gradient-to-r dark:from-sky-600/30 dark:to-blue-600/30 dark:border dark:border-sky-400/50 dark:text-sky-200 hover:opacity-90 px-2.5 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold tracking-wider transition flex items-center gap-1 sm:gap-1.5">
+          <i data-lucide="plus" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
           <span id="label-btn-adicionar" class="hidden sm:inline">Adicionar Relógio</span>
-          <span class="sm:hidden">Novo</span>
+          <span class="sm:hidden text-[11px]">Novo</span>
         </button>
       </div>
     </div>
@@ -148,61 +148,62 @@
 
   <!-- Conteúdo Principal -->
   <main class="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-6 flex-1 w-full">
-    <!-- Abas Superiores -->
-    <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-slate-200/60 dark:border-[#122238] mb-3">
-      <button onclick="alternarAba('relogios')" id="tab-btn-relogios" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
-        <i data-lucide="watch" class="w-3.5 h-3.5"></i>
-        <span>Relógios</span>
-        <span id="badge-count-relogios" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
-      </button>
-      
-      <button onclick="alternarAba('caixas')" id="tab-btn-caixas" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
-        <i data-lucide="box" class="w-3.5 h-3.5"></i>
-        <span>Caixas</span>
-        <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
-      </button>
+    <!-- Abas & Filtros -->
+    <div class="flex flex-col gap-2.5 sm:gap-4 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-slate-200 dark:border-[#122238]">
+      <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+        <button onclick="alternarAba('relogios')" id="tab-btn-relogios" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
+          <i data-lucide="watch" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          <span>Relógios</span>
+          <span id="badge-count-relogios" class="ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
+        </button>
+        
+        <button onclick="alternarAba('caixas')" id="tab-btn-caixas" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
+          <i data-lucide="box" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          <span>Caixas</span>
+          <span id="badge-count-caixas" class="ml-0.5 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
+        </button>
 
-      <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
-        <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i>
-        <span>Geral</span>
-      </button>
-    </div>
-
-    <!-- Linha Única: Busca + Ordenação + Seletor de Modo de Exibição -->
-    <div id="controles-relogios" class="flex items-center gap-1.5 sm:gap-2 mb-3">
-      <!-- Busca Compacta -->
-      <div class="relative flex-1 min-w-0">
-        <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400"></i>
-        <input type="text" id="search" placeholder="Buscar no acervo..." class="w-full bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] text-xs rounded-lg pl-8 pr-2 py-1.5 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-sky-500 transition" />
+        <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
+          <i data-lucide="bar-chart-2" class="w-3.5 h-3.5 sm:w-4 sm:h-4"></i>
+          <span>Geral</span>
+        </button>
       </div>
 
-      <!-- Filtro Compacto -->
-      <div class="w-32 sm:w-56 flex-shrink-0">
-        <select id="sort-select" onchange="aplicarFiltrosEOrdem()" class="w-full bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] text-xs rounded-lg px-2 py-1.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer truncate">
-          <option value="data_asc" selected>Data (Cronológica)</option>
-          <option value="data_desc">Data (Recentes)</option>
-          <option value="ordem_asc">Ordem Pessoal (Cresc.)</option>
-          <option value="ordem_desc">Ordem Pessoal (Decr.)</option>
-          <option value="valor_desc">Maior Valor</option>
-          <option value="valor_asc">Menor Valor</option>
-          <option value="marca_asc">Marca (A-Z)</option>
-        </select>
-      </div>
+      <!-- Barra de Filtros, Ordenação e Seletor Compacto (1 Linha no Mobile) -->
+      <div id="controles-relogios" class="flex items-center gap-1.5 sm:gap-3 w-full">
+        <!-- Campo Busca -->
+        <div class="relative flex-1 min-w-0">
+          <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400"></i>
+          <input type="text" id="search" placeholder="Buscar relógio..." class="w-full bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] text-[11px] sm:text-xs rounded-lg pl-7 sm:pl-8 pr-2 py-1.5 sm:py-2 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-sky-500 transition truncate" />
+        </div>
 
-      <!-- Alternador de Modos de Exibição (1, 2, 3 e Lista) -->
-      <div class="flex items-center bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] rounded-lg p-0.5 flex-shrink-0" id="view-mode-selector">
-        <button type="button" onclick="definirModoVisualizacao('grid-1')" id="btn-view-grid-1" title="1 Card por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
-          <i data-lucide="square" class="w-3.5 h-3.5"></i>
-        </button>
-        <button type="button" onclick="definirModoVisualizacao('grid-2')" id="btn-view-grid-2" title="2 Cards por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
-          <i data-lucide="grid-2x2" class="w-3.5 h-3.5"></i>
-        </button>
-        <button type="button" onclick="definirModoVisualizacao('grid-3')" id="btn-view-grid-3" title="3 Cards por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
-          <i data-lucide="grid-3x3" class="w-3.5 h-3.5"></i>
-        </button>
-        <button type="button" onclick="definirModoVisualizacao('list')" id="btn-view-list" title="Visualização em Lista" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
-          <i data-lucide="list" class="w-3.5 h-3.5"></i>
-        </button>
+        <!-- Seletor Ordenação Compacto -->
+        <div class="flex-shrink-0 max-w-[115px] sm:max-w-none">
+          <select id="sort-select" onchange="aplicarFiltrosEOrdem()" class="w-full bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] text-[11px] sm:text-xs rounded-lg px-1.5 sm:px-2.5 py-1.5 sm:py-2 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer truncate">
+            <option value="data_asc" selected>Data (Antigo)</option>
+            <option value="data_desc">Data (Recente)</option>
+            <option value="ordem_asc">Ordem Pessoal</option>
+            <option value="valor_desc">Maior Valor</option>
+            <option value="valor_asc">Menor Valor</option>
+            <option value="marca_asc">Marca (A-Z)</option>
+          </select>
+        </div>
+
+        <!-- SELETOR DE VISUALIZAÇÃO: 1, 2, 3 por linha e Lista -->
+        <div class="flex items-center bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] rounded-lg p-0.5 flex-shrink-0" id="view-mode-selector">
+          <button type="button" onclick="definirModoVisualizacao('grid-1')" id="btn-view-grid-1" title="1 por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
+            <i data-lucide="square" class="w-3.5 h-3.5"></i>
+          </button>
+          <button type="button" onclick="definirModoVisualizacao('grid-2')" id="btn-view-grid-2" title="2 por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
+            <i data-lucide="grid-2x2" class="w-3.5 h-3.5"></i>
+          </button>
+          <button type="button" onclick="definirModoVisualizacao('grid-3')" id="btn-view-grid-3" title="3 por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
+            <i data-lucide="grid-3x3" class="w-3.5 h-3.5"></i>
+          </button>
+          <button type="button" onclick="definirModoVisualizacao('list')" id="btn-view-list" title="Lista" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold">
+            <i data-lucide="list" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
       </div>
     </div>
 
@@ -216,75 +217,125 @@
       <div id="grid-caixas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div>
     </section>
 
-    <!-- VIEW 3: Dashboard Geral -->
-    <section id="view-geral" class="hidden space-y-4">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Acervo Total</span>
-          <div class="flex items-baseline gap-1.5 mt-1">
-            <span id="metric-total-relogios" class="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">0</span>
-            <span class="text-xs text-sky-500">peças</span>
+    <!-- VIEW 3: Dashboard Geral / Tríade Patrimonial -->
+    <section id="view-geral" class="hidden space-y-4 sm:space-y-5">
+      <!-- BLOCO 1: TRÍADE PATRIMONIAL -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+        <!-- 1. Patrimônio Investido (Compras) -->
+        <div class="card-navy p-3.5 sm:p-4 rounded-xl border-l-4 border-l-emerald-500 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">Patrimônio Investido</span>
+            <span class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-500"><i data-lucide="wallet" class="w-4 h-4"></i></span>
+          </div>
+          <div class="mt-2">
+            <span id="metric-valor-investido" class="text-xl sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400 truncate block">R$ 0,00</span>
+            <div class="flex items-center justify-between mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              <span>Peças Compradas:</span>
+              <strong id="metric-qtd-comprados" class="text-slate-800 dark:text-slate-200">0</strong>
+            </div>
           </div>
         </div>
 
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Patrimônio Investido</span>
-          <div class="mt-1">
-            <span id="metric-valor-total" class="text-lg sm:text-2xl font-bold text-emerald-600 dark:text-emerald-400">R$ 0,00</span>
+        <!-- 2. Valor em Presentes -->
+        <div class="card-navy p-3.5 sm:p-4 rounded-xl border-l-4 border-l-purple-500 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">Valor em Presentes</span>
+            <span class="p-1.5 rounded-lg bg-purple-500/10 text-purple-400"><i data-lucide="gift" class="w-4 h-4"></i></span>
+          </div>
+          <div class="mt-2">
+            <span id="metric-valor-presentes" class="text-xl sm:text-2xl font-bold text-purple-600 dark:text-purple-400 truncate block">R$ 0,00</span>
+            <div class="flex items-center justify-between mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              <span>Peças Ganhas:</span>
+              <strong id="metric-qtd-presentes" class="text-slate-800 dark:text-slate-200">0</strong>
+            </div>
           </div>
         </div>
 
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Preço Médio / Peça</span>
-          <div class="mt-1">
-            <span id="metric-valor-medio" class="text-lg sm:text-2xl font-bold text-sky-600 dark:text-sky-300">R$ 0,00</span>
+        <!-- 3. Valor Total do Acervo -->
+        <div class="card-navy p-3.5 sm:p-4 rounded-xl border-l-4 border-l-amber-500 bg-gradient-to-br from-amber-500/5 to-transparent flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">Valor Total do Acervo</span>
+            <span class="p-1.5 rounded-lg bg-amber-500/10 text-amber-500"><i data-lucide="crown" class="w-4 h-4"></i></span>
           </div>
-        </div>
-
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Ocupação das Caixas</span>
-          <div class="flex items-baseline gap-1.5 mt-1">
-            <span id="metric-ocupacao" class="text-lg sm:text-2xl font-bold text-amber-500">0%</span>
-            <span id="metric-vagas-texto" class="text-[10px] text-slate-400">0 slots</span>
+          <div class="mt-2">
+            <span id="metric-valor-total-acervo" class="text-xl sm:text-2xl font-bold text-amber-600 dark:text-amber-400 truncate block">R$ 0,00</span>
+            <div class="flex items-center justify-between mt-1 text-[11px] text-slate-500 dark:text-slate-400">
+              <span>Acervo Completo:</span>
+              <strong id="metric-total-pecas-geral" class="text-slate-800 dark:text-slate-200">0 peças</strong>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-        <div class="card-navy p-3.5 sm:p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-2.5 tracking-wider flex items-center gap-1.5">
-            <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i> Distribuição por Marca
+      <!-- BLOCO 2: ESTATÍSTICAS SECUNDÁRIAS -->
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-4">
+        <div class="card-navy p-3 sm:p-3.5 rounded-xl">
+          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Preço Médio (Investido)</span>
+          <div class="mt-1">
+            <span id="metric-valor-medio-compras" class="text-base sm:text-xl font-bold text-sky-600 dark:text-sky-300 truncate block">R$ 0,00</span>
+            <span class="text-[10px] text-slate-400 block mt-0.5">Por relógio comprado</span>
+          </div>
+        </div>
+
+        <div class="card-navy p-3 sm:p-3.5 rounded-xl">
+          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Valor Médio Global</span>
+          <div class="mt-1">
+            <span id="metric-valor-medio-geral" class="text-base sm:text-xl font-bold text-slate-700 dark:text-slate-300 truncate block">R$ 0,00</span>
+            <span class="text-[10px] text-slate-400 block mt-0.5">Média por relógio (acervo todo)</span>
+          </div>
+        </div>
+
+        <div class="card-navy p-3 sm:p-3.5 rounded-xl col-span-2 md:col-span-1">
+          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Ocupação das Caixas</span>
+          <div class="flex items-baseline gap-1.5 mt-1">
+            <span id="metric-ocupacao" class="text-base sm:text-xl font-bold text-amber-500">0%</span>
+            <span id="metric-vagas-texto" class="text-[11px] text-slate-400 truncate">0 / 0 slots</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BLOCO 3: GRÁFICOS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card-navy p-4 rounded-xl">
+          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-3 tracking-wider flex items-center gap-2">
+            <i data-lucide="pie-chart" class="w-4 h-4"></i> Distribuição por Marca
           </h4>
-          <div class="h-60 flex items-center justify-center">
+          <div class="h-64 flex items-center justify-center">
             <canvas id="chartMarcas"></canvas>
           </div>
         </div>
 
-        <div class="card-navy p-3.5 sm:p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-2.5 tracking-wider flex items-center gap-1.5">
-            <i data-lucide="compass" class="w-3.5 h-3.5"></i> Estilos e Categorias
+        <div class="card-navy p-4 rounded-xl">
+          <h4 class="text-xs uppercase font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-3 tracking-wider flex items-center gap-2">
+            <i data-lucide="compass" class="w-4 h-4"></i> Estilos e Categorias
           </h4>
-          <div class="h-60 flex items-center justify-center">
+          <div class="h-64 flex items-center justify-center">
             <canvas id="chartTipos"></canvas>
           </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4">
-        <div class="md:col-span-5 card-navy p-3.5 sm:p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-emerald-600 dark:text-emerald-400 mb-2.5 tracking-wider flex items-center gap-1.5">
-            <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Mecanismos / Calibres
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <div class="md:col-span-5 card-navy p-4 rounded-xl">
+          <h4 class="text-xs uppercase font-serif-lux font-bold text-emerald-600 dark:text-emerald-400 mb-3 tracking-wider flex items-center gap-2">
+            <i data-lucide="cpu" class="w-4 h-4"></i> Mecanismos / Calibres
           </h4>
-          <div class="h-60 flex items-center justify-center">
+          <div class="h-64 flex items-center justify-center">
             <canvas id="chartMovimentos"></canvas>
           </div>
         </div>
 
-        <div class="md:col-span-7 card-navy p-3.5 sm:p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-2.5 tracking-wider flex items-center gap-1.5">
-            <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Top Valores Investidos (R$)
-          </h4>
-          <div class="h-60">
+        <div class="md:col-span-7 card-navy p-4 rounded-xl">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 tracking-wider flex items-center gap-2">
+              <i data-lucide="trending-up" class="w-4 h-4"></i> Top Valores do Acervo (R$)
+            </h4>
+            <div class="flex items-center gap-2 text-[10px]">
+              <span class="flex items-center gap-1 text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span> Compra</span>
+              <span class="flex items-center gap-1 text-purple-400"><span class="w-2 h-2 rounded-full bg-purple-400 inline-block"></span> Presente</span>
+            </div>
+          </div>
+          <div class="h-64">
             <canvas id="chartValores"></canvas>
           </div>
         </div>
@@ -354,96 +405,106 @@
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div class="sm:col-span-4">
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Marca *</label>
-            <input required type="text" id="marca" placeholder="Ex: BVLGARI" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input required type="text" id="marca" placeholder="Ex: Pagani Design" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div class="sm:col-span-5">
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Modelo *</label>
-            <input required type="text" id="modelo" placeholder="Ex: Aluminium" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input required type="text" id="modelo" placeholder="Ex: PD1762 GMT" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div class="sm:col-span-3">
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Tipo</label>
-            <input type="text" id="tipo" placeholder="Ex: Cronógrafo" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="tipo" placeholder="Ex: Sport, Diver" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-          <div>
-            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Data de Entrada *</label>
-            <input required type="date" id="data_compra" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
-          </div>
-          <div>
-            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Valor Pago (R$)</label>
-            <input type="number" step="0.01" id="valor" placeholder="0.00" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
-          </div>
-          <div>
-            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Origem / Quem Deu</label>
-            <input type="text" id="origem" placeholder="Ex: Compra / Presente" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
-          </div>
-          <div>
-            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Ordem Manual (Opcional)</label>
-            <input type="number" id="ordem" placeholder="Auto por data" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
-          </div>
-        </div>
-
+        <!-- Seção de Aquisição & Finanças -->
         <div class="bg-slate-50 dark:bg-[#070e1a] p-3 rounded-lg border border-slate-200 dark:border-[#162740]">
-          <label class="text-sky-600 dark:text-sky-300 font-semibold block mb-2 text-[11px] uppercase tracking-wide">Avaliação & Mecanismo</label>
+          <label class="text-emerald-600 dark:text-emerald-400 font-semibold block mb-2 text-[11px] uppercase tracking-wide flex items-center gap-1.5">
+            <i data-lucide="badge-dollar-sign" class="w-3.5 h-3.5"></i> Informações Patrimoniais
+          </label>
           <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
             <div class="sm:col-span-3">
-              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Ícone</label>
-              <select id="rating-tipo" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
-                <option value="star">Estrelas (★)</option>
-                <option value="dollar">Cifrões ($)</option>
-                <option value="heart">Corações (♥)</option>
+              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Tipo de Entrada *</label>
+              <select id="tipo_aquisicao" onchange="atualizarLabelValorForm()" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none font-medium">
+                <option value="compra">Compra Pessoal</option>
+                <option value="presente">Presente Ganho</option>
               </select>
             </div>
             <div class="sm:col-span-3">
-              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Nota</label>
-              <select id="rating-valor" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
-                <option value="5">5 de 5</option>
-                <option value="4">4 de 5</option>
-                <option value="3">3 de 5</option>
-                <option value="2">2 de 5</option>
-                <option value="1">1 de 5</option>
-              </select>
+              <label id="label-valor-form" class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Valor Pago (R$)</label>
+              <input type="number" step="0.01" id="valor" placeholder="0.00" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none font-semibold">
             </div>
-            <div class="sm:col-span-6">
-              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Maquinário / Calibre *</label>
-              <input required type="text" id="calibre" placeholder="Ex: Quartzo / TMI NH34A" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
+            <div class="sm:col-span-4">
+              <label id="label-origem-form" class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Origem / Quem Deu</label>
+              <input type="text" id="origem" placeholder="Ex: Loja Oficial ou Esposa" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
             </div>
+            <div class="sm:col-span-2">
+              <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Data de Entrada *</label>
+              <input required type="date" id="data_compra" class="w-full bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+          <div class="sm:col-span-3">
+            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Ordem Manual</label>
+            <input type="number" id="ordem" placeholder="Auto por data" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+          </div>
+          <div class="sm:col-span-3">
+            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Ícone Avaliação</label>
+            <select id="rating-tipo" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
+              <option value="star">Estrelas (★)</option>
+              <option value="dollar">Cifrões ($)</option>
+              <option value="heart">Corações (♥)</option>
+            </select>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Nota</label>
+            <select id="rating-valor" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-800 dark:text-white focus:border-sky-500 outline-none">
+              <option value="5">5 de 5</option>
+              <option value="4">4 de 5</option>
+              <option value="3">3 de 5</option>
+              <option value="2">2 de 5</option>
+              <option value="1">1 de 5</option>
+            </select>
+          </div>
+          <div class="sm:col-span-4">
+            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Maquinário / Calibre *</label>
+            <input required type="text" id="calibre" placeholder="Ex: Automático TMI NH34A" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Cor do Mostrador</label>
-            <input type="text" id="cor_mostrador" placeholder="Ex: Branco / Prata" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="cor_mostrador" placeholder="Ex: Preto, Sunburst Azul" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Diâmetro Caixa</label>
-            <input type="text" id="diametro" placeholder="Ex: 38mm / 40mm" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="diametro" placeholder="Ex: 40mm" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Cor da Caixa</label>
-            <input type="text" id="cor_caixa" placeholder="Ex: Alumínio / Titânio" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="cor_caixa" placeholder="Ex: Aço / Prata" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Cor do Bisel</label>
-            <input type="text" id="cor_bisel" placeholder="Ex: Preto BVLGARI" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="cor_bisel" placeholder="Ex: Preto e Azul" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Material Pulseira</label>
-            <input type="text" id="material_correia" placeholder="Ex: Borracha" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="material_correia" placeholder="Ex: Silicone" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Tipo Pulseira</label>
-            <input type="text" id="tipo_correia" placeholder="Ex: Articulada" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="tipo_correia" placeholder="Ex: Flexível" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Cor Pulseira</label>
-            <input type="text" id="cor_correia" placeholder="Ex: Preta" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
+            <input type="text" id="cor_correia" placeholder="Ex: Laranja" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
           <div>
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Tipo de Fecho</label>
@@ -464,12 +525,12 @@
 
         <div>
           <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Descrição Técnica</label>
-          <textarea id="descricao" rows="3" placeholder="Detalhes de acabamento, complicação, resistência à água..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea>
+          <textarea id="descricao" rows="3" placeholder="Bisel escala 24 horas, Movimento automático TMI NH34A..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea>
         </div>
 
         <div>
           <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">História Pessoal</label>
-          <textarea id="historia" rows="2" placeholder="Como comprei ou ganhei..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea>
+          <textarea id="historia" rows="2" placeholder="Primeiro relógio sport..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea>
         </div>
 
         <button type="submit" id="btn-salvar" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-3 rounded-lg transition tracking-widest uppercase text-xs">
@@ -590,201 +651,47 @@
     </div>
   </div>
 
-  <footer class="border-t border-slate-200/80 dark:border-[#132238] py-3 text-center text-[11px] text-slate-400 dark:text-slate-500">
-    MyWatches &copy; Desde 2026.
+  <footer class="border-t border-slate-200 dark:border-[#132238] py-3.5 text-center text-xs text-slate-400 dark:text-slate-500">
+    MyWatches &copy; Coleção Pessoal
   </footer>
 
   <script>
-    let bancoDados = { relogios: [], caixas: [] };
-    let fileSha = "";
-    let abaAtiva = 'relogios';
-    
-    // Modo de visualização: 'grid-1' (original), 'grid-2', 'grid-3', 'list'
-    let modoVisualizacao = localStorage.getItem('mywatches_view_mode') || 'grid-1';
+    // --- ESTADO GLOBAL & VARIÁVEIS ---
+    let relogios = [];
+    let caixas = [];
+    let abaAtiva = 'relogios'; // 'relogios' | 'caixas' | 'geral'
+    let modoVisualizacao = localStorage.getItem('mywatches_view_mode') || 'grid-2'; // 'grid-1' | 'grid-2' | 'grid-3' | 'list'
+    let fotosTemp = [];
+    let fotosCaixaTemp = [];
+    let filaSincronizacao = JSON.parse(localStorage.getItem('mywatches_sync_queue') || '[]');
+    let chartsInstanciados = {};
 
-    // Fila de pendências locais
-    let pendingChanges = {
-      temPendencia: false,
-      fotosParaEnviar: [],
-      fotosParaExcluir: [],
-    };
-
-    let fotosRelogioAtual = [];
-    let fotosRelogioExcluir = [];
-    let fotosCaixaAtual = [];
-    let fotosCaixaExcluir = [];
-
-    let chartMarcasInst = null;
-    let chartTiposInst = null;
-    let chartValoresInst = null;
-    let chartMovimentosInst = null;
-
-    let deferredPrompt = null;
-
-    const CONFIG = {
-      user: localStorage.getItem('gh_user') || 'tacio-araujo',
-      repo: localStorage.getItem('gh_repo') || 'MyWatches',
-      token: localStorage.getItem('gh_token') || ''
-    };
-
-    window.addEventListener('beforeunload', (e) => {
-      if (pendingChanges.temPendencia) {
-        e.preventDefault();
-        e.returnValue = 'Existem alterações pendentes não sincronizadas com o GitHub. Deseja realmente sair?';
-        return e.returnValue;
-      }
+    // --- INICIALIZAÇÃO ---
+    document.addEventListener('DOMContentLoaded', async () => {
+      aplicarTemaSalvo();
+      configurarZoomGaleria();
+      await carregarDadosIniciais();
+      atualizarContadorSincronizacao();
+      definirModoVisualizacao(modoVisualizacao, false);
+      lucide.createIcons();
+      configurarPWA();
     });
 
-    function atualizarStatusPendencias(alterado = true) {
-      pendingChanges.temPendencia = alterado;
-      const btnSync = document.getElementById('btn-sync-all');
-      const badgeCount = document.getElementById('badge-sync-count');
-
-      const totalPendencias = (pendingChanges.fotosParaEnviar.length + pendingChanges.fotosParaExcluir.length) || (alterado ? 1 : 0);
-
-      if (alterado) {
-        btnSync.classList.remove('hidden');
-        btnSync.classList.add('flex');
-        badgeCount.innerText = totalPendencias;
-      } else {
-        btnSync.classList.add('hidden');
-        btnSync.classList.remove('flex');
-      }
-    }
-
-    function definirModoVisualizacao(modo) {
-      modoVisualizacao = modo;
-      localStorage.setItem('mywatches_view_mode', modo);
-      atualizarBotoesModoVisualizacao();
-      aplicarFiltrosEOrdem();
-    }
-
-    function atualizarBotoesModoVisualizacao() {
-      const botoes = ['grid-1', 'grid-2', 'grid-3', 'list'];
-      botoes.forEach(m => {
-        const btn = document.getElementById(`btn-view-${m}`);
-        if (!btn) return;
-        if (m === modoVisualizacao) {
-          btn.className = "p-1 sm:p-1.5 rounded transition text-xs font-semibold bg-sky-500 text-slate-950 shadow-sm";
-        } else {
-          btn.className = "p-1 sm:p-1.5 rounded transition text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-sky-600 dark:hover:text-sky-300";
-        }
-      });
-    }
-
-    function inicializarTema() {
-      const temaSalvo = localStorage.getItem('theme');
-      if (temaSalvo === 'light') {
-        document.documentElement.classList.remove('dark');
-        document.getElementById('meta-theme-color').setAttribute('content', '#f8fafc');
-      } else {
-        document.documentElement.classList.add('dark');
-        document.getElementById('meta-theme-color').setAttribute('content', '#03060a');
-      }
-    }
-
-    function alternarTema() {
-      const html = document.documentElement;
-      const isDark = html.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      document.getElementById('meta-theme-color').setAttribute('content', isDark ? '#03060a' : '#f8fafc');
-      lucide.createIcons();
-      if (abaAtiva === 'geral') carregarDashboardGeral();
-    }
-
-    inicializarTema();
-
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(reg => console.log('ServiceWorker PWA pronto:', reg.scope))
-          .catch(err => console.log('Falha no PWA SW:', err));
-      });
-    }
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const btn = document.getElementById('btn-pwa-install');
-      if (btn) btn.classList.remove('hidden');
-    });
-
-    function instalarPWA() {
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          const btn = document.getElementById('btn-pwa-install');
-          if (btn) btn.classList.add('hidden');
-        }
-        deferredPrompt = null;
-      });
-    }
-
-    function formatarData(dataStr) {
-      if (!dataStr) return "N/A";
-      const partes = dataStr.split('-');
-      if (partes.length === 3) return `${partes[2]}/${partes[1]}/${partes[0]}`;
-      return dataStr;
-    }
-
-    function alternarAba(aba) {
-      abaAtiva = aba;
-      const btnRelogios = document.getElementById('tab-btn-relogios');
-      const btnCaixas = document.getElementById('tab-btn-caixas');
-      const btnGeral = document.getElementById('tab-btn-geral');
-      const badgeRelogios = document.getElementById('badge-count-relogios');
-      const badgeCaixas = document.getElementById('badge-count-caixas');
-      
-      const viewRelogios = document.getElementById('view-relogios');
-      const viewCaixas = document.getElementById('view-caixas');
-      const viewGeral = document.getElementById('view-geral');
-      const controlesRelogios = document.getElementById('controles-relogios');
-      const labelBtn = document.getElementById('label-btn-adicionar');
-
-      const estiloBaseInativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400 hover:border-slate-400";
-      const estiloAtivoRelogios = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]";
-      const estiloAtivoCaixas = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-amber-500 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.2)]";
-      const estiloAtivoGeral = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]";
-
-      btnRelogios.className = aba === 'relogios' ? estiloAtivoRelogios : estiloBaseInativo;
-      btnCaixas.className = aba === 'caixas' ? estiloAtivoCaixas : estiloBaseInativo;
-      btnGeral.className = aba === 'geral' ? estiloAtivoGeral : estiloBaseInativo;
-
-      badgeRelogios.className = aba === 'relogios' 
-        ? "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold"
-        : "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
-
-      badgeCaixas.className = aba === 'caixas'
-        ? "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold"
-        : "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
-
-      viewRelogios.classList.toggle('hidden', aba !== 'relogios');
-      viewCaixas.classList.toggle('hidden', aba !== 'caixas');
-      viewGeral.classList.toggle('hidden', aba !== 'geral');
-
-      controlesRelogios.classList.toggle('hidden', aba !== 'relogios');
-
-      if (aba === 'relogios') labelBtn.innerText = "Adicionar Relógio";
-      else if (aba === 'caixas') labelBtn.innerText = "Adicionar Caixa";
-      else labelBtn.innerText = "Novo Relógio";
-
-      if (aba === 'geral') carregarDashboardGeral();
-
-      lucide.createIcons();
-    }
-
-    function acaoBotaoAdicionar() {
-      if (abaAtiva === 'caixas') abrirModalCaixa();
-      else abrirModalCadastro();
+    // --- SINCRONIZAÇÃO E CONFIGURAÇÃO GITHUB ---
+    function getGithubConfig() {
+      return {
+        user: localStorage.getItem('mw_gh_user') || '',
+        repo: localStorage.getItem('mw_gh_repo') || '',
+        token: localStorage.getItem('mw_gh_token') || ''
+      };
     }
 
     function abrirModalConfig() {
-      document.getElementById('cfg-user').value = CONFIG.user;
-      document.getElementById('cfg-repo').value = CONFIG.repo;
-      document.getElementById('cfg-token').value = CONFIG.token;
+      const cfg = getGithubConfig();
+      document.getElementById('cfg-user').value = cfg.user;
+      document.getElementById('cfg-repo').value = cfg.repo;
+      document.getElementById('cfg-token').value = cfg.token;
       document.getElementById('modal-config').classList.remove('hidden');
-      lucide.createIcons();
     }
 
     function fecharModalConfig() {
@@ -793,788 +700,768 @@
 
     function salvarConfig(e) {
       e.preventDefault();
-      CONFIG.user = document.getElementById('cfg-user').value.trim();
-      CONFIG.repo = document.getElementById('cfg-repo').value.trim();
-      CONFIG.token = document.getElementById('cfg-token').value.trim();
-
-      localStorage.setItem('gh_user', CONFIG.user);
-      localStorage.setItem('gh_repo', CONFIG.repo);
-      localStorage.setItem('gh_token', CONFIG.token);
-
+      localStorage.setItem('mw_gh_user', document.getElementById('cfg-user').value.trim());
+      localStorage.setItem('mw_gh_repo', document.getElementById('cfg-repo').value.trim());
+      localStorage.setItem('mw_gh_token', document.getElementById('cfg-token').value.trim());
       fecharModalConfig();
-      alert("Credenciais salvas com sucesso!");
+      alert('Configurações salvas localmente!');
     }
 
-    async function carregarDados() {
-      try {
-        const resLocal = await fetch(`relogios.json?t=${Date.now()}`);
-        if (!resLocal.ok) throw new Error("Erro local");
-        const json = await resLocal.json();
-        processarDadosRecebidos(json);
-      } catch (e) {
+    async function carregarDadosIniciais() {
+      // 1. Tentar ler do localStorage primeiro (dados locais mais recentes)
+      const localRelogios = localStorage.getItem('mywatches_relogios');
+      const localCaixas = localStorage.getItem('mywatches_caixas');
+
+      if (localRelogios) {
+        try { relogios = JSON.parse(localRelogios); } catch (e) { relogios = []; }
+      }
+      if (localCaixas) {
+        try { caixas = JSON.parse(localCaixas); } catch (e) { caixas = []; }
+      }
+
+      // 2. Se vazio, tentar carregar dos arquivos JSON do repositório
+      if (relogios.length === 0) {
         try {
-          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`);
-          const data = await res.json();
-          fileSha = data.sha;
-          const decoded = decodeURIComponent(escape(atob(data.content)));
-          processarDadosRecebidos(JSON.parse(decoded));
+          const res = await fetch('relogios.json?t=' + Date.now());
+          if (res.ok) {
+            relogios = await res.json();
+            salvarRelogiosStorage();
+          }
         } catch (err) {
-          bancoDados = { relogios: [], caixas: [] };
+          console.warn('relogios.json não encontrado localmente.');
         }
       }
-      atualizarBotoesModoVisualizacao();
+
+      if (caixas.length === 0) {
+        try {
+          const resC = await fetch('caixas.json?t=' + Date.now());
+          if (resC.ok) {
+            caixas = await resC.json();
+            salvarCaixasStorage();
+          }
+        } catch (err) {
+          console.warn('caixas.json não encontrado localmente.');
+        }
+      }
+
       renderizarTudo();
-      alternarAba('relogios');
     }
 
-    function processarDadosRecebidos(json) {
-      if (Array.isArray(json)) {
-        bancoDados = { relogios: json, caixas: [] };
+    function salvarRelogiosStorage() {
+      localStorage.setItem('mywatches_relogios', JSON.stringify(relogios));
+    }
+
+    function salvarCaixasStorage() {
+      localStorage.setItem('mywatches_caixas', JSON.stringify(caixas));
+    }
+
+    function registrarFilaAlteracao(tipo, acao) {
+      filaSincronizacao.push({ tipo, acao, timestamp: new Date().toISOString() });
+      localStorage.setItem('mywatches_sync_queue', JSON.stringify(filaSincronizacao));
+      atualizarContadorSincronizacao();
+    }
+
+    function atualizarContadorSincronizacao() {
+      const btn = document.getElementById('btn-sync-all');
+      const badge = document.getElementById('badge-sync-count');
+      if (filaSincronizacao.length > 0) {
+        btn.classList.remove('hidden');
+        btn.classList.add('flex');
+        badge.innerText = filaSincronizacao.length;
       } else {
-        bancoDados = {
-          relogios: json.relogios || [],
-          caixas: json.caixas || []
-        };
-      }
-      bancoDados.relogios.forEach(r => {
-        if (!r.fotos && r.foto) r.fotos = [r.foto];
-        if (!r.fotos) r.fotos = [];
-        if (r.ordem === undefined) r.ordem = 999;
-      });
-      bancoDados.caixas.forEach(c => {
-        if (!c.fotos) c.fotos = [];
-      });
-    }
-
-    async function obterShaAtual() {
-      if (!CONFIG.token) return;
-      const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
-        headers: { Authorization: `token ${CONFIG.token}` }
-      });
-      if (res.ok) {
-        const data = await res.json();
-        fileSha = data.sha;
+        btn.classList.add('hidden');
+        btn.classList.remove('flex');
       }
     }
 
-    async function deletarArquivoFisicoGithub(urlFoto) {
-      if (!CONFIG.token || !urlFoto || urlFoto.startsWith('data:')) return;
+    async function sincronizarTudoComGithub() {
+      const cfg = getGithubConfig();
+      if (!cfg.user || !cfg.repo || !cfg.token) {
+        alert('Configure suas credenciais do GitHub (Token PAT) no ícone de engrenagem antes de sincronizar.');
+        abrirModalConfig();
+        return;
+      }
+
+      if (!confirm(`Existem ${filaSincronizacao.length} alterações pendentes. Deseja enviar para o GitHub agora?`)) return;
+
+      const btn = document.getElementById('btn-sync-all');
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> <span>Enviando...</span>`;
+      lucide.createIcons();
+
       try {
-        const match = urlFoto.match(/images\/[^?#]+/);
-        if (!match) return;
-        const filePath = match[0];
+        await commitArquivoGitHub(cfg, 'relogios.json', JSON.stringify(relogios, null, 2), 'Atualização de relógios');
+        await commitArquivoGitHub(cfg, 'caixas.json', JSON.stringify(caixas, null, 2), 'Atualização de caixas');
 
-        const resCheck = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${filePath}`, {
-          headers: { Authorization: `token ${CONFIG.token}` }
-        });
-
-        if (!resCheck.ok) return;
-        const fileData = await resCheck.json();
-
-        await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${filePath}`, {
-          method: 'DELETE',
-          headers: {
-            Authorization: `token ${CONFIG.token}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: `chore: deletar ${filePath}`,
-            sha: fileData.sha
-          })
-        });
+        filaSincronizacao = [];
+        localStorage.removeItem('mywatches_sync_queue');
+        atualizarContadorSincronizacao();
+        iniciarContadorDeploy();
       } catch (err) {
-        console.warn("Falha ao deletar arquivo:", err);
+        alert('Erro ao sincronizar com GitHub:\n' + err.message);
+        btn.disabled = false;
+        atualizarContadorSincronizacao();
       }
     }
 
-    function renderRatingBadge(tipo = 'star', valor = 5, compacto = false) {
-      let icon = '★';
-      let colorClass = 'text-amber-400';
-      if (tipo === 'dollar') { icon = '$'; colorClass = 'text-emerald-400'; }
-      if (tipo === 'heart') { icon = '♥'; colorClass = 'text-rose-400'; }
-
-      const repeticoes = Math.max(1, Math.min(5, parseInt(valor) || 5));
-      if (compacto) {
-        return `
-          <span class="bg-black/75 backdrop-blur px-1 py-0.2 rounded text-[9px] font-bold ${colorClass}">
-            ${icon} ${repeticoes}
-          </span>
-        `;
-      }
-      return `
-        <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2 py-0.5 rounded-full text-[11px] font-bold tracking-wider ${colorClass} z-10 pointer-events-none">
-          ${icon.repeat(repeticoes)}
-        </span>
-      `;
-    }
-
-    function renderizarTudo() {
-      document.getElementById('badge-count-relogios').innerText = bancoDados.relogios.length;
-      document.getElementById('badge-count-caixas').innerText = bancoDados.caixas.length;
-      aplicarFiltrosEOrdem();
-      renderCaixas();
-    }
-
-    function mudarFotoCard(id, direcao, event) {
-      event.stopPropagation();
-      const r = bancoDados.relogios.find(item => item.id === id);
-      if (!r || !r.fotos || r.fotos.length <= 1) return;
-
-      const imgEl = document.getElementById(`card-img-${id}`);
-      const counterEl = document.getElementById(`card-photo-idx-${id}`);
-      let currentIdx = parseInt(imgEl.dataset.idx || '0');
-
-      currentIdx += direcao;
-      if (currentIdx < 0) currentIdx = r.fotos.length - 1;
-      if (currentIdx >= r.fotos.length) currentIdx = 0;
-
-      imgEl.src = r.fotos[currentIdx];
-      imgEl.dataset.idx = currentIdx;
-      if (counterEl) counterEl.innerText = `${currentIdx + 1}/${r.fotos.length}`;
-    }
-
-    function mudarFotoCardCaixa(id, direcao, event) {
-      event.stopPropagation();
-      const c = bancoDados.caixas.find(item => item.id === id);
-      if (!c || !c.fotos || c.fotos.length <= 1) return;
-
-      const imgEl = document.getElementById(`caixa-card-img-${id}`);
-      const counterEl = document.getElementById(`caixa-card-photo-idx-${id}`);
-      let currentIdx = parseInt(imgEl.dataset.idx || '0');
-
-      currentIdx += direcao;
-      if (currentIdx < 0) currentIdx = c.fotos.length - 1;
-      if (currentIdx >= c.fotos.length) currentIdx = 0;
-
-      imgEl.src = c.fotos[currentIdx];
-      imgEl.dataset.idx = currentIdx;
-      if (counterEl) counterEl.innerText = `${currentIdx + 1}/${c.fotos.length}`;
-    }
-
-    // RENDERIZADOR RESPONSIVO DE RELÓGIOS COM OS 4 MODOS
-    function renderRelogios(lista) {
-      const grid = document.getElementById('grid-relogios');
-      
-      if (modoVisualizacao === 'grid-1') {
-        grid.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5";
-      } else if (modoVisualizacao === 'grid-2') {
-        grid.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2.5 sm:gap-4";
-      } else if (modoVisualizacao === 'grid-3') {
-        grid.className = "grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3";
-      } else if (modoVisualizacao === 'list') {
-        grid.className = "flex flex-col gap-2 sm:gap-2.5";
-      }
-
-      if (lista.length === 0) {
-        grid.innerHTML = `
-          <div class="col-span-full py-16 text-center text-slate-500">
-            <i data-lucide="watch" class="w-10 h-10 mx-auto mb-2 opacity-40"></i>
-            <p>Nenhum relógio encontrado.</p>
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
-      grid.innerHTML = lista.map((r) => {
-        const fotosQtd = r.fotos ? r.fotos.length : 0;
-        const fotoPrincipal = fotosQtd > 0 ? r.fotos[0] : 'https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto';
-
-        // 1 CARD POR LINHA (Padrão Original do Print)
-        if (modoVisualizacao === 'grid-1') {
-          return `
-            <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between">
-              <div class="relative h-60 sm:h-64 overflow-hidden bg-slate-900 flex items-center justify-center group">
-                <img id="card-img-${r.id}" data-idx="0" src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover transition duration-500" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
-                ${renderRatingBadge(r.rating_tipo, r.rating_valor)}
-                ${r.tipo ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded tracking-wide z-10">${r.tipo}</span>` : ''}
-
-                ${fotosQtd > 1 ? `
-                  <button onclick="mudarFotoCard('${r.id}', -1, event)" title="Foto Anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-2 sm:p-1.5 rounded-full backdrop-blur-sm transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100 z-20">
-                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                  </button>
-                  <button onclick="mudarFotoCard('${r.id}', 1, event)" title="Próxima Foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-2 sm:p-1.5 rounded-full backdrop-blur-sm transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100 z-20">
-                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                  </button>
-                  <span id="card-photo-idx-${r.id}" class="absolute bottom-2.5 right-2.5 bg-black/70 backdrop-blur text-[9px] text-slate-300 px-1.5 py-0.5 rounded font-mono z-10 pointer-events-none">1/${fotosQtd}</span>
-                ` : ''}
-              </div>
-
-              <div class="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
-                <div>
-                  <div class="flex justify-between items-baseline">
-                    <p class="text-[11px] uppercase tracking-widest text-sky-600 dark:text-sky-400 font-bold">${r.marca}</p>
-                    <span class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">${r.calibre || ''}</span>
-                  </div>
-                  <h3 class="text-sm font-semibold text-slate-900 dark:text-white tracking-tight mt-0.5">${r.modelo}</h3>
-                  
-                  <div class="mt-2 text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-                    <i data-lucide="calendar" class="w-3.5 h-3.5 text-sky-500"></i>
-                    <span>Entrou para a coleção: <strong class="text-slate-800 dark:text-slate-200 font-medium">${formatarData(r.data_compra)}</strong></span>
-                  </div>
-                </div>
-
-                <div class="mt-3.5 pt-3 border-t border-slate-200 dark:border-[#132238] flex items-center gap-1.5">
-                  <button onclick="abrirGaleriaRelogio('${r.id}')" title="Fotos & Zoom" class="flex-1 bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-sky-400 text-slate-700 dark:text-slate-200 hover:text-sky-600 dark:hover:text-sky-300 text-[11px] py-1.5 px-1.5 rounded-lg transition flex items-center justify-center gap-1">
-                    <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
-                    <span>Fotos</span>
-                  </button>
-                  <button onclick="abrirDetalhes('${r.id}')" title="Ficha Técnica" class="flex-1 bg-sky-100 dark:bg-sky-950/40 border border-sky-300 dark:border-sky-600/40 hover:bg-sky-200 dark:hover:bg-sky-900/40 text-sky-800 dark:text-sky-300 text-[11px] py-1.5 px-1.5 rounded-lg transition flex items-center justify-center gap-1">
-                    <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-                    <span>Ficha</span>
-                  </button>
-                  <button onclick="editarRelogio('${r.id}')" title="Editar Relógio" class="bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-sky-400 text-slate-500 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-300 p-1.5 rounded-lg transition flex items-center justify-center">
-                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                  </button>
-                  <button onclick="removerRelogio('${r.id}')" title="Remover Relógio" class="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 hover:bg-red-100 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 p-1.5 rounded-lg transition flex items-center justify-center">
-                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        // 2 CARDS POR LINHA (Compacto e Equilibrado)
-        if (modoVisualizacao === 'grid-2') {
-          return `
-            <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between">
-              <div class="relative h-36 sm:h-44 overflow-hidden bg-slate-900 flex items-center justify-center group">
-                <img id="card-img-${r.id}" data-idx="0" src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover cursor-pointer" onclick="abrirGaleriaRelogio('${r.id}')" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
-                <div class="absolute top-1.5 right-1.5">
-                  ${renderRatingBadge(r.rating_tipo, r.rating_valor, true)}
-                </div>
-                ${fotosQtd > 1 ? `
-                  <button onclick="mudarFotoCard('${r.id}', -1, event)" class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/60 text-white p-1 rounded-full opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition z-20">
-                    <i data-lucide="chevron-left" class="w-3 h-3"></i>
-                  </button>
-                  <button onclick="mudarFotoCard('${r.id}', 1, event)" class="absolute right-1 top-1/2 -translate-y-1/2 bg-black/60 text-white p-1 rounded-full opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition z-20">
-                    <i data-lucide="chevron-right" class="w-3 h-3"></i>
-                  </button>
-                ` : ''}
-              </div>
-
-              <div class="p-2 sm:p-2.5 flex-1 flex flex-col justify-between">
-                <div>
-                  <p class="text-[9px] uppercase tracking-wider text-sky-600 dark:text-sky-400 font-bold truncate">${r.marca}</p>
-                  <h3 class="text-xs font-semibold text-slate-900 dark:text-white truncate">${r.modelo}</h3>
-                  <span class="text-[9px] text-slate-400 block truncate mt-0.5">${formatarData(r.data_compra)}</span>
-                </div>
-
-                <div class="mt-2 pt-2 border-t border-slate-200 dark:border-[#132238] flex items-center justify-between gap-1">
-                  <button onclick="abrirDetalhes('${r.id}')" title="Ficha Técnica" class="flex-1 bg-sky-100 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 py-1 rounded text-[10px] font-medium flex items-center justify-center gap-0.5">
-                    <i data-lucide="file-text" class="w-3 h-3"></i> Ficha
-                  </button>
-                  <button onclick="editarRelogio('${r.id}')" title="Editar" class="p-1 text-slate-400 hover:text-sky-400">
-                    <i data-lucide="edit-3" class="w-3 h-3"></i>
-                  </button>
-                  <button onclick="removerRelogio('${r.id}')" title="Excluir" class="p-1 text-red-400 hover:text-red-300">
-                    <i data-lucide="trash-2" class="w-3 h-3"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        // 3 CARDS POR LINHA (Mosaico / Grade Ultra-Densa)
-        if (modoVisualizacao === 'grid-3') {
-          return `
-            <div class="card-navy rounded-lg overflow-hidden flex flex-col justify-between">
-              <div class="relative h-24 sm:h-32 overflow-hidden bg-slate-900 cursor-pointer" onclick="abrirDetalhes('${r.id}')">
-                <img src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
-                <div class="absolute top-1 right-1">
-                  ${renderRatingBadge(r.rating_tipo, r.rating_valor, true)}
-                </div>
-              </div>
-
-              <div class="p-1.5 flex flex-col justify-between">
-                <div>
-                  <p class="text-[8px] uppercase tracking-tighter text-sky-500 font-bold truncate">${r.marca}</p>
-                  <h4 class="text-[10px] font-semibold text-slate-900 dark:text-white truncate">${r.modelo}</h4>
-                </div>
-
-                <div class="mt-1 flex items-center justify-between pt-1 border-t border-slate-200 dark:border-[#132238]">
-                  <button onclick="abrirGaleriaRelogio('${r.id}')" title="Fotos" class="text-sky-500 hover:opacity-80 p-0.5">
-                    <i data-lucide="images" class="w-3 h-3"></i>
-                  </button>
-                  <button onclick="editarRelogio('${r.id}')" title="Editar" class="text-slate-400 hover:text-sky-400 p-0.5">
-                    <i data-lucide="edit-3" class="w-3 h-3"></i>
-                  </button>
-                  <button onclick="removerRelogio('${r.id}')" title="Excluir" class="text-red-400 hover:text-red-300 p-0.5">
-                    <i data-lucide="trash-2" class="w-3 h-3"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        // MODO LISTA HORIZONTAL
-        if (modoVisualizacao === 'list') {
-          return `
-            <div class="card-navy rounded-xl p-2 sm:p-2.5 flex items-center justify-between gap-2.5">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <img src="${fotoPrincipal}" alt="${r.modelo}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover bg-slate-900 flex-shrink-0 cursor-pointer" onclick="abrirGaleriaRelogio('${r.id}')" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
-                
-                <div class="min-w-0">
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-[10px] uppercase tracking-wider text-sky-600 dark:text-sky-400 font-bold truncate">${r.marca}</span>
-                    ${renderRatingBadge(r.rating_tipo, r.rating_valor, true)}
-                  </div>
-                  <h3 class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white truncate cursor-pointer hover:text-sky-500" onclick="abrirDetalhes('${r.id}')">${r.modelo}</h3>
-                  
-                  <div class="flex flex-wrap items-center gap-x-2 text-[10px] text-slate-400 mt-0.5">
-                    <span>${formatarData(r.data_compra)}</span>
-                    ${r.calibre ? `<span class="hidden sm:inline font-mono text-slate-300 dark:text-slate-400">• ${r.calibre}</span>` : ''}
-                    ${r.valor ? `<span class="text-emerald-500 font-semibold">• ${r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>` : ''}
-                  </div>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
-                <button onclick="abrirGaleriaRelogio('${r.id}')" title="Fotos" class="p-1.5 rounded-lg bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] text-slate-600 dark:text-slate-300 hover:text-sky-500">
-                  <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
-                </button>
-                <button onclick="abrirDetalhes('${r.id}')" title="Ficha" class="p-1.5 rounded-lg bg-sky-100 dark:bg-sky-950/40 border border-sky-300 dark:border-sky-600/40 text-sky-700 dark:text-sky-300">
-                  <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-                </button>
-                <button onclick="editarRelogio('${r.id}')" title="Editar" class="p-1.5 rounded-lg bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] text-slate-400 hover:text-sky-500">
-                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                </button>
-                <button onclick="removerRelogio('${r.id}')" title="Excluir" class="p-1.5 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 text-red-500 hover:bg-red-100">
-                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-            </div>
-          `;
-        }
-      }).join('');
-      
-      lucide.createIcons();
-    }
-
-    function renderCaixas() {
-      const grid = document.getElementById('grid-caixas');
-      if (bancoDados.caixas.length === 0) {
-        grid.innerHTML = `
-          <div class="col-span-full py-16 text-center text-slate-500">
-            <i data-lucide="package" class="w-10 h-10 mx-auto mb-2 opacity-40"></i>
-            <p>Nenhuma caixa catalogada.</p>
-            <button onclick="abrirModalCaixa()" class="mt-2 text-amber-500 hover:underline text-xs">Adicionar a primeira caixa</button>
-          </div>
-        `;
-        lucide.createIcons();
-        return;
-      }
-
-      grid.innerHTML = bancoDados.caixas.map((c) => {
-        const fotosQtd = c.fotos ? c.fotos.length : 0;
-        const fotoCapa = fotosQtd > 0 ? c.fotos[0] : 'https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto';
-        return `
-        <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between">
-          <div class="relative h-60 sm:h-64 overflow-hidden bg-slate-900 flex items-center justify-center group">
-            <img id="caixa-card-img-${c.id}" data-idx="0" src="${fotoCapa}" alt="${c.nome}" class="w-full h-full object-cover transition duration-500" onerror="this.src='https://placehold.co/800x500/0a1322/38bdf8?text=Sem+Foto'">
-            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2.5 py-1 rounded-full text-[10px] font-semibold text-amber-300 z-10">
-              ${c.capacidade} Posições
-            </span>
-            ${c.status ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded z-10">${c.status}</span>` : ''}
-
-            ${fotosQtd > 1 ? `
-              <button onclick="mudarFotoCardCaixa('${c.id}', -1, event)" title="Foto Anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-2 sm:p-1.5 rounded-full backdrop-blur-sm transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100 z-20">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="mudarFotoCardCaixa('${c.id}', 1, event)" title="Próxima Foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-2 sm:p-1.5 rounded-full backdrop-blur-sm transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100 z-20">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
-              <span id="caixa-card-photo-idx-${c.id}" class="absolute bottom-2.5 right-2.5 bg-black/70 backdrop-blur text-[9px] text-slate-300 px-1.5 py-0.5 rounded font-mono z-10 pointer-events-none">1/${fotosQtd}</span>
-            ` : ''}
-          </div>
-
-          <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <h3 class="text-base font-semibold text-slate-900 dark:text-white tracking-tight">${c.nome}</h3>
-              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1.5">
-                <i data-lucide="calendar" class="w-3.5 h-3.5 text-amber-500"></i>
-                Início: <strong class="text-slate-800 dark:text-slate-200">${formatarData(c.data_aquisicao)}</strong>
-              </p>
-              ${c.observacoes ? `<p class="text-[11px] text-slate-600 dark:text-slate-400 mt-2 line-clamp-2">${c.observacoes}</p>` : ''}
-            </div>
-
-            <div class="mt-3.5 pt-3 border-t border-slate-200 dark:border-[#132238] flex items-center gap-2">
-              <button onclick="abrirGaleriaCaixa('${c.id}')" class="flex-1 bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-amber-400 text-slate-700 dark:text-slate-200 hover:text-amber-600 dark:hover:text-amber-300 text-xs py-2 rounded-lg transition flex items-center justify-center gap-1.5">
-                <i data-lucide="images" class="w-3.5 h-3.5"></i>
-                <span>Ver Evolução (${c.fotos.length})</span>
-              </button>
-              <button onclick="editarCaixa('${c.id}')" title="Editar Caixa" class="bg-slate-100 dark:bg-[#0b1626] border border-slate-200 dark:border-[#1b2f4d] hover:border-amber-400 text-slate-500 dark:text-slate-400 hover:text-amber-500 dark:hover:text-amber-300 p-2 rounded-lg transition flex items-center justify-center">
-                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-              </button>
-              <button onclick="removerCaixa('${c.id}')" title="Remover Caixa" class="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 hover:bg-red-100 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 p-2 rounded-lg transition flex items-center justify-center">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function carregarDashboardGeral() {
-      const relogios = bancoDados.relogios;
-      const caixas = bancoDados.caixas;
-      const isDark = document.documentElement.classList.contains('dark');
-      const textColor = isDark ? '#94a3b8' : '#475569';
-      const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)';
-      const borderColor = isDark ? '#0b1424' : '#ffffff';
-
-      const luxPalette = ['#38bdf8', '#d4af37', '#10b981', '#94a3b8', '#f59e0b', '#818cf8', '#be185d', '#64748b'];
-
-      const totalPecas = relogios.length;
-      const valorTotal = relogios.reduce((acc, r) => acc + (parseFloat(r.valor) || 0), 0);
-      const valorMedio = totalPecas > 0 ? valorTotal / totalPecas : 0;
-      const capacidadeTotal = caixas.reduce((acc, c) => acc + (parseInt(c.capacidade) || 0), 0);
-      const ocupacaoPct = capacidadeTotal > 0 ? Math.round((totalPecas / capacidadeTotal) * 100) : 0;
-
-      document.getElementById('metric-total-relogios').innerText = totalPecas;
-      document.getElementById('metric-valor-total').innerText = valorTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      document.getElementById('metric-valor-medio').innerText = valorMedio.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      document.getElementById('metric-ocupacao').innerText = `${ocupacaoPct}%`;
-      document.getElementById('metric-vagas-texto').innerText = `${totalPecas} / ${capacidadeTotal} slots`;
-
-      // 1. Marcas
-      const contagemMarcas = {};
-      relogios.forEach(r => {
-        const m = (r.marca || 'Outros').toUpperCase();
-        contagemMarcas[m] = (contagemMarcas[m] || 0) + 1;
-      });
-
-      if (chartMarcasInst) chartMarcasInst.destroy();
-      const ctxMarcas = document.getElementById('chartMarcas').getContext('2d');
-      chartMarcasInst = new Chart(ctxMarcas, {
-        type: 'doughnut',
-        data: {
-          labels: Object.keys(contagemMarcas),
-          datasets: [{
-            data: Object.values(contagemMarcas),
-            backgroundColor: luxPalette,
-            borderColor: borderColor,
-            borderWidth: 2,
-            hoverOffset: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          cutout: '72%',
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                color: textColor,
-                boxWidth: 8,
-                boxHeight: 8,
-                usePointStyle: true,
-                pointStyle: 'circle',
-                font: { size: 10, family: 'Inter' },
-                padding: 12
-              }
-            }
-          }
-        }
-      });
-
-      // 2. Estilos
-      const contagemTipos = {};
-      relogios.forEach(r => {
-        const t = r.tipo ? r.tipo.trim() : 'Geral';
-        contagemTipos[t] = (contagemTipos[t] || 0) + 1;
-      });
-
-      if (chartTiposInst) chartTiposInst.destroy();
-      const ctxTipos = document.getElementById('chartTipos').getContext('2d');
-      chartTiposInst = new Chart(ctxTipos, {
-        type: 'doughnut',
-        data: {
-          labels: Object.keys(contagemTipos),
-          datasets: [{
-            data: Object.values(contagemTipos),
-            backgroundColor: ['#d4af37', '#38bdf8', '#10b981', '#f59e0b', '#94a3b8', '#ec4899'],
-            borderColor: borderColor,
-            borderWidth: 2,
-            hoverOffset: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          cutout: '72%',
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                color: textColor,
-                boxWidth: 8,
-                boxHeight: 8,
-                usePointStyle: true,
-                pointStyle: 'circle',
-                font: { size: 10, family: 'Inter' },
-                padding: 12
-              }
-            }
-          }
-        }
-      });
-
-      // 3. Mecanismos
-      const contagemMovimentos = { 'Automático': 0, 'Quartzo': 0, 'Manual': 0, 'Outros': 0 };
-      relogios.forEach(r => {
-        const cal = (r.calibre || '').toLowerCase();
-        if (cal.includes('autom') || cal.includes('nh34') || cal.includes('nh35') || cal.includes('miyota')) {
-          contagemMovimentos['Automático']++;
-        } else if (cal.includes('quart') || cal.includes('bateria')) {
-          contagemMovimentos['Quartzo']++;
-        } else if (cal.includes('manual') || cal.includes('corda')) {
-          contagemMovimentos['Manual']++;
-        } else {
-          contagemMovimentos['Outros']++;
-        }
-      });
-
-      Object.keys(contagemMovimentos).forEach(k => {
-        if (contagemMovimentos[k] === 0) delete contagemMovimentos[k];
-      });
-
-      if (chartMovimentosInst) chartMovimentosInst.destroy();
-      const ctxMovimentos = document.getElementById('chartMovimentos').getContext('2d');
-      chartMovimentosInst = new Chart(ctxMovimentos, {
-        type: 'doughnut',
-        data: {
-          labels: Object.keys(contagemMovimentos),
-          datasets: [{
-            data: Object.values(contagemMovimentos),
-            backgroundColor: ['#10b981', '#38bdf8', '#d4af37', '#94a3b8'],
-            borderColor: borderColor,
-            borderWidth: 2,
-            hoverOffset: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          cutout: '72%',
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                color: textColor,
-                boxWidth: 8,
-                boxHeight: 8,
-                usePointStyle: true,
-                pointStyle: 'circle',
-                font: { size: 10, family: 'Inter' },
-                padding: 12
-              }
-            }
-          }
-        }
-      });
-
-      // 4. Maiores Valores
-      const pecasOrdenadasValor = [...relogios]
-        .filter(r => (parseFloat(r.valor) || 0) > 0)
-        .sort((a, b) => (b.valor || 0) - (a.valor || 0))
-        .slice(0, 7);
-
-      if (chartValoresInst) chartValoresInst.destroy();
-      const ctxValores = document.getElementById('chartValores').getContext('2d');
-
-      const gradient = ctxValores.createLinearGradient(0, 0, 0, 240);
-      gradient.addColorStop(0, 'rgba(56, 189, 248, 0.85)');
-      gradient.addColorStop(1, 'rgba(56, 189, 248, 0.08)');
-
-      chartValoresInst = new Chart(ctxValores, {
-        type: 'bar',
-        data: {
-          labels: pecasOrdenadasValor.map(r => `${r.marca} ${r.modelo}`.substring(0, 13)),
-          datasets: [{
-            label: 'Valor (R$)',
-            data: pecasOrdenadasValor.map(r => r.valor),
-            backgroundColor: gradient,
-            borderColor: '#38bdf8',
-            borderWidth: { top: 2, right: 0, bottom: 0, left: 0 },
-            borderRadius: { topLeft: 6, topRight: 6 },
-            barPercentage: 0.55
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              grid: { color: gridColor, drawBorder: false },
-              ticks: { color: textColor, font: { size: 9 }, callback: val => `R$ ${val}` }
-            },
-            x: {
-              grid: { display: false, drawBorder: false },
-              ticks: { color: textColor, font: { size: 9 } }
-            }
-          },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: isDark ? 'rgba(11, 20, 36, 0.95)' : 'rgba(255, 255, 255, 0.95)',
-              titleColor: isDark ? '#ffffff' : '#0f172a',
-              bodyColor: isDark ? '#38bdf8' : '#0284c7',
-              borderColor: isDark ? '#1e3860' : '#cbd5e1',
-              borderWidth: 1,
-              padding: 10,
-              callbacks: {
-                label: (context) => ` R$ ${context.parsed.y.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`
-              }
-            }
-          }
-        }
-      });
-    }
-
-    function abrirGaleriaRelogio(id) {
-      const r = bancoDados.relogios.find(item => item.id === id);
-      if (!r || !r.fotos || r.fotos.length === 0) return alert("Nenhuma foto disponível.");
-      exibirModalGaleria(r.marca, r.modelo, r.fotos);
-    }
-
-    function abrirGaleriaCaixa(id) {
-      const c = bancoDados.caixas.find(item => item.id === id);
-      if (!c || !c.fotos || c.fotos.length === 0) return alert("Nenhuma foto cadastrada.");
-      exibirModalGaleria("Evolução da Caixa", c.nome, c.fotos);
-    }
-
-    function exibirModalGaleria(titulo, subtitulo, fotos) {
-      document.getElementById('galeria-marca').innerText = titulo;
-      document.getElementById('galeria-modelo').innerText = subtitulo;
-
-      const imgZoom = document.getElementById('galeria-img-zoom');
-      imgZoom.src = fotos[0];
-
-      const thumbs = document.getElementById('galeria-thumbs');
-      thumbs.innerHTML = fotos.map((url, i) => `
-        <img src="${url}" onclick="selecionarFotoZoom('${url}')" class="w-12 h-12 rounded-lg border ${i === 0 ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} object-cover cursor-pointer hover:border-sky-400 transition flex-shrink-0">
-      `).join('');
-
-      document.getElementById('modal-galeria').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function selecionarFotoZoom(url) {
-      document.getElementById('galeria-img-zoom').src = url;
-      document.querySelectorAll('#galeria-thumbs img').forEach(t => {
-        if (t.src === url) t.classList.add('border-sky-500', 'ring-2', 'ring-sky-500/40');
-        else t.classList.remove('border-sky-500', 'ring-2', 'ring-sky-500/40');
-      });
-    }
-
-    const zoomContainer = document.querySelector('.img-zoom-box');
-    const zoomImg = document.getElementById('galeria-img-zoom');
-    zoomContainer.addEventListener('mousemove', (e) => {
-      const rect = zoomContainer.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      zoomImg.style.transformOrigin = `${x}% ${y}%`;
-    });
-
-    function fecharModalGaleria() {
-      document.getElementById('modal-galeria').classList.add('hidden');
-    }
-
-    function abrirDetalhes(id) {
-      const r = bancoDados.relogios.find(item => item.id === id);
-      if (!r) return;
-
-      document.getElementById('detalhe-marca').innerText = r.marca;
-      document.getElementById('detalhe-modelo').innerText = r.modelo;
-      document.getElementById('detalhe-foto').src = r.fotos[0] || '';
-
-      document.getElementById('btn-ver-todas-fotos').onclick = () => {
-        fecharModalDetalhes();
-        abrirGaleriaRelogio(r.id);
+    async function commitArquivoGitHub(cfg, path, contentStr, commitMessage) {
+      const url = `https://api.github.com/repos/${cfg.user}/${cfg.repo}/contents/${path}`;
+      const headers = {
+        'Authorization': `token ${cfg.token}`,
+        'Accept': 'application/vnd.github.v3+json',
+        'Content-Type': 'application/json'
       };
 
-      const grid = document.getElementById('detalhes-grid');
-      const campos = [
-        { label: 'Tipo', valor: r.tipo },
-        { label: 'Maquinário / Calibre', valor: r.calibre, destaque: true },
-        { label: 'Cor do Mostrador', valor: r.cor_mostrador },
-        { label: 'Diâmetro da Caixa', valor: r.diametro },
-        { label: 'Cor da Caixa', valor: r.cor_caixa },
-        { label: 'Cor do Bisel', valor: r.cor_bisel },
-        { label: 'Material da Correia', valor: r.material_correia },
-        { label: 'Tipo da Correia', valor: r.tipo_correia },
-        { label: 'Cor da Correia', valor: r.cor_correia },
-        { label: 'Tipo de Fecho', valor: r.tipo_fecho },
-        { label: 'Origem / Quem Deu', valor: r.origem },
-        { label: 'Entrou para a coleção em', valor: formatarData(r.data_compra) },
-        { 
-          label: 'Valor Investido', 
-          valor: r.valor ? r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : null,
-          destaqueVerde: true 
+      let sha = null;
+      try {
+        const getRes = await fetch(url, { headers });
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
         }
-      ];
+      } catch (e) {}
 
-      grid.innerHTML = campos
-        .filter(c => c.valor && c.valor.toString().trim() !== '')
-        .map(c => `
-          <div class="flex justify-between py-1 border-b border-slate-200 dark:border-[#14233a]">
-            <span class="text-slate-500 dark:text-slate-400">${c.label}:</span>
-            <span class="${c.destaque ? 'text-sky-600 dark:text-sky-400 font-semibold' : c.destaqueVerde ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-slate-800 dark:text-slate-100'}">${c.valor}</span>
-          </div>
-        `).join('') || '<p class="text-slate-500">Nenhum detalhe especificado.</p>';
+      // Codificação UTF-8 Base64 correta
+      const encodedContent = btoa(unescape(encodeURIComponent(contentStr)));
 
-      const boxDesc = document.getElementById('detalhe-box-descricao');
-      if (r.descricao && r.descricao.trim()) {
-        document.getElementById('detalhe-descricao').innerText = r.descricao;
-        boxDesc.classList.remove('hidden');
-      } else boxDesc.classList.add('hidden');
+      const body = {
+        message: `${commitMessage} via MyWatches WebApp`,
+        content: encodedContent,
+        branch: 'main'
+      };
+      if (sha) body.sha = sha;
 
-      const boxHist = document.getElementById('detalhe-box-historia');
-      if (r.historia && r.historia.trim()) {
-        document.getElementById('detalhe-historia').innerText = r.historia;
-        boxHist.classList.remove('hidden');
-      } else boxHist.classList.add('hidden');
+      const putRes = await fetch(url, {
+        method: 'PUT',
+        headers,
+        body: JSON.stringify(body)
+      });
 
-      document.getElementById('modal-detalhes').classList.remove('hidden');
+      if (!putRes.ok) {
+        const err = await putRes.json();
+        throw new Error(err.message || 'Falha ao salvar ' + path);
+      }
+    }
+
+    function iniciarContadorDeploy() {
+      const modal = document.getElementById('modal-deploy');
+      const counterEl = document.getElementById('deploy-countdown');
+      const barEl = document.getElementById('deploy-progress-bar');
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      let segundos = 15;
+      counterEl.innerText = `${segundos}s`;
+      barEl.style.width = '0%';
+
+      const interval = setInterval(() => {
+        segundos--;
+        counterEl.innerText = `${segundos}s`;
+        const pct = ((15 - segundos) / 15) * 100;
+        barEl.style.width = `${pct}%`;
+
+        if (segundos <= 0) {
+          clearInterval(interval);
+          location.reload();
+        }
+      }, 1000);
+    }
+
+    // --- REGRAS DE AQUISIÇÃO E CLASSIFICAÇÃO (COMPRA X PRESENTE) ---
+    function ehPresente(r) {
+      if (r.tipo_aquisicao) {
+        return r.tipo_aquisicao.toLowerCase() === 'presente';
+      }
+      // Retrocompatibilidade por palavras-chave na origem
+      if (r.origem && typeof r.origem === 'string') {
+        const o = r.origem.toLowerCase();
+        return o.includes('presente') || o.includes('ganhei') || o.includes('ganhado') || o.includes('ganhou');
+      }
+      return false;
+    }
+
+    function getTipoAquisicao(r) {
+      return ehPresente(r) ? 'presente' : 'compra';
+    }
+
+    function atualizarLabelValorForm() {
+      const tipo = document.getElementById('tipo_aquisicao').value;
+      const labelValor = document.getElementById('label-valor-form');
+      const labelOrigem = document.getElementById('label-origem-form');
+
+      if (tipo === 'presente') {
+        labelValor.innerText = 'Valor Estimado / Sentimental (R$)';
+        labelOrigem.innerText = 'Quem Deu / Presente de:';
+      } else {
+        labelValor.innerText = 'Valor Pago (R$)';
+        labelOrigem.innerText = 'Origem / Loja / Vendedor:';
+      }
+    }
+
+    // --- MODOS DE VISUALIZAÇÃO ---
+    function definirModoVisualizacao(modo, aplicarEfeito = true) {
+      modoVisualizacao = modo;
+      localStorage.setItem('mywatches_view_mode', modo);
+
+      const botoes = ['grid-1', 'grid-2', 'grid-3', 'list'];
+      botoes.forEach(b => {
+        const btn = document.getElementById(`btn-view-${b}`);
+        if (!btn) return;
+        if (b === modo) {
+          btn.className = 'p-1 sm:p-1.5 rounded transition text-xs font-semibold bg-sky-500 text-slate-950 dark:bg-sky-500 dark:text-slate-950';
+        } else {
+          btn.className = 'p-1 sm:p-1.5 rounded transition text-xs font-semibold text-slate-400 hover:text-slate-700 dark:hover:text-slate-200';
+        }
+      });
+
+      renderizarRelogios();
+    }
+
+    // --- ALTERNÂNCIA DE ABAS ---
+    function alternarAba(aba) {
+      abaAtiva = aba;
+      const btnRel = document.getElementById('tab-btn-relogios');
+      const btnCaixas = document.getElementById('tab-btn-caixas');
+      const btnGeral = document.getElementById('tab-btn-geral');
+      const controles = document.getElementById('controles-relogios');
+      const btnAdd = document.getElementById('btn-adicionar-principal');
+      const lblAdd = document.getElementById('label-btn-adicionar');
+
+      const secRel = document.getElementById('view-relogios');
+      const secCaixas = document.getElementById('view-caixas');
+      const secGeral = document.getElementById('view-geral');
+
+      // Reset de estilos
+      [btnRel, btnCaixas, btnGeral].forEach(b => {
+        b.className = 'flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition';
+      });
+
+      const activeClass = 'flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider bg-sky-500 text-slate-950 dark:bg-sky-500/20 dark:text-sky-300 dark:border dark:border-sky-500/40 font-bold transition shadow-sm';
+
+      secRel.classList.add('hidden');
+      secCaixas.classList.add('hidden');
+      secGeral.classList.add('hidden');
+      controles.classList.remove('hidden');
+      btnAdd.classList.remove('hidden');
+
+      if (aba === 'relogios') {
+        btnRel.className = activeClass;
+        secRel.classList.remove('hidden');
+        lblAdd.innerText = 'Adicionar Relógio';
+      } else if (aba === 'caixas') {
+        btnCaixas.className = activeClass;
+        secCaixas.classList.remove('hidden');
+        lblAdd.innerText = 'Adicionar Caixa';
+      } else if (aba === 'geral') {
+        btnGeral.className = activeClass;
+        secGeral.classList.remove('hidden');
+        controles.classList.add('hidden');
+        btnAdd.classList.add('hidden');
+        renderizarGeral();
+      }
+
       lucide.createIcons();
     }
 
-    function fecharModalDetalhes() {
-      document.getElementById('modal-detalhes').classList.add('hidden');
+    function acaoBotaoAdicionar() {
+      if (abaAtiva === 'relogios') {
+        abrirModalCadastro();
+      } else if (abaAtiva === 'caixas') {
+        abrirModalCaixa();
+      }
     }
 
+    // --- FORMATAÇÃO AUXILIAR ---
+    function formatarMoeda(v) {
+      const num = parseFloat(v) || 0;
+      return num.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function formatarDataBR(dStr) {
+      if (!dStr) return '-';
+      const parts = dStr.split('-');
+      if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+      return dStr;
+    }
+
+    function renderRatingBadges(rating) {
+      if (!rating || !rating.valor) return '';
+      const v = parseInt(rating.valor) || 0;
+      const t = rating.tipo || 'star';
+      let icon = '★';
+      let cor = 'text-amber-400';
+
+      if (t === 'dollar') { icon = '$'; cor = 'text-emerald-400 font-bold'; }
+      if (t === 'heart') { icon = '♥'; cor = 'text-rose-400'; }
+
+      let out = '';
+      for (let i = 0; i < v; i++) {
+        out += `<span class="${cor}">${icon}</span>`;
+      }
+      return `<div class="flex items-center text-[10px] tracking-tighter" title="${v}/5">${out}</div>`;
+    }
+
+    // --- RENDERIZAÇÃO: RELÓGIOS ---
+    function renderizarTudo() {
+      renderizarRelogios();
+      renderizarCaixas();
+      atualizarBadges();
+      if (abaAtiva === 'geral') renderizarGeral();
+    }
+
+    function atualizarBadges() {
+      document.getElementById('badge-count-relogios').innerText = relogios.length;
+      document.getElementById('badge-count-caixas').innerText = caixas.length;
+    }
+
+    function aplicarFiltrosEOrdem() {
+      renderizarRelogios();
+    }
+
+    document.getElementById('search').addEventListener('input', () => {
+      renderizarRelogios();
+    });
+
+    function getRelogiosFiltrados() {
+      const termo = (document.getElementById('search').value || '').toLowerCase().trim();
+      const sort = document.getElementById('sort-select').value;
+
+      let list = relogios.filter(r => {
+        if (!termo) return true;
+        const texto = `${r.marca} ${r.modelo} ${r.tipo || ''} ${r.calibre || ''} ${r.origem || ''}`.toLowerCase();
+        return texto.includes(termo);
+      });
+
+      list.sort((a, b) => {
+        if (sort === 'data_asc') return (a.data_compra || '').localeCompare(b.data_compra || '');
+        if (sort === 'data_desc') return (b.data_compra || '').localeCompare(a.data_compra || '');
+        if (sort === 'ordem_asc') {
+          const oA = a.ordem !== undefined && a.ordem !== null && a.ordem !== '' ? Number(a.ordem) : 9999;
+          const oB = b.ordem !== undefined && b.ordem !== null && b.ordem !== '' ? Number(b.ordem) : 9999;
+          return oA - oB;
+        }
+        if (sort === 'valor_desc') return (Number(b.valor) || 0) - (Number(a.valor) || 0);
+        if (sort === 'valor_asc') return (Number(a.valor) || 0) - (Number(b.valor) || 0);
+        if (sort === 'marca_asc') return (a.marca || '').localeCompare(b.marca || '');
+        return 0;
+      });
+
+      return list;
+    }
+
+    function renderizarRelogios() {
+      const container = document.getElementById('grid-relogios');
+      const itens = getRelogiosFiltrados();
+
+      if (itens.length === 0) {
+        container.innerHTML = `
+          <div class="card-navy p-10 rounded-2xl text-center col-span-full">
+            <i data-lucide="watch" class="w-10 h-10 text-slate-400 mx-auto mb-2 opacity-50"></i>
+            <p class="text-sm text-slate-400">Nenhum relógio encontrado com estes critérios.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      // Aplica classes de Grid conforme o modo de visualização escolhido
+      if (modoVisualizacao === 'grid-1') {
+        container.className = 'grid grid-cols-1 gap-4 max-w-xl mx-auto';
+      } else if (modoVisualizacao === 'grid-2') {
+        container.className = 'grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto';
+      } else if (modoVisualizacao === 'grid-3') {
+        container.className = 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4';
+      } else if (modoVisualizacao === 'list') {
+        container.className = 'flex flex-col gap-2 max-w-4xl mx-auto';
+      }
+
+      let html = '';
+
+      if (modoVisualizacao === 'list') {
+        // Layout de Linha / Compacto
+        itens.forEach(r => {
+          const presente = ehPresente(r);
+          const fotoCapa = (r.fotos && r.fotos.length > 0) ? r.fotos[0] : 'images/relogiocapa.jpeg';
+          const badgePresente = presente
+            ? `<span class="bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/30 text-[9px] font-semibold px-1.5 py-0.5 rounded flex items-center gap-1"><i data-lucide="gift" class="w-2.5 h-2.5"></i> Presente</span>`
+            : `<span class="bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[9px] font-semibold px-1.5 py-0.5 rounded flex items-center gap-1"><i data-lucide="wallet" class="w-2.5 h-2.5"></i> Compra</span>`;
+
+          html += `
+            <div class="card-navy rounded-xl p-2.5 flex items-center justify-between gap-3 transition">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <img src="${fotoCapa}" alt="${r.modelo}" class="w-12 h-12 object-contain rounded-lg bg-slate-100 dark:bg-[#040810] border border-slate-200 dark:border-[#172b47] p-1 flex-shrink-0 cursor-pointer" onclick="abrirModalGaleria('${r.id}')">
+                <div class="min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-[9px] uppercase font-bold text-sky-600 dark:text-sky-400 font-serif-lux truncate">${r.marca}</span>
+                    ${badgePresente}
+                  </div>
+                  <h3 class="text-xs font-bold text-slate-800 dark:text-slate-100 truncate cursor-pointer hover:text-sky-400" onclick="abrirModalDetalhes('${r.id}')">${r.modelo}</h3>
+                  <div class="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
+                    <span>${formatarDataBR(r.data_compra)}</span>
+                    <span>•</span>
+                    <strong class="${presente ? 'text-purple-500 dark:text-purple-400' : 'text-emerald-500 dark:text-emerald-400'}">${formatarMoeda(r.valor)}</strong>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-1 flex-shrink-0">
+                <button onclick="abrirModalDetalhes('${r.id}')" title="Ver Detalhes" class="p-1.5 text-slate-400 hover:text-sky-400 hover:bg-sky-500/10 rounded-lg transition"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                <button onclick="editarRelogio('${r.id}')" title="Editar" class="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                <button onclick="excluirRelogio('${r.id}')" title="Excluir" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+              </div>
+            </div>
+          `;
+        });
+      } else {
+        // Layouts em Grid (1, 2 ou 3 por linha)
+        itens.forEach(r => {
+          const presente = ehPresente(r);
+          const fotoCapa = (r.fotos && r.fotos.length > 0) ? r.fotos[0] : 'images/relogiocapa.jpeg';
+          const qtdFotos = (r.fotos && r.fotos.length) || 0;
+          const ratingHtml = renderRatingBadges(r.rating);
+          const badgePresente = presente
+            ? `<span class="bg-purple-500/15 text-purple-600 dark:text-purple-300 border border-purple-500/30 text-[9px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm"><i data-lucide="gift" class="w-3 h-3 text-purple-400"></i> Presente</span>`
+            : `<span class="bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 text-[9px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1 shadow-sm"><i data-lucide="wallet" class="w-3 h-3 text-emerald-400"></i> Compra</span>`;
+
+          html += `
+            <div class="card-navy rounded-2xl p-3 sm:p-4 flex flex-col justify-between transition group relative">
+              <!-- Topo do Card -->
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[10px] sm:text-[11px] font-serif-lux font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400 truncate max-w-[55%]">${r.marca}</span>
+                  <div class="flex items-center gap-1.5">
+                    ${badgePresente}
+                    ${ratingHtml}
+                  </div>
+                </div>
+
+                <!-- Foto do Relógio -->
+                <div class="w-full bg-slate-100 dark:bg-[#03060c] border border-slate-200 dark:border-[#162740] rounded-xl overflow-hidden p-2 flex items-center justify-center relative cursor-pointer h-44 sm:h-52 group-hover:border-sky-500/40 transition" onclick="abrirModalGaleria('${r.id}')">
+                  <img src="${fotoCapa}" alt="${r.modelo}" class="max-h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+                  ${qtdFotos > 1 ? `<span class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm text-white text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1"><i data-lucide="camera" class="w-2.5 h-2.5"></i> ${qtdFotos}</span>` : ''}
+                </div>
+
+                <!-- Informações -->
+                <div class="mt-3">
+                  <h3 class="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-100 truncate cursor-pointer hover:text-sky-500" onclick="abrirModalDetalhes('${r.id}')">${r.modelo}</h3>
+                  <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate mt-0.5">${r.calibre || r.tipo || 'Calibre standard'}</p>
+                </div>
+              </div>
+
+              <!-- Rodapé do Card -->
+              <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-[#132238] flex items-center justify-between">
+                <div>
+                  <span class="text-[9px] text-slate-400 block">${presente ? 'Estimativa' : 'Investimento'}</span>
+                  <span class="text-xs sm:text-sm font-bold ${presente ? 'text-purple-600 dark:text-purple-400' : 'text-emerald-600 dark:text-emerald-400'}">${formatarMoeda(r.valor)}</span>
+                </div>
+
+                <div class="flex items-center gap-1">
+                  <button onclick="abrirModalDetalhes('${r.id}')" title="Ficha Técnica" class="p-1.5 text-slate-400 hover:text-sky-400 hover:bg-sky-500/10 rounded-lg transition"><i data-lucide="info" class="w-4 h-4"></i></button>
+                  <button onclick="editarRelogio('${r.id}')" title="Editar" class="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                  <button onclick="excluirRelogio('${r.id}')" title="Excluir" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+      }
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // --- RENDERIZAÇÃO: CAIXAS ---
+    function renderizarCaixas() {
+      const container = document.getElementById('grid-caixas');
+      if (caixas.length === 0) {
+        container.innerHTML = `
+          <div class="card-navy p-10 rounded-2xl text-center col-span-full">
+            <i data-lucide="box" class="w-10 h-10 text-slate-400 mx-auto mb-2 opacity-50"></i>
+            <p class="text-sm text-slate-400">Nenhuma caixa cadastrada. Clique em "Adicionar Caixa" para começar.</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      let html = '';
+      caixas.forEach(c => {
+        const fotoCapa = (c.fotos && c.fotos.length > 0) ? c.fotos[0] : 'images/relogiocapa.jpeg';
+        const qtdFotos = (c.fotos && c.fotos.length) || 0;
+        const cap = parseInt(c.capacidade) || 0;
+
+        html += `
+          <div class="card-navy rounded-2xl p-4 sm:p-5 flex flex-col justify-between transition group">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs uppercase font-serif-lux font-bold text-amber-500 tracking-wider truncate">${c.nome}</span>
+                <span class="bg-amber-500/10 text-amber-500 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">${cap} Slots</span>
+              </div>
+
+              <!-- Foto da Caixa -->
+              <div class="w-full bg-slate-100 dark:bg-[#03060c] border border-slate-200 dark:border-[#162740] rounded-xl overflow-hidden p-2 flex items-center justify-center relative cursor-pointer h-48 group-hover:border-amber-500/40 transition" onclick="abrirModalGaleriaCaixa('${c.id}')">
+                <img src="${fotoCapa}" alt="${c.nome}" class="max-h-full w-auto object-contain transition-transform duration-300 group-hover:scale-105">
+                ${qtdFotos > 1 ? `<span class="absolute bottom-2 right-2 bg-black/70 backdrop-blur-sm text-white text-[9px] font-bold px-1.5 py-0.5 rounded-md flex items-center gap-1"><i data-lucide="camera" class="w-2.5 h-2.5"></i> ${qtdFotos}</span>` : ''}
+              </div>
+
+              <div class="mt-3 space-y-1">
+                <div class="flex items-center justify-between text-[11px] text-slate-400">
+                  <span>Data:</span>
+                  <span class="font-medium text-slate-200">${formatarDataBR(c.data_aquisicao)}</span>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-slate-400">
+                  <span>Status:</span>
+                  <span class="font-medium text-amber-400">${c.status || 'Ativa'}</span>
+                </div>
+                ${c.observacoes ? `<p class="text-[11px] text-slate-400/90 pt-1 leading-relaxed border-t border-slate-100 dark:border-[#132238] mt-2">${c.observacoes}</p>` : ''}
+              </div>
+            </div>
+
+            <div class="mt-4 pt-2.5 border-t border-slate-100 dark:border-[#132238] flex items-center justify-end gap-1">
+              <button onclick="editarCaixa('${c.id}')" title="Editar Caixa" class="p-1.5 text-slate-400 hover:text-amber-400 hover:bg-amber-500/10 rounded-lg transition"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+              <button onclick="excluirCaixa('${c.id}')" title="Excluir Caixa" class="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    // --- RENDERIZAÇÃO: DASHBOARD GERAL & TRÍADE PATRIMONIAL ---
+    function renderizarGeral() {
+      // 1. Cálculos de aquisição
+      let totalInvestido = 0;
+      let qtdComprados = 0;
+      let totalPresentes = 0;
+      let qtdPresentes = 0;
+
+      relogios.forEach(r => {
+        const val = parseFloat(r.valor) || 0;
+        if (ehPresente(r)) {
+          totalPresentes += val;
+          qtdPresentes++;
+        } else {
+          totalInvestido += val;
+          qtdComprados++;
+        }
+      });
+
+      const totalAcervo = totalInvestido + totalPresentes;
+      const totalPecas = relogios.length;
+      const mediaCompras = qtdComprados > 0 ? (totalInvestido / qtdComprados) : 0;
+      const mediaGeral = totalPecas > 0 ? (totalAcervo / totalPecas) : 0;
+
+      let slotsTotais = 0;
+      caixas.forEach(c => { slotsTotais += (parseInt(c.capacidade) || 0); });
+      const ocupacaoPct = slotsTotais > 0 ? Math.min(100, Math.round((totalPecas / slotsTotais) * 100)) : 0;
+
+      // 2. Preenchimento de métricas no DOM
+      document.getElementById('metric-valor-investido').innerText = formatarMoeda(totalInvestido);
+      document.getElementById('metric-qtd-comprados').innerText = `${qtdComprados} un.`;
+
+      document.getElementById('metric-valor-presentes').innerText = formatarMoeda(totalPresentes);
+      document.getElementById('metric-qtd-presentes').innerText = `${qtdPresentes} un.`;
+
+      document.getElementById('metric-valor-total-acervo').innerText = formatarMoeda(totalAcervo);
+      document.getElementById('metric-total-pecas-geral').innerText = `${totalPecas} peças`;
+
+      document.getElementById('metric-valor-medio-compras').innerText = formatarMoeda(mediaCompras);
+      document.getElementById('metric-valor-medio-geral').innerText = formatarMoeda(mediaGeral);
+
+      document.getElementById('metric-ocupacao').innerText = `${ocupacaoPct}%`;
+      document.getElementById('metric-vagas-texto').innerText = `${totalPecas} de ${slotsTotais} slots`;
+
+      // 3. Atualizar Gráficos Chart.js
+      renderizarGraficosDashboard();
+    }
+
+    function renderizarGraficosDashboard() {
+      // Destruir instâncias prévias se existirem
+      Object.keys(chartsInstanciados).forEach(k => {
+        if (chartsInstanciados[k]) chartsInstanciados[k].destroy();
+      });
+
+      const isDark = document.documentElement.classList.contains('dark');
+      const corTexto = isDark ? '#94a3b8' : '#475569';
+      const corGrid = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+
+      // Agrupamento por Marca
+      const marcasMap = {};
+      relogios.forEach(r => {
+        const m = (r.marca || 'Outras').trim();
+        marcasMap[m] = (marcasMap[m] || 0) + 1;
+      });
+
+      // Agrupamento por Tipo/Estilo
+      const tiposMap = {};
+      relogios.forEach(r => {
+        const t = (r.tipo || 'Geral').trim();
+        tiposMap[t] = (tiposMap[t] || 0) + 1;
+      });
+
+      // Agrupamento por Movimento/Calibre
+      const movMap = {};
+      relogios.forEach(r => {
+        const c = (r.calibre || 'Standard').trim();
+        movMap[c] = (movMap[c] || 0) + 1;
+      });
+
+      // 1. Gráfico de Marcas (Doughnut)
+      const ctxMarcas = document.getElementById('chartMarcas');
+      if (ctxMarcas) {
+        chartsInstanciados.marcas = new Chart(ctxMarcas, {
+          type: 'doughnut',
+          data: {
+            labels: Object.keys(marcasMap),
+            datasets: [{
+              data: Object.values(marcasMap),
+              backgroundColor: ['#38bdf8', '#818cf8', '#34d399', '#fbbf24', '#f472b6', '#a78bfa', '#fb923c']
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { color: corTexto, font: { size: 10 } } }
+            }
+          }
+        });
+      }
+
+      // 2. Gráfico de Tipos (PolarArea)
+      const ctxTipos = document.getElementById('chartTipos');
+      if (ctxTipos) {
+        chartsInstanciados.tipos = new Chart(ctxTipos, {
+          type: 'polarArea',
+          data: {
+            labels: Object.keys(tiposMap),
+            datasets: [{
+              data: Object.values(tiposMap),
+              backgroundColor: ['rgba(56, 189, 248, 0.7)', 'rgba(251, 191, 36, 0.7)', 'rgba(52, 211, 153, 0.7)', 'rgba(244, 114, 182, 0.7)', 'rgba(167, 139, 250, 0.7)']
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { position: 'bottom', labels: { color: corTexto, font: { size: 10 } } }
+            },
+            scales: {
+              r: { grid: { color: corGrid }, ticks: { display: false } }
+            }
+          }
+        });
+      }
+
+      // 3. Gráfico de Movimentos (Bar Horizontal)
+      const ctxMov = document.getElementById('chartMovimentos');
+      if (ctxMov) {
+        chartsInstanciados.mov = new Chart(ctxMov, {
+          type: 'bar',
+          data: {
+            labels: Object.keys(movMap),
+            datasets: [{
+              label: 'Quantidade',
+              data: Object.values(movMap),
+              backgroundColor: '#10b981'
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { color: corGrid }, ticks: { color: corTexto, stepSize: 1 } },
+              y: { grid: { display: false }, ticks: { color: corTexto, font: { size: 10 } } }
+            }
+          }
+        });
+      }
+
+      // 4. Gráfico Top Valores Diferenciados (Compras vs Presentes)
+      const ctxValores = document.getElementById('chartValores');
+      if (ctxValores) {
+        const ordenadosPorValor = [...relogios].sort((a, b) => (parseFloat(b.valor) || 0) - (parseFloat(a.valor) || 0)).slice(0, 7);
+        const labelsValores = ordenadosPorValor.map(r => `${r.marca} ${r.modelo}`);
+        const dataValores = ordenadosPorValor.map(r => parseFloat(r.valor) || 0);
+        const coresBarras = ordenadosPorValor.map(r => ehPresente(r) ? '#c084fc' : '#34d399');
+
+        chartsInstanciados.valores = new Chart(ctxValores, {
+          type: 'bar',
+          data: {
+            labels: labelsValores,
+            datasets: [{
+              label: 'Valor (R$)',
+              data: dataValores,
+              backgroundColor: coresBarras,
+              borderRadius: 6
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(ctx) {
+                    const r = ordenadosPorValor[ctx.dataIndex];
+                    const tag = ehPresente(r) ? ' (Presente)' : ' (Compra)';
+                    return formatarMoeda(ctx.parsed.y) + tag;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: corTexto, font: { size: 9 }, maxRotation: 35, minRotation: 35 } },
+              y: { grid: { color: corGrid }, ticks: { color: corTexto, callback: v => 'R$ ' + v } }
+            }
+          }
+        });
+      }
+    }
+
+    // --- CADASTRO E EDIÇÃO DE RELÓGIOS ---
     function abrirModalCadastro() {
       document.getElementById('form-relogio').reset();
       document.getElementById('edit-id').value = '';
-      document.getElementById('modal-form-title').innerText = "Cadastrar Novo Relógio";
-      fotosRelogioAtual = [];
-      fotosRelogioExcluir = [];
-      renderGerenciadorFotosRelogio();
+      document.getElementById('modal-form-title').innerText = 'Cadastrar Relógio';
+      fotosTemp = [];
+      renderizarGerenciadorFotos();
+      atualizarLabelValorForm();
       document.getElementById('modal-cadastro').classList.remove('hidden');
     }
 
+    function fecharModalCadastro() {
+      document.getElementById('modal-cadastro').classList.add('hidden');
+    }
+
     function editarRelogio(id) {
-      const r = bancoDados.relogios.find(item => item.id === id);
+      const r = relogios.find(x => String(x.id) === String(id));
       if (!r) return;
 
-      document.getElementById('modal-form-title').innerText = `Editar: ${r.marca} ${r.modelo}`;
       document.getElementById('edit-id').value = r.id;
+      document.getElementById('modal-form-title').innerText = 'Editar Relógio';
       document.getElementById('marca').value = r.marca || '';
       document.getElementById('modelo').value = r.modelo || '';
       document.getElementById('tipo').value = r.tipo || '';
-      document.getElementById('data_compra').value = r.data_compra || '';
+      document.getElementById('tipo_aquisicao').value = getTipoAquisicao(r);
       document.getElementById('valor').value = r.valor || '';
       document.getElementById('origem').value = r.origem || '';
-      document.getElementById('ordem').value = r.ordem || '';
-      document.getElementById('rating-tipo').value = r.rating_tipo || 'star';
-      document.getElementById('rating-valor').value = r.rating_valor || '5';
+      document.getElementById('data_compra').value = r.data_compra || '';
+      document.getElementById('ordem').value = r.ordem !== undefined ? r.ordem : '';
+
+      if (r.rating) {
+        document.getElementById('rating-tipo').value = r.rating.tipo || 'star';
+        document.getElementById('rating-valor').value = r.rating.valor || '5';
+      } else {
+        document.getElementById('rating-tipo').value = 'star';
+        document.getElementById('rating-valor').value = '5';
+      }
+
       document.getElementById('calibre').value = r.calibre || '';
       document.getElementById('cor_mostrador').value = r.cor_mostrador || '';
       document.getElementById('diametro').value = r.diametro || '';
@@ -1587,221 +1474,94 @@
       document.getElementById('descricao').value = r.descricao || '';
       document.getElementById('historia').value = r.historia || '';
 
-      fotosRelogioAtual = [...(r.fotos || [])];
-      fotosRelogioExcluir = [];
-      renderGerenciadorFotosRelogio();
+      fotosTemp = r.fotos ? [...r.fotos] : [];
+      renderizarGerenciadorFotos();
+      atualizarLabelValorForm();
 
       document.getElementById('modal-cadastro').classList.remove('hidden');
-      lucide.createIcons();
     }
 
-    function renderGerenciadorFotosRelogio() {
+    function excluirRelogio(id) {
+      const idx = relogios.findIndex(x => String(x.id) === String(id));
+      if (idx === -1) return;
+      if (!confirm(`Deseja realmente excluir o relógio ${relogios[idx].marca} ${relogios[idx].modelo}?`)) return;
+
+      relogios.splice(idx, 1);
+      salvarRelogiosStorage();
+      registrarFilaAlteracao('relogio', 'exclusao');
+      renderizarTudo();
+    }
+
+    // Processamento de Fotos em Base64
+    document.getElementById('fotos-files').addEventListener('change', async function(e) {
+      const files = Array.from(e.target.files);
+      for (const file of files) {
+        const base64 = await comprimirEConverterImagem(file);
+        fotosTemp.push(base64);
+      }
+      renderizarGerenciadorFotos();
+    });
+
+    function renderizarGerenciadorFotos() {
       const container = document.getElementById('fotos-manager-container');
-      const list = document.getElementById('fotos-manager-list');
-      if (fotosRelogioAtual.length === 0) {
+      const lista = document.getElementById('fotos-manager-list');
+
+      if (fotosTemp.length === 0) {
         container.classList.add('hidden');
-        list.innerHTML = '';
+        lista.innerHTML = '';
         return;
       }
+
       container.classList.remove('hidden');
-      list.innerHTML = fotosRelogioAtual.map((foto, index) => {
-        const isPrincipal = index === 0;
-        return `
-          <div class="relative bg-slate-100 dark:bg-[#03070d] border ${isPrincipal ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
-            <img src="${foto}" class="w-full h-20 object-cover rounded">
-            ${isPrincipal ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
-            <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
-              <button type="button" onclick="definirFotoPrincipalRelogio(${index})" class="text-[11px] ${isPrincipal ? 'text-amber-500' : 'text-slate-400 hover:text-amber-400'}">
-                <i data-lucide="star" class="w-3.5 h-3.5 ${isPrincipal ? 'fill-amber-500' : ''}"></i>
-              </button>
-              <div class="flex gap-1">
-                <button type="button" onclick="moverFotoRelogio(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-sky-500"'}>
-                  <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-                </button>
-                <button type="button" onclick="moverFotoRelogio(${index}, 1)" ${index === fotosRelogioAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-sky-500"'}>
-                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-              <button type="button" onclick="removerFotoRelogio(${index})" class="text-red-500 hover:text-red-400">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-              </button>
+      let html = '';
+      fotosTemp.forEach((f, idx) => {
+        html += `
+          <div class="relative group rounded-lg overflow-hidden border ${idx === 0 ? 'border-amber-400 ring-2 ring-amber-400/30' : 'border-slate-300 dark:border-slate-700'} h-24 bg-black/40 flex items-center justify-center">
+            <img src="${f}" class="max-h-full max-w-full object-contain">
+            ${idx === 0 ? '<span class="absolute top-1 left-1 bg-amber-400 text-black text-[8px] font-bold px-1 rounded shadow">CAPA</span>' : ''}
+            
+            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition flex items-center justify-center gap-1.5">
+              ${idx !== 0 ? `<button type="button" onclick="definirCapa(${idx})" title="Definir como Capa" class="p-1 bg-amber-500 text-slate-950 rounded hover:scale-110 transition"><i data-lucide="star" class="w-3.5 h-3.5"></i></button>` : ''}
+              <button type="button" onclick="removerFoto(${idx})" title="Remover" class="p-1 bg-rose-500 text-white rounded hover:scale-110 transition"><i data-lucide="trash" class="w-3.5 h-3.5"></i></button>
             </div>
           </div>
         `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function definirFotoPrincipalRelogio(index) {
-      if (index === 0) return;
-      const [foto] = fotosRelogioAtual.splice(index, 1);
-      fotosRelogioAtual.unshift(foto);
-      renderGerenciadorFotosRelogio();
-    }
-
-    function moverFotoRelogio(index, direcao) {
-      const novoIndex = index + direcao;
-      if (novoIndex < 0 || novoIndex >= fotosRelogioAtual.length) return;
-      const temp = fotosRelogioAtual[index];
-      fotosRelogioAtual[index] = fotosRelogioAtual[novoIndex];
-      fotosRelogioAtual[novoIndex] = temp;
-      renderGerenciadorFotosRelogio();
-    }
-
-    function removerFotoRelogio(index) {
-      const removida = fotosRelogioAtual.splice(index, 1)[0];
-      fotosRelogioExcluir.push(removida);
-      renderGerenciadorFotosRelogio();
-    }
-
-    function fecharModalCadastro() {
-      document.getElementById('modal-cadastro').classList.add('hidden');
-    }
-
-    function abrirModalCaixa() {
-      document.getElementById('form-caixa').reset();
-      document.getElementById('edit-caixa-id').value = '';
-      document.getElementById('modal-caixa-title').innerText = "Cadastrar Caixa";
-      fotosCaixaAtual = [];
-      fotosCaixaExcluir = [];
-      renderGerenciadorFotosCaixa();
-      document.getElementById('modal-caixa').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function editarCaixa(id) {
-      const c = bancoDados.caixas.find(item => item.id === id);
-      if (!c) return;
-
-      document.getElementById('modal-caixa-title').innerText = `Editar: ${c.nome}`;
-      document.getElementById('edit-caixa-id').value = c.id;
-      document.getElementById('caixa-nome').value = c.nome || '';
-      document.getElementById('caixa-capacidade').value = c.capacidade || '';
-      document.getElementById('caixa-data').value = c.data_aquisicao || '';
-      document.getElementById('caixa-status').value = c.status || '';
-      document.getElementById('caixa-obs').value = c.observacoes || '';
-
-      fotosCaixaAtual = [...(c.fotos || [])];
-      fotosCaixaExcluir = [];
-      renderGerenciadorFotosCaixa();
-
-      document.getElementById('modal-caixa').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function renderGerenciadorFotosCaixa() {
-      const container = document.getElementById('caixa-fotos-container');
-      const list = document.getElementById('caixa-fotos-list');
-      if (fotosCaixaAtual.length === 0) {
-        container.classList.add('hidden');
-        list.innerHTML = '';
-        return;
-      }
-      container.classList.remove('hidden');
-      list.innerHTML = fotosCaixaAtual.map((foto, index) => {
-        const isCapa = index === 0;
-        return `
-          <div class="relative bg-slate-100 dark:bg-[#03070d] border ${isCapa ? 'border-amber-500 ring-2 ring-amber-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
-            <img src="${foto}" class="w-full h-20 object-cover rounded">
-            ${isCapa ? '<span class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
-            <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
-              <button type="button" onclick="definirFotoPrincipalCaixa(${index})" class="text-[11px] ${isCapa ? 'text-amber-500' : 'text-slate-400 hover:text-amber-400'}">
-                <i data-lucide="star" class="w-3.5 h-3.5 ${isCapa ? 'fill-amber-500' : ''}"></i>
-              </button>
-              <div class="flex gap-1">
-                <button type="button" onclick="moverFotoCaixa(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-amber-500"'}>
-                  <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
-                </button>
-                <button type="button" onclick="moverFotoCaixa(${index}, 1)" ${index === fotosCaixaAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-amber-500"'}>
-                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
-                </button>
-              </div>
-              <button type="button" onclick="removerFotoCaixa(${index})" class="text-red-500 hover:text-red-400">
-                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-          </div>
-        `;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function definirFotoPrincipalCaixa(index) {
-      if (index === 0) return;
-      const [foto] = fotosCaixaAtual.splice(index, 1);
-      fotosCaixaAtual.unshift(foto);
-      renderGerenciadorFotosCaixa();
-    }
-
-    function moverFotoCaixa(index, direcao) {
-      const novoIndex = index + direcao;
-      if (novoIndex < 0 || novoIndex >= fotosCaixaAtual.length) return;
-      const temp = fotosCaixaAtual[index];
-      fotosCaixaAtual[index] = fotosCaixaAtual[novoIndex];
-      fotosCaixaAtual[novoIndex] = temp;
-      renderGerenciadorFotosCaixa();
-    }
-
-    function removerFotoCaixa(index) {
-      const removida = fotosCaixaAtual.splice(index, 1)[0];
-      fotosCaixaExcluir.push(removida);
-      renderGerenciadorFotosCaixa();
-    }
-
-    function fecharModalCaixa() {
-      document.getElementById('modal-caixa').classList.add('hidden');
-    }
-
-    function toBase64(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result.split(',')[1]);
-        reader.onerror = error => reject(error);
       });
+
+      lista.innerHTML = html;
+      lucide.createIcons();
     }
 
-    function fileToDataUrl(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-      });
+    function definirCapa(index) {
+      if (index <= 0 || index >= fotosTemp.length) return;
+      const foto = fotosTemp.splice(index, 1)[0];
+      fotosTemp.unshift(foto);
+      renderizarGerenciadorFotos();
     }
 
-    async function salvarRelogioLocal(e) {
+    function removerFoto(index) {
+      fotosTemp.splice(index, 1);
+      renderizarGerenciadorFotos();
+    }
+
+    function salvarRelogioLocal(e) {
       e.preventDefault();
+
       const editId = document.getElementById('edit-id').value;
-      const targetId = editId || `rlg-${Date.now()}`;
-
-      pendingChanges.fotosParaExcluir.push(...fotosRelogioExcluir);
-
-      const inputFiles = document.getElementById('fotos-files').files;
-      for (let i = 0; i < inputFiles.length; i++) {
-        const file = inputFiles[i];
-        const dataUrl = await fileToDataUrl(file);
-        fotosRelogioAtual.push(dataUrl);
-
-        pendingChanges.fotosParaEnviar.push({
-          file: file,
-          itemId: targetId,
-          isCaixa: false,
-          tempUrl: dataUrl
-        });
-      }
-
-      const dadosRelogio = {
-        id: targetId,
-        ordem: parseInt(document.getElementById('ordem').value) || 999,
+      const novoRelogio = {
+        id: editId ? editId : 'rel_' + Date.now(),
         marca: document.getElementById('marca').value.trim(),
         modelo: document.getElementById('modelo').value.trim(),
         tipo: document.getElementById('tipo').value.trim(),
-        data_compra: document.getElementById('data_compra').value,
+        tipo_aquisicao: document.getElementById('tipo_aquisicao').value,
         valor: parseFloat(document.getElementById('valor').value) || 0,
         origem: document.getElementById('origem').value.trim(),
-        rating_tipo: document.getElementById('rating-tipo').value,
-        rating_valor: document.getElementById('rating-valor').value,
+        data_compra: document.getElementById('data_compra').value,
+        ordem: document.getElementById('ordem').value !== '' ? Number(document.getElementById('ordem').value) : null,
+        rating: {
+          tipo: document.getElementById('rating-tipo').value,
+          valor: parseInt(document.getElementById('rating-valor').value)
+        },
         calibre: document.getElementById('calibre').value.trim(),
         cor_mostrador: document.getElementById('cor_mostrador').value.trim(),
         diametro: document.getElementById('diametro').value.trim(),
@@ -1813,241 +1573,379 @@
         tipo_fecho: document.getElementById('tipo_fecho').value.trim(),
         descricao: document.getElementById('descricao').value.trim(),
         historia: document.getElementById('historia').value.trim(),
-        fotos: fotosRelogioAtual
+        fotos: fotosTemp
       };
 
       if (editId) {
-        const idx = bancoDados.relogios.findIndex(r => r.id === editId);
-        if (idx !== -1) bancoDados.relogios[idx] = dadosRelogio;
+        const idx = relogios.findIndex(x => String(x.id) === String(editId));
+        if (idx !== -1) relogios[idx] = novoRelogio;
       } else {
-        bancoDados.relogios.push(dadosRelogio);
+        relogios.push(novoRelogio);
       }
 
-      bancoDados.relogios.sort((a, b) => new Date(a.data_compra || 0) - new Date(b.data_compra || 0));
-
+      salvarRelogiosStorage();
+      registrarFilaAlteracao('relogio', editId ? 'edicao' : 'adicao');
       fecharModalCadastro();
-      atualizarStatusPendencias(true);
       renderizarTudo();
-      if (abaAtiva === 'geral') carregarDashboardGeral();
     }
 
-    async function salvarCaixaLocal(e) {
-      e.preventDefault();
-      const editId = document.getElementById('edit-caixa-id').value;
-      const targetId = editId || `box-${Date.now()}`;
+    // --- CADASTRO E EDIÇÃO DE CAIXAS ---
+    function abrirModalCaixa() {
+      document.getElementById('form-caixa').reset();
+      document.getElementById('edit-caixa-id').value = '';
+      document.getElementById('modal-caixa-title').innerText = 'Cadastrar Caixa';
+      fotosCaixaTemp = [];
+      renderizarGerenciadorFotosCaixa();
+      document.getElementById('modal-caixa').classList.remove('hidden');
+    }
 
-      pendingChanges.fotosParaExcluir.push(...fotosCaixaExcluir);
+    function fecharModalCaixa() {
+      document.getElementById('modal-caixa').classList.add('hidden');
+    }
 
-      const inputFiles = document.getElementById('caixa-fotos-files').files;
-      for (let i = 0; i < inputFiles.length; i++) {
-        const file = inputFiles[i];
-        const dataUrl = await fileToDataUrl(file);
-        fotosCaixaAtual.push(dataUrl);
+    function editarCaixa(id) {
+      const c = caixas.find(x => String(x.id) === String(id));
+      if (!c) return;
 
-        pendingChanges.fotosParaEnviar.push({
-          file: file,
-          itemId: targetId,
-          isCaixa: true,
-          tempUrl: dataUrl
-        });
+      document.getElementById('edit-caixa-id').value = c.id;
+      document.getElementById('modal-caixa-title').innerText = 'Editar Caixa';
+      document.getElementById('caixa-nome').value = c.nome || '';
+      document.getElementById('caixa-capacidade').value = c.capacidade || '';
+      document.getElementById('caixa-data').value = c.data_aquisicao || '';
+      document.getElementById('caixa-status').value = c.status || '';
+      document.getElementById('caixa-obs').value = c.observacoes || '';
+
+      fotosCaixaTemp = c.fotos ? [...c.fotos] : [];
+      renderizarGerenciadorFotosCaixa();
+      document.getElementById('modal-caixa').classList.remove('hidden');
+    }
+
+    function excluirCaixa(id) {
+      const idx = caixas.findIndex(x => String(x.id) === String(id));
+      if (idx === -1) return;
+      if (!confirm(`Deseja excluir a caixa "${caixas[idx].nome}"?`)) return;
+
+      caixas.splice(idx, 1);
+      salvarCaixasStorage();
+      registrarFilaAlteracao('caixa', 'exclusao');
+      renderizarTudo();
+    }
+
+    document.getElementById('caixa-fotos-files').addEventListener('change', async function(e) {
+      const files = Array.from(e.target.files);
+      for (const file of files) {
+        const base64 = await comprimirEConverterImagem(file);
+        fotosCaixaTemp.push(base64);
+      }
+      renderizarGerenciadorFotosCaixa();
+    });
+
+    function renderizarGerenciadorFotosCaixa() {
+      const container = document.getElementById('caixa-fotos-container');
+      const lista = document.getElementById('caixa-fotos-list');
+
+      if (fotosCaixaTemp.length === 0) {
+        container.classList.add('hidden');
+        lista.innerHTML = '';
+        return;
       }
 
-      const dadosCaixa = {
-        id: targetId,
+      container.classList.remove('hidden');
+      let html = '';
+      fotosCaixaTemp.forEach((f, idx) => {
+        html += `
+          <div class="relative group rounded-lg overflow-hidden border ${idx === 0 ? 'border-amber-400' : 'border-slate-300 dark:border-slate-700'} h-24 bg-black/40 flex items-center justify-center">
+            <img src="${f}" class="max-h-full max-w-full object-contain">
+            <button type="button" onclick="removerFotoCaixa(${idx})" title="Remover" class="absolute top-1 right-1 p-1 bg-rose-500 text-white rounded hover:scale-110 transition opacity-0 group-hover:opacity-100"><i data-lucide="trash" class="w-3.5 h-3.5"></i></button>
+          </div>
+        `;
+      });
+      lista.innerHTML = html;
+      lucide.createIcons();
+    }
+
+    function removerFotoCaixa(idx) {
+      fotosCaixaTemp.splice(idx, 1);
+      renderizarGerenciadorFotosCaixa();
+    }
+
+    function salvarCaixaLocal(e) {
+      e.preventDefault();
+
+      const editId = document.getElementById('edit-caixa-id').value;
+      const novaCaixa = {
+        id: editId ? editId : 'box_' + Date.now(),
         nome: document.getElementById('caixa-nome').value.trim(),
         capacidade: parseInt(document.getElementById('caixa-capacidade').value) || 0,
         data_aquisicao: document.getElementById('caixa-data').value,
         status: document.getElementById('caixa-status').value.trim(),
         observacoes: document.getElementById('caixa-obs').value.trim(),
-        fotos: fotosCaixaAtual
+        fotos: fotosCaixaTemp
       };
 
       if (editId) {
-        const idx = bancoDados.caixas.findIndex(c => c.id === editId);
-        if (idx !== -1) bancoDados.caixas[idx] = dadosCaixa;
+        const idx = caixas.findIndex(x => String(x.id) === String(editId));
+        if (idx !== -1) caixas[idx] = novaCaixa;
       } else {
-        bancoDados.caixas.push(dadosCaixa);
+        caixas.push(novaCaixa);
       }
 
-      bancoDados.caixas.sort((a, b) => new Date(a.data_aquisicao || 0) - new Date(b.data_aquisicao || 0));
-
+      salvarCaixasStorage();
+      registrarFilaAlteracao('caixa', editId ? 'edicao' : 'adicao');
       fecharModalCaixa();
-      atualizarStatusPendencias(true);
       renderizarTudo();
-      if (abaAtiva === 'geral') carregarDashboardGeral();
     }
 
-    function removerRelogio(id) {
-      const idx = bancoDados.relogios.findIndex(r => r.id === id);
-      if (idx === -1) return;
-      const relogio = bancoDados.relogios[idx];
+    // --- COMPRESSÃO DE IMAGEM NO CLIENTE ---
+    function comprimirEConverterImagem(file) {
+      return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+          const img = new Image();
+          img.src = event.target.result;
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const MAX_WIDTH = 1200;
+            const MAX_HEIGHT = 1200;
+            let width = img.width;
+            let height = img.height;
 
-      if (!confirm(`Remover "${relogio.modelo}" do acervo local? As fotos serão removidas ao sincronizar.`)) return;
-
-      if (relogio.fotos) {
-        pendingChanges.fotosParaExcluir.push(...relogio.fotos);
-      }
-      bancoDados.relogios.splice(idx, 1);
-      atualizarStatusPendencias(true);
-      renderizarTudo();
-      if (abaAtiva === 'geral') carregarDashboardGeral();
-    }
-
-    function removerCaixa(id) {
-      const idx = bancoDados.caixas.findIndex(c => c.id === id);
-      if (idx === -1) return;
-      const caixa = bancoDados.caixas[idx];
-
-      if (!confirm(`Remover caixa "${caixa.nome}"? As fotos serão removidas ao sincronizar.`)) return;
-
-      if (caixa.fotos) {
-        pendingChanges.fotosParaExcluir.push(...caixa.fotos);
-      }
-      bancoDados.caixas.splice(idx, 1);
-      atualizarStatusPendencias(true);
-      renderizarTudo();
-      if (abaAtiva === 'geral') carregarDashboardGeral();
-    }
-
-    async function sincronizarTudoComGithub() {
-      if (!CONFIG.token) {
-        alert("Configure seu Token do GitHub antes de sincronizar!");
-        abrirModalConfig();
-        return;
-      }
-
-      const btnSync = document.getElementById('btn-sync-all');
-      btnSync.disabled = true;
-      btnSync.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Sincronizando...</span>`;
-      lucide.createIcons();
-
-      try {
-        await obterShaAtual();
-
-        for (const url of pendingChanges.fotosParaExcluir) {
-          await deletarArquivoFisicoGithub(url);
-        }
-
-        for (let i = 0; i < pendingChanges.fotosParaEnviar.length; i++) {
-          const item = pendingChanges.fotosParaEnviar[i];
-          const nomeLimpo = item.file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-          const prefixo = item.isCaixa ? 'caixa' : 'watch';
-          const nomeArquivo = `images/${prefixo}-${Date.now()}-${i}-${nomeLimpo}`;
-          const base64Content = await toBase64(item.file);
-
-          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
-            method: 'PUT',
-            headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: `upload: ${nomeLimpo}`, content: base64Content })
-          });
-
-          if (!res.ok) throw new Error(`Falha no upload de imagem: ${item.file.name}`);
-          const imgData = await res.json();
-          const githubUrl = imgData.content.download_url;
-
-          if (item.isCaixa) {
-            const caixaAlvo = bancoDados.caixas.find(c => c.id === item.itemId);
-            if (caixaAlvo && caixaAlvo.fotos) {
-              const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl);
-              if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl;
-              else caixaAlvo.fotos.push(githubUrl);
+            if (width > height) {
+              if (width > MAX_WIDTH) {
+                height *= MAX_WIDTH / width;
+                width = MAX_WIDTH;
+              }
+            } else {
+              if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height;
+                height = MAX_HEIGHT;
+              }
             }
-          } else {
-            const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
-            if (relogioAlvo && relogioAlvo.fotos) {
-              const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl);
-              if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl;
-              else relogioAlvo.fotos.push(githubUrl);
-            }
-          }
-        }
 
-        await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
-
-        pendingChanges.fotosParaEnviar = [];
-        pendingChanges.fotosParaExcluir = [];
-        atualizarStatusPendencias(false);
-
-        iniciarContadorDeploy();
-
-      } catch (err) {
-        alert("Erro na sincronização: " + err.message);
-        btnSync.disabled = false;
-        btnSync.innerHTML = `<i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i><span>Sincronizar</span>`;
-        lucide.createIcons();
-      }
-    }
-
-    async function salvarJsonGithub(mensagemCommit) {
-      const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(bancoDados, null, 2))));
-      const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
-        method: 'PUT',
-        headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message: mensagemCommit,
-          content: updatedJsonContent,
-          sha: fileSha
-        })
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            resolve(canvas.toDataURL('image/jpeg', 0.82));
+          };
+        };
       });
-      if (!res.ok) throw new Error("Erro ao atualizar relogios.json no repositório.");
     }
 
-    function iniciarContadorDeploy() {
-      const modalDeploy = document.getElementById('modal-deploy');
-      const progressBar = document.getElementById('deploy-progress-bar');
-      const countdown = document.getElementById('deploy-countdown');
-      
-      modalDeploy.classList.remove('hidden');
-      lucide.createIcons();
+    // --- MODAL DE GALERIA & ZOOM ---
+    function abrirModalGaleria(id) {
+      const r = relogios.find(x => String(x.id) === String(id));
+      if (!r) return;
 
-      let tempoRestante = 15;
-      countdown.innerText = `${tempoRestante}s`;
-      progressBar.style.width = '0%';
+      document.getElementById('galeria-marca').innerText = r.marca;
+      document.getElementById('galeria-modelo').innerText = r.modelo;
 
-      const intervalo = setInterval(() => {
-        tempoRestante--;
-        countdown.innerText = `${tempoRestante}s`;
-        const progresso = ((15 - tempoRestante) / 15) * 100;
-        progressBar.style.width = `${progresso}%`;
+      const fotos = (r.fotos && r.fotos.length > 0) ? r.fotos : ['images/relogiocapa.jpeg'];
+      trocarImagemZoom(fotos[0]);
 
-        if (tempoRestante <= 0) {
-          clearInterval(intervalo);
-          countdown.innerText = `Atualizando...`;
-          setTimeout(() => {
-            location.reload();
-          }, 600);
-        }
-      }, 1000);
-    }
-
-    function aplicarFiltrosEOrdem() {
-      const termo = (document.getElementById('search').value || '').toLowerCase();
-      const criterio = document.getElementById('sort-select').value;
-
-      let filtrados = bancoDados.relogios.filter(r => 
-        (r.marca && r.marca.toLowerCase().includes(termo)) || 
-        (r.modelo && r.modelo.toLowerCase().includes(termo)) ||
-        (r.tipo && r.tipo.toLowerCase().includes(termo)) ||
-        (r.calibre && r.calibre.toLowerCase().includes(termo)) ||
-        (r.cor_mostrador && r.cor_mostrador.toLowerCase().includes(termo))
-      );
-
-      filtrados.sort((a, b) => {
-        if (criterio === 'data_asc') return new Date(a.data_compra || 0) - new Date(b.data_compra || 0);
-        if (criterio === 'data_desc') return new Date(b.data_compra || 0) - new Date(a.data_compra || 0);
-        if (criterio === 'ordem_asc') return (a.ordem || 999) - (b.ordem || 999);
-        if (criterio === 'ordem_desc') return (b.ordem || 999) - (a.ordem || 999);
-        if (criterio === 'valor_desc') return (b.valor || 0) - (a.valor || 0);
-        if (criterio === 'valor_asc') return (a.valor || 0) - (b.valor || 0);
-        if (criterio === 'marca_asc') return (a.marca || '').localeCompare(b.marca || '');
-        return 0;
+      const thumbs = document.getElementById('galeria-thumbs');
+      thumbs.innerHTML = '';
+      fotos.forEach((f, idx) => {
+        const img = document.createElement('img');
+        img.src = f;
+        img.className = `w-14 h-14 object-contain rounded-lg p-1 border cursor-pointer bg-slate-100 dark:bg-[#060c16] transition ${idx === 0 ? 'border-sky-500 ring-2 ring-sky-500/30' : 'border-slate-300 dark:border-slate-700 hover:border-sky-400'}`;
+        img.onclick = () => {
+          Array.from(thumbs.children).forEach(el => el.className = el.className.replace('border-sky-500 ring-2 ring-sky-500/30', 'border-slate-300 dark:border-slate-700'));
+          img.className = 'w-14 h-14 object-contain rounded-lg p-1 border cursor-pointer bg-slate-100 dark:bg-[#060c16] transition border-sky-500 ring-2 ring-sky-500/30';
+          trocarImagemZoom(f);
+        };
+        thumbs.appendChild(img);
       });
 
-      renderRelogios(filtrados);
+      document.getElementById('modal-galeria').classList.remove('hidden');
     }
 
-    document.getElementById('search').addEventListener('input', aplicarFiltrosEOrdem);
-    window.onload = carregarDados;
+    function abrirModalGaleriaCaixa(id) {
+      const c = caixas.find(x => String(x.id) === String(id));
+      if (!c) return;
+
+      document.getElementById('galeria-marca').innerText = 'Caixa';
+      document.getElementById('galeria-modelo').innerText = c.nome;
+
+      const fotos = (c.fotos && c.fotos.length > 0) ? c.fotos : ['images/relogiocapa.jpeg'];
+      trocarImagemZoom(fotos[0]);
+
+      const thumbs = document.getElementById('galeria-thumbs');
+      thumbs.innerHTML = '';
+      fotos.forEach((f, idx) => {
+        const img = document.createElement('img');
+        img.src = f;
+        img.className = `w-14 h-14 object-contain rounded-lg p-1 border cursor-pointer bg-slate-100 dark:bg-[#060c16] transition ${idx === 0 ? 'border-amber-500 ring-2 ring-amber-500/30' : 'border-slate-300 dark:border-slate-700 hover:border-amber-400'}`;
+        img.onclick = () => {
+          trocarImagemZoom(f);
+        };
+        thumbs.appendChild(img);
+      });
+
+      document.getElementById('modal-galeria').classList.remove('hidden');
+    }
+
+    function trocarImagemZoom(src) {
+      const imgZoom = document.getElementById('galeria-img-zoom');
+      imgZoom.src = src;
+      imgZoom.style.transformOrigin = 'center center';
+    }
+
+    function configurarZoomGaleria() {
+      const box = document.querySelector('.img-zoom-box');
+      const img = document.getElementById('galeria-img-zoom');
+
+      box.addEventListener('mousemove', (e) => {
+        const rect = box.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        img.style.transformOrigin = `${x}% ${y}%`;
+      });
+
+      box.addEventListener('mouseleave', () => {
+        img.style.transformOrigin = 'center center';
+      });
+    }
+
+    function fecharModalGaleria() {
+      document.getElementById('modal-galeria').classList.add('hidden');
+    }
+
+    // --- MODAL DE FICHA TÉCNICA DETALHADA ---
+    function abrirModalDetalhes(id) {
+      const r = relogios.find(x => String(x.id) === String(id));
+      if (!r) return;
+
+      const presente = ehPresente(r);
+      document.getElementById('detalhe-marca').innerText = r.marca;
+      document.getElementById('detalhe-modelo').innerText = r.modelo;
+      document.getElementById('detalhe-foto').src = (r.fotos && r.fotos.length > 0) ? r.fotos[0] : 'images/relogiocapa.jpeg';
+
+      document.getElementById('btn-ver-todas-fotos').onclick = () => {
+        fecharModalDetalhes();
+        abrirModalGaleria(r.id);
+      };
+
+      // Ficha Técnica com separação clara de aquisição
+      const grid = document.getElementById('detalhes-grid');
+      const tipoAquisicaoBadge = presente
+        ? `<span class="text-purple-400 font-bold flex items-center gap-1"><i data-lucide="gift" class="w-3.5 h-3.5"></i> Presente</span>`
+        : `<span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="wallet" class="w-3.5 h-3.5"></i> Compra Pessoal</span>`;
+
+      grid.innerHTML = `
+        <div class="grid grid-cols-2 gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
+          <div><span class="text-slate-400">Tipo de Entrada:</span></div>
+          <div class="text-right">${tipoAquisicaoBadge}</div>
+          <div><span class="text-slate-400">${presente ? 'Valor Estimado:' : 'Valor Investido:'}</span></div>
+          <div class="text-right font-bold ${presente ? 'text-purple-400' : 'text-emerald-400'}">${formatarMoeda(r.valor)}</div>
+          <div><span class="text-slate-400">${presente ? 'Presente de:' : 'Origem / Loja:'}</span></div>
+          <div class="text-right text-slate-200 font-medium">${r.origem || '-'}</div>
+          <div><span class="text-slate-400">Data de Entrada:</span></div>
+          <div class="text-right text-slate-200">${formatarDataBR(r.data_compra)}</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 pt-1 pb-1">
+          <div><span class="text-slate-400">Calibre / Mecanismo:</span></div>
+          <div class="text-right text-slate-200 font-medium">${r.calibre || '-'}</div>
+          <div><span class="text-slate-400">Estilo / Categoria:</span></div>
+          <div class="text-right text-slate-200">${r.tipo || '-'}</div>
+          <div><span class="text-slate-400">Diâmetro da Caixa:</span></div>
+          <div class="text-right text-slate-200">${r.diametro || '-'}</div>
+          <div><span class="text-slate-400">Cor do Mostrador:</span></div>
+          <div class="text-right text-slate-200">${r.cor_mostrador || '-'}</div>
+          <div><span class="text-slate-400">Cor da Caixa:</span></div>
+          <div class="text-right text-slate-200">${r.cor_caixa || '-'}</div>
+          <div><span class="text-slate-400">Bisel:</span></div>
+          <div class="text-right text-slate-200">${r.cor_bisel || '-'}</div>
+          <div><span class="text-slate-400">Material Pulseira:</span></div>
+          <div class="text-right text-slate-200">${r.material_correia || '-'}</div>
+          <div><span class="text-slate-400">Cor Pulseira / Fecho:</span></div>
+          <div class="text-right text-slate-200">${r.cor_correia || '-'} / ${r.tipo_fecho || '-'}</div>
+          ${r.ordem ? `<div><span class="text-slate-400">Ordem Pessoal:</span></div><div class="text-right text-sky-400 font-bold">#${r.ordem}</div>` : ''}
+        </div>
+      `;
+
+      // Seções de Texto
+      const boxDesc = document.getElementById('detalhe-box-descricao');
+      if (r.descricao) {
+        document.getElementById('detalhe-descricao').innerText = r.descricao;
+        boxDesc.classList.remove('hidden');
+      } else {
+        boxDesc.classList.add('hidden');
+      }
+
+      const boxHist = document.getElementById('detalhe-box-historia');
+      if (r.historia) {
+        document.getElementById('detalhe-historia').innerText = r.historia;
+        boxHist.classList.remove('hidden');
+      } else {
+        boxHist.classList.add('hidden');
+      }
+
+      document.getElementById('modal-detalhes').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function fecharModalDetalhes() {
+      document.getElementById('modal-detalhes').classList.add('hidden');
+    }
+
+    // --- TEMA CLARO / ESCURO ---
+    function alternarTema() {
+      const htmlEl = document.documentElement;
+      const metaTheme = document.getElementById('meta-theme-color');
+
+      if (htmlEl.classList.contains('dark')) {
+        htmlEl.classList.remove('dark');
+        localStorage.setItem('mywatches_theme', 'light');
+        if (metaTheme) metaTheme.setAttribute('content', '#f8fafc');
+      } else {
+        htmlEl.classList.add('dark');
+        localStorage.setItem('mywatches_theme', 'dark');
+        if (metaTheme) metaTheme.setAttribute('content', '#03060a');
+      }
+
+      lucide.createIcons();
+      if (abaAtiva === 'geral') renderizarGeral();
+    }
+
+    function aplicarTemaSalvo() {
+      const saved = localStorage.getItem('mywatches_theme') || 'dark';
+      const metaTheme = document.getElementById('meta-theme-color');
+
+      if (saved === 'dark') {
+        document.documentElement.classList.add('dark');
+        if (metaTheme) metaTheme.setAttribute('content', '#03060a');
+      } else {
+        document.documentElement.classList.remove('dark');
+        if (metaTheme) metaTheme.setAttribute('content', '#f8fafc');
+      }
+    }
+
+    // --- PWA: INSTALAÇÃO & SERVICE WORKER ---
+    let deferredPrompt = null;
+    function configurarPWA() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      }
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        const btn = document.getElementById('btn-pwa-install');
+        if (btn) btn.classList.remove('hidden');
+      });
+    }
+
+    function instalarPWA() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => {
+        deferredPrompt = null;
+        document.getElementById('btn-pwa-install').classList.add('hidden');
+      });
+    }
   </script>
 </body>
 </html>
