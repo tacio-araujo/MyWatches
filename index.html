@@ -69,7 +69,7 @@
     <!-- Navegação de Abas -->
     <div class="max-w-7xl mx-auto mt-3 flex items-center justify-between border-t border-slate-800/60 pt-2.5">
       <nav class="flex space-x-1 sm:space-x-2">
-        <button onclick="trocarAba('relogios')" id="tab-btn-relogios" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 bg-sky-500 text-slate-950 transition">
+        <button onclick="trocarAba('relogios')" id="tab-btn-relogios" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 bg-sky-500 text-slate-950 font-bold transition">
           <i data-lucide="watch" class="w-3.5 h-3.5"></i>
           <span>Relógios</span>
           <span id="badge-total-relogios" class="ml-1 text-[10px] bg-slate-950/20 px-1.5 py-0.2 rounded-full font-bold">0</span>
@@ -85,7 +85,6 @@
         </button>
       </nav>
 
-      <!-- Alternador de Visualização (Grid / Lista) visível na aba relógios -->
       <div id="view-mode-container" class="flex items-center bg-slate-900 border border-slate-800 p-0.5 rounded-lg">
         <button onclick="alterarVisualizacao('grid')" id="view-btn-grid" class="p-1 rounded text-sky-400 bg-slate-800 transition" title="Exibição em Grade">
           <i data-lucide="layout-grid" class="w-4 h-4"></i>
@@ -104,7 +103,6 @@
     <!-- ABA 1: RELÓGIOS                           -->
     <!-- ========================================== -->
     <section id="aba-relogios" class="space-y-4">
-      <!-- Filtros e Barra de Pesquisa -->
       <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-3.5 flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div class="relative flex-1">
           <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
@@ -128,10 +126,8 @@
         </div>
       </div>
 
-      <!-- Container Dinâmico dos Cards -->
       <div id="grid-relogios" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
       
-      <!-- Estado Vazio -->
       <div id="empty-state-relogios" class="hidden text-center py-16 bg-slate-900/30 border border-dashed border-slate-800 rounded-2xl">
         <div class="p-3 bg-slate-800/50 w-fit mx-auto rounded-full text-slate-500 mb-3">
           <i data-lucide="watch" class="w-8 h-8"></i>
@@ -172,8 +168,6 @@
     <!-- ABA 3: DASHBOARD GERAL                    -->
     <!-- ========================================== -->
     <section id="aba-geral" class="space-y-6 hidden">
-      
-      <!-- Tríade Patrimonial e Métricas -->
       <div>
         <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
           <i data-lucide="wallet" class="w-4 h-4 text-sky-400"></i>
@@ -191,7 +185,6 @@
             <div class="mt-2 text-[11px] text-slate-400 flex items-center gap-1.5">
               <span id="dash-qtd-total" class="font-bold text-sky-400">0 peças</span> reunidas no acervo
             </div>
-            <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-sky-500/5 rounded-full pointer-events-none"></div>
           </div>
 
           <!-- Card 2: Patrimônio Investido (Compras) -->
@@ -234,12 +227,11 @@
 
       <!-- Gráficos -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <!-- Gráfico Maiores Valores -->
         <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
           <div class="flex items-center justify-between mb-3">
             <div>
               <h3 class="text-xs font-bold uppercase tracking-wider text-white">Top Peças de Maior Valor</h3>
-              <p class="text-[11px] text-slate-400">Diferenciação clara entre investimento pessoal e presentes</p>
+              <p class="text-[11px] text-slate-400">Investimento próprio versus valor atribuído</p>
             </div>
             <div class="flex items-center gap-2 text-[10px]">
               <span class="flex items-center gap-1 text-sky-400"><span class="w-2.5 h-2.5 rounded-full bg-sky-500 inline-block"></span> Compra</span>
@@ -251,7 +243,6 @@
           </div>
         </div>
 
-        <!-- Gráfico de Tipos / Marcas -->
         <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 flex flex-col justify-between">
           <div class="mb-3">
             <h3 class="text-xs font-bold uppercase tracking-wider text-white">Distribuição por Categoria</h3>
@@ -293,9 +284,7 @@
     </section>
   </main>
 
-  <!-- ========================================== -->
-  <!-- MODAL: CADASTRO / EDIÇÃO DE RELÓGIO        -->
-  <!-- ========================================== -->
+  <!-- MODAL: CADASTRO / EDIÇÃO DE RELÓGIO -->
   <div id="modal-cadastro" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl my-auto">
       <div class="px-5 py-4 border-b border-slate-800 flex items-center justify-between">
@@ -311,7 +300,6 @@
       <form id="form-relogio" onsubmit="salvarRelogio(event)" class="p-5 overflow-y-auto space-y-4 text-xs">
         <input type="hidden" id="rel-id" />
 
-        <!-- Tipo de Aquisição (Compra vs Presente) -->
         <div class="bg-slate-950/70 border border-slate-800 p-3.5 rounded-xl space-y-3">
           <label class="block font-bold text-slate-300">Tipo de Aquisição *</label>
           <div class="grid grid-cols-2 gap-2">
@@ -319,7 +307,7 @@
               <input type="radio" name="tipo_aquisicao" value="compra" checked onchange="atualizarCamposAquisicao()" class="text-indigo-500">
               <div>
                 <div class="font-bold text-white flex items-center gap-1.5"><i data-lucide="shopping-bag" class="w-3.5 h-3.5 text-indigo-400"></i> Compra Pessoal</div>
-                <div class="text-[10px] text-slate-400">Peça adquirida por investimento próprio</div>
+                <div class="text-[10px] text-slate-400">Investimento próprio desembolsado</div>
               </div>
             </label>
             <label class="cursor-pointer border border-slate-700 bg-slate-900 rounded-lg p-2.5 flex items-center gap-2.5 transition has-[:checked]:border-pink-500 has-[:checked]:bg-pink-950/30">
@@ -331,7 +319,6 @@
             </label>
           </div>
 
-          <!-- Valores e Origem Adaptativos -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <div>
               <label id="lbl-preco" for="rel-preco" class="block font-semibold text-slate-300 mb-1">Valor Pago (R$) *</label>
@@ -339,14 +326,13 @@
                      class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500 font-semibold" />
             </div>
             <div>
-              <label id="lbl-origem" for="rel-origem" class="block font-semibold text-slate-300 mb-1">Loja / Vendedor / Origem</label>
+              <label id="lbl-origem" for="rel-origem" class="block font-semibold text-slate-300 mb-1">Loja / Origem / Vendedor</label>
               <input type="text" id="rel-origem" placeholder="Ex: Vivara, Amazon, Mercado Livre..." 
                      class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500" />
             </div>
           </div>
         </div>
 
-        <!-- Informações Principais -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label class="block font-semibold text-slate-300 mb-1">Marca *</label>
@@ -362,7 +348,7 @@
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
-            <label class="block font-semibold text-slate-300 mb-1">Tipo de Mecanismo</label>
+            <label class="block font-semibold text-slate-300 mb-1">Mecanismo</label>
             <input type="text" id="rel-tipo" placeholder="Ex: Automático, Quartzo..." 
                    class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500" />
           </div>
@@ -390,67 +376,57 @@
                    class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500" />
           </div>
           <div>
-            <label class="block font-semibold text-slate-300 mb-1">Material / Cor Pulseira</label>
+            <label class="block font-semibold text-slate-300 mb-1">Pulseira</label>
             <input type="text" id="rel-pulseira" placeholder="Ex: Aço Jubilee, Couro Marrom..." 
                    class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500" />
           </div>
           <div>
-            <label class="block font-semibold text-slate-300 mb-1">Caixa / Acomodação</label>
+            <label class="block font-semibold text-slate-300 mb-1">Caixa / Estojo</label>
             <select id="rel-caixa-id" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500">
               <option value="">Nenhuma / Em uso</option>
             </select>
           </div>
         </div>
 
-        <!-- Tríade de Avaliações Simultânea -->
+        <!-- Tríade de Avaliações -->
         <div class="bg-slate-950/70 border border-slate-800 p-3.5 rounded-xl space-y-3">
           <div class="flex items-center justify-between">
             <span class="font-bold text-slate-300 flex items-center gap-1.5">
               <i data-lucide="award" class="w-4 h-4 text-amber-400"></i>
               <span>Tríade de Avaliação da Peça (0 a 5)</span>
             </span>
-            <span class="text-[10px] text-slate-400">Clique nas escalas para avaliar</span>
+            <span class="text-[10px] text-slate-400">Clique nas notas para definir</span>
           </div>
           
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <!-- Estrela: Prestígio -->
             <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-between">
               <span class="text-[11px] font-semibold text-amber-400 flex items-center gap-1 mb-1.5">
                 <i data-lucide="star" class="w-3.5 h-3.5 fill-amber-400"></i> Prestígio / Marca
               </span>
-              <div class="flex items-center justify-between" id="star-selector">
-                <!-- Injetado por JS -->
-              </div>
+              <div class="flex items-center justify-between" id="star-selector"></div>
               <input type="hidden" id="rel-rating-prestigio" value="0" />
             </div>
 
-            <!-- Coração: Afeto -->
             <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-between">
               <span class="text-[11px] font-semibold text-rose-400 flex items-center gap-1 mb-1.5">
                 <i data-lucide="heart" class="w-3.5 h-3.5 fill-rose-400"></i> Afeto / Queridômetro
               </span>
-              <div class="flex items-center justify-between" id="heart-selector">
-                <!-- Injetado por JS -->
-              </div>
+              <div class="flex items-center justify-between" id="heart-selector"></div>
               <input type="hidden" id="rel-rating-afeto" value="0" />
             </div>
 
-            <!-- Cifrão: Valor -->
             <div class="p-2.5 bg-slate-900 rounded-lg border border-slate-800 flex flex-col justify-between">
               <span class="text-[11px] font-semibold text-emerald-400 flex items-center gap-1 mb-1.5">
                 <i data-lucide="circle-dollar-sign" class="w-3.5 h-3.5"></i> Custo-Benefício
               </span>
-              <div class="flex items-center justify-between" id="dollar-selector">
-                <!-- Injetado por JS -->
-              </div>
+              <div class="flex items-center justify-between" id="dollar-selector"></div>
               <input type="hidden" id="rel-rating-valor" value="0" />
             </div>
           </div>
         </div>
 
-        <!-- Foto & Descrição -->
         <div>
-          <label class="block font-semibold text-slate-300 mb-1">Foto Principal (Arquivo ou URL)</label>
+          <label class="block font-semibold text-slate-300 mb-1">Foto Principal (URL ou Upload)</label>
           <div class="flex gap-2">
             <input type="text" id="rel-foto-url" placeholder="https://exemplo.com/relogio.jpg" 
                    class="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500" />
@@ -467,7 +443,7 @@
 
         <div>
           <label class="block font-semibold text-slate-300 mb-1">Descrição & Detalhes Adicionais</label>
-          <textarea id="rel-descricao" rows="2" placeholder="História da compra, número de série, detalhes do bisel..." 
+          <textarea id="rel-descricao" rows="2" placeholder="História da compra, número de série, detalhes da peça..." 
                     class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500"></textarea>
         </div>
 
@@ -479,18 +455,14 @@
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- MODAL: FICHA TÉCNICA DETALHADA             -->
-  <!-- ========================================== -->
+  <!-- MODAL: FICHA TÉCNICA -->
   <div id="modal-ficha" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3 overflow-y-auto">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl my-auto overflow-hidden">
       <div id="ficha-conteudo"></div>
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- MODAL: NOVA / EDITAR CAIXA                 -->
-  <!-- ========================================== -->
+  <!-- MODAL: NOVA CAIXA -->
   <div id="modal-caixa" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-5 shadow-2xl">
       <div class="flex items-center justify-between mb-4">
@@ -501,11 +473,11 @@
         <input type="hidden" id="caixa-id" />
         <div>
           <label class="block font-semibold text-slate-300 mb-1">Nome da Caixa / Estojo *</label>
-          <input type="text" id="caixa-nome" required placeholder="Ex: Caixa Principal de Madeira, Roll Case Couro" 
+          <input type="text" id="caixa-nome" required placeholder="Ex: Estojo de Madeira, Roll Case Couro" 
                  class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500" />
         </div>
         <div>
-          <label class="block font-semibold text-slate-300 mb-1">Capacidade (Almofadas / Slots) *</label>
+          <label class="block font-semibold text-slate-300 mb-1">Capacidade (Slots) *</label>
           <input type="number" id="caixa-capacidade" min="1" required placeholder="Ex: 6, 10, 12" 
                  class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500" />
         </div>
@@ -522,9 +494,7 @@
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- MODAL: CONFIGURAÇÕES GITHUB                -->
-  <!-- ========================================== -->
+  <!-- MODAL: CONFIGURAÇÕES GITHUB -->
   <div id="modal-config" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-3">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-5 shadow-2xl text-xs space-y-4">
       <div class="flex items-center justify-between">
@@ -539,7 +509,6 @@
           <label class="block font-semibold text-slate-300 mb-1">Personal Access Token (PAT)</label>
           <input type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" 
                  class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-sky-500 font-mono text-xs" />
-          <p class="text-[10px] text-slate-500 mt-1">Token com permissão de `repo` para commit e leitura do Pages.</p>
         </div>
         <div>
           <label class="block font-semibold text-slate-300 mb-1">Repositório (owner/repo)</label>
@@ -561,9 +530,7 @@
     </div>
   </div>
 
-  <!-- ========================================== -->
-  <!-- MODAL: STATUS DE DEPLOY & POLLING GITHUB   -->
-  <!-- ========================================== -->
+  <!-- MODAL: DEPLOY & STATUS -->
   <div id="modal-deploy" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden flex items-center justify-center p-3">
     <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 shadow-2xl text-center space-y-4">
       <div id="deploy-spinner-container" class="relative w-16 h-16 mx-auto flex items-center justify-center">
@@ -585,37 +552,33 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT PRINCIPAL -->
+  <!-- LOGICA JAVASCRIPT BLINDADA -->
   <script>
-    // --- ESTADO GLOBAL ---
     let relogios = [];
     let caixas = [];
-    let visualizacaoAtual = 'grid'; // 'grid' ou 'lista'
+    let visualizacaoAtual = 'grid';
     let graficoValoresInstancia = null;
     let graficoCategoriasInstancia = null;
     let deployIntervalId = null;
 
-    // --- FORMATAÇÃO MONETÁRIA ---
     const formatarBRL = (valor) => {
       return (Number(valor) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     };
 
-    // --- HELPER INTELIGENTE: TIPO DE AQUISIÇÃO & MIGRAÇÃO ---
-    // Detecta automaticamente se é compra ou presente mesmo para relógios legados
     function getTipoAquisicao(rel) {
+      if (!rel) return 'compra';
       if (rel.tipo_aquisicao === 'presente' || rel.tipo_aquisicao === 'compra') {
         return rel.tipo_aquisicao;
       }
-      const origemTexto = (rel.origem || '').toLowerCase();
-      if (origemTexto.includes('presente') || origemTexto.includes('ganhei') || origemTexto.includes('ganhado') || origemTexto.includes('doação')) {
+      const origemTexto = String(rel.origem || '').toLowerCase();
+      if (/presente|ganhei|ganhado|ganhou|doação/i.test(origemTexto)) {
         return 'presente';
       }
       return 'compra';
     }
 
-    // --- HELPER DE AVALIAÇÕES (TRÍADE) ---
-    // Suporta o novo formato { prestigio, afeto, valor } e migra relatórios legados
     function getWatchRatings(rel) {
+      if (!rel) return { prestigio: 0, afeto: 0, valor: 0 };
       if (rel.ratings && typeof rel.ratings === 'object') {
         return {
           prestigio: Number(rel.ratings.prestigio) || 0,
@@ -623,7 +586,6 @@
           valor: Number(rel.ratings.valor) || 0
         };
       }
-      // Se tiver rating legado único
       let p = 0, a = 0, v = 0;
       if (rel.rating) {
         const val = Number(rel.rating.valor) || 0;
@@ -634,46 +596,126 @@
       return { prestigio: p, afeto: a, valor: v };
     }
 
-    // --- INICIALIZAÇÃO ---
+    // --- CARREGAMENTO RESILIENTE (NÃO QUEBRA INDEPENDENTE DO FORMATO) ---
+    async function carregarDadosIniciais() {
+      let relogiosLocaisValidos = false;
+      let caixasLocaisValidas = false;
+
+      // 1. Tenta carregar dados locais (suporta formato antigo e novo de chaves)
+      const localRel = localStorage.getItem('mywatches_relogios') || localStorage.getItem('mw_relogios');
+      const localCax = localStorage.getItem('mywatches_caixas') || localStorage.getItem('mw_caixas');
+
+      if (localRel) {
+        try {
+          const dados = JSON.parse(localRel);
+          if (Array.isArray(dados)) {
+            relogios = dados;
+            relogiosLocaisValidos = true;
+          }
+        } catch (e) {
+          console.warn("Erro ao ler relógios locais:", e);
+        }
+      }
+
+      if (localCax) {
+        try {
+          const dados = JSON.parse(localCax);
+          if (Array.isArray(dados)) {
+            caixas = dados;
+            caixasLocaisValidas = true;
+          }
+        } catch (e) {
+          console.warn("Erro ao ler caixas locais:", e);
+        }
+      }
+
+      // 2. Se não houver dados locais, busca no arquivo remoto relogios.json
+      if (!relogiosLocaisValidos || !caixasLocaisValidas) {
+        try {
+          const resposta = await fetch(`./relogios.json?t=${Date.now()}`, { cache: 'no-store' });
+          if (resposta.ok) {
+            const dados = await resposta.json();
+
+            let relogiosRemotos = [];
+            let caixasRemotas = [];
+            let temCaixasNoMesmoJson = false;
+
+            if (Array.isArray(dados)) {
+              relogiosRemotos = dados;
+            } else if (dados && typeof dados === 'object') {
+              relogiosRemotos = Array.isArray(dados.relogios) ? dados.relogios : [];
+              if (Array.isArray(dados.caixas)) {
+                caixasRemotas = dados.caixas;
+                temCaixasNoMesmoJson = true;
+              }
+            }
+
+            if (!relogiosLocaisValidos) {
+              relogios = relogiosRemotos;
+            }
+
+            if (!caixasLocaisValidas) {
+              caixas = caixasRemotas;
+              if (!temCaixasNoMesmoJson) {
+                try {
+                  const resCax = await fetch(`./caixas.json?t=${Date.now()}`, { cache: 'no-store' });
+                  if (resCax.ok) {
+                    const dadosCax = await resCax.json();
+                    if (Array.isArray(dadosCax)) caixas = dadosCax;
+                  }
+                } catch (eCax) {
+                  console.warn("caixas.json opcional não encontrado.", eCax);
+                }
+              }
+            }
+          }
+        } catch (erroRemoto) {
+          console.error("Falha ao buscar dados remotos:", erroRemoto);
+        }
+      }
+
+      // 3. Blindagem: Garante que relógios e caixas sejam impreterivelmente Arrays
+      if (!Array.isArray(relogios)) relogios = [];
+      if (!Array.isArray(caixas)) caixas = [];
+
+      // 4. Normalização de campos legados
+      relogios = relogios.map(r => ({
+        ...r,
+        id: r.id ? String(r.id) : (Date.now() + Math.random()).toString(),
+        marca: r.marca || '',
+        modelo: r.modelo || '',
+        tipo: r.tipo || '',
+        calibre: r.calibre || '',
+        preco: Number(r.preco) || 0,
+        foto: r.foto || (Array.isArray(r.fotos) && r.fotos[0] ? r.fotos[0] : ''),
+        tipo_aquisicao: getTipoAquisicao(r),
+        ratings: getWatchRatings(r)
+      }));
+
+      caixas = caixas.map(c => ({
+        ...c,
+        id: c.id ? String(c.id) : (Date.now() + Math.random()).toString(),
+        capacidade: Number(c.capacidade) || 1
+      }));
+
+      salvarNoLocalStorage();
+    }
+
+    function salvarNoLocalStorage() {
+      const relJson = JSON.stringify(relogios);
+      const caxJson = JSON.stringify(caixas);
+      localStorage.setItem('mywatches_relogios', relJson);
+      localStorage.setItem('mw_relogios', relJson);
+      localStorage.setItem('mywatches_caixas', caxJson);
+      localStorage.setItem('mw_caixas', caxJson);
+    }
+
     window.addEventListener('DOMContentLoaded', async () => {
       carregarConfigs();
       criarSeletoresRating();
       await carregarDadosIniciais();
       renderizarTudo();
-      lucide.createIcons();
     });
-
-    // Carrega dados do LocalStorage ou do repositório
-    async function carregarDadosIniciais() {
-      const localRel = localStorage.getItem('mw_relogios');
-      const localCaixas = localStorage.getItem('mw_caixas');
-
-      if (localRel) {
-        try { relogios = JSON.parse(localRel); } catch (e) { relogios = []; }
-      }
-      if (localCaixas) {
-        try { caixas = JSON.parse(localCaixas); } catch (e) { caixas = []; }
-      }
-
-      // Se ambos estiverem vazios, tenta buscar do JSON do repositório
-      if (relogios.length === 0 && caixas.length === 0) {
-        try {
-          const resRel = await fetch('relogios.json');
-          if (resRel.ok) {
-            relogios = await resRel.json();
-            localStorage.setItem('mw_relogios', JSON.stringify(relogios));
-          }
-        } catch (e) {}
-
-        try {
-          const resCax = await fetch('caixas.json');
-          if (resCax.ok) {
-            caixas = await resCax.json();
-            localStorage.setItem('mw_caixas', JSON.stringify(caixas));
-          }
-        } catch (e) {}
-      }
-    }
 
     function renderizarTudo() {
       renderizarRelogios();
@@ -685,7 +727,6 @@
       lucide.createIcons();
     }
 
-    // --- SELETORES INTERATIVOS DA TRÍADE DE AVALIAÇÃO NO FORMULÁRIO ---
     function criarSeletoresRating() {
       gerarBotoesRating('star-selector', 'rel-rating-prestigio', 'star', 'text-amber-400');
       gerarBotoesRating('heart-selector', 'rel-rating-afeto', 'heart', 'text-rose-400');
@@ -702,7 +743,7 @@
         btn.innerHTML = `<i data-lucide="${iconName}" class="w-4 h-4"></i>`;
         btn.onclick = () => {
           const curVal = Number(document.getElementById(inputId).value);
-          const newVal = (curVal === i) ? 0 : i; // Clicar no mesmo zera
+          const newVal = (curVal === i) ? 0 : i;
           document.getElementById(inputId).value = newVal;
           atualizarVisualRating(containerId, inputId, iconName, activeColor);
         };
@@ -715,7 +756,6 @@
       const container = document.getElementById(containerId);
       const buttons = container.querySelectorAll('button');
       buttons.forEach((btn, index) => {
-        const icon = btn.querySelector('svg') || btn.querySelector('i');
         if (index < val) {
           btn.className = `p-1 ${activeColor} transition`;
           if (iconName === 'star' || iconName === 'heart') {
@@ -726,6 +766,7 @@
           btn.classList.remove('fill-current');
         }
       });
+      lucide.createIcons();
     }
 
     function setRatingValues(prestigio, afeto, valor) {
@@ -737,7 +778,6 @@
       atualizarVisualRating('dollar-selector', 'rel-rating-valor', 'circle-dollar-sign', 'text-emerald-400');
     }
 
-    // Adapta visualmente os rótulos de Compra vs Presente no formulário
     function atualizarCamposAquisicao() {
       const tipo = document.querySelector('input[name="tipo_aquisicao"]:checked').value;
       const lblPreco = document.getElementById('lbl-preco');
@@ -758,15 +798,13 @@
       }
     }
 
-    // --- RENDERIZAÇÃO DE RELÓGIOS (GRID & LISTA) ---
     function renderizarRelogios() {
       const container = document.getElementById('grid-relogios');
       const emptyState = document.getElementById('empty-state-relogios');
-      const busca = document.getElementById('filtro-busca').value.toLowerCase();
+      const busca = (document.getElementById('filtro-busca').value || '').toLowerCase();
       const filtroAquisicao = document.getElementById('filtro-aquisicao').value;
       const ordenacao = document.getElementById('filtro-ordenacao').value;
 
-      // Filtragem
       let lista = relogios.filter(r => {
         const tipoAq = getTipoAquisicao(r);
         if (filtroAquisicao !== 'todos' && tipoAq !== filtroAquisicao) return false;
@@ -775,7 +813,6 @@
         return termo.includes(busca);
       });
 
-      // Ordenação
       lista.sort((a, b) => {
         const precoA = Number(a.preco) || 0;
         const precoB = Number(b.preco) || 0;
@@ -787,7 +824,7 @@
         if (ordenacao === 'afeto-desc') return ratB.afeto - ratA.afeto;
         if (ordenacao === 'prestigio-desc') return ratB.prestigio - ratA.prestigio;
         if (ordenacao === 'nome-asc') return (a.marca || '').localeCompare(b.marca || '');
-        return 0; // Padrão
+        return 0;
       });
 
       if (lista.length === 0) {
@@ -812,7 +849,7 @@
       const tipoAq = getTipoAquisicao(r);
       const ratings = getWatchRatings(r);
       const foto = r.foto || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&auto=format&fit=crop&q=80';
-      const caixa = caixas.find(c => c.id == r.caixa_id);
+      const caixa = caixas.find(c => String(c.id) === String(r.caixa_id));
 
       const badgeTipo = tipoAq === 'presente'
         ? `<span class="bg-pink-500/20 text-pink-300 border border-pink-500/30 px-2 py-0.5 rounded-md text-[10px] font-bold flex items-center gap-1"><i data-lucide="gift" class="w-3 h-3"></i> Presente</span>`
@@ -820,7 +857,6 @@
 
       return `
         <div class="bg-slate-900/80 border border-slate-800 rounded-2xl overflow-hidden shadow-lg hover:border-slate-700 transition flex flex-col group">
-          <!-- Imagem e Badges -->
           <div class="relative h-48 bg-slate-950 overflow-hidden cursor-pointer" onclick="abrirFichaTecnica('${r.id}')">
             <img src="${foto}" alt="${r.modelo}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" />
             <div class="absolute top-2.5 left-2.5 flex items-center gap-1.5">
@@ -829,7 +865,6 @@
             ${caixa ? `<div class="absolute bottom-2.5 left-2.5 bg-slate-950/80 backdrop-blur-md text-slate-300 border border-slate-800 px-2 py-0.5 rounded text-[10px] flex items-center gap-1"><i data-lucide="box" class="w-3 h-3 text-sky-400"></i> ${caixa.nome}</div>` : ''}
           </div>
 
-          <!-- Informações do Card -->
           <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
             <div>
               <div class="text-[10px] font-bold tracking-wider text-sky-400 uppercase">${r.marca || 'Marca'}</div>
@@ -837,7 +872,6 @@
               <p class="text-[11px] text-slate-400 mt-0.5 truncate">${r.tipo || 'Relógio'} • ${r.calibre || 'Mecanismo'}</p>
             </div>
 
-            <!-- Tríade de Avaliação Elegante -->
             <div class="bg-slate-950/60 border border-slate-800/80 rounded-xl px-2.5 py-1.5 flex items-center justify-between text-[11px]">
               <div class="flex items-center gap-1 text-amber-400 font-semibold" title="Prestígio / Marca">
                 <i data-lucide="star" class="w-3 h-3 fill-amber-400"></i>
@@ -855,7 +889,6 @@
               </div>
             </div>
 
-            <!-- Rodapé do Card: Valor & Ações -->
             <div class="flex items-center justify-between pt-2 border-t border-slate-800/60">
               <div>
                 <span class="text-[9px] uppercase tracking-wider text-slate-500 block">${tipoAq === 'presente' ? 'Valor Atribuído' : 'Valor Pago'}</span>
@@ -894,14 +927,12 @@
             </div>
           </div>
 
-          <!-- Tríade Compacta -->
           <div class="hidden md:flex items-center gap-3 bg-slate-950/60 px-3 py-1.5 rounded-lg border border-slate-800/80 text-[11px]">
             <span class="flex items-center gap-1 text-amber-400 font-semibold" title="Prestígio"><i data-lucide="star" class="w-3 h-3 fill-amber-400"></i> ${ratings.prestigio}</span>
             <span class="flex items-center gap-1 text-rose-400 font-semibold" title="Afeto"><i data-lucide="heart" class="w-3 h-3 fill-rose-400"></i> ${ratings.afeto}</span>
             <span class="flex items-center gap-1 text-emerald-400 font-semibold" title="Valor"><i data-lucide="circle-dollar-sign" class="w-3 h-3"></i> ${ratings.valor}</span>
           </div>
 
-          <!-- Preço e Ações -->
           <div class="flex items-center gap-4 flex-shrink-0">
             <div class="text-right">
               <span class="text-[9px] text-slate-500 block">${tipoAq === 'presente' ? 'Atribuído' : 'Pago'}</span>
@@ -916,7 +947,6 @@
       `;
     }
 
-    // --- RENDERIZAÇÃO DO DASHBOARD GERAL ---
     function renderizarDashboardGeral() {
       const totalPecas = relogios.length;
       let totalValor = 0;
@@ -950,19 +980,14 @@
 
       const precoMedioReal = qtdCompras > 0 ? (totalCompras / qtdCompras) : 0;
 
-      // Injeta nos cards da Tríade Patrimonial
       document.getElementById('dash-valor-total').innerText = formatarBRL(totalValor);
       document.getElementById('dash-qtd-total').innerText = `${totalPecas} peças`;
-
       document.getElementById('dash-patrimonio-investido').innerText = formatarBRL(totalCompras);
       document.getElementById('dash-qtd-compras').innerText = `${qtdCompras} comprados`;
-
       document.getElementById('dash-acervo-presentes').innerText = formatarBRL(totalPresentes);
       document.getElementById('dash-qtd-presentes').innerText = `${qtdPresentes} presentes`;
-
       document.getElementById('dash-preco-medio').innerText = formatarBRL(precoMedioReal);
 
-      // Médias dos índices de avaliação
       const mediaPres = totalPecas > 0 ? (somaPrestigio / totalPecas).toFixed(1) : '0.0';
       const mediaAfet = totalPecas > 0 ? (somaAfeto / totalPecas).toFixed(1) : '0.0';
       const mediaValR = totalPecas > 0 ? (somaValorRating / totalPecas).toFixed(1) : '0.0';
@@ -971,17 +996,14 @@
       document.getElementById('dash-media-afeto').innerText = `${mediaAfet} / 5.0`;
       document.getElementById('dash-media-valor').innerText = `${mediaValR} / 5.0`;
 
-      // Atualiza Gráficos
-      atualizarGraficos(totalCompras, totalPresentes);
+      atualizarGraficos();
     }
 
     function atualizarGraficos() {
-      // 1. Gráfico Maiores Valores
       const canvasValores = document.getElementById('graficoMaioresValores');
       if (canvasValores) {
         if (graficoValoresInstancia) graficoValoresInstancia.destroy();
 
-        // Top 5 peças mais caras
         const topValores = [...relogios]
           .sort((a, b) => (Number(b.preco) || 0) - (Number(a.preco) || 0))
           .slice(0, 5);
@@ -1030,7 +1052,6 @@
         });
       }
 
-      // 2. Gráfico Categorias / Tipos
       const canvasCat = document.getElementById('graficoCategorias');
       if (canvasCat) {
         if (graficoCategoriasInstancia) graficoCategoriasInstancia.destroy();
@@ -1069,7 +1090,6 @@
       }
     }
 
-    // --- RENDERIZAÇÃO DE CAIXAS ---
     function renderizarCaixas() {
       const container = document.getElementById('grid-caixas');
       const emptyState = document.getElementById('empty-state-caixas');
@@ -1082,7 +1102,7 @@
       emptyState.classList.add('hidden');
 
       container.innerHTML = caixas.map(c => {
-        const pecasNaCaixa = relogios.filter(r => r.caixa_id == c.id);
+        const pecasNaCaixa = relogios.filter(r => String(r.caixa_id) === String(c.id));
         const capacidade = Number(c.capacidade) || 1;
         const ocupacao = pecasNaCaixa.length;
         const percent = Math.min(Math.round((ocupacao / capacidade) * 100), 100);
@@ -1105,7 +1125,6 @@
               </div>
             </div>
 
-            <!-- Barra de Ocupação -->
             <div>
               <div class="flex justify-between text-[10px] text-slate-400 mb-1">
                 <span>Ocupação</span>
@@ -1116,7 +1135,6 @@
               </div>
             </div>
 
-            <!-- Miniaturas dos relógios guardados -->
             <div class="flex flex-wrap gap-1.5 pt-1">
               ${pecasNaCaixa.map(p => `
                 <img src="${p.foto || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=100'}" 
@@ -1140,15 +1158,14 @@
         caixas.map(c => `<option value="${c.id}">${c.nome}</option>`).join('');
     }
 
-    // --- FICHA TÉCNICA (MODAL) ---
     function abrirFichaTecnica(id) {
-      const r = relogios.find(item => item.id == id);
+      const r = relogios.find(item => String(item.id) === String(id));
       if (!r) return;
 
       const tipoAq = getTipoAquisicao(r);
       const ratings = getWatchRatings(r);
       const foto = r.foto || 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80';
-      const caixa = caixas.find(c => c.id == r.caixa_id);
+      const caixa = caixas.find(c => String(c.id) === String(r.caixa_id));
 
       const html = `
         <div class="relative h-64 bg-slate-950 overflow-hidden flex-shrink-0">
@@ -1171,7 +1188,6 @@
             <p class="text-slate-400 mt-0.5">${r.tipo || 'Relógio'} • Calibre: ${r.calibre || 'Não informado'}</p>
           </div>
 
-          <!-- Destaque Patrimonial / Afetivo -->
           <div class="p-3.5 rounded-xl border ${tipoAq === 'presente' ? 'bg-pink-950/20 border-pink-500/30' : 'bg-indigo-950/20 border-indigo-500/30'} flex items-center justify-between">
             <div>
               <span class="text-[10px] uppercase font-bold text-slate-400 block">${tipoAq === 'presente' ? 'Valor Atribuído' : 'Investimento Real'}</span>
@@ -1183,7 +1199,6 @@
             </div>
           </div>
 
-          <!-- Tríade de Avaliação na Ficha -->
           <div class="grid grid-cols-3 gap-2">
             <div class="p-2.5 bg-slate-950/80 rounded-xl border border-slate-800 text-center">
               <span class="text-[10px] text-amber-400 font-semibold block mb-1">⭐ Prestígio</span>
@@ -1199,13 +1214,12 @@
             </div>
           </div>
 
-          <!-- Especificações Técnicas -->
           <div class="bg-slate-950/50 p-3 rounded-xl border border-slate-800 space-y-2">
             <h4 class="font-bold text-slate-300 text-[11px] uppercase tracking-wider">Ficha Técnica</h4>
             <div class="grid grid-cols-2 gap-2 text-slate-400">
               <div><strong class="text-slate-300">Diâmetro:</strong> ${r.diametro || 'N/A'}</div>
               <div><strong class="text-slate-300">Mostrador:</strong> ${r.cor_mostrador || 'N/A'}</div>
-              <div><strong class="text-slate-300">Pulseira:</strong> ${r.material_correia || r.tipo_correia || 'Aço'}</div>
+              <div><strong class="text-slate-300">Pulseira:</strong> ${r.material_correia || r.pulseira || 'Aço'}</div>
               <div><strong class="text-slate-300">Acomodação:</strong> ${caixa ? caixa.nome : 'Em uso'}</div>
               <div><strong class="text-slate-300">Aquisição:</strong> ${r.data_aquisicao || 'N/A'}</div>
             </div>
@@ -1235,7 +1249,6 @@
       document.getElementById('modal-ficha').classList.add('hidden');
     }
 
-    // --- SALVAR / EDITAR / EXCLUIR RELÓGIOS ---
     function abrirModalCadastro() {
       document.getElementById('modal-cadastro-titulo').innerText = 'Adicionar Relógio';
       document.getElementById('form-relogio').reset();
@@ -1252,13 +1265,12 @@
     }
 
     function editarRelogio(id) {
-      const r = relogios.find(item => item.id == id);
+      const r = relogios.find(item => String(item.id) === String(id));
       if (!r) return;
 
       document.getElementById('modal-cadastro-titulo').innerText = 'Editar Relógio';
       document.getElementById('rel-id').value = r.id;
 
-      // Tipo de Aquisição
       const tipoAq = getTipoAquisicao(r);
       const radio = document.querySelector(`input[name="tipo_aquisicao"][value="${tipoAq}"]`);
       if (radio) radio.checked = true;
@@ -1273,7 +1285,7 @@
       document.getElementById('rel-diametro').value = r.diametro || '';
       document.getElementById('rel-data').value = r.data_aquisicao || '';
       document.getElementById('rel-mostrador').value = r.cor_mostrador || '';
-      document.getElementById('rel-pulseira').value = r.material_correia || r.tipo_correia || '';
+      document.getElementById('rel-pulseira').value = r.material_correia || r.pulseira || '';
       document.getElementById('rel-caixa-id').value = r.caixa_id || '';
       document.getElementById('rel-foto-url').value = r.foto || '';
       document.getElementById('rel-descricao').value = r.descricao || '';
@@ -1321,25 +1333,24 @@
       };
 
       if (id) {
-        const index = relogios.findIndex(r => r.id == id);
+        const index = relogios.findIndex(r => String(r.id) === String(id));
         if (index !== -1) relogios[index] = { ...relogios[index], ...dados };
       } else {
         relogios.push(dados);
       }
 
-      localStorage.setItem('mw_relogios', JSON.stringify(relogios));
+      salvarNoLocalStorage();
       fecharModalCadastro();
       renderizarTudo();
     }
 
     function excluirRelogio(id) {
       if (!confirm('Deseja realmente remover esta peça do acervo?')) return;
-      relogios = relogios.filter(r => r.id != id);
-      localStorage.setItem('mw_relogios', JSON.stringify(relogios));
+      relogios = relogios.filter(r => String(r.id) !== String(id));
+      salvarNoLocalStorage();
       renderizarTudo();
     }
 
-    // Trata upload de imagem local (redimensiona em base64)
     function tratarUploadFoto(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -1376,7 +1387,6 @@
       reader.readAsDataURL(file);
     }
 
-    // --- GERENCIAMENTO DE CAIXAS ---
     function abrirModalCaixa() {
       document.getElementById('modal-caixa-titulo').innerText = 'Adicionar Caixa';
       document.getElementById('form-caixa').reset();
@@ -1389,7 +1399,7 @@
     }
 
     function editarCaixa(id) {
-      const c = caixas.find(item => item.id == id);
+      const c = caixas.find(item => String(item.id) === String(id));
       if (!c) return;
       document.getElementById('modal-caixa-titulo').innerText = 'Editar Caixa';
       document.getElementById('caixa-id').value = c.id;
@@ -1410,27 +1420,25 @@
       };
 
       if (id) {
-        const index = caixas.findIndex(c => c.id == id);
+        const index = caixas.findIndex(c => String(c.id) === String(id));
         if (index !== -1) caixas[index] = dados;
       } else {
         caixas.push(dados);
       }
 
-      localStorage.setItem('mw_caixas', JSON.stringify(caixas));
+      salvarNoLocalStorage();
       fecharModalCaixa();
       renderizarTudo();
     }
 
     function excluirCaixa(id) {
       if (!confirm('Deseja excluir esta caixa? Os relógios nela ficarão desacomodados.')) return;
-      caixas = caixas.filter(c => c.id != id);
-      relogios = relogios.map(r => r.caixa_id == id ? { ...r, caixa_id: '' } : r);
-      localStorage.setItem('mw_caixas', JSON.stringify(caixas));
-      localStorage.setItem('mw_relogios', JSON.stringify(relogios));
+      caixas = caixas.filter(c => String(c.id) !== String(id));
+      relogios = relogios.map(r => String(r.caixa_id) === String(id) ? { ...r, caixa_id: '' } : r);
+      salvarNoLocalStorage();
       renderizarTudo();
     }
 
-    // --- ALTERNAR ABAS E MODOS DE VISUALIZAÇÃO ---
     function trocarAba(aba) {
       ['relogios', 'caixas', 'geral'].forEach(nome => {
         document.getElementById(`aba-${nome}`).classList.add('hidden');
@@ -1470,7 +1478,6 @@
       renderizarRelogios();
     }
 
-    // --- CONFIGURAÇÃO GITHUB ---
     function abrirModalConfig() {
       carregarConfigs();
       document.getElementById('modal-config').classList.remove('hidden');
@@ -1491,7 +1498,6 @@
       fecharModalConfig();
     }
 
-    // --- SINCRONIZAÇÃO E POLLING DO DEPLOY GITHUB ---
     function abrirModalDeploy() {
       const token = localStorage.getItem('mw_gh_token');
       const repo = localStorage.getItem('mw_gh_repo');
@@ -1520,17 +1526,14 @@
       document.getElementById('modal-deploy').classList.add('hidden');
     }
 
-    // Função que salva no GitHub e monitora o build via polling a cada 5 segundos
     async function executarSincronizacaoEPolling() {
       const token = localStorage.getItem('mw_gh_token');
       const repo = localStorage.getItem('mw_gh_repo');
       const branch = localStorage.getItem('mw_gh_branch') || 'main';
 
       try {
-        // 1. Atualizar relogios.json no repositório
         await atualizarArquivoGitHub(token, repo, branch, 'relogios.json', JSON.stringify(relogios, null, 2));
         
-        // 2. Atualizar caixas.json no repositório
         if (caixas.length > 0) {
           await atualizarArquivoGitHub(token, repo, branch, 'caixas.json', JSON.stringify(caixas, null, 2));
         }
@@ -1538,9 +1541,8 @@
         document.getElementById('deploy-titulo').innerText = 'Aguardando GitHub Pages...';
         document.getElementById('deploy-mensagem').innerText = 'Commit realizado! Monitorando status do deploy em tempo real...';
 
-        // 3. Polling da API do GitHub Pages a cada 5 segundos
         let tentativas = 0;
-        const maxTentativas = 24; // ~2 minutos de limite
+        const maxTentativas = 24;
 
         deployIntervalId = setInterval(async () => {
           tentativas++;
@@ -1556,7 +1558,6 @@
 
             if (res.ok) {
               const build = await res.json();
-              // Status possíveis: 'building', 'built', 'errored', 'queued'
               if (build.status === 'built') {
                 clearInterval(deployIntervalId);
                 sucessoDeploy();
@@ -1565,7 +1566,6 @@
                 erroDeploy('O GitHub Pages retornou erro ao processar o deploy.');
               }
             } else if (res.status === 404) {
-              // Se não usa Pages Builds API direta, tenta consultar runs do Actions
               const resActions = await fetch(`https://api.github.com/repos/${repo}/actions/runs?per_page=1`, {
                 headers: { 'Authorization': `token ${token}` }
               });
@@ -1584,7 +1584,6 @@
 
           if (tentativas >= maxTentativas) {
             clearInterval(deployIntervalId);
-            // Mesmo se expirar o polling, os arquivos foram commitados com sucesso
             sucessoDeploy('Commit salvo! O GitHub Pages pode levar mais alguns segundos para refletir globalmente.');
           }
         }, 5000);
@@ -1607,7 +1606,6 @@
         }
       } catch (e) {}
 
-      // Converte para Base64 com suporte a UTF-8
       const contentBase64 = btoa(unescape(encodeURIComponent(conteudoTexto)));
 
       const bodyData = {
