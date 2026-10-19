@@ -85,7 +85,7 @@
       "tipo_correia": "Rubber-Strap",
       "cor_correia": "Preta",
       "tipo_fecho": "",
-      "descricao": "Mecanismo Automático Seagull ST1601 de alto padrão com duração de até 42 horas e construção Skeleton\n- Ponteiros luminescente Lumi-Vision®\n- Caseback e fecho clasp em aço inox 304L\n- Caixa de 41mm em liga metálica escovada extremamente reforçada e resistente a riscos\n- Vidro mineral Hardlex, resistente à riscos e extremamente durável\n- Coroa de pressão, com ajuste preciso e acionamento suave\n- Pulseira Rubber-Strap, borracha resistente e confortável\n- Resistência à agua até 30 metros: 3ATM\n- Aprox. 90g, super leve\n- Dimensões: Largura da caixa (bisel): 42 mm; Largura da caixa (total): 42 mm; Comprimento da caixa (bisel): 41 mm; Comprimento da caixa (lug to lug): 48 mm; Espessura da caixa: 11 mm; Largura da pulseira (no encaixe da caixa): 22 mm",
+      "descricao": "Mecanismo Automático Seagull ST1601 de alto padrão com duração de até 42 horas e construção Skeleton\n- Ponteiros luminescente Lumi-Vision®\n- Caseback e fecho clasp em aço inox 304L\n- Caixa de 41mm em liga metálica escovada extremamente reforçada e resistente a riscos\n- Vidro mineral Hardlex, resistente à riscos e extremamente durável\n- Coroa de pressão, com ajuste preciso e acionamento suave\n- Pulseira Rubber-Strap, borracha resistente e confortável\n- Resistência à agua até 30 metros: 3ATM\n- Dimensões: Larg da caixa (bisel): 42 mm; Comp da caixa (bisel): 41 mm; Lug to lug: 48 mm; Espessura da caixa: 11 mm; Larg da pulseira: 22 mm",
       "historia": "Primeiro Edição Limitada 022/100",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119363704-2-1000393175.jpg",
@@ -235,11 +235,13 @@
       "marca": "Orient",
       "modelo": "Solartech MBSSC288 S1SX",
       "tipo": "Cronografo",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-08-17",
       "valor": 1198,
       "origem": "Compra",
-      "rating_tipo": "heart",
-      "rating_valor": "5",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5,
       "calibre": "Solar",
       "cor_mostrador": "Branco",
       "diametro": "42",
@@ -249,7 +251,7 @@
       "tipo_correia": "Elo padrao",
       "cor_correia": "Prata",
       "tipo_fecho": "Fecho com Trava de Segurança",
-      "descricao": "Tipo de tela\tAnálogico\nAssistir Movimento\tSolar\nCaracterísticas especiais\tCronógrafo\nFonte de energia\tEnergia Solar\nTipo de alça\tAço\nProfundidade de resistência à água\t100 Metros\nTipo de esporte\tCasual\nTipo de fecho\tFivela\nNível de resistência à água\tResistente à água\nRecurso de enfeite\tMostrador Em Camadas\nTipo de fechamento\tFivela\nEstilo\nEstilo\tCronógrafo\nFormato do item\tRedondo\nCor da pulseira\tPrata\nCor do mostrador\tBranco\nTema\tClássico\nEstampa\tCronógrafo\nEstilo da face\tCronógrafo\nCor do Inserto da Moldura\tPrata\nCor da Moldura\tPrata\nDetalhes do Produto\nNome da marca\tOrient\nNome do modelo\tMbssc288 S1sx\nComponentes Incluídos\tRelógio\nNúmero do modelo\tMbssc288\nNúmero de série\t69\nPeso do item\t300 g",
+      "descricao": "Tipo de tela\tAnálogico\nAssistir Movimento\tSolar\nFonte de energia\tEnergia Solar\nTipo de alça\tAço\nProfundidade de resistência à água\t100 Metros\nTipo de esporte\tCasual\nTipo de fecho\tFivela\nNível de resistência à água\tResistente à água\nRecurso de enfeite\tMostrador Em Camadas\nTipo de fechamento\tFivela\nEstilo\tCronógrafo\nCor da pulseira\tPrata\nCor do mostrador\tBranco\nEstilo da face\tCronógrafo\nCor do Inserto da Moldura\tPrata\nCor da Moldura\tPrata",
       "historia": "Primeiro Relógio de Marca Conceituada",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115568291-0-1000393502.jpg",
@@ -257,11 +259,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115571476-2-1000393498.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115573233-3-1000393497.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115574962-4-1000393500.jpg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792068328361",
