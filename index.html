@@ -1026,7 +1026,7 @@ function abrirModalConfig() {
     function fecharModalDetalhes() { document.getElementById('modal-detalhes').classList.add('hidden'); }
     
     
-    async function buscarComIA() {
+   async function buscarComIA() {
   const referencia = document.getElementById('busca-ia-referencia').value.trim();
   if (!referencia) {
     alert('Por favor, insira uma referência, modelo ou link do relógio.');
@@ -1069,7 +1069,7 @@ Extraia o máximo de informações técnicas possíveis e retorne APENAS um JSON
 Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${CONFIG.geminiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${CONFIG.geminiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1092,7 +1092,6 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações.`;
     const data = await response.json();
     const content = data.candidates[0].content.parts[0].text.trim();
     
-    // Remove markdown code blocks se houver
     let jsonStr = content;
     if (jsonStr.startsWith('```')) {
       jsonStr = jsonStr.replace(/```json?\n?/g, '').replace(/```$/g, '').trim();
@@ -1132,7 +1131,6 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações.`;
     lucide.createIcons();
   }
 }
-
 
     function abrirModalCadastro() {
       document.getElementById('form-relogio').reset();
