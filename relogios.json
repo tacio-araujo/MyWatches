@@ -409,11 +409,13 @@
       "marca": "Omega x Swatch",
       "modelo": "Moonwatch Mission To Earthphase Gold",
       "tipo": "Cronografo",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-09-15",
       "valor": 3700,
       "origem": "Compra",
-      "rating_tipo": "dollar",
-      "rating_valor": "5",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5,
       "calibre": "Quartzo",
       "cor_mostrador": "Branco e Azul",
       "diametro": "42",
@@ -428,16 +430,9 @@
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792340706088-1-1000394685.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792340704871-0-1000394684.webp",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290691114-3-1000394528.jpg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290687435-1-1000394525.jpg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290685683-0-1000394524.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290692753-4-1000394526.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290689229-2-1000394527.jpg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792080353963",
