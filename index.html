@@ -16,8 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/lucide@latest';"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js';"></script>
   <style>
     body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; min-height: 100vh; position: relative; }
     .bg-luxury-pattern { position: fixed; inset: 0; background-image: radial-gradient(circle at center, rgba(3,6,10,0.55) 0%, rgba(3,6,10,0.88) 65%, rgba(3,6,10,0.98) 100%), url('images/relogiocapa.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; pointer-events: none; z-index: -1; opacity: 0.65; transition: opacity 0.3s ease; }
@@ -27,7 +27,7 @@
     .dark .card-navy:hover { border-color: rgba(96,165,250,0.45); box-shadow: 0 10px 30px -10px rgba(15,41,77,0.8), 0 0 20px rgba(59,130,246,0.12); }
     html:not(.dark) .card-navy { background: rgba(255,255,255,0.92); border: 1px solid rgba(203,213,225,0.8); backdrop-filter: blur(12px); box-shadow: 0 4px 15px -3px rgba(0,0,0,0.05); }
     html:not(.dark) .card-navy:hover { border-color: rgba(14,165,233,0.5); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
-    .img-zoom-box { overflow: hidden; cursor: crosshair; }
+    .img-zoom-box { overflow: hidden; cursor: crosshair; touch-action: none; }
     .img-zoom-box img { transition: transform 0.12s ease-out; }
     .img-zoom-box:hover img { transform: scale(2.5); }
     ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -54,7 +54,7 @@
         <button id="btn-sync-all" onclick="sincronizarTudoComGithub()" class="hidden bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/50 hover:bg-emerald-600/30 px-2.5 py-1 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.2)]">
           <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">Sincronizar</span>
-          <span id="badge-sync-count" class="bg-emerald-500 text-slate-950 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
+          <span id="badge-sync-count" class="bg-emerald-500 text-slate-950 px-1.5 py-0.5 rounded-full text-[10px] font-bold">0</span>
         </button>
         <button id="btn-pwa-install" onclick="instalarPWA()" class="hidden bg-slate-200 dark:bg-[#0c182b] text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-[#1b2f4d] px-2 py-1 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
@@ -81,11 +81,11 @@
     <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none border-b border-slate-200/60 dark:border-[#122238] mb-3">
       <button onclick="alternarAba('relogios')" id="tab-btn-relogios" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
         <i data-lucide="watch" class="w-3.5 h-3.5"></i><span>Relógios</span>
-        <span id="badge-count-relogios" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
+        <span id="badge-count-relogios" class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold">0</span>
       </button>
       <button onclick="alternarAba('caixas')" id="tab-btn-caixas" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
         <i data-lucide="box" class="w-3.5 h-3.5"></i><span>Caixas</span>
-        <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.2 rounded-full text-[10px] font-bold">0</span>
+        <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold">0</span>
       </button>
       <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
         <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i><span>Geral</span>
@@ -229,7 +229,6 @@
         <input type="password" id="cfg-token" placeholder="••••••••••••••••••••••••••••••••••••••" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
       </div>
       
-      <!-- ✅ Campo Gemini movido para dentro do form -->
       <div class="pt-2 border-t border-slate-200 dark:border-[#1b2f4d]">
         <label class="text-slate-600 dark:text-slate-400 block mb-1">Google Gemini API Key (gratuita)</label>
         <input type="password" id="cfg-gemini-key" placeholder="AIza..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500">
@@ -397,7 +396,7 @@
       <div class="img-zoom-box rounded-xl border border-slate-200 dark:border-[#192b47] bg-slate-100 dark:bg-[#03070d] flex-1 max-h-[50vh] min-h-[240px] flex items-center justify-center relative overflow-hidden select-none">
         <img id="galeria-img-zoom" src="" alt="Foto" class="max-h-[50vh] w-auto max-w-full object-contain pointer-events-none">
       </div>
-      <p class="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-1.5">Passe o cursor sobre a imagem para ampliar.</p>
+      <p class="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-1.5">Passe o cursor ou toque e arraste na imagem para ampliar.</p>
       <div id="galeria-thumbs" class="flex gap-2 mt-2.5 overflow-x-auto pb-1 pt-1 justify-start"></div>
     </div>
   </div>
@@ -446,6 +445,7 @@
     let fotosRelogioAtual = [], fotosRelogioExcluir = [], fotosCaixaAtual = [], fotosCaixaExcluir = [];
     let chartMarcasInst = null, chartTiposInst = null, chartValoresInst = null, chartMovimentosInst = null;
     let deferredPrompt = null;
+    let debounceSearchTimer = null;
 const CONFIG = { 
   user: localStorage.getItem('gh_user') || 'tacio-araujo', 
   repo: localStorage.getItem('gh_repo') || 'MyWatches', 
@@ -547,7 +547,6 @@ function abrirModalConfig() {
       return dataStr;
     }
 
-    // Detecta automaticamente se é presente pela palavra no campo origem
     function classificarAquisicao(r) {
       if (r.tipo_aquisicao === 'compra' || r.tipo_aquisicao === 'presente') return r.tipo_aquisicao;
       const origem = ((r.origem || '') + '').toLowerCase();
@@ -555,7 +554,6 @@ function abrirModalConfig() {
       return 'compra';
     }
 
-    // Adapta o rótulo do campo valor conforme o tipo de aquisição
     function atualizarLabelValor() {
       const tipo = document.getElementById('tipo-aquisicao').value;
       const label = document.getElementById('label-valor');
@@ -577,8 +575,8 @@ function abrirModalConfig() {
       btnRelogios.className = aba === 'relogios' ? estiloAtivoRelogios : estiloBaseInativo;
       btnCaixas.className = aba === 'caixas' ? estiloAtivoCaixas : estiloBaseInativo;
       btnGeral.className = aba === 'geral' ? estiloAtivoGeral : estiloBaseInativo;
-      badgeRelogios.className = aba === 'relogios' ? "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
-      badgeCaixas.className = aba === 'caixas' ? "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.2 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+      badgeRelogios.className = aba === 'relogios' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+      badgeCaixas.className = aba === 'caixas' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
       viewRelogios.classList.toggle('hidden', aba !== 'relogios');
       viewCaixas.classList.toggle('hidden', aba !== 'caixas');
       viewGeral.classList.toggle('hidden', aba !== 'geral');
@@ -621,9 +619,7 @@ function abrirModalConfig() {
         if (!r.fotos && r.foto) r.fotos = [r.foto];
         if (!r.fotos) r.fotos = [];
         if (r.ordem === undefined) r.ordem = 999;
-        // Classifica automaticamente como presente se a origem contiver "presente"/"ganh"
         r.tipo_aquisicao = classificarAquisicao(r);
-        // Migração do sistema antigo (rating_tipo + rating_valor) para as 3 notas
         if (r.prestigio === undefined || r.afeto === undefined || r.valor_rating === undefined) {
           const oldTipo = r.rating_tipo, oldValor = parseInt(r.rating_valor) || 5;
           r.prestigio = (oldTipo === 'star') ? oldValor : (parseInt(r.prestigio) || 5);
@@ -659,7 +655,6 @@ function abrirModalConfig() {
       } catch (err) { console.warn("Falha ao deletar arquivo:", err); }
     }
 
-    // Pílula com as 3 classificações (prestígio ★, afeto ♥ e valor $)
     function renderTriRatingBadge(r, compacto = false) {
       const p = Math.max(1, Math.min(5, parseInt(r.prestigio) || 5));
       const a = Math.max(1, Math.min(5, parseInt(r.afeto) || 5));
@@ -816,7 +811,8 @@ function abrirModalConfig() {
                   <h3 class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white truncate cursor-pointer hover:text-sky-500" onclick="abrirDetalhes('${r.id}')">${r.modelo}</h3>
                   <div class="flex flex-wrap items-center gap-x-2 text-[10px] text-slate-400 mt-0.5">
                     <span>${formatarData(r.data_compra)}</span>
-                    ${r.calibre ? `<span class="hidden sm:inline font-mono text-slate-300 dark:text-slate-400">• ${r.calibre}</span>` : ''}
+                    ${r.calibre ? `<span class="hidden sm:inline font-mono text-slate-300 dark:text-slate-400">• ${r.calibre}</span>` :
+'' }
                     ${r.valor ? `<span class="text-emerald-500 font-semibold">• ${r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>` : ''}
                   </div>
                 </div>
@@ -899,21 +895,18 @@ function abrirModalConfig() {
       document.getElementById('metric-ocupacao').innerText = `${ocupacaoPct}%`;
       document.getElementById('metric-vagas-texto').innerText = `${totalPecas} / ${capacidadeTotal} slots`;
 
-      // 1. Marcas
       const contagemMarcas = {};
       relogios.forEach(r => { const m = (r.marca || 'Outros').toUpperCase(); contagemMarcas[m] = (contagemMarcas[m] || 0) + 1; });
       if (chartMarcasInst) chartMarcasInst.destroy();
       const ctxMarcas = document.getElementById('chartMarcas').getContext('2d');
       chartMarcasInst = new Chart(ctxMarcas, { type: 'doughnut', data: { labels: Object.keys(contagemMarcas), datasets: [{ data: Object.values(contagemMarcas), backgroundColor: luxPalette, borderColor: borderColor, borderWidth: 2, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { position: 'bottom', labels: { color: textColor, boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 12 } } } } });
 
-      // 2. Estilos
       const contagemTipos = {};
       relogios.forEach(r => { const t = r.tipo ? r.tipo.trim() : 'Geral'; contagemTipos[t] = (contagemTipos[t] || 0) + 1; });
       if (chartTiposInst) chartTiposInst.destroy();
       const ctxTipos = document.getElementById('chartTipos').getContext('2d');
       chartTiposInst = new Chart(ctxTipos, { type: 'doughnut', data: { labels: Object.keys(contagemTipos), datasets: [{ data: Object.values(contagemTipos), backgroundColor: ['#d4af37','#38bdf8','#10b981','#f59e0b','#94a3b8','#ec4899'], borderColor: borderColor, borderWidth: 2, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { position: 'bottom', labels: { color: textColor, boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 12 } } } } });
 
-      // 3. Mecanismos
       const contagemMovimentos = { 'Automático': 0, 'Quartzo': 0, 'Manual': 0, 'Outros': 0 };
       relogios.forEach(r => {
         const cal = (r.calibre || '').toLowerCase();
@@ -927,7 +920,6 @@ function abrirModalConfig() {
       const ctxMovimentos = document.getElementById('chartMovimentos').getContext('2d');
       chartMovimentosInst = new Chart(ctxMovimentos, { type: 'doughnut', data: { labels: Object.keys(contagemMovimentos), datasets: [{ data: Object.values(contagemMovimentos), backgroundColor: ['#10b981','#38bdf8','#d4af37','#94a3b8'], borderColor: borderColor, borderWidth: 2, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { position: 'bottom', labels: { color: textColor, boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 12 } } } } });
 
-      // 4. Maiores Valores (diferencia comprados x presentes)
       const pecasOrdenadasValor = [...relogios].filter(r => (parseFloat(r.valor) || 0) > 0).sort((a, b) => (b.valor || 0) - (a.valor || 0)).slice(0, 7);
       const coresValores = pecasOrdenadasValor.map(r => r.tipo_aquisicao === 'presente' ? 'rgba(212,175,55,0.85)' : 'rgba(56,189,248,0.85)');
       const bordasValores = pecasOrdenadasValor.map(r => r.tipo_aquisicao === 'presente' ? '#d4af37' : '#38bdf8');
@@ -964,11 +956,35 @@ function abrirModalConfig() {
 
     const zoomContainer = document.querySelector('.img-zoom-box');
     const zoomImg = document.getElementById('galeria-img-zoom');
-    zoomContainer.addEventListener('mousemove', (e) => {
+
+    function atualizarZoomPorCoordenadas(clientX, clientY) {
       const rect = zoomContainer.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      zoomImg.style.transformOrigin = `${x}% ${y}%`;
+      const x = ((clientX - rect.left) / rect.width) * 100;
+      const y = ((clientY - rect.top) / rect.height) * 100;
+      zoomImg.style.transformOrigin = `${Math.max(0, Math.min(100, x))}% ${Math.max(0, Math.min(100, y))}%`;
+    }
+
+    zoomContainer.addEventListener('mousemove', (e) => {
+      atualizarZoomPorCoordenadas(e.clientX, e.clientY);
+    });
+
+    // Suporte touch (mobile): toque e arraste para dar zoom
+    zoomContainer.addEventListener('touchstart', (e) => {
+      if (e.touches.length === 1) {
+        zoomImg.style.transform = 'scale(2.5)';
+        atualizarZoomPorCoordenadas(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    zoomContainer.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 1) {
+        e.preventDefault();
+        atualizarZoomPorCoordenadas(e.touches[0].clientX, e.touches[0].clientY);
+      }
+    }, { passive: false });
+
+    zoomContainer.addEventListener('touchend', () => {
+      zoomImg.style.transform = 'scale(1)';
     });
 
     function fecharModalGaleria() { document.getElementById('modal-galeria').classList.add('hidden'); }
@@ -1024,29 +1040,64 @@ function abrirModalConfig() {
     }
 
     function fecharModalDetalhes() { document.getElementById('modal-detalhes').classList.add('hidden'); }
-    
-    
-  async function buscarComIA() {
-  const referencia = document.getElementById('busca-ia-referencia').value.trim();
-  if (!referencia) {
-    alert('Por favor, insira uma referência, modelo ou link do relógio.');
-    return;
-  }
-  
-  if (!CONFIG.geminiKey) {
-    alert('Configure sua chave gratuita do Google Gemini nas configurações.\n\nObtenha em: aistudio.google.com/apikey');
-    abrirModalConfig();
-    return;
-  }
-  
-  const btnBuscar = document.getElementById('btn-buscar-ia');
-  const textoOriginal = btnBuscar.innerHTML;
-  btnBuscar.disabled = true;
-  btnBuscar.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Buscando...</span>`;
-  lucide.createIcons();
-  
-  try {
-    const prompt = `Você é um especialista em relógios de luxo. Com base na seguinte referência: "${referencia}"
+
+    // Comprime e redimensiona a imagem antes do upload (máx 1200px no maior lado)
+    function comprimirImagem(file, maxDimensao = 1200, qualidade = 0.82) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            let { width, height } = img;
+            if (width > maxDimensao || height > maxDimensao) {
+              if (width > height) { height = Math.round(height * (maxDimensao / width)); width = maxDimensao; }
+              else { width = Math.round(width * (maxDimensao / height)); height = maxDimensao; }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = width; canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+            const dataUrl = canvas.toDataURL('image/jpeg', qualidade);
+            resolve(dataUrl);
+          };
+          img.onerror = reject;
+          img.src = e.target.result;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function dataUrlToBlob(dataUrl) {
+      const [header, base64] = dataUrl.split(',');
+      const mime = header.match(/:(.*?);/)[1];
+      const binary = atob(base64);
+      const bytes = new Uint8Array(binary.length);
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+      return new Blob([bytes], { type: mime });
+    }
+
+    async function buscarComIA() {
+      const referencia = document.getElementById('busca-ia-referencia').value.trim();
+      if (!referencia) {
+        alert('Por favor, insira uma referência, modelo ou link do relógio.');
+        return;
+      }
+
+      if (!CONFIG.geminiKey) {
+        alert('Configure sua chave gratuita do Google Gemini nas configurações.\n\nObtenha em: aistudio.google.com/apikey');
+        abrirModalConfig();
+        return;
+      }
+
+      const btnBuscar = document.getElementById('btn-buscar-ia');
+      const textoOriginal = btnBuscar.innerHTML;
+      btnBuscar.disabled = true;
+      btnBuscar.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Buscando...</span>`;
+      lucide.createIcons();
+
+      try {
+        const prompt = `Você é um especialista em relógios de luxo. Com base na seguinte referência: "${referencia}"
 
 Extraia o máximo de informações técnicas possíveis e retorne APENAS um JSON válido com os campos que conseguir identificar. Use exatamente estes nomes de campos (deixe string vazia se não souber):
 
@@ -1068,95 +1119,91 @@ Extraia o máximo de informações técnicas possíveis e retorne APENAS um JSON
 
 Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Não quebre strings no meio.`;
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${CONFIG.geminiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.2,
-            maxOutputTokens: 1000,
-            responseMimeType: "application/json"
+        const response = await fetch(
+  `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${CONFIG.geminiKey}`,
+
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: {
+                temperature: 0.2,
+                maxOutputTokens: 1000,
+                responseMimeType: "application/json"
+              }
+            })
           }
-        })
-      }
-    );
-    
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error?.message || `Erro na API: ${response.status}`);
-    }
-    
-    const data = await response.json();
-    console.log('Resposta bruta da API:', data);
-    
-    // Verifica se há conteúdo válido
-    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-      throw new Error('Resposta da IA está vazia ou incompleta.');
-    }
-    
-    let content = data.candidates[0].content.parts[0].text;
-    console.log('Texto recebido da IA:', content);
-    
-    // Limpa markdown de código
-    content = content.trim();
-    if (content.startsWith('```')) {
-      content = content.replace(/```(?:json)?\n?/g, '').replace(/```$/g, '').trim();
-    }
-    
-    // Tenta encontrar JSON dentro do texto (caso a IA tenha colocado algo antes ou depois)
-    const jsonMatch = content.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('Nenhum JSON encontrado na resposta da IA.');
-    }
-    
-    let jsonStr = jsonMatch[0];
-    
-    // Corrige possíveis quebras de linha dentro de strings JSON (proteção extra)
-    jsonStr = jsonStr.replace(/\\n/g, ' ').replace(/\\r/g, ' ');
-    
-    let dadosRelogio;
-    try {
-      dadosRelogio = JSON.parse(jsonStr);
-    } catch (parseError) {
-      console.error('JSON que falhou:', jsonStr);
-      throw new Error(`JSON inválido retornado pela IA: ${parseError.message}`);
-    }
-    
-    const campos = [
-      'marca', 'modelo', 'tipo', 'calibre', 'cor_mostrador', 
-      'diametro', 'cor_caixa', 'cor_bisel', 'material_correia', 
-      'tipo_correia', 'cor_correia', 'tipo_fecho', 'descricao'
-    ];
-    
-    let camposPreenchidos = 0;
-    campos.forEach(campo => {
-      if (dadosRelogio[campo] && dadosRelogio[campo].toString().trim() !== '') {
-        const input = document.getElementById(campo);
-        if (input) {
-          input.value = dadosRelogio[campo];
-          camposPreenchidos++;
+        );
+
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          throw new Error(errorData.error?.message || `Erro na API: ${response.status}`);
         }
+
+        const data = await response.json();
+        console.log('Resposta bruta da API:', data);
+
+        if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+          throw new Error('Resposta da IA está vazia ou incompleta.');
+        }
+
+        let content = data.candidates[0].content.parts[0].text;
+        console.log('Texto recebido da IA:', content);
+
+        content = content.trim();
+        if (content.startsWith('```')) {
+          content = content.replace(/```(?:json)?\n?/g, '').replace(/```$/g, '').trim();
+        }
+
+        const jsonMatch = content.match(/\{[\s\S]*\}/);
+        if (!jsonMatch) {
+          throw new Error('Nenhum JSON encontrado na resposta da IA.');
+        }
+
+        let jsonStr = jsonMatch[0];
+        jsonStr = jsonStr.replace(/\\n/g, ' ').replace(/\\r/g, ' ');
+
+        let dadosRelogio;
+        try {
+          dadosRelogio = JSON.parse(jsonStr);
+        } catch (parseError) {
+          console.error('JSON que falhou:', jsonStr);
+          throw new Error(`JSON inválido retornado pela IA: ${parseError.message}`);
+        }
+
+        const campos = [
+          'marca', 'modelo', 'tipo', 'calibre', 'cor_mostrador',
+          'diametro', 'cor_caixa', 'cor_bisel', 'material_correia',
+          'tipo_correia', 'cor_correia', 'tipo_fecho', 'descricao'
+        ];
+
+        let camposPreenchidos = 0;
+        campos.forEach(campo => {
+          if (dadosRelogio[campo] && dadosRelogio[campo].toString().trim() !== '') {
+            const input = document.getElementById(campo);
+            if (input) {
+              input.value = dadosRelogio[campo];
+              camposPreenchidos++;
+            }
+          }
+        });
+
+        if (camposPreenchidos === 0) {
+          alert('Não foi possível extrair informações deste relógio. Tente uma referência mais específica.');
+        } else {
+          alert(`✅ ${camposPreenchidos} campo(s) preenchido(s) automaticamente!\n\nRevise as informações e ajuste se necessário.`);
+        }
+
+      } catch (error) {
+        console.error('Erro na busca com IA:', error);
+        alert(`Erro na busca: ${error.message}\n\nVerifique sua chave do Gemini nas configurações.`);
+      } finally {
+        btnBuscar.disabled = false;
+        btnBuscar.innerHTML = textoOriginal;
+        lucide.createIcons();
       }
-    });
-    
-    if (camposPreenchidos === 0) {
-      alert('Não foi possível extrair informações deste relógio. Tente uma referência mais específica.');
-    } else {
-      alert(`✅ ${camposPreenchidos} campo(s) preenchido(s) automaticamente!\n\nRevise as informações e ajuste se necessário.`);
     }
-    
-  } catch (error) {
-    console.error('Erro na busca com IA:', error);
-    alert(`Erro na busca: ${error.message}\n\nVerifique sua chave do Gemini nas configurações.`);
-  } finally {
-    btnBuscar.disabled = false;
-    btnBuscar.innerHTML = textoOriginal;
-    lucide.createIcons();
-  }
-}
 
     function abrirModalCadastro() {
       document.getElementById('form-relogio').reset();
@@ -1210,7 +1257,7 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
         const isPrincipal = index === 0;
         return `<div class="relative bg-slate-100 dark:bg-[#03070d] border ${isPrincipal ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
           <img src="${foto}" class="w-full h-20 object-cover rounded">
-          ${isPrincipal ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
+          ${isPrincipal ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Capa</span>' : ''}
           <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
             <button type="button" onclick="definirFotoPrincipalRelogio(${index})" class="text-[11px] ${isPrincipal ? 'text-amber-500' : 'text-slate-400 hover:text-amber-400'}"><i data-lucide="star" class="w-3.5 h-3.5 ${isPrincipal ? 'fill-amber-500' : ''}"></i></button>
             <div class="flex gap-1">
@@ -1263,7 +1310,7 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
         const isCapa = index === 0;
         return `<div class="relative bg-slate-100 dark:bg-[#03070d] border ${isCapa ? 'border-amber-500 ring-2 ring-amber-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
           <img src="${foto}" class="w-full h-20 object-cover rounded">
-          ${isCapa ? '<span class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.2 rounded uppercase">Capa</span>' : ''}
+          ${isCapa ? '<span class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Capa</span>' : ''}
           <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
             <button type="button" onclick="definirFotoPrincipalCaixa(${index})" class="text-[11px] ${isCapa ? 'text-amber-500' : 'text-slate-400 hover:text-amber-400'}"><i data-lucide="star" class="w-3.5 h-3.5 ${isCapa ? 'fill-amber-500' : ''}"></i></button>
             <div class="flex gap-1">
@@ -1293,9 +1340,9 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
       const inputFiles = document.getElementById('fotos-files').files;
       for (let i = 0; i < inputFiles.length; i++) {
         const file = inputFiles[i];
-        const dataUrl = await fileToDataUrl(file);
-        fotosRelogioAtual.push(dataUrl);
-        pendingChanges.fotosParaEnviar.push({ file: file, itemId: targetId, isCaixa: false, tempUrl: dataUrl });
+        const dataUrlComprimido = await comprimirImagem(file);
+        fotosRelogioAtual.push(dataUrlComprimido);
+        pendingChanges.fotosParaEnviar.push({ blob: dataUrlToBlob(dataUrlComprimido), nomeOriginal: file.name, itemId: targetId, isCaixa: false, tempUrl: dataUrlComprimido });
       }
       const dadosRelogio = {
         id: targetId,
@@ -1340,9 +1387,9 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
       const inputFiles = document.getElementById('caixa-fotos-files').files;
       for (let i = 0; i < inputFiles.length; i++) {
         const file = inputFiles[i];
-        const dataUrl = await fileToDataUrl(file);
-        fotosCaixaAtual.push(dataUrl);
-        pendingChanges.fotosParaEnviar.push({ file: file, itemId: targetId, isCaixa: true, tempUrl: dataUrl });
+        const dataUrlComprimido = await comprimirImagem(file);
+        fotosCaixaAtual.push(dataUrlComprimido);
+        pendingChanges.fotosParaEnviar.push({ blob: dataUrlToBlob(dataUrlComprimido), nomeOriginal: file.name, itemId: targetId, isCaixa: true, tempUrl: dataUrlComprimido });
       }
       const dadosCaixa = {
         id: targetId,
@@ -1385,6 +1432,7 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
     }
+
 async function sincronizarTudoComGithub() {
   if (!CONFIG.token) { alert("Configure seu Token do GitHub antes de sincronizar!"); abrirModalConfig(); return; }
   const btnSync = document.getElementById('btn-sync-all');
@@ -1396,15 +1444,17 @@ async function sincronizarTudoComGithub() {
     for (const url of pendingChanges.fotosParaExcluir) { await deletarArquivoFisicoGithub(url); }
     for (let i = 0; i < pendingChanges.fotosParaEnviar.length; i++) {
       const item = pendingChanges.fotosParaEnviar[i];
-      const nomeLimpo = item.file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const nomeBase = (item.nomeOriginal || item.file?.name || 'foto.jpg').replace(/\.[^/.]+$/, '');
+      const nomeLimpo = nomeBase.replace(/[^a-zA-Z0-9._-]/g, '_');
       const prefixo = item.isCaixa ? 'caixa' : 'watch';
-      const nomeArquivo = `images/${prefixo}-${Date.now()}-${i}-${nomeLimpo}`;
-      const base64Content = await toBase64(item.file);
+      const nomeArquivo = `images/${prefixo}-${Date.now()}-${i}-${nomeLimpo}.jpg`;
+      const blobParaEnviar = item.blob || item.file;
+      const base64Content = await toBase64(blobParaEnviar);
       const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
         method: 'PUT', headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: `upload: ${nomeLimpo}`, content: base64Content })
+        body: JSON.stringify({ message: `upload: ${nomeLimpo}.jpg`, content: base64Content })
       });
-      if (!res.ok) throw new Error(`Falha no upload de imagem: ${item.file.name}`);
+      if (!res.ok) throw new Error(`Falha no upload de imagem: ${nomeLimpo}`);
       const imgData = await res.json();
       const githubUrl = imgData.content.download_url;
       if (item.isCaixa) {
@@ -1546,7 +1596,10 @@ function iniciarVerificacaoDeploy(shaEsperado) {
       renderRelogios(filtrados);
     }
 
-    document.getElementById('search').addEventListener('input', aplicarFiltrosEOrdem);
+    document.getElementById('search').addEventListener('input', () => {
+      clearTimeout(debounceSearchTimer);
+      debounceSearchTimer = setTimeout(aplicarFiltrosEOrdem, 300);
+    });
     window.onload = carregarDados;
   </script>
 </body>
