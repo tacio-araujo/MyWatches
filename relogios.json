@@ -331,6 +331,36 @@
       ]
     },
     {
+      "id": "rlg-1792379518259",
+      "ordem": 999,
+      "marca": "Casio",
+      "modelo": "Oceanus OCW-600WCJ FIFA 2006",
+      "tipo": "Cronógrafo",
+      "tipo_aquisicao": "compra",
+      "data_compra": "2026-09-04",
+      "valor": 1200,
+      "origem": "Chronos24",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5,
+      "calibre": "Módulo Casio 4329 (Tough Solar Wave Ceptor)",
+      "cor_mostrador": "Branco",
+      "diametro": "43",
+      "cor_caixa": "Aco",
+      "cor_bisel": "Aco",
+      "material_correia": "Aco",
+      "tipo_correia": "Bracelete",
+      "cor_correia": "Prateado",
+      "tipo_fecho": "Dobrável",
+      "descricao": "",
+      "historia": "Segundo edicao especial FIFA 2006",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379523574-0-1000394795.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379525027-1-1000394796.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379526247-2-1000394798.jpg"
+      ]
+    },
+    {
       "id": "rlg-1792073641907",
       "ordem": 4,
       "marca": "ADDIESDIVE",
