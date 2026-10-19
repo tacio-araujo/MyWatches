@@ -208,36 +208,38 @@
   </div>
 
   <!-- Modal Configurações GitHub -->
-  <div id="modal-config" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
-      <button onclick="fecharModalConfig()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-      
+<div id="modal-config" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
+    <button onclick="fecharModalConfig()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+    
+    <h3 class="text-sm font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-1 tracking-wider uppercase">Configurações</h3>
+    <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-4">Salvo apenas localmente no seu aparelho.</p>
+    
+    <form onsubmit="salvarConfig(event)" class="space-y-3 text-xs">
       <div>
-  <label class="text-slate-600 dark:text-slate-400 block mb-1">Google Gemini API Key (gratuita)</label>
-  <input type="password" id="cfg-gemini-key" placeholder="AIza..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500">
-  <p class="text-[10px] text-slate-400 mt-1">Gratuita em: <a href="https://aistudio.google.com/apikey" target="_blank" class="text-sky-500 underline">aistudio.google.com/apikey</a></p>
-</div>
-
+        <label class="text-slate-600 dark:text-slate-400 block mb-1">Usuário GitHub</label>
+        <input type="text" id="cfg-user" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
+      </div>
+      <div>
+        <label class="text-slate-600 dark:text-slate-400 block mb-1">Nome do Repositório</label>
+        <input type="text" id="cfg-repo" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
+      </div>
+      <div>
+        <label class="text-slate-600 dark:text-slate-400 block mb-1">Personal Access Token (PAT)</label>
+        <input type="password" id="cfg-token" placeholder="••••••••••••••••••••••••••••••••••••••" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
+      </div>
       
-      <h3 class="text-sm font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-1 tracking-wider uppercase">Credenciais do GitHub</h3>
-      <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-4">Salvo apenas localmente no seu aparelho.</p>
-      <form onsubmit="salvarConfig(event)" class="space-y-3 text-xs">
-        <div>
-          <label class="text-slate-600 dark:text-slate-400 block mb-1">Usuário GitHub</label>
-          <input type="text" id="cfg-user" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
-        </div>
-        <div>
-          <label class="text-slate-600 dark:text-slate-400 block mb-1">Nome do Repositório</label>
-          <input type="text" id="cfg-repo" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
-        </div>
-        <div>
-          <label class="text-slate-600 dark:text-slate-400 block mb-1">Personal Access Token (PAT)</label>
-          <input type="password" id="cfg-token" placeholder="••••••••••••••••••••••••••••••••••••••" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
-        </div>
-        <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-2.5 rounded-lg transition uppercase tracking-wider text-xs mt-2">Salvar Credenciais</button>
-      </form>
-    </div>
+      <!-- ✅ Campo Gemini movido para dentro do form -->
+      <div class="pt-2 border-t border-slate-200 dark:border-[#1b2f4d]">
+        <label class="text-slate-600 dark:text-slate-400 block mb-1">Google Gemini API Key (gratuita)</label>
+        <input type="password" id="cfg-gemini-key" placeholder="AIza..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500">
+        <p class="text-[10px] text-slate-400 mt-1">Gratuita em: <a href="https://aistudio.google.com/apikey" target="_blank" class="text-sky-500 underline">aistudio.google.com/apikey</a></p>
+      </div>
+      
+      <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-2.5 rounded-lg transition uppercase tracking-wider text-xs mt-2">Salvar Credenciais</button>
+    </form>
   </div>
+</div>
 
   <!-- Modal Cadastro/Edição de Relógio -->
   <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
@@ -590,34 +592,7 @@ function abrirModalConfig() {
 
     function acaoBotaoAdicionar() { if (abaAtiva === 'caixas') abrirModalCaixa(); else abrirModalCadastro(); }
 
-function abrirModalConfig() {
-  document.getElementById('cfg-user').value = CONFIG.user;
-  document.getElementById('cfg-repo').value = CONFIG.repo;
-  document.getElementById('cfg-token').value = CONFIG.token;
-  document.getElementById('cfg-openai-key').value = CONFIG.openaiKey;
-  document.getElementById('modal-config').classList.remove('hidden');
-  lucide.createIcons();
-}
-
-
     function fecharModalConfig() { document.getElementById('modal-config').classList.add('hidden'); }
-
-function salvarConfig(e) {
-  e.preventDefault();
-  CONFIG.user = document.getElementById('cfg-user').value.trim();
-  CONFIG.repo = document.getElementById('cfg-repo').value.trim();
-  CONFIG.token = document.getElementById('cfg-token').value.trim();
-  CONFIG.openaiKey = document.getElementById('cfg-openai-key').value.trim();
-  
-  localStorage.setItem('gh_user', CONFIG.user);
-  localStorage.setItem('gh_repo', CONFIG.repo);
-  localStorage.setItem('gh_token', CONFIG.token);
-  localStorage.setItem('openai_key', CONFIG.openaiKey);
-  
-  fecharModalConfig();
-  alert("Credenciais salvas com sucesso!");
-}
-
 
     async function carregarDados() {
       try {
