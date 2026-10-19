@@ -170,12 +170,15 @@
       "marca": "POEDAGAR",
       "modelo": "815B",
       "tipo": "Cronografo",
+      "tipo_aquisicao": "presente",
       "data_compra": "2026-08-09",
       "valor": 130,
       "origem": "Presente",
-      "rating_tipo": "heart",
-      "rating_valor": "5",
+      "prestigio": 2,
+      "afeto": 5,
+      "valor_rating": 1,
       "calibre": "Quartzo",
+      "cor_mostrador": "",
       "diametro": "44",
       "cor_caixa": "Prata",
       "cor_bisel": "Azul",
@@ -192,11 +195,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074800166-2-Poedagar815B3.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
-      ],
-      "tipo_aquisicao": "presente",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792078130718",
@@ -204,11 +203,13 @@
       "marca": "CILOA",
       "modelo": "501",
       "tipo": "Homage",
+      "tipo_aquisicao": "presente",
       "data_compra": "2026-08-09",
       "valor": 250,
       "origem": "Presente",
-      "rating_tipo": "heart",
-      "rating_valor": "5",
+      "prestigio": 3,
+      "afeto": 5,
+      "valor_rating": 3,
       "calibre": "Quartzo",
       "cor_mostrador": "",
       "diametro": "38",
@@ -226,11 +227,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078122461-0-ciloa.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg"
-      ],
-      "tipo_aquisicao": "presente",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792115285419",
@@ -272,12 +269,15 @@
       "marca": "Pagani Design",
       "modelo": "PD1762",
       "tipo": "GMT",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-08-28",
       "valor": 857,
       "origem": "Compra",
-      "rating_tipo": "heart",
-      "rating_valor": "5",
+      "prestigio": 4,
+      "afeto": 5,
+      "valor_rating": 4,
       "calibre": "Automatico / TMI NH34A",
+      "cor_mostrador": "",
       "diametro": "40",
       "cor_caixa": "Cinza",
       "cor_bisel": "Cinza",
@@ -295,11 +295,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068323752-4-PD17624.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068325238-5-PD17625.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068326674-6-PD17626.jpeg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792060960507",
@@ -307,12 +303,15 @@
       "marca": "Technos",
       "modelo": "2415DY/1A",
       "tipo": "Diver",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-08-31",
       "valor": 395,
       "origem": "Compra",
-      "rating_tipo": "star",
-      "rating_valor": "5",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 2,
       "calibre": "Quartzo",
+      "cor_mostrador": "",
       "diametro": "42",
       "cor_caixa": "Prata",
       "cor_bisel": "Azul",
@@ -331,11 +330,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062944360-5-2415DY1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062938084-1-2415DY1A2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062940966-3-2415DY1A4.jpeg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792073641907",
@@ -343,12 +338,15 @@
       "marca": "ADDIESDIVE",
       "modelo": "MY-H3AC BLACK",
       "tipo": "Diver",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-09-09",
       "valor": 1099,
       "origem": "Compra",
-      "rating_tipo": "star",
-      "rating_valor": "5",
+      "prestigio": 4,
+      "afeto": 5,
+      "valor_rating": 5,
       "calibre": "Automatico / NH35A",
+      "cor_mostrador": "",
       "diametro": "41",
       "cor_caixa": "Prata",
       "cor_bisel": "Preto",
@@ -371,11 +369,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073623725-1-caixa2-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792114425209",
