@@ -1026,7 +1026,7 @@ function abrirModalConfig() {
     function fecharModalDetalhes() { document.getElementById('modal-detalhes').classList.add('hidden'); }
     
     
-   async function buscarComIA() {
+  async function buscarComIA() {
   const referencia = document.getElementById('busca-ia-referencia').value.trim();
   if (!referencia) {
     alert('Por favor, insira uma referência, modelo ou link do relógio.');
@@ -1066,7 +1066,7 @@ Extraia o máximo de informações técnicas possíveis e retorne APENAS um JSON
   "descricao": "string (descrição técnica resumida)"
 }
 
-Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações.`;
+Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Não quebre strings no meio.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=${CONFIG.geminiKey}`,
@@ -1076,8 +1076,8 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações.`;
         body: JSON.stringify({
           contents: [{ parts: [{ text: prompt }] }],
           generationConfig: {
-            temperature: 0.3,
-            maxOutputTokens: 800,
+            temperature: 0.2,
+            maxOutputTokens: 1000,
             responseMimeType: "application/json"
           }
         })
@@ -1090,14 +1090,40 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações.`;
     }
     
     const data = await response.json();
-    const content = data.candidates[0].content.parts[0].text.trim();
+    console.log('Resposta bruta da API:', data);
     
-    let jsonStr = content;
-    if (jsonStr.startsWith('```')) {
-      jsonStr = jsonStr.replace(/```json?\n?/g, '').replace(/```$/g, '').trim();
+    // Verifica se há conteúdo válido
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+      throw new Error('Resposta da IA está vazia ou incompleta.');
     }
     
-    const dadosRelogio = JSON.parse(jsonStr);
+    let content = data.candidates[0].content.parts[0].text;
+    console.log('Texto recebido da IA:', content);
+    
+    // Limpa markdown de código
+    content = content.trim();
+    if (content.startsWith('```')) {
+      content = content.replace(/```(?:json)?\n?/g, '').replace(/```$/g, '').trim();
+    }
+    
+    // Tenta encontrar JSON dentro do texto (caso a IA tenha colocado algo antes ou depois)
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('Nenhum JSON encontrado na resposta da IA.');
+    }
+    
+    let jsonStr = jsonMatch[0];
+    
+    // Corrige possíveis quebras de linha dentro de strings JSON (proteção extra)
+    jsonStr = jsonStr.replace(/\\n/g, ' ').replace(/\\r/g, ' ');
+    
+    let dadosRelogio;
+    try {
+      dadosRelogio = JSON.parse(jsonStr);
+    } catch (parseError) {
+      console.error('JSON que falhou:', jsonStr);
+      throw new Error(`JSON inválido retornado pela IA: ${parseError.message}`);
+    }
     
     const campos = [
       'marca', 'modelo', 'tipo', 'calibre', 'cor_mostrador', 
