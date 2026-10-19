@@ -69,11 +69,13 @@
       "marca": "Curtt",
       "modelo": "Visionárie Black Limited Edition",
       "tipo": "Skeleton",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-06-10",
       "valor": 749,
       "origem": "Compra",
-      "rating_tipo": "heart",
-      "rating_valor": "5",
+      "prestigio": 4,
+      "afeto": 5,
+      "valor_rating": 5,
       "calibre": "Automático",
       "cor_mostrador": "Preto",
       "diametro": "41",
@@ -98,11 +100,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119375400-9-1000393169.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119377128-10-1000393171.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119378703-11-1000393170.jpg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792113087155",
@@ -114,7 +112,7 @@
       "data_compra": "2026-07-04",
       "valor": 259,
       "origem": "Presente",
-      "prestigio": 4,
+      "prestigio": 3,
       "afeto": 5,
       "valor_rating": 2,
       "calibre": "Quartzo",
@@ -142,11 +140,13 @@
       "marca": "Rewards",
       "modelo": "Cronos Black",
       "tipo": "Cronografo",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-07-28",
       "valor": 599,
       "origem": "Compra",
-      "rating_tipo": "star",
-      "rating_valor": "3",
+      "prestigio": 3,
+      "afeto": 3,
+      "valor_rating": 3,
       "calibre": "Quartzo",
       "cor_mostrador": "Preto",
       "diametro": "45",
@@ -162,11 +162,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114789489-0-1000393459.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114791207-1-1000393462.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114792852-2-1000393464.jpg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 3,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792074805018",
@@ -387,11 +383,13 @@
       "marca": "Seiko",
       "modelo": "FIfa 2002 Limited Edition",
       "tipo": "Sport",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-09-10",
       "valor": 599,
       "origem": "Compra",
-      "rating_tipo": "star",
-      "rating_valor": "5",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 3,
       "calibre": "Quartzo",
       "cor_mostrador": "Branco",
       "diametro": "37",
@@ -409,11 +407,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114418958-2-1000386340.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114421114-3-1000386334.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114423163-4-1000386337.jpg"
-      ],
-      "tipo_aquisicao": "compra",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      ]
     },
     {
       "id": "rlg-1792290668615",
