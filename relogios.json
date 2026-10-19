@@ -6,11 +6,13 @@
       "marca": "Bvlgari",
       "modelo": "Aluminium",
       "tipo": "Cronografo",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-05-22",
       "valor": 346.66,
       "origem": "Compra",
-      "rating_tipo": "star",
-      "rating_valor": "5",
+      "prestigio": 4,
+      "afeto": 4,
+      "valor_rating": 2,
       "calibre": "Quartzo",
       "cor_mostrador": "",
       "diametro": "43",
@@ -34,11 +36,13 @@
       "marca": "Omega",
       "modelo": "SpeedMaster Snoopy",
       "tipo": "Cronografo",
+      "tipo_aquisicao": "compra",
       "data_compra": "2026-05-31",
       "valor": 597,
       "origem": "Compra",
-      "rating_tipo": "star",
-      "rating_valor": "3",
+      "prestigio": 1,
+      "afeto": 4,
+      "valor_rating": 3,
       "calibre": "Quartzo",
       "cor_mostrador": "Branco e Azul",
       "diametro": "42",
@@ -94,7 +98,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119375400-9-1000393169.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119377128-10-1000393171.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119378703-11-1000393170.jpg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792113087155",
@@ -102,11 +110,13 @@
       "marca": "Poedagar",
       "modelo": "Nautilus P928",
       "tipo": "Cronografo",
+      "tipo_aquisicao": "presente",
       "data_compra": "2026-07-04",
       "valor": 259,
       "origem": "Presente",
-      "rating_tipo": "heart",
-      "rating_valor": "5",
+      "prestigio": 4,
+      "afeto": 5,
+      "valor_rating": 2,
       "calibre": "Quartzo",
       "cor_mostrador": "Preto",
       "diametro": "42",
@@ -152,7 +162,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114789489-0-1000393459.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114791207-1-1000393462.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114792852-2-1000393464.jpg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 3,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792074805018",
@@ -182,7 +196,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074800166-2-Poedagar815B3.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
-      ]
+      ],
+      "tipo_aquisicao": "presente",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792078130718",
@@ -212,7 +230,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078122461-0-ciloa.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg"
-      ]
+      ],
+      "tipo_aquisicao": "presente",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792115285419",
@@ -242,7 +264,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115571476-2-1000393498.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115573233-3-1000393497.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115574962-4-1000393500.jpg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792068328361",
@@ -273,7 +299,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068323752-4-PD17624.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068325238-5-PD17625.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068326674-6-PD17626.jpeg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792060960507",
@@ -305,7 +335,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062944360-5-2415DY1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062938084-1-2415DY1A2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062940966-3-2415DY1A4.jpeg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792073641907",
@@ -341,7 +375,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073623725-1-caixa2-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792114425209",
@@ -371,7 +409,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114418958-2-1000386340.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114421114-3-1000386334.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114423163-4-1000386337.jpg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792290668615",
@@ -403,7 +445,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290685683-0-1000394524.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290692753-4-1000394526.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290689229-2-1000394527.jpg"
-      ]
+      ],
+      "tipo_aquisicao": "compra",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     },
     {
       "id": "rlg-1792080353963",
@@ -436,7 +482,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080349490-5-Techonos2415EL1A5.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080350903-6-Techonos2415EL1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080352409-7-Techonos2415EL1A7.jpeg"
-      ]
+      ],
+      "tipo_aquisicao": "presente",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5
     }
   ],
   "caixas": [
