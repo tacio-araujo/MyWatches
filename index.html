@@ -1217,137 +1217,143 @@
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
     }
-
-    async function sincronizarTudoComGithub() {
-      if (!CONFIG.token) { alert("Configure seu Token do GitHub antes de sincronizar!"); abrirModalConfig(); return; }
-      const btnSync = document.getElementById('btn-sync-all');
-      btnSync.disabled = true;
-      btnSync.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Sincronizando...</span>`;
-      lucide.createIcons();
-      try {
-        await obterShaAtual();
-        for (const url of pendingChanges.fotosParaExcluir) { await deletarArquivoFisicoGithub(url); }
-        for (let i = 0; i < pendingChanges.fotosParaEnviar.length; i++) {
-          const item = pendingChanges.fotosParaEnviar[i];
-          const nomeLimpo = item.file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-          const prefixo = item.isCaixa ? 'caixa' : 'watch';
-          const nomeArquivo = `images/${prefixo}-${Date.now()}-${i}-${nomeLimpo}`;
-          const base64Content = await toBase64(item.file);
-          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
-            method: 'PUT', headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: `upload: ${nomeLimpo}`, content: base64Content })
-          });
-          if (!res.ok) throw new Error(`Falha no upload de imagem: ${item.file.name}`);
-          const imgData = await res.json();
-          const githubUrl = imgData.content.download_url;
-          if (item.isCaixa) {
-            const caixaAlvo = bancoDados.caixas.find(c => c.id === item.itemId);
-            if (caixaAlvo && caixaAlvo.fotos) { const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl); if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl; else caixaAlvo.fotos.push(githubUrl); }
-          } else {
-            const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
-            if (relogioAlvo && relogioAlvo.fotos) { const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl); if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl; else relogioAlvo.fotos.push(githubUrl); }
-          }
-        }
-        await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
-        pendingChanges.fotosParaEnviar = [];
-        pendingChanges.fotosParaExcluir = [];
-        atualizarStatusPendencias(false);
-        iniciarVerificacaoDeploy();
-      } catch (err) {
-        alert("Erro na sincronização: " + err.message);
-        btnSync.disabled = false;
-        btnSync.innerHTML = `<i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i><span>Sincronizar</span>`;
-        lucide.createIcons();
-      }
-    }
-
-    async function salvarJsonGithub(mensagemCommit) {
-      const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(bancoDados, null, 2))));
-      const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+async function sincronizarTudoComGithub() {
+  if (!CONFIG.token) { alert("Configure seu Token do GitHub antes de sincronizar!"); abrirModalConfig(); return; }
+  const btnSync = document.getElementById('btn-sync-all');
+  btnSync.disabled = true;
+  btnSync.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Sincronizando...</span>`;
+  lucide.createIcons();
+  try {
+    await obterShaAtual();
+    for (const url of pendingChanges.fotosParaExcluir) { await deletarArquivoFisicoGithub(url); }
+    for (let i = 0; i < pendingChanges.fotosParaEnviar.length; i++) {
+      const item = pendingChanges.fotosParaEnviar[i];
+      const nomeLimpo = item.file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
+      const prefixo = item.isCaixa ? 'caixa' : 'watch';
+      const nomeArquivo = `images/${prefixo}-${Date.now()}-${i}-${nomeLimpo}`;
+      const base64Content = await toBase64(item.file);
+      const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeArquivo}`, {
         method: 'PUT', headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: mensagemCommit, content: updatedJsonContent, sha: fileSha })
+        body: JSON.stringify({ message: `upload: ${nomeLimpo}`, content: base64Content })
       });
-      if (!res.ok) throw new Error("Erro ao atualizar relogios.json no repositório.");
-    }
-
-    // Consulta automática à API do GitHub para detectar fim do deploy
-    async function iniciarVerificacaoDeploy() {
-      const modalDeploy = document.getElementById('modal-deploy');
-      const progressBar = document.getElementById('deploy-progress-bar');
-      const countdown = document.getElementById('deploy-countdown');
-      modalDeploy.classList.remove('hidden');
-      lucide.createIcons();
-      progressBar.style.width = '10%';
-      countdown.innerText = 'Consultando...';
-
-      // Captura a assinatura atual (SHA) do arquivo ANTES de começar a verificar
-      let assinaturaAtual = '';
-      try {
-        const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`);
-        if (res.ok) { const data = await res.json(); assinaturaAtual = data.sha; }
-      } catch(e) {}
-
-      // Se não conseguiu pegar a assinatura, usa timestamp como fallback
-      if (!assinaturaAtual) assinaturaAtual = `ts-${Date.now()}`;
-
-      let tentativas = 0;
-      const maxTentativas = 60; // 60 x 5s = 5 minutos máximo
-      const intervalo = 5000; // 5 segundos
-
-      progressBar.style.width = '20%';
-
-      async function verificarDeploy() {
-        tentativas++;
-        const progresso = Math.min(95, 20 + (tentativas / maxTentativas) * 75);
-        progressBar.style.width = `${progresso}%`;
-        countdown.innerText = `${tentativas * 5}s`;
-
-        try {
-          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/pages`);
-          if (res.ok) {
-            const pagesData = await res.json();
-            // Se o status for 'built' e o último build foi recente (últimos 5 minutos)
-            if (pagesData.status === 'built') {
-              // Verifica se o arquivo relogios.json já tem o novo SHA
-              const resJson = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`);
-              if (resJson.ok) {
-                const jsonData = await resJson.json();
-                if (jsonData.sha === assinaturaAtual) {
-                  // O arquivo já está atualizado no GitHub, mas o Pages pode não ter rebuildado ainda
-                  // Verifica o último deployment
-                  const resDeploys = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/pages/builds?per_page=1`);
-                  if (resDeploys.ok) {
-                    const builds = await resDeploys.json();
-                    if (builds.length > 0 && builds[0].status === 'built') {
-                      const buildTime = new Date(builds[0].created_at).getTime();
-                      const agora = Date.now();
-                      // Se o último build foi nos últimos 5 minutos, assumimos que é o nosso
-                      if ((agora - buildTime) < 300000) {
-                        countdown.innerText = 'Pronto!';
-                        progressBar.style.width = '100%';
-                        setTimeout(() => { location.reload(); }, 800);
-                        return;
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        } catch(e) { console.log('Erro na verificação:', e); }
-
-        if (tentativas >= maxTentativas) {
-          countdown.innerText = 'Tempo esgotado';
-          progressBar.style.width = '100%';
-          setTimeout(() => { location.reload(); }, 1000);
-          return;
-        }
-
-        setTimeout(verificarDeploy, intervalo);
+      if (!res.ok) throw new Error(`Falha no upload de imagem: ${item.file.name}`);
+      const imgData = await res.json();
+      const githubUrl = imgData.content.download_url;
+      if (item.isCaixa) {
+        const caixaAlvo = bancoDados.caixas.find(c => c.id === item.itemId);
+        if (caixaAlvo && caixaAlvo.fotos) { const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl); if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl; else caixaAlvo.fotos.push(githubUrl); }
+      } else {
+        const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
+        if (relogioAlvo && relogioAlvo.fotos) { const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl); if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl; else relogioAlvo.fotos.push(githubUrl); }
       }
-
-      setTimeout(verificarDeploy, intervalo);
     }
+    const shaEsperado = await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
+    pendingChanges.fotosParaEnviar = [];
+    pendingChanges.fotosParaExcluir = [];
+    atualizarStatusPendencias(false);
+    iniciarVerificacaoDeploy(shaEsperado);
+  } catch (err) {
+    alert("Erro na sincronização: " + err.message);
+    btnSync.disabled = false;
+    btnSync.innerHTML = `<i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i><span>Sincronizar</span>`;
+    lucide.createIcons();
+  }
+}
+
+async function salvarJsonGithub(mensagemCommit) {
+  const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(bancoDados, null, 2))));
+  const shaEsperado = await calcularShaEsperado(updatedJsonContent);
+  
+  const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`, {
+    method: 'PUT', headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: mensagemCommit, content: updatedJsonContent, sha: fileSha })
+  });
+  
+  if (!res.ok) throw new Error("Erro ao atualizar relogios.json no repositório.");
+  
+  const resData = await res.json();
+  if (resData.content && resData.content.sha) {
+    fileSha = resData.content.sha;
+  }
+  
+  return shaEsperado;
+}
+
+async function calcularShaEsperado(conteudoBase64) {
+  const conteudoRaw = Uint8Array.from(atob(conteudoBase64), c => c.charCodeAt(0));
+  const header = new TextEncoder().encode(`blob ${conteudoRaw.length}\0`);
+  
+  const combined = new Uint8Array(header.length + conteudoRaw.length);
+  combined.set(header);
+  combined.set(conteudoRaw, header.length);
+  
+  const hashBuffer = await crypto.subtle.digest('SHA-1', combined);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function iniciarVerificacaoDeploy(shaEsperado) {
+  const modal = document.getElementById('modal-deploy');
+  const countdown = document.getElementById('deploy-countdown');
+  const progressBar = document.getElementById('deploy-progress-bar');
+  
+  if (modal) modal.classList.remove('hidden');
+  if (countdown) countdown.textContent = 'Publicando...';
+  if (progressBar) progressBar.style.width = '0%';
+  
+  const maxTentativas = 60;
+  const intervaloMs = 5000;
+  let tentativa = 0;
+  
+  async function verificar() {
+    tentativa++;
+    const percentual = Math.min((tentativa / maxTentativas) * 100, 100);
+    if (progressBar) progressBar.style.width = `${percentual}%`;
+    if (countdown) countdown.textContent = `Verificando... ${tentativa}/${maxTentativas}`;
+    
+    try {
+      const respostaRaw = await fetch(`relogios.json?t=${Date.now()}`, {
+        cache: 'no-store'
+      });
+      
+      if (!respostaRaw.ok) {
+        throw new Error(`HTTP ${respostaRaw.status}`);
+      }
+      
+      const textoJson = await respostaRaw.text();
+      const base64Json = btoa(unescape(encodeURIComponent(textoJson)));
+      const shaPublicado = await calcularShaEsperado(base64Json);
+      
+      if (shaPublicado === shaEsperado) {
+        if (countdown) countdown.textContent = 'Publicado! Recarregando...';
+        if (progressBar) progressBar.style.width = '100%';
+        
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
+        return;
+      }
+      
+      console.log(`[DeployCheck] tentativa ${tentativa}: SHA não corresponde.`);
+      
+    } catch (erro) {
+      console.warn(`[DeployCheck] tentativa ${tentativa}: ${erro.message}`);
+    }
+    
+    if (tentativa < maxTentativas) {
+      setTimeout(verificar, intervaloMs);
+    } else {
+      if (countdown) countdown.textContent = 'Tempo esgotado. Recarregando...';
+      if (progressBar) progressBar.style.width = '100%';
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    }
+  }
+  
+  verificar();
+}
+ 
 
     function aplicarFiltrosEOrdem() {
       const termo = (document.getElementById('search').value || '').toLowerCase();
