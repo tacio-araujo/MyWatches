@@ -530,9 +530,16 @@
       "nome": "Estojo Couro Viagem",
       "capacidade": 3,
       "data_aquisicao": "2026-09-30",
-      "status": "Isso exclusivo para viagem",
-      "observacoes": "Presente niver Day",
-      "fotos": []
+      "status": "Uso Exclusivo Viagem",
+      "observacoes": "Presente Niver Day",
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1793322244644-1-1000401341.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1793322247296-2-1000401339.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1793322243247-0-1000401340.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1793322248727-3-1000401340.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1793322250090-4-1000401341.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1793322251683-5-1000401339.jpg"
+      ]
     }
   ]
 }
