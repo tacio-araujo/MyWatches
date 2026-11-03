@@ -238,7 +238,7 @@
       "prestigio": 5,
       "afeto": 5,
       "valor_rating": 4,
-      "calibre": "Solar",
+      "calibre": "Solartech",
       "cor_mostrador": "Branco",
       "diametro": "42",
       "cor_caixa": "Prata",
@@ -255,7 +255,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115571476-2-1000393498.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115573233-3-1000393497.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115574962-4-1000393500.jpg"
-      ]
+      ],
+      "video": null
     },
     {
       "id": "rlg-1792068328361",
@@ -401,7 +402,7 @@
       "id": "rlg-1792114425209",
       "ordem": 999,
       "marca": "Seiko",
-      "modelo": "FIfa 2002 Limited Edition",
+      "modelo": "FIFA 2002 Limited Edition",
       "tipo": "Sport",
       "tipo_aquisicao": "compra",
       "data_compra": "2026-09-10",
@@ -465,7 +466,7 @@
       "id": "rlg-1792080353963",
       "ordem": 999,
       "marca": "Technos",
-      "modelo": "Acqua Diver Pepsi",
+      "modelo": "Acqua Diver (Pepsi)",
       "tipo": "Diver",
       "tipo_aquisicao": "presente",
       "data_compra": "2026-09-30",
