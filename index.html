@@ -242,9 +242,31 @@
 
     <!-- Cartão Central com Efeito Vidro Escuro -->
     <div class="relative z-10 card-navy border border-sky-500/30 rounded-2xl max-w-sm w-full p-6 sm:p-7 text-center shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col items-center">
-      <div class="w-14 h-14 rounded-full bg-sky-500/10 border border-sky-400/40 flex items-center justify-center mb-3.5 deploy-pulse shadow-[0_0_20px_rgba(56,189,248,0.25)]">
-        <i data-lucide="cloud-check" class="w-7 h-7 text-sky-400"></i>
-      </div>
+<div class="w-14 h-14 rounded-full bg-sky-500/10 border border-sky-400/40 flex items-center justify-center mb-3.5 deploy-pulse shadow-[0_0_20px_rgba(56,189,248,0.25)]">
+  <svg class="w-9 h-9 text-sky-400" viewBox="0 0 48 48" fill="none" stroke="currentColor">
+    <!-- Caixa do relógio -->
+    <circle cx="24" cy="24" r="20" stroke-width="1.8" class="opacity-30" />
+    
+    <!-- Marcadores principais (12, 3, 6, 9) -->
+    <line x1="24" y1="6" x2="24" y2="9" stroke-width="2" stroke-linecap="round" />
+    <line x1="42" y1="24" x2="39" y2="24" stroke-width="2" stroke-linecap="round" />
+    <line x1="24" y1="42" x2="24" y2="39" stroke-width="2" stroke-linecap="round" />
+    <line x1="6" y1="24" x2="9" y2="24" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Ponteiro de Horas (fixo estético) -->
+    <line x1="24" y1="24" x2="31" y2="20" stroke-width="1.8" stroke-linecap="round" class="opacity-40" />
+
+    <!-- Ponteiro de Segundos / Progresso (gira de 0° a 360°) -->
+    <g id="deploy-clock-hand" style="transform-origin: 24px 24px; transform: rotate(0deg); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);">
+      <line x1="24" y1="24" x2="24" y2="7" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+      <circle cx="24" cy="7" r="1.5" fill="#38bdf8" />
+    </g>
+
+    <!-- Eixo central -->
+    <circle cx="24" cy="24" r="2" fill="#38bdf8" />
+  </svg>
+</div>
+
       <h3 class="text-sm font-serif-lux font-bold text-slate-900 dark:text-white tracking-widest uppercase mb-1 drop-shadow">Dados Sincronizados!</h3>
       <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">Publicando suas alterações. Consultando a API para detectar o fim do deploy...</p>
       <div class="text-2xl font-mono font-bold text-sky-500 dark:text-sky-400 mb-2.5 tracking-tight drop-shadow" id="deploy-countdown">Publicando...</div>
@@ -954,6 +976,7 @@ function excluirFotoGerenciadorCaixa(idx) {
               <div class="relative h-36 sm:h-44 overflow-hidden bg-slate-900 flex items-center justify-center group">
                 <img id="card-img-${r.id}" data-idx="0" src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover cursor-pointer" onclick="abrirGaleriaRelogio('${r.id}')" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
                 <div class="absolute top-1.5 right-1.5">${renderTriRatingBadge(r, true)}</div>
+                ${r.tipo_aquisicao === 'presente' ? `<span class="absolute top-1.5 left-1.5 bg-rose-500/90 text-white p-1 rounded-full flex items-center justify-center z-10 shadow" title="Presente"><i data-lucide="gift" class="w-3 h-3"></i></span>` : ''}
                 ${fotosQtd > 1 ? `
                   <button onclick="mudarFotoCard('${r.id}', -1, event)" class="absolute left-1 top-1/2 -translate-y-1/2 bg-black/60 text-white p-1 rounded-full opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition z-20"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
                   <button onclick="mudarFotoCard('${r.id}', 1, event)" class="absolute right-1 top-1/2 -translate-y-1/2 bg-black/60 text-white p-1 rounded-full opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition z-20"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
@@ -1974,6 +1997,12 @@ function iniciarVerificacaoDeploy(shaEsperado) {
   const modal = document.getElementById('modal-deploy');
   const countdown = document.getElementById('deploy-countdown');
   const progressBar = document.getElementById('deploy-progress-bar');
+  // Exemplo: onde incrementa tentativa / atualiza a barra:
+const ponteiroRelogio = document.getElementById('deploy-clock-hand');
+if (ponteiroRelogio) {
+  // Cada tentativa (1 a 60) equivale a 6 graus (60 * 6 = 360°)
+  ponteiroRelogio.style.transform = `rotate(${tentativa * 6}deg)`;
+}
   
   if (modal) modal.classList.remove('hidden');
   if (countdown) countdown.textContent = 'Publicando...';
