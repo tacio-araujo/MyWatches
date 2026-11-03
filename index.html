@@ -1597,6 +1597,13 @@ Retorne APENAS o JSON.`;
       if (abaAtiva === 'geral') carregarDashboardGeral();
       if (abaAtiva === 'galeria') renderizarGaleria();
     }
+    function fecharModalCadastro() {
+  const modal = document.getElementById('modal-cadastro');
+  if (modal) {
+    modal.classList.add('hidden');
+  }
+}
+
     async function salvarCaixaLocal(e) {
       e.preventDefault();
       const editId = document.getElementById('edit-caixa-id').value;
