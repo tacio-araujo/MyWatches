@@ -797,6 +797,9 @@
       const c = bancoDados.caixas.find(item => item.id === id);
       if (!c) return;
       
+      const fileInp = document.getElementById('caixa-fotos-files');
+      if (fileInp) fileInp.value = '';
+
       document.getElementById('modal-caixa-title').innerText = `Editar Caixa: ${c.nome}`;
       document.getElementById('edit-caixa-id').value = c.id;
       document.getElementById('caixa-nome').value = c.nome || '';
@@ -879,7 +882,7 @@
     }
 
     async function deletarArquivoFisicoGithub(urlFoto) {
-      if (!CONFIG.token || !urlFoto || urlFoto.startsWith('data:')) return;
+      if (!CONFIG.token || !urlFoto || urlFoto.startsWith('data:') || urlFoto.startsWith('blob:')) return;
       try {
         const match = urlFoto.match(/(images|videos)\/[^?#]+/);
         if (!match) return;
@@ -1729,7 +1732,6 @@ Retorne APENAS o JSON.`;
         };
       });
     }
-
     document.getElementById('video-file')?.addEventListener('change', async function(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -1771,39 +1773,6 @@ Retorne APENAS o JSON.`;
       }
     });
 
-    document.getElementById('video-file')?.addEventListener('change', async function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const nomeContainer = document.getElementById('video-manager-nome');
-      const boxContainer = document.getElementById('video-manager-container');
-
-      if (file.size > 80 * 1024 * 1024) {
-        alert("O vídeo original ultrapassa 80MB. Grave um vídeo mais curto ou reduza a resolução na câmera.");
-        this.value = '';
-        return;
-      }
-
-      if (file.size > 20 * 1024 * 1024) {
-        boxContainer.classList.remove('hidden');
-        nomeContainer.innerText = `Otimizando vídeo (${(file.size / (1024 * 1024)).toFixed(1)}MB)... aguarde`;
-        try {
-          const videoOtimizado = await comprimirVideoNativo(file);
-          videoFileParaUpload = videoOtimizado;
-          nomeContainer.innerText = `Vídeo otimizado: ${(videoOtimizado.size / (1024 * 1024)).toFixed(1)}MB`;
-        } catch (err) {
-          alert("Erro ao processar vídeo: " + err.message);
-          this.value = '';
-          boxContainer.classList.add('hidden');
-          return;
-        }
-      } else {
-        videoFileParaUpload = file;
-        nomeContainer.innerText = `Vídeo selecionado: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)}MB)`;
-        boxContainer.classList.remove('hidden');
-      }
-    });
-
     function removerVideoRelogio() {
       if (videoRelogioAtual) videoRelogioExcluir = videoRelogioAtual;
       videoRelogioAtual = null;
@@ -1834,6 +1803,12 @@ Retorne APENAS o JSON.`;
     function editarRelogio(id) {
       const r = bancoDados.relogios.find(item => item.id === id);
       if (!r) return;
+      
+      const fileFotoInp = document.getElementById('fotos-files');
+      const fileVidInp = document.getElementById('video-file');
+      if (fileFotoInp) fileFotoInp.value = '';
+      if (fileVidInp) fileVidInp.value = '';
+
       document.getElementById('modal-form-title').innerText = `Editar: ${r.marca} ${r.modelo}`;
       document.getElementById('edit-id').value = r.id;
       document.getElementById('marca').value = r.marca || '';
@@ -1993,6 +1968,13 @@ Retorne APENAS o JSON.`;
       if (idx === -1) return;
       const relogio = bancoDados.relogios[idx];
       if (!confirm(`Remover "${relogio.modelo}" do acervo local? As mídias serão removidas ao sincronizar.`)) return;
+
+      // Limpa pendências de envio que ainda não foram para o GitHub deste item
+      pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(f => f.itemId !== id);
+      if (pendingChanges.videosParaEnviar) {
+        pendingChanges.videosParaEnviar = pendingChanges.videosParaEnviar.filter(v => v.relogioId !== id);
+      }
+
       if (relogio.fotos) pendingChanges.fotosParaExcluir.push(...relogio.fotos);
       if (relogio.video) {
         if (!pendingChanges.videosParaExcluir) pendingChanges.videosParaExcluir = [];
@@ -2002,6 +1984,7 @@ Retorne APENAS o JSON.`;
       atualizarStatusPendencias(true);
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
+      if (abaAtiva === 'galeria') renderizarGaleria();
     }
 
     function removerCaixa(id) {
@@ -2009,13 +1992,17 @@ Retorne APENAS o JSON.`;
       if (idx === -1) return;
       const caixa = bancoDados.caixas[idx];
       if (!confirm(`Remover caixa "${caixa.nome}"? As fotos serão removidas ao sincronizar.`)) return;
+
+      // Limpa fotos pendentes de envio desta caixa
+      pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(f => f.itemId !== id);
+
       if (caixa.fotos) pendingChanges.fotosParaExcluir.push(...caixa.fotos);
       bancoDados.caixas.splice(idx, 1);
       atualizarStatusPendencias(true);
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
     }
-async function sincronizarTudoComGithub() {
+    async function sincronizarTudoComGithub() {
       if (!CONFIG.token) { 
         alert("Configure seu Token do GitHub antes de sincronizar!"); 
         abrirModalConfig(); 
@@ -2030,21 +2017,30 @@ async function sincronizarTudoComGithub() {
       try {
         await obterShaAtual();
 
-        // 1. Deletar arquivos marcados para exclusão
-        for (const url of pendingChanges.fotosParaExcluir) { 
-          await deletarArquivoFisicoGithub(url); 
-        }
-        for (const url of (pendingChanges.videosParaExcluir || [])) { 
-          await deletarArquivoFisicoGithub(url); 
+        // 1. Deletar arquivos pendentes (sem duplicidades)
+        const fotosExcluirUnicas = [...new Set(pendingChanges.fotosParaExcluir)];
+        while (fotosExcluirUnicas.length > 0) {
+          const url = fotosExcluirUnicas[0];
+          await deletarArquivoFisicoGithub(url);
+          fotosExcluirUnicas.shift();
+          pendingChanges.fotosParaExcluir = pendingChanges.fotosParaExcluir.filter(u => u !== url);
         }
 
-        // 2. Upload de novas fotos
-        for (let i = 0; i < pendingChanges.fotosParaEnviar.length; i++) {
-          const item = pendingChanges.fotosParaEnviar[i];
+        const videosExcluirUnicos = [...new Set(pendingChanges.videosParaExcluir || [])];
+        while (videosExcluirUnicos.length > 0) {
+          const url = videosExcluirUnicos[0];
+          await deletarArquivoFisicoGithub(url);
+          videosExcluirUnicos.shift();
+          pendingChanges.videosParaExcluir = pendingChanges.videosParaExcluir.filter(u => u !== url);
+        }
+
+        // 2. Upload de novas fotos item a item
+        while (pendingChanges.fotosParaEnviar.length > 0) {
+          const item = pendingChanges.fotosParaEnviar[0];
           const nomeBase = (item.nomeOriginal || item.file?.name || 'foto.jpg').replace(/\.[^/.]+$/, '');
           const nomeLimpo = nomeBase.replace(/[^a-zA-Z0-9._-]/g, '_');
           const prefixo = item.isCaixa ? 'caixa' : 'watch';
-          const nomeArquivo = `images/${prefixo}-${Date.now()}-${i}-${nomeLimpo}.jpg`;
+          const nomeArquivo = `images/${prefixo}-${Date.now()}-${nomeLimpo}.jpg`;
           const blobParaEnviar = item.blob || item.file;
           const base64Content = await toBase64(blobParaEnviar);
           
@@ -2074,11 +2070,13 @@ async function sincronizarTudoComGithub() {
               else relogioAlvo.fotos.push(githubUrl); 
             }
           }
+          pendingChanges.fotosParaEnviar.shift();
         }
 
-        // 3. Upload de novos vídeos (detectando extensão .mp4 ou .webm)
-        if (pendingChanges.videosParaEnviar && pendingChanges.videosParaEnviar.length > 0) {
-          for (const itemVid of pendingChanges.videosParaEnviar) {
+        // 3. Upload de novos vídeos item a item
+        if (pendingChanges.videosParaEnviar) {
+          while (pendingChanges.videosParaEnviar.length > 0) {
+            const itemVid = pendingChanges.videosParaEnviar[0];
             const ext = itemVid.file.type?.includes('webm') ? 'webm' : 'mp4';
             const base64Vid = await toBase64(itemVid.file);
             const nomeVid = `videos/video-${itemVid.relogioId}-${Date.now()}.${ext}`;
@@ -2089,24 +2087,20 @@ async function sincronizarTudoComGithub() {
               body: JSON.stringify({ message: `upload video: ${itemVid.relogioId}`, content: base64Vid })
             });
 
-            if (resVid.ok) {
-              const vidData = await resVid.json();
-              const rAlvo = bancoDados.relogios.find(r => r.id === itemVid.relogioId);
-              if (rAlvo) rAlvo.video = vidData.content.download_url;
-            } else {
-              throw new Error(`Falha no upload do vídeo`);
-            }
+            if (!resVid.ok) throw new Error(`Falha no upload do vídeo`);
+
+            const vidData = await resVid.json();
+            const rAlvo = bancoDados.relogios.find(r => r.id === itemVid.relogioId);
+            if (rAlvo) rAlvo.video = vidData.content.download_url;
+
+            pendingChanges.videosParaEnviar.shift();
           }
-          pendingChanges.videosParaEnviar = [];
         }
 
-        // 4. Salvar o JSON no repositório
+        // 4. Salvar o JSON atualizado
         const shaEsperado = await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
         
-        // 5. Limpar pendências e verificar deploy
-        pendingChanges.fotosParaEnviar = [];
-        pendingChanges.fotosParaExcluir = [];
-        pendingChanges.videosParaExcluir = [];
+        // 5. Finalizar pendências e disparar deploy
         atualizarStatusPendencias(false);
         iniciarVerificacaoDeploy(shaEsperado);
 
@@ -2277,7 +2271,7 @@ async function sincronizarTudoComGithub() {
       const midias = [];
       (bancoDados.relogios || []).forEach(r => {
         if (filtro !== 'videos' && r.fotos) {
-          r.fotos.forEach(url => midias.push({ tipo: 'foto', url: url, relogio: `${r.marca} ${r.modelo}`, id: r.id, todasFotos: r.fotos }));
+          r.fotos.forEach(url => midias.push({ tipo: 'foto', url: url, relogio: `${r.marca} ${r.modelo}`, id: r.id }));
         }
         if (filtro !== 'fotos' && r.video) {
           midias.push({ tipo: 'video', url: r.video, relogio: `${r.marca} ${r.modelo}`, id: r.id });
@@ -2294,7 +2288,7 @@ async function sincronizarTudoComGithub() {
       grid.innerHTML = midias.map(m => {
         if (m.tipo === 'foto') {
           return `
-            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="exibirModalGaleria('Foto do Acervo', '${m.relogio}', ${JSON.stringify(m.todasFotos).replace(/"/g, '&quot;')})">
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="abrirGaleriaRelogio('${m.id}')">
               <img src="${m.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
               <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 sm:p-2">
                 <p class="text-[9px] sm:text-[10px] text-white font-medium truncate">${m.relogio}</p>
@@ -2303,7 +2297,7 @@ async function sincronizarTudoComGithub() {
             </div>`;
         } else {
           return `
-            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer bg-black" onclick="abrirPlayerModalVideo('${m.url}', '${m.relogio}')">
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer bg-black" onclick="abrirPlayerModalVideo('${m.id}')">
               <video src="${m.url}" class="w-full h-full object-cover opacity-70"></video>
               <div class="absolute inset-0 flex items-center justify-center">
                 <i data-lucide="play-circle" class="w-8 h-8 sm:w-10 sm:h-10 text-white/90 group-hover:scale-110 transition"></i>
@@ -2318,22 +2312,26 @@ async function sincronizarTudoComGithub() {
       lucide.createIcons();
     }
 
-    function abrirPlayerModalVideo(url, titulo) {
+    function abrirPlayerModalVideo(id) {
+      const r = bancoDados.relogios.find(item => item.id === id);
+      if (!r || !r.video) return;
+      const titulo = `${r.marca} ${r.modelo}`;
       let modal = document.getElementById('modal-video-player');
       if (!modal) {
         modal = document.createElement('div');
         modal.id = 'modal-video-player';
-        modal.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-3';
+        modal.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-3 backdrop-blur-sm select-none';
+        modal.onclick = (e) => { if (e.target === modal) fecharPlayerModalVideo(); };
         document.body.appendChild(modal);
       }
       modal.innerHTML = `
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden p-3 relative">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden p-3 relative shadow-2xl" onclick="event.stopPropagation()">
           <div class="flex justify-between items-center pb-2 border-b border-slate-800 text-white text-xs font-semibold">
             <span>${titulo}</span>
-            <button onclick="fecharPlayerModalVideo()" class="p-1 hover:text-red-400">✕</button>
+            <button onclick="fecharPlayerModalVideo()" class="p-1 text-slate-400 hover:text-white text-sm">✕</button>
           </div>
           <div class="p-2 flex justify-center bg-black rounded-lg mt-2">
-            <video src="${url}" controls autoplay class="max-h-[70vh] rounded"></video>
+            <video src="${r.video}" controls autoplay playsinline class="max-h-[70vh] rounded"></video>
           </div>
         </div>
       `;
