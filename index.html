@@ -571,14 +571,28 @@ function abrirModalConfig() {
       if (pendingChanges.temPendencia) { e.preventDefault(); e.returnValue = 'Existem alterações pendentes não sincronizadas com o GitHub. Deseja realmente sair?'; return e.returnValue; }
     });
 
-    function atualizarStatusPendencias(alterado = true) {
-      pendingChanges.temPendencia = alterado;
-      const btnSync = document.getElementById('btn-sync-all');
-      const badgeCount = document.getElementById('badge-sync-count');
-      const totalPendencias = (pendingChanges.fotosParaEnviar.length + pendingChanges.fotosParaExcluir.length) || (alterado ? 1 : 0);
-      if (alterado) { btnSync.classList.remove('hidden'); btnSync.classList.add('flex'); badgeCount.innerText = totalPendencias; }
-      else { btnSync.classList.add('hidden'); btnSync.classList.remove('flex'); }
-    }
+function atualizarStatusPendencias(alterado = true) {
+  pendingChanges.temPendencia = alterado;
+  const btnSync = document.getElementById('btn-sync-all');
+  const badgeCount = document.getElementById('badge-sync-count');
+  
+  // Inclui fotos E vídeos na soma
+  const totalPendencias = (
+    pendingChanges.fotosParaEnviar.length + 
+    pendingChanges.fotosParaExcluir.length +
+    (pendingChanges.videosParaEnviar?.length || 0) +
+    (pendingChanges.videosParaExcluir?.length || 0)
+  ) || (alterado ? 1 : 0);
+
+  if (alterado) { 
+    btnSync.classList.remove('hidden'); 
+    btnSync.classList.add('flex'); 
+    badgeCount.innerText = totalPendencias; 
+  } else { 
+    btnSync.classList.add('hidden'); 
+    btnSync.classList.remove('flex'); 
+  }
+}
 
     function definirModoVisualizacao(modo) { modoVisualizacao = modo; localStorage.setItem('mywatches_view_mode', modo); atualizarBotoesModoVisualizacao(); aplicarFiltrosEOrdem(); }
 
@@ -720,6 +734,73 @@ function abrirModalConfig() {
         setTimeout(() => splash.classList.add('hidden'), 700);
       }
     }
+function abrirModalCaixa() {
+  document.getElementById('form-caixa').reset();
+  document.getElementById('edit-caixa-id').value = '';
+  document.getElementById('modal-caixa-title').innerText = "Cadastrar Caixa";
+  fotosCaixaAtual = [];
+  fotosCaixaExcluir = [];
+  renderGerenciadorFotosCaixa();
+  document.getElementById('modal-caixa').classList.remove('hidden');
+  lucide.createIcons();
+}
+
+function fecharModalCaixa() {
+  const modal = document.getElementById('modal-caixa');
+  if (modal) modal.classList.add('hidden');
+}
+
+function editarCaixa(id) {
+  const c = bancoDados.caixas.find(item => item.id === id);
+  if (!c) return;
+  
+  document.getElementById('modal-caixa-title').innerText = `Editar Caixa: ${c.nome}`;
+  document.getElementById('edit-caixa-id').value = c.id;
+  document.getElementById('caixa-nome').value = c.nome || '';
+  document.getElementById('caixa-capacidade').value = c.capacidade || '';
+  document.getElementById('caixa-data').value = c.data_aquisicao || '';
+  document.getElementById('caixa-status').value = c.status || '';
+  document.getElementById('caixa-obs').value = c.observacoes || '';
+  
+  fotosCaixaAtual = [...(c.fotos || [])];
+  fotosCaixaExcluir = [];
+  renderGerenciadorFotosCaixa();
+  
+  document.getElementById('modal-caixa').classList.remove('hidden');
+  lucide.createIcons();
+}
+
+function renderGerenciadorFotosCaixa() {
+  const container = document.getElementById('caixa-fotos-container');
+  const list = document.getElementById('caixa-fotos-list');
+  if (!container || !list) return;
+  
+  if (fotosCaixaAtual.length === 0) {
+    container.classList.add('hidden');
+    list.innerHTML = '';
+    return;
+  }
+  
+  container.classList.remove('hidden');
+  list.innerHTML = fotosCaixaAtual.map((url, idx) => `
+    <div class="relative group rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-black aspect-square">
+      <img src="${url}" class="w-full h-full object-cover">
+      ${idx === 0 ? '<span class="absolute top-1 left-1 bg-amber-500 text-slate-950 font-bold text-[9px] px-1 rounded shadow">★ Capa</span>' : ''}
+      <button type="button" onclick="excluirFotoGerenciadorCaixa(${idx})" class="absolute top-1 right-1 bg-red-600 hover:bg-red-500 text-white p-1 rounded-md opacity-80 group-hover:opacity-100 transition shadow">
+        <i data-lucide="trash-2" class="w-3 h-3"></i>
+      </button>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function excluirFotoGerenciadorCaixa(idx) {
+  const removida = fotosCaixaAtual.splice(idx, 1)[0];
+  if (removida && !removida.startsWith('data:')) {
+    fotosCaixaExcluir.push(removida);
+  }
+  renderGerenciadorFotosCaixa();
+}
 
     function processarDadosRecebidos(json) {
       if (Array.isArray(json)) { bancoDados = { relogios: json, caixas: [] }; }
@@ -1246,7 +1327,26 @@ function abrirModalConfig() {
       lucide.createIcons();
     }
 
-    function fecharModalDetalhes() { document.getElementById('modal-detalhes').classList.add('hidden'); }
+    function fecharModalDetalhes() {
+  const player = document.getElementById('detalhe-video-player');
+  if (player) {
+    player.pause();
+    player.currentTime = 0;
+  }
+  document.getElementById('modal-detalhes').classList.add('hidden');
+}
+
+function fecharPlayerModalVideo() {
+  const modal = document.getElementById('modal-video-player');
+  if (modal) {
+    const video = modal.querySelector('video');
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    modal.classList.add('hidden');
+  }
+}
 
     // Comprime e redimensiona a imagem antes do upload (máx 1200px no maior lado)
     function comprimirImagem(file, maxDimensao = 1200, qualidade = 0.82) {
@@ -1401,7 +1501,7 @@ Retorne APENAS o JSON.`;
         // 2ª Tentativa: Groq (Fallback automático)
         if (!content && CONFIG.groqKey) {
           content = await chamarGroq(referencia, prompt);
-          provedorUsado = 'Groq (Llama 3.3)';
+          provedorUsado = 'Groq';
         }
 
         if (!content) {
@@ -1929,7 +2029,7 @@ function iniciarVerificacaoDeploy(shaEsperado) {
         <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden p-3 relative">
           <div class="flex justify-between items-center pb-2 border-b border-slate-800 text-white text-xs font-semibold">
             <span>${titulo}</span>
-            <button onclick="document.getElementById('modal-video-player').classList.add('hidden')" class="p-1 hover:text-red-400">✕</button>
+            <button onclick="fecharPlayerModalVideo()" class="p-1 hover:text-red-400">✕</button>
           </div>
           <div class="p-2 flex justify-center bg-black rounded-lg mt-2">
             <video src="${url}" controls autoplay class="max-h-[70vh] rounded"></video>
