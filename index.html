@@ -232,18 +232,26 @@
   </main>
 
   <!-- Modal Deploy -->
-  <div id="modal-deploy" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-sm w-full p-6 text-center relative shadow-2xl flex flex-col items-center">
-      <div class="w-14 h-14 rounded-full bg-sky-100 dark:bg-sky-950/60 border border-sky-400/40 flex items-center justify-center mb-3.5 deploy-pulse">
-        <i data-lucide="cloud-check" class="w-7 h-7 text-sky-500"></i>
+  <!-- Modal Deploy com Plano de Fundo da Tela Principal -->
+  <div id="modal-deploy" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 overflow-hidden select-none">
+    <!-- Imagem e Gradiente de Fundo Principal -->
+    <div class="absolute inset-0 bg-[#03060a]">
+      <img src="images/relogiocapa.jpeg" alt="Fundo" class="w-full h-full object-cover opacity-60">
+      <div class="absolute inset-0 bg-radial from-[#03060a]/70 via-[#03060a]/90 to-[#03060a]/98 backdrop-blur-md"></div>
+    </div>
+
+    <!-- Cartão Central com Efeito Vidro Escuro -->
+    <div class="relative z-10 card-navy border border-sky-500/30 rounded-2xl max-w-sm w-full p-6 sm:p-7 text-center shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col items-center">
+      <div class="w-14 h-14 rounded-full bg-sky-500/10 border border-sky-400/40 flex items-center justify-center mb-3.5 deploy-pulse shadow-[0_0_20px_rgba(56,189,248,0.25)]">
+        <i data-lucide="cloud-check" class="w-7 h-7 text-sky-400"></i>
       </div>
-      <h3 class="text-sm font-serif-lux font-bold text-slate-900 dark:text-white tracking-widest uppercase mb-1">Dados Sincronizados!</h3>
-      <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">GitHub Pages publicando suas alterações. Consultando a API para detectar o fim do deploy...</p>
-      <div class="text-2xl font-mono font-bold text-sky-500 mb-2.5" id="deploy-countdown">Publicando...</div>
-      <div class="w-full bg-slate-200 dark:bg-[#060c16] rounded-full h-2 p-0.5 border border-slate-300 dark:border-[#172b47] overflow-hidden mb-2">
-        <div id="deploy-progress-bar" class="bg-gradient-to-r from-sky-500 to-emerald-400 h-full rounded-full transition-all duration-1000 ease-linear" style="width: 0%"></div>
+      <h3 class="text-sm font-serif-lux font-bold text-slate-900 dark:text-white tracking-widest uppercase mb-1 drop-shadow">Dados Sincronizados!</h3>
+      <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">Publicando suas alterações. Consultando a API para detectar o fim do deploy...</p>
+      <div class="text-2xl font-mono font-bold text-sky-500 dark:text-sky-400 mb-2.5 tracking-tight drop-shadow" id="deploy-countdown">Publicando...</div>
+      <div class="w-full bg-slate-200 dark:bg-[#060c16] rounded-full h-2.5 p-0.5 border border-slate-300 dark:border-[#172b47] overflow-hidden mb-2 shadow-inner">
+        <div id="deploy-progress-bar" class="bg-gradient-to-r from-sky-500 via-sky-400 to-emerald-400 h-full rounded-full transition-all duration-1000 ease-linear shadow-[0_0_10px_rgba(56,189,248,0.5)]" style="width: 0%"></div>
       </div>
-      <span class="text-[9px] text-slate-400 font-mono tracking-wider">A tela atualizará automaticamente</span>
+      <span class="text-[9px] text-slate-500 dark:text-slate-400 font-mono tracking-wider">A tela atualizará automaticamente...aguarde</span>
     </div>
   </div>
 
@@ -909,10 +917,9 @@ function excluirFotoGerenciadorCaixa(idx) {
           return `
             <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between">
               <div class="relative h-60 sm:h-64 overflow-hidden bg-slate-900 flex items-center justify-center group">
-                <img id="card-img-${r.id}" data-idx="0" src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover transition duration-500" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
+                <img id="card-img-${r.id}" data-idx="0" src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover cursor-pointer" onclick="abrirGaleriaRelogio('${r.id}')" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
                 ${renderTriRatingBadge(r)}
-                ${r.tipo_aquisicao === 'presente' ? `<span class="absolute top-2.5 left-2.5 bg-rose-500/90 text-white text-[9px] font-bold px-1.5 py-0.5 rounded flex items-center gap-0.5 z-10 shadow"><i data-lucide="gift" class="w-3 h-3"></i> Presente</span>` : ''}
-                ${r.tipo ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded tracking-wide z-10">${r.tipo}</span>` : ''}
+                ${r.tipo_aquisicao === 'presente' ? `<span class="absolute top-2.5 left-2.5 bg-rose-500/90 text-white text-[9px] font-bold px-1.5 py-0.5 rounded flex items-center gap-0.5 z-10 shadow"><i data-lucide="gift" class="w-3 h-3"></i> Presente</span>` : ''}${r.tipo ? `<span class="absolute bottom-2.5 left-2.5 bg-black/75 border border-slate-700/60 text-slate-300 text-[10px] px-2 py-0.5 rounded tracking-wide z-10">${r.tipo}</span>` : ''}
                 ${fotosQtd > 1 ? `
                   <button onclick="mudarFotoCard('${r.id}', -1, event)" title="Foto Anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-2 sm:p-1.5 rounded-full backdrop-blur-sm transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100 z-20"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
                   <button onclick="mudarFotoCard('${r.id}', 1, event)" title="Próxima Foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/85 text-white/80 hover:text-white border border-slate-700/50 p-2 sm:p-1.5 rounded-full backdrop-blur-sm transition opacity-90 sm:opacity-0 sm:group-hover:opacity-100 z-20"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
@@ -970,10 +977,11 @@ function excluirFotoGerenciadorCaixa(idx) {
         if (modoVisualizacao === 'grid-3') {
           return `
             <div class="card-navy rounded-lg overflow-hidden flex flex-col justify-between">
-              <div class="relative h-24 sm:h-32 overflow-hidden bg-slate-900 cursor-pointer" onclick="abrirDetalhes('${r.id}')">
-                <img src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
-                <div class="absolute top-1 right-1">${renderTriRatingBadge(r, true)}</div>
-              </div>
+            <div class="relative h-24 sm:h-32 overflow-hidden bg-slate-900 cursor-pointer" onclick="abrirDetalhes('${r.id}')">
+              <img src="${fotoPrincipal}" alt="${r.modelo}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
+            <div class="absolute top-1 right-1">${renderTriRatingBadge(r, true)}</div>
+                      ${r.tipo_aquisicao === 'presente' ? `<span class="absolute top-1 left-1 bg-rose-500/90 text-white p-0.5 rounded-full flex items-center justify-center z-10 shadow" title="Presente"><i data-lucide="gift" class="w-2.5 h-2.5"></i></span>` : ''}
+</div>
               <div class="p-1.5 flex flex-col justify-between">
                 <div>
                   <p class="text-[8px] uppercase tracking-tighter text-sky-500 font-bold truncate">${r.marca}</p>
@@ -994,10 +1002,11 @@ function excluirFotoGerenciadorCaixa(idx) {
               <div class="flex items-center gap-2.5 min-w-0">
                 <img src="${fotoPrincipal}" alt="${r.modelo}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-lg object-cover bg-slate-900 flex-shrink-0 cursor-pointer" onclick="abrirGaleriaRelogio('${r.id}')" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
                 <div class="min-w-0">
-                  <div class="flex items-center gap-1.5">
-                    <span class="text-[10px] uppercase tracking-wider text-sky-600 dark:text-sky-400 font-bold truncate">${r.marca}</span>
-                    ${renderTriRatingBadge(r, true)}
-                  </div>
+<div class="flex items-center gap-1.5">
+  <span class="text-[10px] uppercase tracking-wider text-sky-600 dark:text-sky-400 font-bold truncate">${r.marca}</span>
+  ${renderTriRatingBadge(r, true)}
+  ${r.tipo_aquisicao === 'presente' ? `<span class="bg-rose-500/90 text-white text-[8px] font-bold px-1 py-0.5 rounded flex items-center gap-0.5 shadow flex-shrink-0" title="Presente"><i data-lucide="gift" class="w-2.5 h-2.5"></i></span>` : ''}
+</div>
                   <h3 class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white truncate cursor-pointer hover:text-sky-500" onclick="abrirDetalhes('${r.id}')">${r.modelo}</h3>
                   <div class="flex flex-wrap items-center gap-x-2 text-[10px] text-slate-400 mt-0.5">
                     <span>${formatarData(r.data_compra)}</span>
@@ -1551,20 +1560,125 @@ Retorne APENAS o JSON.`;
         lucide.createIcons();
       }
     }
+// Compacta vídeos gravados em alta resolução no celular para caber no GitHub (<= 20MB)
+function comprimirVideoNativo(file, maxLargura = 720, targetBitrate = 2500000) {
+  return new Promise((resolve, reject) => {
+    const video = document.createElement('video');
+    video.preload = 'metadata';
+    video.muted = true;
+    video.playsInline = true;
+    const url = URL.createObjectURL(file);
+    video.src = url;
 
-
-    document.getElementById('video-file')?.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      if (file.size > 20 * 1024 * 1024) {
-        alert("O vídeo excede o limite máximo recomendado de 20MB.");
-        this.value = '';
-        return;
+    video.onloadedmetadata = () => {
+      // Rejeita vídeos longos
+      if (video.duration > 35) {
+        URL.revokeObjectURL(url);
+        return reject(new Error("O vídeo tem mais de 30 segundos. Por favor, corte o vídeo antes de enviar."));
       }
-      videoFileParaUpload = file;
-      document.getElementById('video-manager-nome').innerText = `Vídeo selecionado: ${file.name}`;
-      document.getElementById('video-manager-container').classList.remove('hidden');
-    });
+
+      let w = video.videoWidth;
+      let h = video.videoHeight;
+      if (w > maxLargura || h > maxLargura) {
+        if (w > h) {
+          h = Math.round(h * (maxLargura / w));
+          w = maxLargura;
+        } else {
+          w = Math.round(w * (maxLargura / h));
+          h = maxLargura;
+        }
+      }
+      // Dimensões pares para codecs
+      w = w % 2 === 0 ? w : w - 1;
+      h = h % 2 === 0 ? h : h - 1;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+
+      const stream = canvas.captureStream(24); // 24 FPS
+      let mime = 'video/mp4';
+      if (!MediaRecorder.isTypeSupported('video/mp4')) {
+        mime = MediaRecorder.isTypeSupported('video/webm;codecs=vp8') ? 'video/webm;codecs=vp8' : 'video/webm';
+      }
+
+      let mediaRecorder;
+      try {
+        mediaRecorder = new MediaRecorder(stream, { mimeType: mime, videoBitsPerSecond: targetBitrate });
+      } catch (e) {
+        mediaRecorder = new MediaRecorder(stream);
+      }
+
+      const chunks = [];
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
+
+      mediaRecorder.onstop = () => {
+        URL.revokeObjectURL(url);
+        const ext = mime.includes('mp4') ? 'mp4' : 'webm';
+        const blob = new Blob(chunks, { type: mime });
+        const novoArquivo = new File([blob], file.name.replace(/\.[^/.]+$/, `.${ext}`), { type: mime });
+        resolve(novoArquivo);
+      };
+
+      video.currentTime = 0;
+      video.play().then(() => {
+        mediaRecorder.start(100);
+        function processarFrame() {
+          if (video.paused || video.ended) {
+            if (mediaRecorder.state === 'recording') mediaRecorder.stop();
+            return;
+          }
+          ctx.drawImage(video, 0, 0, w, h);
+          requestAnimationFrame(processarFrame);
+        }
+        processarFrame();
+      }).catch(reject);
+    };
+
+    video.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Formato de vídeo não suportado pelo navegador."));
+    };
+  });
+}
+
+document.getElementById('video-file')?.addEventListener('change', async function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const nomeContainer = document.getElementById('video-manager-nome');
+  const boxContainer = document.getElementById('video-manager-container');
+
+  // Limite máximo de segurança do arquivo original (80MB) para não esgotar a memória do aparelho
+  if (file.size > 80 * 1024 * 1024) {
+    alert("O vídeo original ultrapassa 80MB. Grave um vídeo mais curto ou reduza a resolução na câmera.");
+    this.value = '';
+    return;
+  }
+
+  // Se o vídeo tiver mais de 20MB, comprime automaticamente
+  if (file.size > 20 * 1024 * 1024) {
+    boxContainer.classList.remove('hidden');
+    nomeContainer.innerText = `Otimizando vídeo (${(file.size / (1024 * 1024)).toFixed(1)}MB)... aguarde`;
+    try {
+      const videoOtimizado = await comprimirVideoNativo(file);
+      videoFileParaUpload = videoOtimizado;
+      nomeContainer.innerText = `Vídeo otimizado: ${(videoOtimizado.size / (1024 * 1024)).toFixed(1)}MB`;
+    } catch (err) {
+      alert("Erro ao processar vídeo: " + err.message);
+      this.value = '';
+      boxContainer.classList.add('hidden');
+      return;
+    }
+  } else {
+    videoFileParaUpload = file;
+    nomeContainer.innerText = `Vídeo selecionado: ${file.name} (${(file.size / (1024 * 1024)).toFixed(1)}MB)`;
+    boxContainer.classList.remove('hidden');
+  }
+});
 
     function removerVideoRelogio() {
       if (videoRelogioAtual) videoRelogioExcluir = videoRelogioAtual;
