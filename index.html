@@ -29,7 +29,8 @@
     html:not(.dark) .card-navy:hover { border-color: rgba(14,165,233,0.5); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
     .img-zoom-box { overflow: hidden; cursor: crosshair; touch-action: none; }
     .img-zoom-box img { transition: transform 0.12s ease-out; }
-    .img-zoom-box:hover img { transform: scale(2.5); }
+        /* O zoom agora é controlado dinamicamente via botão e touch */
+    .img-zoom-box img { will-change: transform; }
     ::-webkit-scrollbar { width: 5px; height: 5px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #172842; border-radius: 3px; }
@@ -39,6 +40,17 @@
 </head>
 <body class="bg-[#03060a] text-slate-100 dark:bg-[#03060a] dark:text-slate-100 flex flex-col justify-between select-none sm:select-auto">
   <div class="bg-luxury-pattern"></div>
+
+  <!-- Splash Screen Tela Cheia -->
+  <div id="app-splash-loader" class="fixed inset-0 z-[200] bg-[#03060a] flex flex-col items-center justify-center transition-opacity duration-700">
+    <img src="images/relogiocapa.jpeg" alt="Carregando Acervo" class="absolute inset-0 w-full h-full object-cover opacity-60">
+    <div class="absolute inset-0 bg-gradient-to-t from-[#03060a] via-black/40 to-[#03060a]/80"></div>
+    <div class="relative z-10 flex flex-col items-center text-center px-4">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-[0.25em] text-[#e8f0f8] font-serif-lux uppercase drop-shadow-lg">MyWatches</h1>
+      <p class="text-xs text-sky-400 tracking-widest uppercase font-semibold mt-1">Carregando Acervo...</p>
+      <div class="mt-6 w-8 h-8 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  </div>
 
   <!-- Header -->
   <header class="border-b border-slate-200/80 dark:border-[#132238] bg-white/80 dark:bg-[#050a12]/90 backdrop-blur-md sticky top-0 z-40 transition-colors">
@@ -124,7 +136,7 @@
 
     <!-- VIEW GALERIA -->
     <section id="view-galeria" class="hidden space-y-3">
-      <div class="card-navy p-3 rounded-xl flex items-center justify-between gap-2">
+      <div class="card-navy p-3 rounded-xl flex flex-wrap items-center justify-between gap-2">
         <div class="flex items-center gap-1.5">
           <span class="text-xs text-slate-400 font-medium">Exibir:</span>
           <select id="filtro-galeria-tipo" onchange="renderizarGaleria()" class="bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] text-xs rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 outline-none">
@@ -133,9 +145,17 @@
             <option value="videos">Apenas Vídeos</option>
           </select>
         </div>
-        <span id="galeria-contador" class="text-[11px] text-slate-400">0 mídias</span>
+        
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-slate-50 dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] rounded-lg p-0.5">
+            <button type="button" onclick="definirTamanhoGaleria('sm')" id="btn-gal-sm" title="Miniaturas Pequenas" class="px-2 py-1 text-[11px] rounded transition font-medium">P</button>
+            <button type="button" onclick="definirTamanhoGaleria('md')" id="btn-gal-md" title="Miniaturas Médias" class="px-2 py-1 text-[11px] rounded transition font-medium">M</button>
+            <button type="button" onclick="definirTamanhoGaleria('lg')" id="btn-gal-lg" title="Miniaturas Grandes" class="px-2 py-1 text-[11px] rounded transition font-medium">G</button>
+          </div>
+          <span id="galeria-contador" class="text-[11px] text-slate-400">0 mídias</span>
+        </div>
       </div>
-      <div id="grid-galeria" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3"></div>
+      <div id="grid-galeria" class="transition-all duration-300"></div>
     </section>
 
     <!-- VIEW 3: Dashboard Geral -->
@@ -420,18 +440,35 @@
     </div>
   </div>
 
-  <!-- Modal Fotos & Zoom -->
+  <!-- Modal Fotos & Zoom com Swipe e Botão Zoom -->
   <div id="modal-galeria" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex items-center justify-center p-2.5 sm:p-4">
     <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col p-3.5 sm:p-5 relative shadow-2xl">
-      <button onclick="fecharModalGaleria()" class="absolute top-3 right-3 text-slate-400 hover:text-white z-10 p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
-      <div class="mb-2">
-        <span id="galeria-marca" class="text-[10px] sm:text-[11px] uppercase text-sky-600 dark:text-sky-400 font-serif-lux font-bold tracking-wider"></span>
-        <h3 id="galeria-modelo" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white"></h3>
+      <div class="flex justify-between items-start mb-2">
+        <div>
+          <span id="galeria-marca" class="text-[10px] sm:text-[11px] uppercase text-sky-600 dark:text-sky-400 font-serif-lux font-bold tracking-wider"></span>
+          <h3 id="galeria-modelo" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white"></h3>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-toggle-zoom" onclick="alternarZoomManual()" class="px-2.5 py-1 text-xs rounded-lg border border-slate-300 dark:border-[#1e3860] bg-slate-100 dark:bg-[#0c182b] text-slate-700 dark:text-slate-200 hover:border-sky-500 transition flex items-center gap-1">
+            <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+            <span id="label-toggle-zoom">Zoom Off</span>
+          </button>
+          <button onclick="fecharModalGaleria()" class="text-slate-400 hover:text-white p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+        </div>
       </div>
-      <div class="img-zoom-box rounded-xl border border-slate-200 dark:border-[#192b47] bg-slate-100 dark:bg-[#03070d] flex-1 max-h-[50vh] min-h-[240px] flex items-center justify-center relative overflow-hidden select-none">
-        <img id="galeria-img-zoom" src="" alt="Foto" class="max-h-[50vh] w-auto max-w-full object-contain pointer-events-none">
+      
+      <div id="touch-area-galeria" class="relative rounded-xl border border-slate-200 dark:border-[#192b47] bg-slate-100 dark:bg-[#03070d] flex-1 max-h-[50vh] min-h-[260px] flex items-center justify-center overflow-hidden select-none">
+        <div class="img-zoom-box w-full h-full flex items-center justify-center relative">
+          <img id="galeria-img-zoom" src="" alt="Foto" class="max-h-[50vh] w-auto max-w-full object-contain pointer-events-none transition-transform duration-150">
+        </div>
+        
+        <!-- Setas de navegação -->
+        <button onclick="navegarFotoGaleria(-1)" title="Foto Anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full border border-slate-700/60 z-20"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+        <button onclick="navegarFotoGaleria(1)" title="Próxima Foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full border border-slate-700/60 z-20"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+        <span id="galeria-contador-fotos" class="absolute bottom-2.5 right-2.5 bg-black/80 px-2 py-0.5 rounded text-[10px] text-slate-300 font-mono z-20 pointer-events-none">1/1</span>
       </div>
-      <p class="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-1.5">Passe o cursor ou toque e arraste na imagem para ampliar.</p>
+
+      <p class="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-1.5">Deslize para trocar de foto ou clique no botão Zoom.</p>
       <div id="galeria-thumbs" class="flex gap-2 mt-2.5 overflow-x-auto pb-1 pt-1 justify-start"></div>
     </div>
   </div>
@@ -639,7 +676,15 @@ function abrirModalConfig() {
       lucide.createIcons();
     }
 
-    function acaoBotaoAdicionar() { if (abaAtiva === 'caixas') abrirModalCaixa(); else abrirModalCadastro(); }
+        function acaoBotaoAdicionar() {
+      if (abaAtiva === 'caixas') {
+        abrirModalCaixa();
+      } else {
+        if (abaAtiva !== 'relogios') alternarAba('relogios');
+        abrirModalCadastro();
+      }
+    }
+
     function fecharModalConfig() { document.getElementById('modal-config').classList.add('hidden'); }
     async function carregarDados() {
       try {
@@ -659,6 +704,12 @@ function abrirModalConfig() {
       atualizarBotoesModoVisualizacao();
       renderizarTudo();
       alternarAba('relogios');
+      
+      const splash = document.getElementById('app-splash-loader');
+      if (splash) {
+        splash.style.opacity = '0';
+        setTimeout(() => splash.classList.add('hidden'), 700);
+      }
     }
 
     function processarDadosRecebidos(json) {
@@ -691,7 +742,7 @@ function abrirModalConfig() {
     async function deletarArquivoFisicoGithub(urlFoto) {
       if (!CONFIG.token || !urlFoto || urlFoto.startsWith('data:')) return;
       try {
-        const match = urlFoto.match(/images\/[^?#]+/);
+        const match = urlFoto.match(/(images|videos)\/[^?#]+/);
         if (!match) return;
         const filePath = match[0];
         const resCheck = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${filePath}`, { headers: { Authorization: `token ${CONFIG.token}` } });
@@ -984,59 +1035,145 @@ function abrirModalConfig() {
     function abrirGaleriaRelogio(id) { const r = bancoDados.relogios.find(item => item.id === id); if (!r || !r.fotos || r.fotos.length === 0) return alert("Nenhuma foto disponível."); exibirModalGaleria(r.marca, r.modelo, r.fotos); }
     function abrirGaleriaCaixa(id) { const c = bancoDados.caixas.find(item => item.id === id); if (!c || !c.fotos || c.fotos.length === 0) return alert("Nenhuma foto cadastrada."); exibirModalGaleria("Evolução da Caixa", c.nome, c.fotos); }
 
+    let fotosGaleriaModal = [];
+    let indiceFotoGaleriaModal = 0;
+    let zoomAtivoManual = false;
+    let galeriaGridSize = localStorage.getItem('mywatches_galeria_grid') || 'md';
+
+    function definirTamanhoGaleria(tamanho) {
+      galeriaGridSize = tamanho;
+      localStorage.setItem('mywatches_galeria_grid', tamanho);
+      renderizarGaleria();
+    }
+
     function exibirModalGaleria(titulo, subtitulo, fotos) {
+      fotosGaleriaModal = fotos || [];
+      indiceFotoGaleriaModal = 0;
+      zoomAtivoManual = false;
+      atualizarEstadoBotaoZoom();
+
       document.getElementById('galeria-marca').innerText = titulo;
       document.getElementById('galeria-modelo').innerText = subtitulo;
-      const imgZoom = document.getElementById('galeria-img-zoom');
-      imgZoom.src = fotos[0];
-      const thumbs = document.getElementById('galeria-thumbs');
-      thumbs.innerHTML = fotos.map((url, i) => `<img src="${url}" onclick="selecionarFotoZoom('${url}')" class="w-12 h-12 rounded-lg border ${i === 0 ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} object-cover cursor-pointer hover:border-sky-400 transition flex-shrink-0">`).join('');
+      
+      atualizarImagemVisualizador();
       document.getElementById('modal-galeria').classList.remove('hidden');
       lucide.createIcons();
     }
 
-    function selecionarFotoZoom(url) {
-      document.getElementById('galeria-img-zoom').src = url;
-      document.querySelectorAll('#galeria-thumbs img').forEach(t => {
-        if (t.src === url) t.classList.add('border-sky-500', 'ring-2', 'ring-sky-500/40');
-        else t.classList.remove('border-sky-500', 'ring-2', 'ring-sky-500/40');
+    function atualizarImagemVisualizador() {
+      if (fotosGaleriaModal.length === 0) return;
+      desativarZoom();
+      const imgZoom = document.getElementById('galeria-img-zoom');
+      const urlAtual = fotosGaleriaModal[indiceFotoGaleriaModal];
+      imgZoom.src = urlAtual;
+
+      document.getElementById('galeria-contador-fotos').innerText = `${indiceFotoGaleriaModal + 1}/${fotosGaleriaModal.length}`;
+
+      const thumbs = document.getElementById('galeria-thumbs');
+      thumbs.innerHTML = fotosGaleriaModal.map((url, i) => `
+        <img src="${url}" onclick="pularParaFotoGaleria(${i})" class="w-12 h-12 rounded-lg border ${i === indiceFotoGaleriaModal ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} object-cover cursor-pointer hover:border-sky-400 transition flex-shrink-0">
+      `).join('');
+    }
+
+    function pularParaFotoGaleria(idx) {
+      indiceFotoGaleriaModal = idx;
+      atualizarImagemVisualizador();
+    }
+
+    function navegarFotoGaleria(direcao) {
+      if (fotosGaleriaModal.length <= 1) return;
+      indiceFotoGaleriaModal += direcao;
+      if (indiceFotoGaleriaModal < 0) indiceFotoGaleriaModal = fotosGaleriaModal.length - 1;
+      if (indiceFotoGaleriaModal >= fotosGaleriaModal.length) indiceFotoGaleriaModal = 0;
+      atualizarImagemVisualizador();
+    }
+
+    function alternarZoomManual() {
+      zoomAtivoManual = !zoomAtivoManual;
+      if (zoomAtivoManual) {
+        document.getElementById('galeria-img-zoom').style.transform = 'scale(2.5)';
+      } else {
+        desativarZoom();
+      }
+      atualizarEstadoBotaoZoom();
+    }
+
+    function desativarZoom() {
+      zoomAtivoManual = false;
+      const img = document.getElementById('galeria-img-zoom');
+      if (img) {
+        img.style.transform = 'scale(1)';
+        img.style.transformOrigin = 'center center';
+      }
+      atualizarEstadoBotaoZoom();
+    }
+
+    function atualizarEstadoBotaoZoom() {
+      const lbl = document.getElementById('label-toggle-zoom');
+      const btn = document.getElementById('btn-toggle-zoom');
+      if (!lbl || !btn) return;
+      if (zoomAtivoManual) {
+        lbl.innerText = 'Zoom Ativo';
+        btn.className = "px-2.5 py-1 text-xs rounded-lg border border-sky-500 bg-sky-500 text-slate-950 font-bold transition flex items-center gap-1";
+      } else {
+        lbl.innerText = 'Zoom Off';
+        btn.className = "px-2.5 py-1 text-xs rounded-lg border border-slate-300 dark:border-[#1e3860] bg-slate-100 dark:bg-[#0c182b] text-slate-700 dark:text-slate-200 hover:border-sky-500 transition flex items-center gap-1";
+      }
+    }
+
+    function fecharModalGaleria() {
+      desativarZoom();
+      document.getElementById('modal-galeria').classList.add('hidden');
+    }
+
+    // Suporte a Movimento do Mouse e Swipe com o dedo
+    const touchArea = document.getElementById('touch-area-galeria') || document.querySelector('.img-zoom-box');
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    if (touchArea) {
+      touchArea.addEventListener('mousemove', (e) => {
+        if (!zoomAtivoManual) return;
+        const rect = touchArea.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        document.getElementById('galeria-img-zoom').style.transformOrigin = `${x}% ${y}%`;
+      });
+
+      touchArea.addEventListener('touchstart', (e) => {
+        if (e.touches.length === 1) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+
+      touchArea.addEventListener('touchmove', (e) => {
+        if (zoomAtivoManual && e.touches.length === 1) {
+          const rect = touchArea.getBoundingClientRect();
+          const x = ((e.touches[0].clientX - rect.left) / rect.width) * 100;
+          const y = ((e.touches[0].clientY - rect.top) / rect.height) * 100;
+          document.getElementById('galeria-img-zoom').style.transformOrigin = `${Math.max(0, Math.min(100, x))}% ${Math.max(0, Math.min(100, y))}%`;
+        }
+      }, { passive: true });
+
+      touchArea.addEventListener('touchend', (e) => {
+        if (e.changedTouches.length === 1 && !zoomAtivoManual) {
+          const touchEndX = e.changedTouches[0].clientX;
+          const touchEndY = e.changedTouches[0].clientY;
+          const diffX = touchEndX - touchStartX;
+          const diffY = touchEndY - touchStartY;
+
+          // Se o movimento horizontal for maior que 40px e não for rolagem vertical
+          if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
+            if (diffX < 0) {
+              navegarFotoGaleria(1); // Swipe para esquerda -> próxima foto
+            } else {
+              navegarFotoGaleria(-1); // Swipe para direita -> foto anterior
+            }
+          }
+        }
       });
     }
-
-    const zoomContainer = document.querySelector('.img-zoom-box');
-    const zoomImg = document.getElementById('galeria-img-zoom');
-
-    function atualizarZoomPorCoordenadas(clientX, clientY) {
-      const rect = zoomContainer.getBoundingClientRect();
-      const x = ((clientX - rect.left) / rect.width) * 100;
-      const y = ((clientY - rect.top) / rect.height) * 100;
-      zoomImg.style.transformOrigin = `${Math.max(0, Math.min(100, x))}% ${Math.max(0, Math.min(100, y))}%`;
-    }
-
-    zoomContainer.addEventListener('mousemove', (e) => {
-      atualizarZoomPorCoordenadas(e.clientX, e.clientY);
-    });
-
-    // Suporte touch (mobile): toque e arraste para dar zoom
-    zoomContainer.addEventListener('touchstart', (e) => {
-      if (e.touches.length === 1) {
-        zoomImg.style.transform = 'scale(2.5)';
-        atualizarZoomPorCoordenadas(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: true });
-
-    zoomContainer.addEventListener('touchmove', (e) => {
-      if (e.touches.length === 1) {
-        e.preventDefault();
-        atualizarZoomPorCoordenadas(e.touches[0].clientX, e.touches[0].clientY);
-      }
-    }, { passive: false });
-
-    zoomContainer.addEventListener('touchend', () => {
-      zoomImg.style.transform = 'scale(1)';
-    });
-
-    function fecharModalGaleria() { document.getElementById('modal-galeria').classList.add('hidden'); }
 
     function abrirDetalhes(id) {
       const r = bancoDados.relogios.find(item => item.id === id);
@@ -1473,6 +1610,7 @@ async function sincronizarTudoComGithub() {
   try {
     await obterShaAtual();
     for (const url of pendingChanges.fotosParaExcluir) { await deletarArquivoFisicoGithub(url); }
+    for (const url of (pendingChanges.videosParaExcluir || [])) { await deletarArquivoFisicoGithub(url); }
     for (let i = 0; i < pendingChanges.fotosParaEnviar.length; i++) {
       const item = pendingChanges.fotosParaEnviar[i];
       const nomeBase = (item.nomeOriginal || item.file?.name || 'foto.jpg').replace(/\.[^/.]+$/, '');
@@ -1518,6 +1656,7 @@ async function sincronizarTudoComGithub() {
     const shaEsperado = await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
     pendingChanges.fotosParaEnviar = [];
     pendingChanges.fotosParaExcluir = [];
+    pendingChanges.videosParaExcluir = [];
     atualizarStatusPendencias(false);
     iniciarVerificacaoDeploy(shaEsperado);
   } catch (err) {
@@ -1650,17 +1789,37 @@ function iniciarVerificacaoDeploy(shaEsperado) {
       clearTimeout(debounceSearchTimer);
       debounceSearchTimer = setTimeout(aplicarFiltrosEOrdem, 300);
     });
-        // Renderiza a Aba Galeria Unificada
+    // Renderiza a Aba Galeria Unificada com tamanhos P / M / G
     function renderizarGaleria() {
       const grid = document.getElementById('grid-galeria');
       const filtro = document.getElementById('filtro-galeria-tipo')?.value || 'todos';
       if (!grid) return;
       grid.innerHTML = '';
 
+      // Atualiza os botões do seletor P/M/G
+      ['sm', 'md', 'lg'].forEach(size => {
+        const b = document.getElementById(`btn-gal-${size}`);
+        if (!b) return;
+        if (size === galeriaGridSize) {
+          b.className = "px-2 py-1 text-[11px] rounded transition font-bold bg-sky-500 text-slate-950 shadow-sm";
+        } else {
+          b.className = "px-2 py-1 text-[11px] rounded transition font-medium text-slate-500 dark:text-slate-400 hover:text-sky-500";
+        }
+      });
+
+      // Aplica classes de Grid conforme o tamanho
+      if (galeriaGridSize === 'sm') {
+        grid.className = "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 sm:gap-2";
+      } else if (galeriaGridSize === 'lg') {
+        grid.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4";
+      } else {
+        grid.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3";
+      }
+
       const midias = [];
       (bancoDados.relogios || []).forEach(r => {
         if (filtro !== 'videos' && r.fotos) {
-          r.fotos.forEach(url => midias.push({ tipo: 'foto', url: url, relogio: `${r.marca} ${r.modelo}`, id: r.id }));
+          r.fotos.forEach(url => midias.push({ tipo: 'foto', url: url, relogio: `${r.marca} ${r.modelo}`, id: r.id, todasFotos: r.fotos }));
         }
         if (filtro !== 'fotos' && r.video) {
           midias.push({ tipo: 'video', url: r.video, relogio: `${r.marca} ${r.modelo}`, id: r.id });
@@ -1677,10 +1836,10 @@ function iniciarVerificacaoDeploy(shaEsperado) {
       grid.innerHTML = midias.map(m => {
         if (m.tipo === 'foto') {
           return `
-            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="selecionarFotoZoom('${m.url}'); exibirModalGaleria('Foto do Acervo', '${m.relogio}', ['${m.url}'])">
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="exibirModalGaleria('Foto do Acervo', '${m.relogio}', ${JSON.stringify(m.todasFotos).replace(/"/g, '&quot;')})">
               <img src="${m.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2">
-                <p class="text-[10px] text-white font-medium truncate">${m.relogio}</p>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 sm:p-2">
+                <p class="text-[9px] sm:text-[10px] text-white font-medium truncate">${m.relogio}</p>
                 <span class="text-[8px] text-sky-400 font-semibold uppercase">Foto</span>
               </div>
             </div>`;
@@ -1689,10 +1848,10 @@ function iniciarVerificacaoDeploy(shaEsperado) {
             <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer bg-black" onclick="abrirPlayerModalVideo('${m.url}', '${m.relogio}')">
               <video src="${m.url}" class="w-full h-full object-cover opacity-70"></video>
               <div class="absolute inset-0 flex items-center justify-center">
-                <i data-lucide="play-circle" class="w-10 h-10 text-white/90 group-hover:scale-110 transition"></i>
+                <i data-lucide="play-circle" class="w-8 h-8 sm:w-10 sm:h-10 text-white/90 group-hover:scale-110 transition"></i>
               </div>
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2">
-                <p class="text-[10px] text-white font-medium truncate">${m.relogio}</p>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-1.5 sm:p-2">
+                <p class="text-[9px] sm:text-[10px] text-white font-medium truncate">${m.relogio}</p>
                 <span class="text-[8px] text-purple-400 font-semibold uppercase">Vídeo</span>
               </div>
             </div>`;
@@ -1721,6 +1880,48 @@ function iniciarVerificacaoDeploy(shaEsperado) {
         </div>
       `;
       modal.classList.remove('hidden');
+    }
+
+    function toBase64(fileOrBlob) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const res = reader.result;
+          resolve(res.split(',')[1]);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(fileOrBlob);
+      });
+    }
+
+    function renderGerenciadorFotosRelogio() {
+      const container = document.getElementById('fotos-manager-container');
+      const list = document.getElementById('fotos-manager-list');
+      if (!container || !list) return;
+      if (fotosRelogioAtual.length === 0) {
+        container.classList.add('hidden');
+        list.innerHTML = '';
+        return;
+      }
+      container.classList.remove('hidden');
+      list.innerHTML = fotosRelogioAtual.map((url, idx) => `
+        <div class="relative group rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-black aspect-square">
+          <img src="${url}" class="w-full h-full object-cover">
+          ${idx === 0 ? '<span class="absolute top-1 left-1 bg-amber-500 text-slate-950 font-bold text-[9px] px-1 rounded shadow">★ Capa</span>' : ''}
+          <button type="button" onclick="excluirFotoGerenciador(${idx})" class="absolute top-1 right-1 bg-red-600 hover:bg-red-500 text-white p-1 rounded-md opacity-80 group-hover:opacity-100 transition shadow">
+            <i data-lucide="trash-2" class="w-3 h-3"></i>
+          </button>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function excluirFotoGerenciador(idx) {
+      const removida = fotosRelogioAtual.splice(idx, 1)[0];
+      if (removida && !removida.startsWith('data:')) {
+        fotosRelogioExcluir.push(removida);
+      }
+      renderGerenciadorFotosRelogio();
     }
 
     window.onload = carregarDados;
