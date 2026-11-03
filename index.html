@@ -87,6 +87,9 @@
         <i data-lucide="box" class="w-3.5 h-3.5"></i><span>Caixas</span>
         <span id="badge-count-caixas" class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold">0</span>
       </button>
+      <button onclick="alternarAba('galeria')" id="tab-btn-galeria" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
+        <i data-lucide="images" class="w-3.5 h-3.5"></i><span>Galeria</span>
+      </button>
       <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
         <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i><span>Geral</span>
       </button>
@@ -119,8 +122,25 @@
     <section id="view-relogios"><div id="grid-relogios" class="transition-all duration-300"></div></section>
     <section id="view-caixas" class="hidden"><div id="grid-caixas" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"></div></section>
 
+    <!-- VIEW GALERIA -->
+    <section id="view-galeria" class="hidden space-y-3">
+      <div class="card-navy p-3 rounded-xl flex items-center justify-between gap-2">
+        <div class="flex items-center gap-1.5">
+          <span class="text-xs text-slate-400 font-medium">Exibir:</span>
+          <select id="filtro-galeria-tipo" onchange="renderizarGaleria()" class="bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] text-xs rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 outline-none">
+            <option value="todos">Todos (Fotos e Vídeos)</option>
+            <option value="fotos">Apenas Fotos</option>
+            <option value="videos">Apenas Vídeos</option>
+          </select>
+        </div>
+        <span id="galeria-contador" class="text-[11px] text-slate-400">0 mídias</span>
+      </div>
+      <div id="grid-galeria" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3"></div>
+    </section>
+
     <!-- VIEW 3: Dashboard Geral -->
     <section id="view-geral" class="hidden space-y-4">
+
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
         <div class="card-navy p-3 sm:p-4 rounded-xl">
           <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Valor Total do Acervo</span>
@@ -349,7 +369,22 @@
           <input type="file" id="fotos-files" accept="image/*" multiple class="w-full text-slate-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:bg-sky-100 dark:file:bg-[#12233b] file:text-sky-700 dark:file:text-sky-300 cursor-pointer">
           <div id="fotos-manager-container" class="mt-3 hidden"><div id="fotos-manager-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div></div>
         </div>
-        <div><label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Descrição Técnica</label><textarea id="descricao" rows="3" placeholder="Detalhes de acabamento, complicação, resistência à água..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea></div>
+
+        <div class="bg-slate-50 dark:bg-[#070e1a] p-3 rounded-lg border border-slate-200 dark:border-[#162740]">
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-sky-600 dark:text-sky-300 font-semibold block text-[11px] uppercase tracking-wide">Vídeo Curto (Até 30s / 20MB)</label>
+            <span class="text-[10px] text-slate-400">MP4 / WebM</span>
+          </div>
+          <input type="file" id="video-file" accept="video/mp4,video/webm" class="w-full text-slate-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:bg-sky-100 dark:file:bg-[#12233b] file:text-sky-700 dark:file:text-sky-300 cursor-pointer">
+          <div id="video-manager-container" class="mt-2 hidden">
+            <div class="relative bg-slate-900 rounded-lg p-2 flex items-center justify-between border border-slate-700">
+              <span id="video-manager-nome" class="text-[11px] text-slate-300 truncate max-w-[80%] font-mono"></span>
+              <button type="button" onclick="removerVideoRelogio()" class="text-red-400 hover:text-red-300 text-xs flex items-center gap-1"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Excluir</button>
+            </div>
+          </div>
+        </div>
+        <div><label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Descrição Técnica</label>
+<textarea id="descricao" rows="3" placeholder="Detalhes de acabamento, complicação, resistência à água..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea></div>
         <div><label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">História Pessoal</label><textarea id="historia" rows="2" placeholder="Como comprei ou ganhei..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea></div>
         <button type="submit" id="btn-salvar" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-3 rounded-lg transition tracking-widest uppercase text-xs">Salvar Alteração Local</button>
       </form>
@@ -417,6 +452,12 @@
           <button id="btn-ver-todas-fotos" class="w-full bg-slate-100 dark:bg-[#0f1d33] border border-slate-300 dark:border-[#1e3860] hover:border-sky-400 text-sky-700 dark:text-sky-300 text-xs py-2 rounded-lg transition flex items-center justify-center gap-1.5 font-medium">
             <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i> Ver Fotos com Zoom
           </button>
+          <div id="detalhe-box-video" class="hidden">
+            <h4 class="text-xs uppercase tracking-wider text-sky-600 dark:text-sky-400 font-semibold mb-1 flex items-center gap-1"><i data-lucide="video" class="w-3.5 h-3.5"></i> Vídeo da Peça</h4>
+            <div class="bg-black rounded-xl overflow-hidden border border-slate-700">
+              <video id="detalhe-video-player" controls class="w-full max-h-[180px] bg-black"></video>
+            </div>
+          </div>
           <div id="detalhe-box-descricao" class="hidden">
             <h4 class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold mb-1">Descrição do Modelo</h4>
             <p id="detalhe-descricao" class="text-[11px] text-slate-700 dark:text-slate-300 whitespace-pre-line leading-relaxed bg-slate-50 dark:bg-[#070e1a] p-3 rounded-lg border border-slate-200 dark:border-[#162740]"></p>
@@ -441,8 +482,9 @@
     let abaAtiva = 'relogios';
     let deployAssinaturaAnterior = '';
     let modoVisualizacao = localStorage.getItem('mywatches_view_mode') || 'grid-1';
-    let pendingChanges = { temPendencia: false, fotosParaEnviar: [], fotosParaExcluir: [] };
+    let pendingChanges = { temPendencia: false, fotosParaEnviar: [], fotosParaExcluir: [], videosParaEnviar: [], videosParaExcluir: [] };
     let fotosRelogioAtual = [], fotosRelogioExcluir = [], fotosCaixaAtual = [], fotosCaixaExcluir = [];
+    let videoRelogioAtual = null, videoRelogioExcluir = null, videoFileParaUpload = null;
     let chartMarcasInst = null, chartTiposInst = null, chartValoresInst = null, chartMovimentosInst = null;
     let deferredPrompt = null;
     let debounceSearchTimer = null;
@@ -564,34 +606,41 @@ function abrirModalConfig() {
 
     function alternarAba(aba) {
       abaAtiva = aba;
-      const btnRelogios = document.getElementById('tab-btn-relogios'), btnCaixas = document.getElementById('tab-btn-caixas'), btnGeral = document.getElementById('tab-btn-geral');
+      const btnRelogios = document.getElementById('tab-btn-relogios'), btnCaixas = document.getElementById('tab-btn-caixas'), btnGeral = document.getElementById('tab-btn-geral'), btnGaleria = document.getElementById('tab-btn-galeria');
       const badgeRelogios = document.getElementById('badge-count-relogios'), badgeCaixas = document.getElementById('badge-count-caixas');
-      const viewRelogios = document.getElementById('view-relogios'), viewCaixas = document.getElementById('view-caixas'), viewGeral = document.getElementById('view-geral');
+      const viewRelogios = document.getElementById('view-relogios'), viewCaixas = document.getElementById('view-caixas'), viewGeral = document.getElementById('view-geral'), viewGaleria = document.getElementById('view-galeria');
       const controlesRelogios = document.getElementById('controles-relogios'), labelBtn = document.getElementById('label-btn-adicionar');
       const estiloBaseInativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400 hover:border-slate-400";
       const estiloAtivoRelogios = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]";
       const estiloAtivoCaixas = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-amber-500 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.2)]";
       const estiloAtivoGeral = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]";
+      const estiloAtivoGaleria = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.2)]";
+
       btnRelogios.className = aba === 'relogios' ? estiloAtivoRelogios : estiloBaseInativo;
       btnCaixas.className = aba === 'caixas' ? estiloAtivoCaixas : estiloBaseInativo;
       btnGeral.className = aba === 'geral' ? estiloAtivoGeral : estiloBaseInativo;
+      if (btnGaleria) btnGaleria.className = aba === 'galeria' ? estiloAtivoGaleria : estiloBaseInativo;
+
       badgeRelogios.className = aba === 'relogios' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
       badgeCaixas.className = aba === 'caixas' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+
       viewRelogios.classList.toggle('hidden', aba !== 'relogios');
       viewCaixas.classList.toggle('hidden', aba !== 'caixas');
       viewGeral.classList.toggle('hidden', aba !== 'geral');
+      if (viewGaleria) viewGaleria.classList.toggle('hidden', aba !== 'galeria');
+
       controlesRelogios.classList.toggle('hidden', aba !== 'relogios');
       if (aba === 'relogios') labelBtn.innerText = "Adicionar Relógio";
       else if (aba === 'caixas') labelBtn.innerText = "Adicionar Caixa";
       else labelBtn.innerText = "Novo Relógio";
+
       if (aba === 'geral') carregarDashboardGeral();
+      if (aba === 'galeria') renderizarGaleria();
       lucide.createIcons();
     }
 
     function acaoBotaoAdicionar() { if (abaAtiva === 'caixas') abrirModalCaixa(); else abrirModalCadastro(); }
-
     function fecharModalConfig() { document.getElementById('modal-config').classList.add('hidden'); }
-
     async function carregarDados() {
       try {
         const resLocal = await fetch(`relogios.json?t=${Date.now()}`);
@@ -1035,7 +1084,19 @@ function abrirModalConfig() {
       if (r.descricao && r.descricao.trim()) { document.getElementById('detalhe-descricao').innerText = r.descricao; boxDesc.classList.remove('hidden'); } else boxDesc.classList.add('hidden');
       const boxHist = document.getElementById('detalhe-box-historia');
       if (r.historia && r.historia.trim()) { document.getElementById('detalhe-historia').innerText = r.historia; boxHist.classList.remove('hidden'); } else boxHist.classList.add('hidden');
+
+      const boxVid = document.getElementById('detalhe-box-video');
+      const playerVid = document.getElementById('detalhe-video-player');
+      if (r.video && boxVid && playerVid) {
+        playerVid.src = r.video;
+        boxVid.classList.remove('hidden');
+      } else if (boxVid) {
+        boxVid.classList.add('hidden');
+        if (playerVid) playerVid.src = '';
+      }
+
       document.getElementById('modal-detalhes').classList.remove('hidden');
+
       lucide.createIcons();
     }
 
@@ -1205,11 +1266,35 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
       }
     }
 
+    document.getElementById('video-file')?.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (file.size > 20 * 1024 * 1024) {
+        alert("O vídeo excede o limite máximo recomendado de 20MB.");
+        this.value = '';
+        return;
+      }
+      videoFileParaUpload = file;
+      document.getElementById('video-manager-nome').innerText = `Vídeo selecionado: ${file.name}`;
+      document.getElementById('video-manager-container').classList.remove('hidden');
+    });
+
+    function removerVideoRelogio() {
+      if (videoRelogioAtual) videoRelogioExcluir = videoRelogioAtual;
+      videoRelogioAtual = null;
+      videoFileParaUpload = null;
+      const inp = document.getElementById('video-file');
+      if (inp) inp.value = '';
+      document.getElementById('video-manager-container').classList.add('hidden');
+    }
+
     function abrirModalCadastro() {
       document.getElementById('form-relogio').reset();
       document.getElementById('edit-id').value = '';
       document.getElementById('modal-form-title').innerText = "Cadastrar Novo Relógio";
       fotosRelogioAtual = []; fotosRelogioExcluir = [];
+      videoRelogioAtual = null; videoRelogioExcluir = null; videoFileParaUpload = null;
+      document.getElementById('video-manager-container').classList.add('hidden');
       renderGerenciadorFotosRelogio();
       atualizarLabelValor();
       document.getElementById('modal-cadastro').classList.remove('hidden');
@@ -1243,100 +1328,38 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
       document.getElementById('descricao').value = r.descricao || '';
       document.getElementById('historia').value = r.historia || '';
       fotosRelogioAtual = [...(r.fotos || [])]; fotosRelogioExcluir = [];
+      
+      videoRelogioAtual = r.video || null;
+      videoRelogioExcluir = null;
+      videoFileParaUpload = null;
+      const vContainer = document.getElementById('video-manager-container');
+      if (videoRelogioAtual) {
+        document.getElementById('video-manager-nome').innerText = "Vídeo atual anexado";
+        vContainer.classList.remove('hidden');
+      } else {
+        vContainer.classList.add('hidden');
+      }
+
       renderGerenciadorFotosRelogio();
       atualizarLabelValor();
       document.getElementById('modal-cadastro').classList.remove('hidden');
       lucide.createIcons();
     }
 
-    function renderGerenciadorFotosRelogio() {
-      const container = document.getElementById('fotos-manager-container'), list = document.getElementById('fotos-manager-list');
-      if (fotosRelogioAtual.length === 0) { container.classList.add('hidden'); list.innerHTML = ''; return; }
-      container.classList.remove('hidden');
-      list.innerHTML = fotosRelogioAtual.map((foto, index) => {
-        const isPrincipal = index === 0;
-        return `<div class="relative bg-slate-100 dark:bg-[#03070d] border ${isPrincipal ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
-          <img src="${foto}" class="w-full h-20 object-cover rounded">
-          ${isPrincipal ? '<span class="absolute top-2 left-2 bg-sky-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Capa</span>' : ''}
-          <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
-            <button type="button" onclick="definirFotoPrincipalRelogio(${index})" class="text-[11px] ${isPrincipal ? 'text-amber-500' : 'text-slate-400 hover:text-amber-400'}"><i data-lucide="star" class="w-3.5 h-3.5 ${isPrincipal ? 'fill-amber-500' : ''}"></i></button>
-            <div class="flex gap-1">
-              <button type="button" onclick="moverFotoRelogio(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-sky-500"'}><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
-              <button type="button" onclick="moverFotoRelogio(${index}, 1)" ${index === fotosRelogioAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-sky-500"'}><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
-            </div>
-            <button type="button" onclick="removerFotoRelogio(${index})" class="text-red-500 hover:text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-          </div>
-        </div>`;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function definirFotoPrincipalRelogio(index) { if (index === 0) return; const [foto] = fotosRelogioAtual.splice(index, 1); fotosRelogioAtual.unshift(foto); renderGerenciadorFotosRelogio(); }
-    function moverFotoRelogio(index, direcao) { const novoIndex = index + direcao; if (novoIndex < 0 || novoIndex >= fotosRelogioAtual.length) return; const temp = fotosRelogioAtual[index]; fotosRelogioAtual[index] = fotosRelogioAtual[novoIndex]; fotosRelogioAtual[novoIndex] = temp; renderGerenciadorFotosRelogio(); }
-    function removerFotoRelogio(index) { const removida = fotosRelogioAtual.splice(index, 1)[0]; fotosRelogioExcluir.push(removida); renderGerenciadorFotosRelogio(); }
-    function fecharModalCadastro() { document.getElementById('modal-cadastro').classList.add('hidden'); }
-
-    function abrirModalCaixa() {
-      document.getElementById('form-caixa').reset();
-      document.getElementById('edit-caixa-id').value = '';
-      document.getElementById('modal-caixa-title').innerText = "Cadastrar Caixa";
-      fotosCaixaAtual = []; fotosCaixaExcluir = [];
-      renderGerenciadorFotosCaixa();
-      document.getElementById('modal-caixa').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function editarCaixa(id) {
-      const c = bancoDados.caixas.find(item => item.id === id);
-      if (!c) return;
-      document.getElementById('modal-caixa-title').innerText = `Editar: ${c.nome}`;
-      document.getElementById('edit-caixa-id').value = c.id;
-      document.getElementById('caixa-nome').value = c.nome || '';
-      document.getElementById('caixa-capacidade').value = c.capacidade || '';
-      document.getElementById('caixa-data').value = c.data_aquisicao || '';
-      document.getElementById('caixa-status').value = c.status || '';
-      document.getElementById('caixa-obs').value = c.observacoes || '';
-      fotosCaixaAtual = [...(c.fotos || [])]; fotosCaixaExcluir = [];
-      renderGerenciadorFotosCaixa();
-      document.getElementById('modal-caixa').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    function renderGerenciadorFotosCaixa() {
-      const container = document.getElementById('caixa-fotos-container'), list = document.getElementById('caixa-fotos-list');
-      if (fotosCaixaAtual.length === 0) { container.classList.add('hidden'); list.innerHTML = ''; return; }
-      container.classList.remove('hidden');
-      list.innerHTML = fotosCaixaAtual.map((foto, index) => {
-        const isCapa = index === 0;
-        return `<div class="relative bg-slate-100 dark:bg-[#03070d] border ${isCapa ? 'border-amber-500 ring-2 ring-amber-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} rounded-lg p-1.5 flex flex-col items-center">
-          <img src="${foto}" class="w-full h-20 object-cover rounded">
-          ${isCapa ? '<span class="absolute top-2 left-2 bg-amber-500 text-slate-950 text-[9px] font-bold px-1.5 py-0.5 rounded uppercase">Capa</span>' : ''}
-          <div class="flex items-center justify-between w-full mt-1.5 px-0.5">
-            <button type="button" onclick="definirFotoPrincipalCaixa(${index})" class="text-[11px] ${isCapa ? 'text-amber-500' : 'text-slate-400 hover:text-amber-400'}"><i data-lucide="star" class="w-3.5 h-3.5 ${isCapa ? 'fill-amber-500' : ''}"></i></button>
-            <div class="flex gap-1">
-              <button type="button" onclick="moverFotoCaixa(${index}, -1)" ${index === 0 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-amber-500"'}><i data-lucide="chevron-left" class="w-3.5 h-3.5"></i></button>
-              <button type="button" onclick="moverFotoCaixa(${index}, 1)" ${index === fotosCaixaAtual.length - 1 ? 'disabled class="opacity-20"' : 'class="text-slate-500 dark:text-slate-400 hover:text-amber-500"'}><i data-lucide="chevron-right" class="w-3.5 h-3.5"></i></button>
-            </div>
-            <button type="button" onclick="removerFotoCaixa(${index})" class="text-red-500 hover:text-red-400"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>
-          </div>
-        </div>`;
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function definirFotoPrincipalCaixa(index) { if (index === 0) return; const [foto] = fotosCaixaAtual.splice(index, 1); fotosCaixaAtual.unshift(foto); renderGerenciadorFotosCaixa(); }
-    function moverFotoCaixa(index, direcao) { const novoIndex = index + direcao; if (novoIndex < 0 || novoIndex >= fotosCaixaAtual.length) return; const temp = fotosCaixaAtual[index]; fotosCaixaAtual[index] = fotosCaixaAtual[novoIndex]; fotosCaixaAtual[novoIndex] = temp; renderGerenciadorFotosCaixa(); }
-    function removerFotoCaixa(index) { const removida = fotosCaixaAtual.splice(index, 1)[0]; fotosCaixaExcluir.push(removida); renderGerenciadorFotosCaixa(); }
-    function fecharModalCaixa() { document.getElementById('modal-caixa').classList.add('hidden'); }
-
-    function toBase64(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.readAsDataURL(file); reader.onload = () => resolve(reader.result.split(',')[1]); reader.onerror = error => reject(error); }); }
-    function fileToDataUrl(file) { return new Promise((resolve, reject) => { const reader = new FileReader(); reader.readAsDataURL(file); reader.onload = () => resolve(reader.result); reader.onerror = error => reject(error); }); }
-
     async function salvarRelogioLocal(e) {
       e.preventDefault();
       const editId = document.getElementById('edit-id').value;
       const targetId = editId || `rlg-${Date.now()}`;
       pendingChanges.fotosParaExcluir.push(...fotosRelogioExcluir);
+
+      if (videoRelogioExcluir) {
+        pendingChanges.videosParaExcluir.push(videoRelogioExcluir);
+      }
+
+      if (videoFileParaUpload) {
+        pendingChanges.videosParaEnviar.push({ file: videoFileParaUpload, relogioId: targetId });
+      }
+
       const inputFiles = document.getElementById('fotos-files').files;
       for (let i = 0; i < inputFiles.length; i++) {
         const file = inputFiles[i];
@@ -1344,6 +1367,7 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
         fotosRelogioAtual.push(dataUrlComprimido);
         pendingChanges.fotosParaEnviar.push({ blob: dataUrlToBlob(dataUrlComprimido), nomeOriginal: file.name, itemId: targetId, isCaixa: false, tempUrl: dataUrlComprimido });
       }
+
       const dadosRelogio = {
         id: targetId,
         ordem: parseInt(document.getElementById('ordem').value) || 999,
@@ -1368,17 +1392,24 @@ Retorne APENAS o JSON, sem texto adicional, sem markdown, sem explicações. Nã
         tipo_fecho: document.getElementById('tipo_fecho').value.trim(),
         descricao: document.getElementById('descricao').value.trim(),
         historia: document.getElementById('historia').value.trim(),
-        fotos: fotosRelogioAtual
+        fotos: fotosRelogioAtual,
+        video: videoRelogioAtual
       };
-      if (editId) { const idx = bancoDados.relogios.findIndex(r => r.id === editId); if (idx !== -1) bancoDados.relogios[idx] = dadosRelogio; }
-      else { bancoDados.relogios.push(dadosRelogio); }
+
+      if (editId) { 
+        const idx = bancoDados.relogios.findIndex(r => r.id === editId); 
+        if (idx !== -1) bancoDados.relogios[idx] = dadosRelogio; 
+      } else { 
+        bancoDados.relogios.push(dadosRelogio); 
+      }
+
       bancoDados.relogios.sort((a, b) => new Date(a.data_compra || 0) - new Date(b.data_compra || 0));
       fecharModalCadastro();
       atualizarStatusPendencias(true);
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
+      if (abaAtiva === 'galeria') renderizarGaleria();
     }
-
     async function salvarCaixaLocal(e) {
       e.preventDefault();
       const editId = document.getElementById('edit-caixa-id').value;
@@ -1465,6 +1496,25 @@ async function sincronizarTudoComGithub() {
         if (relogioAlvo && relogioAlvo.fotos) { const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl); if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl; else relogioAlvo.fotos.push(githubUrl); }
       }
     }
+        // Upload de Vídeos para o GitHub na pasta videos/
+    if (pendingChanges.videosParaEnviar && pendingChanges.videosParaEnviar.length > 0) {
+      for (const itemVid of pendingChanges.videosParaEnviar) {
+        const base64Vid = await toBase64(itemVid.file);
+        const nomeVid = `videos/video-${itemVid.relogioId}-${Date.now()}.mp4`;
+        const resVid = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/${nomeVid}`, {
+          method: 'PUT',
+          headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: `upload video: ${itemVid.relogioId}`, content: base64Vid })
+        });
+        if (resVid.ok) {
+          const vidData = await resVid.json();
+          const rAlvo = bancoDados.relogios.find(r => r.id === itemVid.relogioId);
+          if (rAlvo) rAlvo.video = vidData.content.download_url;
+        }
+      }
+      pendingChanges.videosParaEnviar = [];
+    }
+
     const shaEsperado = await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
     pendingChanges.fotosParaEnviar = [];
     pendingChanges.fotosParaExcluir = [];
@@ -1600,6 +1650,79 @@ function iniciarVerificacaoDeploy(shaEsperado) {
       clearTimeout(debounceSearchTimer);
       debounceSearchTimer = setTimeout(aplicarFiltrosEOrdem, 300);
     });
+        // Renderiza a Aba Galeria Unificada
+    function renderizarGaleria() {
+      const grid = document.getElementById('grid-galeria');
+      const filtro = document.getElementById('filtro-galeria-tipo')?.value || 'todos';
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const midias = [];
+      (bancoDados.relogios || []).forEach(r => {
+        if (filtro !== 'videos' && r.fotos) {
+          r.fotos.forEach(url => midias.push({ tipo: 'foto', url: url, relogio: `${r.marca} ${r.modelo}`, id: r.id }));
+        }
+        if (filtro !== 'fotos' && r.video) {
+          midias.push({ tipo: 'video', url: r.video, relogio: `${r.marca} ${r.modelo}`, id: r.id });
+        }
+      });
+
+      document.getElementById('galeria-contador').innerText = `${midias.length} mídias`;
+
+      if (midias.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">Nenhuma mídia encontrada com o filtro selecionado.</div>`;
+        return;
+      }
+
+      grid.innerHTML = midias.map(m => {
+        if (m.tipo === 'foto') {
+          return `
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="selecionarFotoZoom('${m.url}'); exibirModalGaleria('Foto do Acervo', '${m.relogio}', ['${m.url}'])">
+              <img src="${m.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2">
+                <p class="text-[10px] text-white font-medium truncate">${m.relogio}</p>
+                <span class="text-[8px] text-sky-400 font-semibold uppercase">Foto</span>
+              </div>
+            </div>`;
+        } else {
+          return `
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer bg-black" onclick="abrirPlayerModalVideo('${m.url}', '${m.relogio}')">
+              <video src="${m.url}" class="w-full h-full object-cover opacity-70"></video>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i data-lucide="play-circle" class="w-10 h-10 text-white/90 group-hover:scale-110 transition"></i>
+              </div>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-2">
+                <p class="text-[10px] text-white font-medium truncate">${m.relogio}</p>
+                <span class="text-[8px] text-purple-400 font-semibold uppercase">Vídeo</span>
+              </div>
+            </div>`;
+        }
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function abrirPlayerModalVideo(url, titulo) {
+      let modal = document.getElementById('modal-video-player');
+      if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'modal-video-player';
+        modal.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-3';
+        document.body.appendChild(modal);
+      }
+      modal.innerHTML = `
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden p-3 relative">
+          <div class="flex justify-between items-center pb-2 border-b border-slate-800 text-white text-xs font-semibold">
+            <span>${titulo}</span>
+            <button onclick="document.getElementById('modal-video-player').classList.add('hidden')" class="p-1 hover:text-red-400">✕</button>
+          </div>
+          <div class="p-2 flex justify-center bg-black rounded-lg mt-2">
+            <video src="${url}" controls autoplay class="max-h-[70vh] rounded"></video>
+          </div>
+        </div>
+      `;
+      modal.classList.remove('hidden');
+    }
+
     window.onload = carregarDados;
   </script>
 </body>
