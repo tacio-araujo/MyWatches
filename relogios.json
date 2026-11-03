@@ -10,7 +10,7 @@
       "data_compra": "2026-05-22",
       "valor": 346.66,
       "origem": "Compra",
-      "prestigio": 4,
+      "prestigio": 3,
       "afeto": 4,
       "valor_rating": 2,
       "calibre": "Quartzo",
@@ -28,7 +28,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067143986-2-Bulgari2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067142157-1-Bulgari1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067140663-0-Bulgari.jpeg"
-      ]
+      ],
+      "video": null
     },
     {
       "id": "rlg-1792116018462",
@@ -75,7 +76,7 @@
       "origem": "Compra",
       "prestigio": 4,
       "afeto": 5,
-      "valor_rating": 5,
+      "valor_rating": 3,
       "calibre": "Automático",
       "cor_mostrador": "Preto",
       "diametro": "41",
@@ -100,7 +101,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119375400-9-1000393169.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119377128-10-1000393171.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119378703-11-1000393170.jpg"
-      ]
+      ],
+      "video": null
     },
     {
       "id": "rlg-1792113087155",
@@ -372,7 +374,7 @@
       "origem": "Compra",
       "prestigio": 4,
       "afeto": 5,
-      "valor_rating": 5,
+      "valor_rating": 4,
       "calibre": "Automatico / NH35A",
       "cor_mostrador": "",
       "diametro": "41",
@@ -397,7 +399,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073623725-1-caixa2-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
-      ]
+      ],
+      "video": null
     },
     {
       "id": "rlg-1792114425209",
@@ -468,11 +471,13 @@
       "marca": "Technos",
       "modelo": "Acqua Diver Pepsi",
       "tipo": "Diver",
+      "tipo_aquisicao": "presente",
       "data_compra": "2026-09-30",
       "valor": 579,
       "origem": "Presente",
-      "rating_tipo": "heart",
-      "rating_valor": "5",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 3,
       "calibre": "Quartzo",
       "cor_mostrador": "Azul Claro",
       "diametro": "44",
@@ -494,10 +499,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080350903-6-Techonos2415EL1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080352409-7-Techonos2415EL1A7.jpeg"
       ],
-      "tipo_aquisicao": "presente",
-      "prestigio": 5,
-      "afeto": 5,
-      "valor_rating": 5
+      "video": null
     },
     {
       "id": "rlg-1793707429868",
