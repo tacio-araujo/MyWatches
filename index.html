@@ -35,36 +35,18 @@
     @keyframes pulse-glow { 0%,100%{opacity:0.6;} 50%{opacity:1; filter:drop-shadow(0 0 12px rgba(56,189,248,0.8));} }
     .deploy-pulse { animation: pulse-glow 2s infinite ease-in-out; }
 
-        /* Transições suaves dos Modais */
-    .modal-backdrop {
-      transition: opacity 0.22s ease-out, visibility 0.22s ease-out;
-    }
-    .modal-backdrop.modal-closed {
-      opacity: 0;
-      pointer-events: none;
-      visibility: hidden;
-    }
-    .modal-backdrop:not(.modal-closed) {
-      opacity: 1;
-      pointer-events: auto;
-      visibility: visible;
-    }
-    .modal-dialog {
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease-out;
-    }
-    .modal-backdrop.modal-closed .modal-dialog {
-      transform: scale(0.96) translateY(8px);
-      opacity: 0;
-    }
-    .modal-backdrop:not(.modal-closed) .modal-dialog {
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
+    /* Transições suaves dos Modais */
+    .modal-backdrop { transition: opacity 0.22s ease-out, visibility 0.22s ease-out; }
+    .modal-backdrop.modal-closed { opacity: 0; pointer-events: none; visibility: hidden; }
+    .modal-backdrop:not(.modal-closed) { opacity: 1; pointer-events: auto; visibility: visible; }
+    .modal-dialog { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease-out; }
+    .modal-backdrop.modal-closed .modal-dialog { transform: scale(0.96) translateY(8px); opacity: 0; }
+    .modal-backdrop:not(.modal-closed) .modal-dialog { transform: scale(1) translateY(0); opacity: 1; }
   </style>
 </head>
 <body class="bg-[#03060a] text-slate-100 dark:bg-[#03060a] dark:text-slate-100 flex flex-col justify-between select-none sm:select-auto">
   <div class="bg-luxury-pattern"></div>
+
   <!-- Splash Screen Tela Cheia -->
   <div id="app-splash-loader" class="fixed inset-0 z-[200] bg-[#03060a] flex flex-col items-center justify-center transition-opacity duration-700">
     <img src="images/relogiocapa.jpeg" alt="Carregando Acervo" class="absolute inset-0 w-full h-full object-cover opacity-60">
@@ -87,7 +69,7 @@
         </div>
       </div>
       <div class="flex items-center gap-1 sm:gap-2">
-                <!-- Indicador de Status de Conexão -->
+        <!-- Indicador de Status de Conexão -->
         <span id="net-status-badge" class="hidden items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40 select-none">
           <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
           <span>Offline</span>
@@ -160,10 +142,9 @@
         <button type="button" onclick="definirModoVisualizacao('list')" id="btn-view-list" title="Visualização em Lista" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold"><i data-lucide="list" class="w-3.5 h-3.5"></i></button>
       </div>
     </div>
-    <!-- Pills de Filtro Rápido (Scroll Horizontal) -->
-    <div id="pills-filtros" class="flex items-center gap-1.5 overflow-x-auto pb-1 mb-2.5 scrollbar-none text-[11px] select-none">
-      <!-- Injetado dinamicamente via JS com contagens em tempo real -->
-    </div>
+
+    <!-- Pills de Filtro Rápido (Aba Relógios) -->
+    <div id="pills-filtros" class="flex items-center gap-1.5 overflow-x-auto pb-1 mb-2.5 scrollbar-none text-[11px] select-none"></div>
 
     <!-- VIEW 1: Relógios -->
     <section id="view-relogios"><div id="grid-relogios" class="transition-all duration-300"></div></section>
@@ -173,14 +154,23 @@
 
     <!-- VIEW GALERIA -->
     <section id="view-galeria" class="hidden space-y-3">
-      <div class="card-navy p-3 rounded-xl flex flex-wrap items-center justify-between gap-2">
-        <div class="flex items-center gap-1.5">
-          <span class="text-xs text-slate-400 font-medium">Exibir:</span>
-          <select id="filtro-galeria-tipo" onchange="renderizarGaleria()" class="bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] text-xs rounded-lg px-2.5 py-1 text-slate-800 dark:text-slate-200 outline-none">
-            <option value="todos">Todos (Fotos e Vídeos)</option>
-            <option value="fotos">Apenas Fotos</option>
-            <option value="videos">Apenas Vídeos</option>
-          </select>
+      <div class="card-navy p-2.5 sm:p-3 rounded-xl flex flex-wrap items-center justify-between gap-2">
+        <div id="pills-galeria-tipo" class="flex items-center gap-1.5 select-none text-[11px]">
+          <button type="button" onclick="definirFiltroGaleriaTipo('todos')" id="pill-gal-todos" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition bg-sky-500 text-slate-950 font-semibold shadow-sm">
+            <i data-lucide="layers" class="w-3 h-3"></i>
+            <span>Todos</span>
+            <span id="badge-gal-todos" class="text-[10px] opacity-80">(0)</span>
+          </button>
+          <button type="button" onclick="definirFiltroGaleriaTipo('fotos')" id="pill-gal-fotos" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            <i data-lucide="image" class="w-3 h-3"></i>
+            <span>Fotos</span>
+            <span id="badge-gal-fotos" class="text-[10px] opacity-80">(0)</span>
+          </button>
+          <button type="button" onclick="definirFiltroGaleriaTipo('videos')" id="pill-gal-videos" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">
+            <i data-lucide="video" class="w-3 h-3"></i>
+            <span>Vídeos</span>
+            <span id="badge-gal-videos" class="text-[10px] opacity-80">(0)</span>
+          </button>
         </div>
         
         <div class="flex items-center gap-2">
@@ -189,7 +179,7 @@
             <button type="button" onclick="definirTamanhoGaleria('md')" id="btn-gal-md" title="Miniaturas Médias" class="px-2 py-1 text-[11px] rounded transition font-medium">M</button>
             <button type="button" onclick="definirTamanhoGaleria('lg')" id="btn-gal-lg" title="Miniaturas Grandes" class="px-2 py-1 text-[11px] rounded transition font-medium">G</button>
           </div>
-          <span id="galeria-contador" class="text-[11px] text-slate-400">0 mídias</span>
+          <span id="galeria-contador" class="text-[11px] text-slate-400 font-mono">0 mídias</span>
         </div>
       </div>
       <div id="grid-galeria" class="transition-all duration-300"></div>
@@ -266,13 +256,13 @@
       </div>
     </section>
   </main>
+
   <!-- Modal Deploy -->
   <div id="modal-deploy" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 overflow-hidden select-none">
     <div class="absolute inset-0 bg-[#03060a]">
       <img src="images/relogiocapa.jpeg" alt="Fundo" class="w-full h-full object-cover opacity-60">
       <div class="absolute inset-0 backdrop-blur-md" style="background: radial-gradient(circle, rgba(3,6,10,0.7) 0%, rgba(3,6,10,0.92) 65%, rgba(3,6,10,0.98) 100%);"></div>
     </div>
-
     <div class="relative z-10 card-navy border border-sky-500/30 rounded-2xl max-w-sm w-full p-6 sm:p-7 text-center shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col items-center">
       <div class="w-14 h-14 rounded-full bg-sky-500/10 border border-sky-400/40 flex items-center justify-center mb-3.5 deploy-pulse shadow-[0_0_20px_rgba(56,189,248,0.25)]">
         <svg class="w-9 h-9 text-sky-400" viewBox="0 0 48 48" fill="none" stroke="currentColor">
@@ -289,7 +279,6 @@
           <circle cx="24" cy="24" r="2" fill="#38bdf8" />
         </svg>
       </div>
-
       <h3 class="text-sm font-serif-lux font-bold text-slate-900 dark:text-white tracking-widest uppercase mb-1 drop-shadow">Dados Sincronizados!</h3>
       <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">Publicando suas alterações. Consultando o status...</p>
       <div class="text-2xl font-mono font-bold text-sky-500 dark:text-sky-400 mb-2.5 tracking-tight drop-shadow" id="deploy-countdown">Publicando...</div>
@@ -302,9 +291,8 @@
 
   <!-- Modal Configurações GitHub -->
   <div id="modal-config" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-backdrop modal-closed">
-  <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
+    <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
       <button onclick="fecharModalConfig()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
-      
       <h3 class="text-sm font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-1 tracking-wider uppercase">Configurações</h3>
       <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-4">Salvo apenas localmente no seu aparelho.</p>
       
@@ -321,7 +309,6 @@
           <label class="text-slate-600 dark:text-slate-400 block mb-1">Personal Access Token (PAT)</label>
           <input type="password" id="cfg-token" placeholder="••••••••••••••••••••••••••••••••••••••" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500" required>
         </div>
-        
         <div class="pt-2 border-t border-slate-200 dark:border-[#1b2f4d]">
           <label class="text-slate-600 dark:text-slate-400 block mb-1">Google Gemini API Key (gratuita)</label>
           <input type="password" id="cfg-gemini-key" placeholder="AIza..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500">
@@ -332,7 +319,6 @@
           <input type="password" id="cfg-groq-key" placeholder="gsk_..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white outline-none focus:border-sky-500">
           <p class="text-[10px] text-slate-400 mt-1">Gratuita em: <a href="https://console.groq.com/keys" target="_blank" class="text-sky-500 underline">console.groq.com/keys</a></p>
         </div>
-        
         <button type="submit" class="w-full bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold py-2.5 rounded-lg transition uppercase tracking-wider text-xs mt-2">Salvar Credenciais</button>
       </form>
     </div>
@@ -341,7 +327,7 @@
   <!-- Modal Cadastro/Edição de Relógio -->
   <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop modal-closed">
     <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
-    <button onclick="fecharModalCadastro()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <button onclick="fecharModalCadastro()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       <h3 id="modal-form-title" class="text-sm sm:text-base font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-4 border-b border-slate-200 dark:border-[#172944] pb-2 tracking-wider">Cadastrar Relógio</h3>
       <form id="form-relogio" onsubmit="salvarRelogioLocal(event)" class="space-y-3.5 text-xs">
         <input type="hidden" id="edit-id" value="">
@@ -461,9 +447,14 @@
             </div>
           </div>
         </div>
-        <div><label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Descrição Técnica</label>
-        <textarea id="descricao" rows="3" placeholder="Detalhes de acabamento, complicação, resistência à água..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea></div>
-        <div><label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">História Pessoal</label><textarea id="historia" rows="2" placeholder="Como comprei ou ganhei..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea></div>
+        <div>
+          <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Descrição Técnica</label>
+          <textarea id="descricao" rows="3" placeholder="Detalhes de acabamento, complicação, resistência à água..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea>
+        </div>
+        <div>
+          <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">História Pessoal</label>
+          <textarea id="historia" rows="2" placeholder="Como comprei ou ganhei..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none"></textarea>
+        </div>
         <div class="flex items-center gap-2 pt-1">
           <button type="button" id="btn-excluir-modal-relogio" onclick="excluirRelogioModalAtual()" class="hidden bg-rose-500/10 hover:bg-rose-500/20 text-rose-500 border border-rose-500/40 font-bold py-3 px-4 rounded-lg transition tracking-wider uppercase text-xs items-center gap-1.5 flex-shrink-0">
             <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -478,7 +469,7 @@
   <!-- Modal Cadastro/Edição de Caixa -->
   <div id="modal-caixa" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop modal-closed">
     <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
-    <button onclick="fecharModalCaixa()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+      <button onclick="fecharModalCaixa()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       <h3 id="modal-caixa-title" class="text-sm sm:text-base font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-4 border-b border-slate-200 dark:border-[#172944] pb-2 tracking-wider">Cadastrar Caixa</h3>
       <form id="form-caixa" onsubmit="salvarCaixaLocal(event)" class="space-y-3.5 text-xs">
         <input type="hidden" id="edit-caixa-id" value="">
@@ -504,35 +495,53 @@
     </div>
   </div>
 
-  <!-- Modal Fotos & Zoom com Swipe e Botão Zoom -->
-  <div id="modal-galeria" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-2.5 sm:p-4 modal-backdrop modal-closed">
-    <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col p-3.5 sm:p-5 relative shadow-2xl">
-      <div class="flex justify-between items-start mb-2">
-        <div>
-          <span id="galeria-marca" class="text-[10px] sm:text-[11px] uppercase text-sky-600 dark:text-sky-400 font-serif-lux font-bold tracking-wider"></span>
-          <h3 id="galeria-modelo" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white"></h3>
+  <!-- Modal Galeria Imersiva / Celular (Fotos + Vídeos Unificados) -->
+  <div id="modal-galeria" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-0 sm:p-4 modal-backdrop modal-closed select-none">
+    <div class="modal-dialog bg-black sm:bg-[#0b1424] border-0 sm:border border-slate-800 rounded-none sm:rounded-2xl w-full h-full sm:h-auto sm:max-h-[94vh] sm:max-w-4xl flex flex-col p-3 sm:p-5 relative overflow-hidden">
+      <!-- Barra Superior Dinâmica -->
+      <div id="galeria-header-controles" class="flex justify-between items-center mb-2 z-30 transition-opacity duration-200">
+        <div class="min-w-0 pr-2">
+          <div class="flex items-center gap-1.5">
+            <span id="galeria-marca" class="text-[10px] sm:text-[11px] uppercase text-sky-400 font-serif-lux font-bold tracking-wider truncate"></span>
+            <button id="galeria-btn-ficha-rapida" onclick="abrirFichaDaMidiaAtual()" title="Abrir Ficha Técnica" class="px-1.5 py-0.5 rounded text-[9px] font-semibold bg-sky-500/20 text-sky-300 hover:bg-sky-500/30 border border-sky-400/30 transition flex items-center gap-0.5">
+              <i data-lucide="file-text" class="w-2.5 h-2.5"></i> Ficha
+            </button>
+          </div>
+          <h3 id="galeria-modelo" class="text-xs sm:text-sm font-bold text-white truncate"></h3>
         </div>
-        <div class="flex items-center gap-2">
-          <button id="btn-toggle-zoom" onclick="alternarZoomManual()" class="px-2.5 py-1 text-xs rounded-lg border border-slate-300 dark:border-[#1e3860] bg-slate-100 dark:bg-[#0c182b] text-slate-700 dark:text-slate-200 hover:border-sky-500 transition flex items-center gap-1">
+        <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+          <button id="btn-toggle-zoom" onclick="alternarZoomManual()" class="px-2 py-1 text-xs rounded-lg border border-[#1e3860] bg-[#0c182b] text-slate-200 hover:border-sky-500 transition flex items-center gap-1">
             <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-            <span id="label-toggle-zoom">Zoom Off</span>
+            <span id="label-toggle-zoom">Zoom</span>
           </button>
-          <button onclick="fecharModalGaleria()" class="text-slate-400 hover:text-white p-1"><i data-lucide="x" class="w-5 h-5"></i></button>
+          <button onclick="fecharModalGaleria()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800/60 transition">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
         </div>
       </div>
       
-      <div id="touch-area-galeria" class="relative rounded-xl border border-slate-200 dark:border-[#192b47] bg-slate-100 dark:bg-[#03070d] flex-1 max-h-[50vh] min-h-[260px] flex items-center justify-center overflow-hidden select-none">
+      <!-- Palco Central de Mídia com Toque / Double-Tap e Swipe -->
+      <div id="touch-area-galeria" class="relative rounded-lg sm:rounded-xl bg-black flex-1 min-h-[300px] sm:min-h-[460px] flex items-center justify-center overflow-hidden cursor-pointer">
         <div class="img-zoom-box w-full h-full flex items-center justify-center relative">
-          <img id="galeria-img-zoom" src="" alt="Foto" class="max-h-[50vh] w-auto max-w-full object-contain pointer-events-none transition-transform duration-150">
+          <img id="galeria-img-zoom" src="" alt="Mídia" class="max-h-[75vh] sm:max-h-[58vh] w-auto max-w-full object-contain pointer-events-none transition-transform duration-150">
+          <video id="galeria-video-player" src="" controls autoplay playsinline loop class="hidden max-h-[75vh] sm:max-h-[58vh] w-auto max-w-full rounded object-contain bg-black"></video>
         </div>
         
-        <button onclick="navegarFotoGaleria(-1)" title="Foto Anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full border border-slate-700/60 z-20"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
-        <button onclick="navegarFotoGaleria(1)" title="Próxima Foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full border border-slate-700/60 z-20"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
-        <span id="galeria-contador-fotos" class="absolute bottom-2.5 right-2.5 bg-black/80 px-2 py-0.5 rounded text-[10px] text-slate-300 font-mono z-20 pointer-events-none">1/1</span>
+        <button onclick="navegarFotoGaleria(-1, event)" title="Anterior" class="absolute left-2.5 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 sm:p-2.5 rounded-full border border-slate-700/60 z-20 transition backdrop-blur-sm">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i>
+        </button>
+        <button onclick="navegarFotoGaleria(1, event)" title="Próxima" class="absolute right-2.5 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/90 text-white p-2 sm:p-2.5 rounded-full border border-slate-700/60 z-20 transition backdrop-blur-sm">
+          <i data-lucide="chevron-right" class="w-4 h-4"></i>
+        </button>
+        
+        <span id="galeria-contador-fotos" class="absolute bottom-2.5 right-2.5 bg-black/80 border border-slate-800 px-2.5 py-0.5 rounded-md text-[10px] text-slate-300 font-mono z-20 pointer-events-none">1/1</span>
       </div>
 
-      <p class="text-[10px] text-slate-500 dark:text-slate-400 text-center mt-1.5">Deslize para trocar de foto ou clique no botão Zoom.</p>
-      <div id="galeria-thumbs" class="flex gap-2 mt-2.5 overflow-x-auto pb-1 pt-1 justify-start"></div>
+      <!-- Barra Inferior de Miniaturas -->
+      <div id="galeria-footer-controles" class="transition-opacity duration-200">
+        <p class="text-[10px] text-slate-400 text-center mt-2 hidden sm:block">Deslize para navegar. Toque duplo para zoom rápido.</p>
+        <div id="galeria-thumbs" class="flex gap-2 mt-2 overflow-x-auto pb-1 pt-1 justify-start scrollbar-none"></div>
+      </div>
     </div>
   </div>
 
@@ -575,11 +584,11 @@
   </div>
 
   <footer class="border-t border-slate-200/80 dark:border-[#132238] py-3 text-center text-[11px] text-slate-400 dark:text-slate-500">MyWatches &copy; Desde 2026.</footer>
+
   <script>
     let bancoDados = { relogios: [], caixas: [] };
     let fileSha = "";
     let abaAtiva = 'relogios';
-    let deployAssinaturaAnterior = '';
     let modoVisualizacao = localStorage.getItem('mywatches_view_mode') || 'grid-1';
     let pendingChanges = { temPendencia: false, fotosParaEnviar: [], fotosParaExcluir: [], videosParaEnviar: [], videosParaExcluir: [] };
     let fotosRelogioAtual = [], fotosRelogioExcluir = [], fotosCaixaAtual = [], fotosCaixaExcluir = [];
@@ -587,7 +596,7 @@
     let chartMarcasInst = null, chartTiposInst = null, chartValoresInst = null, chartMovimentosInst = null;
     let deferredPrompt = null;
     let debounceSearchTimer = null;
-        let filtroPillAtivo = 'todos';
+    let filtroPillAtivo = 'todos';
 
     // ==========================================
     // INDEXEDDB PARA PERSISTÊNCIA OFFLINE/DRAFTS
@@ -840,7 +849,8 @@
       badgeCaixas.className = aba === 'caixas' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
 
       viewRelogios.classList.toggle('hidden', aba !== 'relogios');
-      viewCaixas.classList.toggle('hidden', aba !== 'caixas');      viewGeral.classList.toggle('hidden', aba !== 'geral');
+      viewCaixas.classList.toggle('hidden', aba !== 'caixas');      
+      viewGeral.classList.toggle('hidden', aba !== 'geral');
       if (viewGaleria) viewGaleria.classList.toggle('hidden', aba !== 'galeria');
 
       controlesRelogios.classList.toggle('hidden', aba !== 'relogios');
@@ -866,13 +876,11 @@
     async function carregarDados() {
       atualizarStatusRede();
       
-      // Verifica se haviam rascunhos pendentes não sincronizados
       const { bancoLocal, pendenciasLocais } = await restaurarEstadoLocalIndexedDB();
       if (pendenciasLocais && pendenciasLocais.temPendencia && bancoLocal) {
         bancoDados = bancoLocal;
         pendingChanges = pendenciasLocais;
         atualizarStatusPendencias(true);
-        console.log("Rascunho e pendências restaurados do IndexedDB!");
       } else {
         try {
           const resLocal = await fetch(`relogios.json?t=${Date.now()}`);
@@ -892,6 +900,7 @@
         }
       }
       atualizarBotoesModoVisualizacao();
+      atualizarBotoesFiltroGaleria();
       renderizarPillsFiltros();
       renderizarTudo();
       alternarAba('relogios');
@@ -1034,7 +1043,7 @@
     function renderizarTudo() {
       document.getElementById('badge-count-relogios').innerText = bancoDados.relogios.length;
       document.getElementById('badge-count-caixas').innerText = bancoDados.caixas.length;
-      renderizarPillsFiltros(); // <-- Garante que os números das pills sempre reflitam o acervo em tempo real
+      renderizarPillsFiltros();
       aplicarFiltrosEOrdem();
       renderCaixas();
     }
@@ -1159,7 +1168,7 @@
                   <h4 class="text-[10px] font-semibold text-slate-900 dark:text-white truncate group-hover/title:text-sky-400 transition">${r.modelo}</h4>
                 </div>
                 <div class="mt-1 flex items-center justify-end pt-1 border-t border-slate-200 dark:border-[#132238]">
-                  <button onclick="editarRelogio('${r.id}')" title="Editar" class="text-slate-400 hover:text-sky-400 p-0.5 transition"><i data-lucide="edit-3" class="w-3 h-3"></i></button>
+                  <button onclick="editarRelogio('${r.id}')" title="Editar" class="text-slate-400 hover:text-sky-400 p-0.5 transition"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i></button>
                 </div>
               </div>
             </div>`;
@@ -1297,22 +1306,37 @@
       });
     }
 
-    function abrirGaleriaRelogio(id, urlFotoEspecifica = null) { 
-      const r = bancoDados.relogios.find(item => item.id === id); 
-      if (!r || !r.fotos || r.fotos.length === 0) return alert("Nenhuma foto disponível."); 
-      exibirModalGaleria(r.marca, r.modelo, r.fotos, urlFotoEspecifica); 
-    }
-    
-    function abrirGaleriaCaixa(id) { 
-      const c = bancoDados.caixas.find(item => item.id === id); 
-      if (!c || !c.fotos || c.fotos.length === 0) return alert("Nenhuma foto cadastrada."); 
-      exibirModalGaleria("Evolução da Caixa", c.nome, c.fotos); 
-    }
-
-    let fotosGaleriaModal = [];
-    let indiceFotoGaleriaModal = 0;
+    // ==========================================
+    // LÓGICA DE GALERIA ESTILO CELULAR (FLUXO GLOBAL)
+    // ==========================================
+    let filtroGaleriaTipo = 'todos';
+    let midiasGaleriaModal = [];
+    let indiceGaleriaModal = 0;
     let zoomAtivoManual = false;
     let galeriaGridSize = localStorage.getItem('mywatches_galeria_grid') || 'md';
+    let lastTapTempo = 0;
+
+    function definirFiltroGaleriaTipo(tipo) {
+      filtroGaleriaTipo = tipo;
+      atualizarBotoesFiltroGaleria();
+      renderizarGaleria();
+    }
+
+    function atualizarBotoesFiltroGaleria() {
+      const botoes = [
+        { id: 'todos', el: document.getElementById('pill-gal-todos') },
+        { id: 'fotos', el: document.getElementById('pill-gal-fotos') },
+        { id: 'videos', el: document.getElementById('pill-gal-videos') }
+      ];
+      botoes.forEach(b => {
+        if (!b.el) return;
+        if (b.id === filtroGaleriaTipo) {
+          b.el.className = "inline-flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition bg-sky-500 text-slate-950 font-semibold shadow-sm";
+        } else {
+          b.el.className = "inline-flex items-center gap-1 px-2.5 py-1 rounded-full whitespace-nowrap transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        }
+      });
+    }
 
     function definirTamanhoGaleria(tamanho) {
       galeriaGridSize = tamanho;
@@ -1320,56 +1344,166 @@
       renderizarGaleria();
     }
 
-    function exibirModalGaleria(titulo, subtitulo, fotos, urlFotoInicial = null) {
-      fotosGaleriaModal = fotos || [];
-      if (urlFotoInicial && fotosGaleriaModal.includes(urlFotoInicial)) {
-        indiceFotoGaleriaModal = fotosGaleriaModal.indexOf(urlFotoInicial);
-      } else {
-        indiceFotoGaleriaModal = 0;
+    function obterMidiasGaleriaFiltradas() {
+      const midias = [];
+      (bancoDados.relogios || []).forEach(r => {
+        if (filtroGaleriaTipo !== 'videos' && r.fotos) {
+          r.fotos.forEach((url, fIdx) => {
+            midias.push({
+              tipo: 'foto',
+              url: url,
+              marca: r.marca,
+              modelo: r.modelo,
+              relogioId: r.id,
+              isCapa: fIdx === 0
+            });
+          });
+        }
+        if (filtroGaleriaTipo !== 'fotos' && r.video) {
+          midias.push({
+            tipo: 'video',
+            url: r.video,
+            marca: r.marca,
+            modelo: r.modelo,
+            relogioId: r.id,
+            isCapa: false
+          });
+        }
+      });
+      return midias;
+    }
+
+    function abrirGaleriaRelogio(id, urlFotoEspecifica = null) {
+      const r = bancoDados.relogios.find(item => item.id === id);
+      if (!r || ((!r.fotos || r.fotos.length === 0) && !r.video)) {
+        return alert("Nenhuma foto ou vídeo disponível para esta peça.");
       }
+
+      const lista = [];
+      if (r.fotos) {
+        r.fotos.forEach((url, fIdx) => {
+          lista.push({ tipo: 'foto', url: url, marca: r.marca, modelo: r.modelo, relogioId: r.id, isCapa: fIdx === 0 });
+        });
+      }
+      if (r.video) {
+        lista.push({ tipo: 'video', url: r.video, marca: r.marca, modelo: r.modelo, relogioId: r.id, isCapa: false });
+      }
+
+      let idxInicial = 0;
+      if (urlFotoEspecifica) {
+        const achou = lista.findIndex(m => m.url === urlFotoEspecifica);
+        if (achou !== -1) idxInicial = achou;
+      }
+      iniciarVisualizadorMidas(lista, idxInicial);
+    }
+
+    function abrirGaleriaCaixa(id) {
+      const c = bancoDados.caixas.find(item => item.id === id);
+      if (!c || !c.fotos || c.fotos.length === 0) return alert("Nenhuma foto cadastrada.");
+      const lista = c.fotos.map(url => ({
+        tipo: 'foto',
+        url: url,
+        marca: 'Evolução da Caixa',
+        modelo: c.nome,
+        relogioId: null
+      }));
+      iniciarVisualizadorMidas(lista, 0);
+    }
+
+    function iniciarVisualizadorMidas(listaMidias, indexInicial = 0) {
+      if (!listaMidias || listaMidias.length === 0) return;
+      midiasGaleriaModal = listaMidias;
+      indiceGaleriaModal = Math.max(0, Math.min(indexInicial, midiasGaleriaModal.length - 1));
       zoomAtivoManual = false;
       atualizarEstadoBotaoZoom();
-
-      document.getElementById('galeria-marca').innerText = titulo;
-      document.getElementById('galeria-modelo').innerText = subtitulo;
-      
-      atualizarImagemVisualizador();
+      atualizarConteudoVisualizador();
       abrirModalSuave('modal-galeria');
       lucide.createIcons();
     }
 
-    function atualizarImagemVisualizador() {
-      if (fotosGaleriaModal.length === 0) return;
+    function atualizarConteudoVisualizador() {
+      if (midiasGaleriaModal.length === 0) return;
       desativarZoom();
-      const imgZoom = document.getElementById('galeria-img-zoom');
-      const urlAtual = fotosGaleriaModal[indiceFotoGaleriaModal];
-      imgZoom.src = urlAtual;
 
-      document.getElementById('galeria-contador-fotos').innerText = `${indiceFotoGaleriaModal + 1}/${fotosGaleriaModal.length}`;
+      const item = midiasGaleriaModal[indiceGaleriaModal];
+      const imgZoom = document.getElementById('galeria-img-zoom');
+      const vidPlayer = document.getElementById('galeria-video-player');
+      const btnFicha = document.getElementById('galeria-btn-ficha-rapida');
+
+      document.getElementById('galeria-marca').innerText = item.marca || 'Coleção';
+      document.getElementById('galeria-modelo').innerText = item.modelo || '';
+
+      if (btnFicha) {
+        btnFicha.classList.toggle('hidden', !item.relogioId);
+      }
+
+      if (item.tipo === 'video') {
+        imgZoom.classList.add('hidden');
+        imgZoom.src = '';
+        vidPlayer.classList.remove('hidden');
+        vidPlayer.src = item.url;
+        vidPlayer.play().catch(() => {});
+        document.getElementById('btn-toggle-zoom').classList.add('opacity-40', 'pointer-events-none');
+      } else {
+        if (vidPlayer) {
+          vidPlayer.pause();
+          vidPlayer.classList.add('hidden');
+          vidPlayer.src = '';
+        }
+        imgZoom.classList.remove('hidden');
+        imgZoom.src = item.url;
+        document.getElementById('btn-toggle-zoom').classList.remove('opacity-40', 'pointer-events-none');
+      }
+
+      document.getElementById('galeria-contador-fotos').innerText = `${indiceGaleriaModal + 1}/${midiasGaleriaModal.length}`;
 
       const thumbs = document.getElementById('galeria-thumbs');
-      thumbs.innerHTML = fotosGaleriaModal.map((url, i) => `
-        <img src="${url}" onclick="pularParaFotoGaleria(${i})" class="w-12 h-12 rounded-lg border ${i === indiceFotoGaleriaModal ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-300 dark:border-[#1b2f4d]'} object-cover cursor-pointer hover:border-sky-400 transition flex-shrink-0">
-      `).join('');
+      if (thumbs) {
+        thumbs.innerHTML = midiasGaleriaModal.map((m, i) => `
+          <div onclick="pularParaMidiaGaleria(${i})" class="relative flex-shrink-0 cursor-pointer rounded-lg overflow-hidden border-2 ${i === indiceGaleriaModal ? 'border-sky-500 ring-2 ring-sky-500/40' : 'border-slate-800 opacity-60 hover:opacity-100'} w-12 h-12 bg-black">
+            ${m.tipo === 'video' ? `
+              <video src="${m.url}" class="w-full h-full object-cover"></video>
+              <div class="absolute inset-0 flex items-center justify-center bg-black/40"><i data-lucide="play" class="w-3.5 h-3.5 text-white"></i></div>
+            ` : `
+              <img src="${m.url}" class="w-full h-full object-cover">
+            `}
+          </div>
+        `).join('');
+
+        const activeThumb = thumbs.children[indiceGaleriaModal];
+        if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+      lucide.createIcons();
     }
 
-    function pularParaFotoGaleria(idx) {
-      indiceFotoGaleriaModal = idx;
-      atualizarImagemVisualizador();
+    function pularParaMidiaGaleria(idx) {
+      indiceGaleriaModal = idx;
+      atualizarConteudoVisualizador();
     }
 
-    function navegarFotoGaleria(direcao) {
-      if (fotosGaleriaModal.length <= 1) return;
-      indiceFotoGaleriaModal += direcao;
-      if (indiceFotoGaleriaModal < 0) indiceFotoGaleriaModal = fotosGaleriaModal.length - 1;
-      if (indiceFotoGaleriaModal >= fotosGaleriaModal.length) indiceFotoGaleriaModal = 0;
-      atualizarImagemVisualizador();
+    function navegarFotoGaleria(direcao, event = null) {
+      if (event) event.stopPropagation();
+      if (midiasGaleriaModal.length <= 1) return;
+      indiceGaleriaModal += direcao;
+      if (indiceGaleriaModal < 0) indiceGaleriaModal = midiasGaleriaModal.length - 1;
+      if (indiceGaleriaModal >= midiasGaleriaModal.length) indiceGaleriaModal = 0;
+      atualizarConteudoVisualizador();
+    }
+
+    function abrirFichaDaMidiaAtual() {
+      const item = midiasGaleriaModal[indiceGaleriaModal];
+      if (!item || !item.relogioId) return;
+      fecharModalGaleria();
+      abrirDetalhes(item.relogioId);
     }
 
     function alternarZoomManual() {
+      const item = midiasGaleriaModal[indiceGaleriaModal];
+      if (!item || item.tipo === 'video') return;
       zoomAtivoManual = !zoomAtivoManual;
+      const img = document.getElementById('galeria-img-zoom');
       if (zoomAtivoManual) {
-        document.getElementById('galeria-img-zoom').style.transform = 'scale(2.5)';
+        img.style.transform = 'scale(2.5)';
       } else {
         desativarZoom();
       }
@@ -1392,19 +1526,98 @@
       if (!lbl || !btn) return;
       if (zoomAtivoManual) {
         lbl.innerText = 'Zoom Ativo';
-        btn.className = "px-2.5 py-1 text-xs rounded-lg border border-sky-500 bg-sky-500 text-slate-950 font-bold transition flex items-center gap-1";
+        btn.className = "px-2 py-1 text-xs rounded-lg border border-sky-500 bg-sky-500 text-slate-950 font-bold transition flex items-center gap-1";
       } else {
-        lbl.innerText = 'Zoom Off';
-        btn.className = "px-2.5 py-1 text-xs rounded-lg border border-slate-300 dark:border-[#1e3860] bg-slate-100 dark:bg-[#0c182b] text-slate-700 dark:text-slate-200 hover:border-sky-500 transition flex items-center gap-1";
+        lbl.innerText = 'Zoom';
+        btn.className = "px-2 py-1 text-xs rounded-lg border border-[#1e3860] bg-[#0c182b] text-slate-200 hover:border-sky-500 transition flex items-center gap-1";
       }
     }
 
     function fecharModalGaleria() {
+      const vidPlayer = document.getElementById('galeria-video-player');
+      if (vidPlayer) {
+        vidPlayer.pause();
+        vidPlayer.currentTime = 0;
+      }
       desativarZoom();
       fecharModalSuave('modal-galeria');
     }
 
-    const touchArea = document.getElementById('touch-area-galeria') || document.querySelector('.img-zoom-box');
+    // Renderiza o grid da aba Galeria
+    function renderizarGaleria() {
+      const grid = document.getElementById('grid-galeria');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      ['sm', 'md', 'lg'].forEach(size => {
+        const b = document.getElementById(`btn-gal-${size}`);
+        if (!b) return;
+        b.className = (size === galeriaGridSize)
+          ? "px-2 py-1 text-[11px] rounded transition font-bold bg-sky-500 text-slate-950 shadow-sm"
+          : "px-2 py-1 text-[11px] rounded transition font-medium text-slate-500 dark:text-slate-400 hover:text-sky-500";
+      });
+
+      if (galeriaGridSize === 'sm') {
+        grid.className = "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 sm:gap-2";
+      } else if (galeriaGridSize === 'lg') {
+        grid.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4";
+      } else {
+        grid.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3";
+      }
+
+      let totalFotos = 0;
+      let totalVideos = 0;
+      (bancoDados.relogios || []).forEach(r => {
+        if (r.fotos) totalFotos += r.fotos.length;
+        if (r.video) totalVideos += 1;
+      });
+
+      const badgeTodos = document.getElementById('badge-gal-todos');
+      const badgeFotos = document.getElementById('badge-gal-fotos');
+      const badgeVideos = document.getElementById('badge-gal-videos');
+      if (badgeTodos) badgeTodos.innerText = `(${totalFotos + totalVideos})`;
+      if (badgeFotos) badgeFotos.innerText = `(${totalFotos})`;
+      if (badgeVideos) badgeVideos.innerText = `(${totalVideos})`;
+
+      const midias = obterMidiasGaleriaFiltradas();
+      document.getElementById('galeria-contador').innerText = `${midias.length} mídias`;
+
+      if (midias.length === 0) {
+        grid.innerHTML = `<div class="col-span-full py-16 text-center text-slate-500 text-xs">Nenhuma mídia encontrada com o filtro selecionado.</div>`;
+        return;
+      }
+
+      grid.innerHTML = midias.map((m, idx) => {
+        if (m.tipo === 'foto') {
+          return `
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="iniciarVisualizadorMidas(obterMidiasGaleriaFiltradas(), ${idx})">
+              <img src="${m.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-2">
+                <p class="text-[10px] text-white font-medium truncate">${m.marca} ${m.modelo}</p>
+                <span class="text-[8px] text-sky-400 font-semibold uppercase">Foto</span>
+              </div>
+            </div>`;
+        } else {
+          return `
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer bg-black" onclick="iniciarVisualizadorMidas(obterMidiasGaleriaFiltradas(), ${idx})">
+              <video src="${m.url}" class="w-full h-full object-cover opacity-75"></video>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <i data-lucide="play-circle" class="w-9 h-9 text-white/90 group-hover:scale-110 transition drop-shadow-lg"></i>
+              </div>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-2">
+                <p class="text-[10px] text-white font-medium truncate">${m.marca} ${m.modelo}</p>
+                <span class="text-[8px] text-purple-400 font-semibold uppercase">Vídeo</span>
+              </div>
+            </div>`;
+        }
+      }).join('');
+      lucide.createIcons();
+    }
+
+    // ==========================================
+    // CONTROLES DE TOQUE (SWIPE & DOUBLE-TAP) + TECLADO
+    // ==========================================
+    const touchArea = document.getElementById('touch-area-galeria');
     let touchStartX = 0;
     let touchStartY = 0;
 
@@ -1434,20 +1647,53 @@
       }, { passive: true });
 
       touchArea.addEventListener('touchend', (e) => {
-        if (e.changedTouches.length === 1 && !zoomAtivoManual) {
+        if (e.target && e.target.tagName && e.target.tagName.toLowerCase() === 'video') return;
+
+        const agora = Date.now();
+        const diffTempo = agora - lastTapTempo;
+        const item = midiasGaleriaModal[indiceGaleriaModal];
+
+        if (e.changedTouches.length === 1) {
           const diffX = e.changedTouches[0].clientX - touchStartX;
           const diffY = e.changedTouches[0].clientY - touchStartY;
 
           if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY)) {
-            if (diffX < 0) {
-              navegarFotoGaleria(1);
-            } else {
-              navegarFotoGaleria(-1);
+            if (!zoomAtivoManual) {
+              if (diffX < 0) navegarFotoGaleria(1);
+              else navegarFotoGaleria(-1);
+            }
+          } 
+          else if (Math.abs(diffX) < 15 && Math.abs(diffY) < 15) {
+            if (diffTempo < 300 && diffTempo > 0 && item && item.tipo !== 'video') {
+              const rect = touchArea.getBoundingClientRect();
+              const touch = e.changedTouches[0];
+              const x = ((touch.clientX - rect.left) / rect.width) * 100;
+              const y = ((touch.clientY - rect.top) / rect.height) * 100;
+              
+              zoomAtivoManual = !zoomAtivoManual;
+              const img = document.getElementById('galeria-img-zoom');
+              if (zoomAtivoManual) {
+                img.style.transformOrigin = `${x}% ${y}%`;
+                img.style.transform = 'scale(2.5)';
+              } else {
+                desativarZoom();
+              }
+              atualizarEstadoBotaoZoom();
             }
           }
         }
+        lastTapTempo = agora;
       });
     }
+
+    window.addEventListener('keydown', (e) => {
+      const modalGaleria = document.getElementById('modal-galeria');
+      if (modalGaleria && !modalGaleria.classList.contains('modal-closed')) {
+        if (e.key === 'ArrowRight') navegarFotoGaleria(1);
+        else if (e.key === 'ArrowLeft') navegarFotoGaleria(-1);
+        else if (e.key === 'Escape') fecharModalGaleria();
+      }
+    });
 
     function abrirDetalhes(id) {
       const r = bancoDados.relogios.find(item => item.id === id);
@@ -1526,18 +1772,6 @@
       fecharModalSuave('modal-detalhes');
     }
 
-    function fecharPlayerModalVideo() {
-      const modal = document.getElementById('modal-video-player');
-      if (modal) {
-        const video = modal.querySelector('video');
-        if (video) {
-          video.pause();
-          video.currentTime = 0;
-        }
-        modal.classList.add('hidden');
-      }
-    }
-
     function comprimirImagem(file, maxDimensao = 1200, qualidade = 0.82) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -1563,7 +1797,8 @@
         reader.readAsDataURL(file);
       });
     }
-        function atualizarStatusRede() {
+
+    function atualizarStatusRede() {
       const badge = document.getElementById('net-status-badge');
       const btnSync = document.getElementById('btn-sync-all');
       if (!navigator.onLine) {
@@ -1578,7 +1813,6 @@
     }
     window.addEventListener('online', atualizarStatusRede);
     window.addEventListener('offline', atualizarStatusRede);
-
 
     function dataUrlToBlob(dataUrl) {
       const [header, base64] = dataUrl.split(',');
@@ -1706,9 +1940,7 @@ Retorne APENAS o JSON.`;
           provedorUsado = 'Groq';
         }
 
-        if (!content) {
-          throw new Error('Nenhuma resposta recebida dos provedores de IA.');
-        }
+        if (!content) throw new Error('Nenhuma resposta recebida dos provedores de IA.');
 
         content = content.trim();
         if (content.startsWith('```')) {
@@ -1780,7 +2012,8 @@ Retorne APENAS o JSON.`;
         const url = URL.createObjectURL(file);
         video.src = url;
 
-        video.onloadedmetadata = () => {
+        video.onloadedmetadata = () =>
+         {
           if (video.duration > 31) {
             URL.revokeObjectURL(url);
             return reject(new Error("O vídeo ultrapassa 30 segundos. Por favor, corte antes de enviar."));
@@ -1830,7 +2063,7 @@ Retorne APENAS o JSON.`;
 
           mediaRecorder.onstop = () => {
             URL.revokeObjectURL(url);
-            stream.getTracks().forEach(track => track.stop()); // Libera memória de vídeo
+            stream.getTracks().forEach(track => track.stop());
             const ext = mime.includes('mp4') ? 'mp4' : 'webm';
             const blob = new Blob(chunks, { type: mime });
             const novoArquivo = new File([blob], file.name.replace(/\.[^/.]+$/, `.${ext}`), { type: mime });
@@ -1862,6 +2095,7 @@ Retorne APENAS o JSON.`;
         };
       });
     }
+
     document.getElementById('video-file')?.addEventListener('change', async function(e) {
       const file = e.target.files[0];
       if (!file) return;
@@ -1917,7 +2151,6 @@ Retorne APENAS o JSON.`;
       document.getElementById('edit-id').value = '';
       document.getElementById('modal-form-title').innerText = "Cadastrar Novo Relógio";
       
-      // Oculta o botão de exclusão para novos cadastros
       const btnDel = document.getElementById('btn-excluir-modal-relogio');
       if (btnDel) {
         btnDel.classList.add('hidden');
@@ -1945,7 +2178,6 @@ Retorne APENAS o JSON.`;
       document.getElementById('modal-form-title').innerText = `Editar: ${r.marca} ${r.modelo}`;
       document.getElementById('edit-id').value = r.id;
 
-      // Exibe o botão de exclusão apenas em modo de edição
       const btnDel = document.getElementById('btn-excluir-modal-relogio');
       if (btnDel) {
         btnDel.classList.remove('hidden');
@@ -1993,7 +2225,8 @@ Retorne APENAS o JSON.`;
       abrirModalSuave('modal-cadastro');
       lucide.createIcons();
     }
-        function excluirRelogioModalAtual() {
+
+    function excluirRelogioModalAtual() {
       const id = document.getElementById('edit-id').value;
       if (!id) return;
       fecharModalCadastro();
@@ -2164,7 +2397,6 @@ Retorne APENAS o JSON.`;
       try {
         await obterShaAtual();
 
-        // 1. Deletar arquivos pendentes (sem duplicidades)
         const fotosExcluirUnicas = [...new Set(pendingChanges.fotosParaExcluir)];
         while (fotosExcluirUnicas.length > 0) {
           const url = fotosExcluirUnicas[0];
@@ -2181,7 +2413,6 @@ Retorne APENAS o JSON.`;
           pendingChanges.videosParaExcluir = pendingChanges.videosParaExcluir.filter(u => u !== url);
         }
 
-        // 2. Upload de novas fotos item a item
         while (pendingChanges.fotosParaEnviar.length > 0) {
           const item = pendingChanges.fotosParaEnviar[0];
           const nomeBase = (item.nomeOriginal || item.file?.name || 'foto.jpg').replace(/\.[^/.]+$/, '');
@@ -2223,7 +2454,6 @@ Retorne APENAS o JSON.`;
           pendingChanges.fotosParaEnviar.shift();
         }
 
-        // 3. Upload de novos vídeos item a item
         if (pendingChanges.videosParaEnviar) {
           while (pendingChanges.videosParaEnviar.length > 0) {
             const itemVid = pendingChanges.videosParaEnviar[0];
@@ -2250,10 +2480,8 @@ Retorne APENAS o JSON.`;
           }
         }
 
-        // 4. Salvar o JSON atualizado
         const shaEsperado = await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
         
-        // 5. Finalizar pendências, limpar rascunho local e disparar deploy
         await limparEstadoLocalIndexedDB();
         atualizarStatusPendencias(false);
         iniciarVerificacaoDeploy(shaEsperado);
@@ -2266,7 +2494,7 @@ Retorne APENAS o JSON.`;
       }
     }
    
-      async function salvarJsonGithub(mensagemCommit) {
+    async function salvarJsonGithub(mensagemCommit) {
       const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(bancoDados, null, 2))));
       const shaEsperado = await calcularShaEsperado(updatedJsonContent);
       
@@ -2344,7 +2572,6 @@ Retorne APENAS o JSON.`;
         if (progressBar) progressBar.style.width = `${percentual}%`;
         if (countdown) countdown.textContent = `Verificando... ${tentativa}/${maxTentativas}`;
         
-        // Cada tentativa gira o ponteiro em 6 graus (60 * 6 = 360°)
         if (ponteiroRelogio) {
           ponteiroRelogio.style.transform = `rotate(${tentativa * 6}deg)`;
         }
@@ -2477,100 +2704,6 @@ Retorne APENAS o JSON.`;
       debounceSearchTimer = setTimeout(aplicarFiltrosEOrdem, 300);
     });
 
-    function renderizarGaleria() {
-      const grid = document.getElementById('grid-galeria');
-      const filtro = document.getElementById('filtro-galeria-tipo')?.value || 'todos';
-      if (!grid) return;
-      grid.innerHTML = '';
-
-      ['sm', 'md', 'lg'].forEach(size => {
-        const b = document.getElementById(`btn-gal-${size}`);
-        if (!b) return;
-        if (size === galeriaGridSize) {
-          b.className = "px-2 py-1 text-[11px] rounded transition font-bold bg-sky-500 text-slate-950 shadow-sm";
-        } else {
-          b.className = "px-2 py-1 text-[11px] rounded transition font-medium text-slate-500 dark:text-slate-400 hover:text-sky-500";
-        }
-      });
-
-      if (galeriaGridSize === 'sm') {
-        grid.className = "grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-1.5 sm:gap-2";
-      } else if (galeriaGridSize === 'lg') {
-        grid.className = "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4";
-      } else {
-        grid.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3";
-      }
-
-      const midias = [];
-      (bancoDados.relogios || []).forEach(r => {
-        if (filtro !== 'videos' && r.fotos) {
-          r.fotos.forEach(url => midias.push({ tipo: 'foto', url: url, relogio: `${r.marca} ${r.modelo}`, id: r.id }));
-        }
-        if (filtro !== 'fotos' && r.video) {
-          midias.push({ tipo: 'video', url: r.video, relogio: `${r.marca} ${r.modelo}`, id: r.id });
-        }
-      });
-
-      document.getElementById('galeria-contador').innerText = `${midias.length} mídias`;
-
-      if (midias.length === 0) {
-        grid.innerHTML = `<div class="col-span-full py-12 text-center text-slate-500 text-xs">Nenhuma mídia encontrada com o filtro selecionado.</div>`;
-        return;
-      }
-
-      grid.innerHTML = midias.map(m => {
-        if (m.tipo === 'foto') {
-          return `
-            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="abrirGaleriaRelogio('${m.id}', '${m.url}')">
-              <img src="${m.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 sm:p-2">
-                <p class="text-[9px] sm:text-[10px] text-white font-medium truncate">${m.relogio}</p>
-                <span class="text-[8px] text-sky-400 font-semibold uppercase">Foto</span>
-              </div>
-            </div>`;
-        } else {
-          return `
-            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer bg-black" onclick="abrirPlayerModalVideo('${m.id}')">
-              <video src="${m.url}" class="w-full h-full object-cover opacity-70"></video>
-              <div class="absolute inset-0 flex items-center justify-center">
-                <i data-lucide="play-circle" class="w-8 h-8 sm:w-10 sm:h-10 text-white/90 group-hover:scale-110 transition"></i>
-              </div>
-              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 to-transparent p-1.5 sm:p-2">
-                <p class="text-[9px] sm:text-[10px] text-white font-medium truncate">${m.relogio}</p>
-                <span class="text-[8px] text-purple-400 font-semibold uppercase">Vídeo</span>
-              </div>
-            </div>`;
-        }
-      }).join('');
-      lucide.createIcons();
-    }
-
-    function abrirPlayerModalVideo(id) {
-      const r = bancoDados.relogios.find(item => item.id === id);
-      if (!r || !r.video) return;
-      const titulo = `${r.marca} ${r.modelo}`;
-      let modal = document.getElementById('modal-video-player');
-      if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'modal-video-player';
-        modal.className = 'fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-3 backdrop-blur-sm select-none';
-        modal.onclick = (e) => { if (e.target === modal) fecharPlayerModalVideo(); };
-        document.body.appendChild(modal);
-      }
-      modal.innerHTML = `
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden p-3 relative shadow-2xl" onclick="event.stopPropagation()">
-          <div class="flex justify-between items-center pb-2 border-b border-slate-800 text-white text-xs font-semibold">
-            <span>${titulo}</span>
-            <button onclick="fecharPlayerModalVideo()" class="p-1 text-slate-400 hover:text-white text-sm">✕</button>
-          </div>
-          <div class="p-2 flex justify-center bg-black rounded-lg mt-2">
-            <video src="${r.video}" controls autoplay playsinline class="max-h-[70vh] rounded"></video>
-          </div>
-        </div>
-      `;
-      modal.classList.remove('hidden');
-    }
-
     function toBase64(fileOrBlob) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -2617,3 +2750,4 @@ Retorne APENAS o JSON.`;
   </script>
 </body>
 </html>
+
