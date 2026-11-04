@@ -476,7 +476,7 @@
       "tipo_aquisicao": "presente",
       "data_compra": "2026-09-30",
       "valor": 579,
-      "origem": "Presente",
+      "origem": "Mãe/Penha",
       "prestigio": 4,
       "afeto": 5,
       "valor_rating": 3,
@@ -490,7 +490,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela",
       "descricao": "Referencia: 2415EL1A\nLinha: Acqua\nVidro: Cristal Mineral\nMaterial da Caixa: Aço Inoxidável\nMaterial da Pulseira: Aço Inoxidável\nModelo: Analógico\nMecanismo: Quartzo\nAlimentação: Óxido de Prata\nResistência à Água: 15ATM\nDiâmetro da Caixa: 44,5mm (sem coroa)\nPeso: 155g",
-      "historia": "Mãe e Penha - Presente - Aniversário",
+      "historia": "Presente - Aniversário",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080341486-0-Techonos2415EL1A.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080343179-1-Techonos2415EL1A1.jpeg",
@@ -535,7 +535,7 @@
   "caixas": [
     {
       "id": "box-1792069849142",
-      "nome": "Caixa - Couro PU",
+      "nome": "Caixa - Azul - Couro PU",
       "capacidade": 12,
       "data_aquisicao": "2026-06-26",
       "status": "Backup",
@@ -547,7 +547,7 @@
     },
     {
       "id": "box-1792116598251",
-      "nome": "Caixa - Couro Preta",
+      "nome": "Caixa - Preta - Couro",
       "capacidade": 12,
       "data_aquisicao": "2026-09-10",
       "status": "Completa",
@@ -560,7 +560,7 @@
     },
     {
       "id": "box-1793322055591",
-      "nome": "Estojo - Couro Viagem",
+      "nome": "Estojo - Marrom - Couro - Viagem",
       "capacidade": 3,
       "data_aquisicao": "2026-09-30",
       "status": "Uso Exclusivo Viagem",
