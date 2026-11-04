@@ -195,76 +195,140 @@
       <div id="grid-galeria" class="transition-all duration-300"></div>
     </section>
 
-    <!-- VIEW 3: Dashboard Geral -->
-    <section id="view-geral" class="hidden space-y-4">
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Valor Total do Acervo</span>
-          <div class="mt-1">
-            <span id="metric-valor-total-acervo" class="text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300">R$ 0,00</span>
-            <span id="metric-total-relogios" class="block text-[10px] text-slate-400 mt-0.5">0 peça(s) no acervo</span>
-          </div>
-        </div>
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Patrimônio Investido</span>
-          <div class="mt-1">
-            <span id="metric-valor-comprados" class="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400">R$ 0,00</span>
-            <span id="metric-count-comprados" class="block text-[10px] text-slate-400 mt-0.5">0 peça(s) comprada(s)</span>
-          </div>
-        </div>
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1">
-            <i data-lucide="gift" class="w-3 h-3 text-rose-400"></i> Acervo em Presentes
-          </span>
-          <div class="mt-1">
-            <span id="metric-valor-presentes" class="text-lg sm:text-xl font-bold text-rose-500 dark:text-rose-400">R$ 0,00</span>
-            <span id="metric-count-presentes" class="block text-[10px] text-slate-400 mt-0.5">0 peça(s) ganha(s)</span>
-          </div>
-        </div>
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Preço Médio Real</span>
-          <div class="mt-1">
-            <span id="metric-preco-medio-real" class="text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300">R$ 0,00</span>
-            <span class="block text-[10px] text-slate-400 mt-0.5">por peça comprada</span>
-          </div>
-        </div>
-        <div class="card-navy p-3 sm:p-4 rounded-xl">
-          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider block">Ocupação das Caixas</span>
-          <div class="flex items-baseline gap-1.5 mt-1">
-            <span id="metric-ocupacao" class="text-lg sm:text-xl font-bold text-amber-500">0%</span>
-            <span id="metric-vagas-texto" class="text-[10px] text-slate-400">0 slots</span>
-          </div>
-        </div>
+<!-- VIEW 3: Dashboard Geral -->
+<section id="view-geral" class="hidden space-y-4">
+  <!-- Grid de Métricas Principais -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
+    
+    <!-- 1. Valor Total do Acervo -->
+    <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between">
+      <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
+        <i data-lucide="circle-dollar-sign" class="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 flex-shrink-0"></i>
+        <span class="truncate">Valor Total do Acervo</span>
+      </span>
+      <div class="mt-1.5">
+        <span id="metric-valor-total-acervo" class="text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300 block truncate">R$ 0,00</span>
+        <span id="metric-total-relogios" class="block text-[10px] text-slate-400 mt-0.5 truncate">0 peça(s) no acervo</span>
       </div>
+    </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-        <div class="card-navy p-3.5 sm:p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-2.5 tracking-wider flex items-center gap-1.5"><i data-lucide="pie-chart" class="w-3.5 h-3.5"></i> Distribuição por Marca</h4>
-          <div class="h-60 flex items-center justify-center"><canvas id="chartMarcas"></canvas></div>
-        </div>
-        <div class="card-navy p-3.5 sm:p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-2.5 tracking-wider flex items-center gap-1.5"><i data-lucide="compass" class="w-3.5 h-3.5"></i> Estilos e Categorias</h4>
-          <div class="h-60 flex items-center justify-center"><canvas id="chartTipos"></canvas></div>
-        </div>
+    <!-- 2. Patrimônio Investido -->
+    <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between">
+      <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
+        <i data-lucide="wallet" class="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400 flex-shrink-0"></i>
+        <span class="truncate">Patrimônio Investido</span>
+      </span>
+      <div class="mt-1.5">
+        <span id="metric-valor-comprados" class="text-lg sm:text-xl font-bold text-emerald-600 dark:text-emerald-400 block truncate">R$ 0,00</span>
+        <span id="metric-count-comprados" class="block text-[10px] text-slate-400 mt-0.5 truncate">0 peça(s) comprada(s)</span>
       </div>
+    </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4">
-        <div class="md:col-span-5 card-navy p-3.5 sm:p-4 rounded-xl">
-          <h4 class="text-xs uppercase font-serif-lux font-bold text-emerald-600 dark:text-emerald-400 mb-2.5 tracking-wider flex items-center gap-1.5"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> Mecanismos / Calibres</h4>
-          <div class="h-60 flex items-center justify-center"><canvas id="chartMovimentos"></canvas></div>
+    <!-- 3. Acervo em Presentes -->
+    <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between">
+      <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
+        <i data-lucide="gift" class="w-3.5 h-3.5 text-rose-500 dark:text-rose-400 flex-shrink-0"></i>
+        <span class="truncate">Acervo em Presentes</span>
+      </span>
+      <div class="mt-1.5">
+        <span id="metric-valor-presentes" class="text-lg sm:text-xl font-bold text-rose-500 dark:text-rose-400 block truncate">R$ 0,00</span>
+        <span id="metric-count-presentes" class="block text-[10px] text-slate-400 mt-0.5 truncate">0 peça(s) ganha(s)</span>
+      </div>
+    </div>
+
+    <!-- 4. Preço Médio Real -->
+    <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between">
+      <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
+        <i data-lucide="calculator" class="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 flex-shrink-0"></i>
+        <span class="truncate">Preço Médio Real</span>
+      </span>
+      <div class="mt-1.5">
+        <span id="metric-preco-medio-real" class="text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300 block truncate">R$ 0,00</span>
+        <span class="block text-[10px] text-slate-400 mt-0.5 truncate">por peça comprada</span>
+      </div>
+    </div>
+
+    <!-- 5. Ocupação das Caixas (com Barra e Alerta de Slots) -->
+    <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between col-span-2 md:col-span-1">
+      <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
+        <i data-lucide="box" class="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 flex-shrink-0"></i>
+        <span class="truncate">Ocupação das Caixas</span>
+      </span>
+      <div class="mt-1.5">
+        <div class="flex items-baseline justify-between">
+          <span id="metric-ocupacao" class="text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300">0%</span>
+          <span id="metric-vagas-texto" class="text-[10px] text-slate-400">0 / 0 slots</span>
         </div>
-        <div class="md:col-span-7 card-navy p-3.5 sm:p-4 rounded-xl">
-          <div class="flex items-center justify-between mb-2.5">
-            <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 tracking-wider flex items-center gap-1.5"><i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Maiores Valores (R$)</h4>
-            <div class="flex items-center gap-2.5 text-[10px] text-slate-500 dark:text-slate-400">
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-400"></span> Compra</span>
-              <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Presente</span>
-            </div>
-          </div>
-          <div class="h-60"><canvas id="chartValores"></canvas></div>
+        <div class="w-full bg-slate-200 dark:bg-slate-800/80 rounded-full h-1.5 mt-1.5 overflow-hidden">
+          <div id="metric-ocupacao-bar" class="h-full rounded-full transition-all duration-700 bg-sky-500" style="width: 0%"></div>
+        </div>
+        <span id="metric-slots-livres" class="block text-[10px] text-slate-400 mt-1 truncate">0 slots livres</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Linha 1 de Gráficos: Marcas e Estilos -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
+    <div class="card-navy p-3.5 sm:p-4 rounded-xl">
+      <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 mb-2.5 tracking-wider flex items-center gap-1.5">
+        <i data-lucide="pie-chart" class="w-3.5 h-3.5"></i> Distribuição por Marca
+      </h4>
+      <div class="h-60 flex items-center justify-center relative">
+        <canvas id="chartMarcas"></canvas>
+      </div>
+    </div>
+    
+    <div class="card-navy p-3.5 sm:p-4 rounded-xl">
+      <h4 class="text-xs uppercase font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-2.5 tracking-wider flex items-center gap-1.5">
+        <i data-lucide="compass" class="w-3.5 h-3.5"></i> Estilos e Categorias
+      </h4>
+      <div class="h-60 flex items-center justify-center relative">
+        <canvas id="chartTipos"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Linha 2 de Gráficos: Mecanismos e Maiores Valores -->
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-3 sm:gap-4">
+    <div class="md:col-span-5 card-navy p-3.5 sm:p-4 rounded-xl">
+      <h4 class="text-xs uppercase font-serif-lux font-bold text-emerald-600 dark:text-emerald-400 mb-2.5 tracking-wider flex items-center gap-1.5">
+        <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Mecanismos / Calibres
+      </h4>
+      <div class="h-60 flex items-center justify-center relative">
+        <canvas id="chartMovimentos"></canvas>
+      </div>
+    </div>
+    
+    <div class="md:col-span-7 card-navy p-3.5 sm:p-4 rounded-xl">
+      <div class="flex items-center justify-between mb-2.5">
+        <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 tracking-wider flex items-center gap-1.5">
+          <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> Maiores Valores (R$)
+        </h4>
+        <div class="flex items-center gap-2.5 text-[10px] text-slate-500 dark:text-slate-400">
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-sky-500"></span> Compra</span>
+          <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-400"></span> Presente</span>
         </div>
       </div>
-    </section>
+      <div class="h-60">
+        <canvas id="chartValores"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Linha 3 de Gráficos: Timeline Anual de Aquisições -->
+  <div class="card-navy p-3.5 sm:p-4 rounded-xl">
+    <div class="flex items-center justify-between mb-2.5">
+      <h4 class="text-xs uppercase font-serif-lux font-bold text-sky-600 dark:text-sky-400 tracking-wider flex items-center gap-1.5">
+        <i data-lucide="calendar-range" class="w-3.5 h-3.5"></i> Linha do Tempo de Aquisição
+      </h4>
+      <span class="text-[10px] text-slate-400 font-medium">Ritmo anual de expansão</span>
+    </div>
+    <div class="h-56">
+      <canvas id="chartTimeline"></canvas>
+    </div>
+  </div>
+</section>
   </main>
 
   <!-- Modal Deploy -->
@@ -605,7 +669,7 @@
     let pendingChanges = { temPendencia: false, fotosParaEnviar: [], fotosParaExcluir: [], videosParaEnviar: [], videosParaExcluir: [] };
     let fotosRelogioAtual = [], fotosRelogioExcluir = [], fotosCaixaAtual = [], fotosCaixaExcluir = [];
     let videoRelogioAtual = null, videoRelogioExcluir = null, videoFileParaUpload = null;
-    let chartMarcasInst = null, chartTiposInst = null, chartValoresInst = null, chartMovimentosInst = null;
+    let chartMarcasInst = null, chartTiposInst = null, chartValoresInst = null, chartMovimentosInst = null, chartTimelineInst = null;
     let deferredPrompt = null;
     let debounceSearchTimer = null;
     let filtroPillAtivo = 'todos';
@@ -1447,7 +1511,9 @@ function copiarLinkCompartilhamento() {
       const textColor = isDark ? '#94a3b8' : '#475569';
       const gridColor = isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.06)';
       const borderColor = isDark ? '#0b1424' : '#ffffff';
-      const luxPalette = ['#38bdf8','#d4af37','#10b981','#94a3b8','#f59e0b','#818cf8','#be185d','#64748b'];
+
+      // Paleta Horológica Luxo (Menos saturada, tons champagne, safira, platina e esmeralda nobre)
+      const luxPalette = ['#38bdf8', '#c5a059', '#34d399', '#818cf8', '#94a3b8', '#fb923c', '#a78bfa', '#64748b'];
 
       const totalPecas = relogios.length;
       const comprados = relogios.filter(r => r.tipo_aquisicao !== 'presente');
@@ -1458,7 +1524,9 @@ function copiarLinkCompartilhamento() {
       const precoMedioReal = comprados.length > 0 ? valorComprados / comprados.length : 0;
       const capacidadeTotal = caixas.reduce((acc, c) => acc + (parseInt(c.capacidade) || 0), 0);
       const ocupacaoPct = capacidadeTotal > 0 ? Math.round((totalPecas / capacidadeTotal) * 100) : 0;
+      const slotsLivres = Math.max(0, capacidadeTotal - totalPecas);
 
+      // Atualiza Cards Superiores
       document.getElementById('metric-valor-total-acervo').innerText = valorTotalAcervo.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
       document.getElementById('metric-total-relogios').innerText = `${totalPecas} peça(s) no acervo`;
       document.getElementById('metric-valor-comprados').innerText = valorComprados.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -1466,21 +1534,128 @@ function copiarLinkCompartilhamento() {
       document.getElementById('metric-valor-presentes').innerText = valorPresentes.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
       document.getElementById('metric-count-presentes').innerText = `${presentes.length} peça(s) ganha(s)`;
       document.getElementById('metric-preco-medio-real').innerText = precoMedioReal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      document.getElementById('metric-ocupacao').innerText = `${ocupacaoPct}%`;
-      document.getElementById('metric-vagas-texto').innerText = `${totalPecas} / ${capacidadeTotal} slots`;
+      
+      // Lógica de Ocupação das Caixas com Alerta Dinâmico
+      const elOcupacao = document.getElementById('metric-ocupacao');
+      const elVagasTexto = document.getElementById('metric-vagas-texto');
+      const elSlotsLivres = document.getElementById('metric-slots-livres');
+      const elOcupacaoBar = document.getElementById('metric-ocupacao-bar');
 
+      elOcupacao.innerText = `${ocupacaoPct}%`;
+      elVagasTexto.innerText = `${totalPecas} / ${capacidadeTotal} slots`;
+      if (elOcupacaoBar) elOcupacaoBar.style.width = `${Math.min(ocupacaoPct, 100)}%`;
+
+      if (ocupacaoPct >= 90) {
+        elOcupacao.className = "text-lg sm:text-xl font-bold text-rose-500 animate-pulse";
+        if (elOcupacaoBar) elOcupacaoBar.className = "h-full rounded-full transition-all duration-700 bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.6)]";
+        if (elSlotsLivres) {
+          elSlotsLivres.className = "block text-[10px] text-rose-500 font-semibold mt-1 truncate";
+          elSlotsLivres.innerText = slotsLivres === 0 ? "Caixas lotadas! Nova caixa recomendada." : `${slotsLivres} slot(s) livre(s) — Atenção: quase cheia!`;
+        }
+      } else {
+        elOcupacao.className = "text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300";
+        if (elOcupacaoBar) elOcupacaoBar.className = "h-full rounded-full transition-all duration-700 bg-sky-500";
+        if (elSlotsLivres) {
+          elSlotsLivres.className = "block text-[10px] text-slate-400 mt-1 truncate";
+          elSlotsLivres.innerText = `${slotsLivres} slot(s) livre(s)`;
+        }
+      }
+
+      // Plugin Reutilizável de Totalizador Central para Gráficos Doughnut
+      const centerCutoutPlugin = {
+        id: 'centerCutoutMetric',
+        beforeDraw(chart) {
+          if (chart.config.type !== 'doughnut') return;
+          const config = chart.config.options?.plugins?.centerCutoutMetric;
+          if (!config || config.total === undefined) return;
+          const { ctx, chartArea } = chart;
+          if (!chartArea) return;
+          const centerX = (chartArea.left + chartArea.right) / 2;
+          const centerY = (chartArea.top + chartArea.bottom) / 2;
+          ctx.save();
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          
+          ctx.font = 'bold 20px Cinzel, Inter, sans-serif';
+          ctx.fillStyle = isDark ? '#f8fafc' : '#0f172a';
+          ctx.fillText(String(config.total), centerX, centerY - 6);
+
+          ctx.font = '600 8.5px Inter, sans-serif';
+          ctx.fillStyle = isDark ? '#64748b' : '#94a3b8';
+          ctx.fillText((config.sublabel || '').toUpperCase(), centerX, centerY + 12);
+          ctx.restore();
+        }
+      };
+
+      // 1. Gráfico de Marcas
       const contagemMarcas = {};
       relogios.forEach(r => { const m = (r.marca || 'Outros').toUpperCase(); contagemMarcas[m] = (contagemMarcas[m] || 0) + 1; });
+      const totalMarcasDistintas = Object.keys(contagemMarcas).length;
+
       if (chartMarcasInst) chartMarcasInst.destroy();
       const ctxMarcas = document.getElementById('chartMarcas').getContext('2d');
-      chartMarcasInst = new Chart(ctxMarcas, { type: 'doughnut', data: { labels: Object.keys(contagemMarcas), datasets: [{ data: Object.values(contagemMarcas), backgroundColor: luxPalette, borderColor: borderColor, borderWidth: 2, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { position: 'bottom', labels: { color: textColor, boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 12 } } } } });
+      chartMarcasInst = new Chart(ctxMarcas, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(contagemMarcas),
+          datasets: [{
+            data: Object.values(contagemMarcas),
+            backgroundColor: luxPalette,
+            borderColor: borderColor,
+            borderWidth: 2,
+            hoverOffset: 5
+          }]
+        },
+        plugins: [centerCutoutPlugin],
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '74%',
+          plugins: {
+            centerCutoutMetric: { total: totalMarcasDistintas, sublabel: 'Marcas' },
+            legend: {
+              position: 'bottom',
+              labels: { color: textColor, boxWidth: 7, boxHeight: 7, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 10 }
+            }
+          }
+        }
+      });
 
+      // 2. Gráfico de Estilos e Categorias
       const contagemTipos = {};
       relogios.forEach(r => { const t = r.tipo ? r.tipo.trim() : 'Geral'; contagemTipos[t] = (contagemTipos[t] || 0) + 1; });
+      const totalEstilos = Object.keys(contagemTipos).length;
+
       if (chartTiposInst) chartTiposInst.destroy();
       const ctxTipos = document.getElementById('chartTipos').getContext('2d');
-      chartTiposInst = new Chart(ctxTipos, { type: 'doughnut', data: { labels: Object.keys(contagemTipos), datasets: [{ data: Object.values(contagemTipos), backgroundColor: ['#d4af37','#38bdf8','#10b981','#f59e0b','#94a3b8','#ec4899'], borderColor: borderColor, borderWidth: 2, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { position: 'bottom', labels: { color: textColor, boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 12 } } } } });
+      chartTiposInst = new Chart(ctxTipos, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(contagemTipos),
+          datasets: [{
+            data: Object.values(contagemTipos),
+            backgroundColor: ['#c5a059', '#38bdf8', '#34d399', '#a78bfa', '#94a3b8', '#fb923c'],
+            borderColor: borderColor,
+            borderWidth: 2,
+            hoverOffset: 5
+          }]
+        },
+        plugins: [centerCutoutPlugin],
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '74%',
+          plugins: {
+            centerCutoutMetric: { total: totalEstilos, sublabel: 'Estilos' },
+            legend: {
+              position: 'bottom',
+              labels: { color: textColor, boxWidth: 7, boxHeight: 7, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 10 }
+            }
+          }
+        }
+      });
 
+      // 3. Gráfico de Mecanismos / Calibres
       const contagemMovimentos = { 'Automático': 0, 'Quartzo': 0, 'Manual': 0, 'Outros': 0 };
       relogios.forEach(r => {
         const cal = (r.calibre || '').toLowerCase();
@@ -1490,20 +1665,152 @@ function copiarLinkCompartilhamento() {
         else contagemMovimentos['Outros']++;
       });
       Object.keys(contagemMovimentos).forEach(k => { if (contagemMovimentos[k] === 0) delete contagemMovimentos[k]; });
+
       if (chartMovimentosInst) chartMovimentosInst.destroy();
       const ctxMovimentos = document.getElementById('chartMovimentos').getContext('2d');
-      chartMovimentosInst = new Chart(ctxMovimentos, { type: 'doughnut', data: { labels: Object.keys(contagemMovimentos), datasets: [{ data: Object.values(contagemMovimentos), backgroundColor: ['#10b981','#38bdf8','#d4af37','#94a3b8'], borderColor: borderColor, borderWidth: 2, hoverOffset: 6 }] }, options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { position: 'bottom', labels: { color: textColor, boxWidth: 8, boxHeight: 8, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 12 } } } } });
+      chartMovimentosInst = new Chart(ctxMovimentos, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(contagemMovimentos),
+          datasets: [{
+            data: Object.values(contagemMovimentos),
+            backgroundColor: ['#34d399', '#38bdf8', '#c5a059', '#94a3b8'],
+            borderColor: borderColor,
+            borderWidth: 2,
+            hoverOffset: 5
+          }]
+        },
+        plugins: [centerCutoutPlugin],
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '74%',
+          plugins: {
+            centerCutoutMetric: { total: totalPecas, sublabel: 'Calibres' },
+            legend: {
+              position: 'bottom',
+              labels: { color: textColor, boxWidth: 7, boxHeight: 7, usePointStyle: true, pointStyle: 'circle', font: { size: 10, family: 'Inter' }, padding: 10 }
+            }
+          }
+        }
+      });
 
+      // 4. Gráfico Maiores Valores
       const pecasOrdenadasValor = [...relogios].filter(r => (parseFloat(r.valor) || 0) > 0).sort((a, b) => (b.valor || 0) - (a.valor || 0)).slice(0, 7);
-      const coresValores = pecasOrdenadasValor.map(r => r.tipo_aquisicao === 'presente' ? 'rgba(212,175,55,0.85)' : 'rgba(56,189,248,0.85)');
-      const bordasValores = pecasOrdenadasValor.map(r => r.tipo_aquisicao === 'presente' ? '#d4af37' : '#38bdf8');
+      const coresValores = pecasOrdenadasValor.map(r => r.tipo_aquisicao === 'presente' ? 'rgba(197, 160, 89, 0.85)' : 'rgba(56, 189, 248, 0.85)');
+      const bordasValores = pecasOrdenadasValor.map(r => r.tipo_aquisicao === 'presente' ? '#c5a059' : '#38bdf8');
+
       if (chartValoresInst) chartValoresInst.destroy();
       const ctxValores = document.getElementById('chartValores').getContext('2d');
       chartValoresInst = new Chart(ctxValores, {
         type: 'bar',
-        data: { labels: pecasOrdenadasValor.map(r => `${r.marca} ${r.modelo}`.substring(0, 13)), datasets: [{ label: 'Valor (R$)', data: pecasOrdenadasValor.map(r => r.valor), backgroundColor: coresValores, borderColor: bordasValores, borderWidth: 1, borderRadius: { topLeft: 6, topRight: 6 }, barPercentage: 0.55 }] },
-        options: { responsive: true, maintainAspectRatio: false, scales: { y: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor, font: { size: 9 }, callback: val => `R$ ${val}` } }, x: { grid: { display: false, drawBorder: false }, ticks: { color: textColor, font: { size: 9 } } } }, plugins: { legend: { display: false }, tooltip: { backgroundColor: isDark ? 'rgba(11,20,36,0.95)' : 'rgba(255,255,255,0.95)', titleColor: isDark ? '#ffffff' : '#0f172a', bodyColor: isDark ? '#38bdf8' : '#0284c7', borderColor: isDark ? '#1e3860' : '#cbd5e1', borderWidth: 1, padding: 10, callbacks: { label: (context) => { const r = pecasOrdenadasValor[context.dataIndex]; const tipo = (r && r.tipo_aquisicao === 'presente') ? 'Presente' : 'Compra'; return ` ${tipo}: R$ ${context.parsed.y.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`; } } } } }
+        data: {
+          labels: pecasOrdenadasValor.map(r => `${r.marca} ${r.modelo}`.substring(0, 14)),
+          datasets: [{
+            label: 'Valor (R$)',
+            data: pecasOrdenadasValor.map(r => r.valor),
+            backgroundColor: coresValores,
+            borderColor: bordasValores,
+            borderWidth: 1,
+            borderRadius: { topLeft: 5, topRight: 5 },
+            barPercentage: 0.5
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { grid: { color: gridColor, drawBorder: false }, ticks: { color: textColor, font: { size: 9 }, callback: val => `R$ ${val}` } },
+            x: { grid: { display: false, drawBorder: false }, ticks: { color: textColor, font: { size: 9 } } }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: isDark ? 'rgba(11,20,36,0.95)' : 'rgba(255,255,255,0.95)',
+              titleColor: isDark ? '#ffffff' : '#0f172a',
+              bodyColor: isDark ? '#38bdf8' : '#0284c7',
+              borderColor: isDark ? '#1e3860' : '#cbd5e1',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                label: (context) => {
+                  const r = pecasOrdenadasValor[context.dataIndex];
+                  const tipo = (r && r.tipo_aquisicao === 'presente') ? 'Presente' : 'Compra';
+                  return ` ${tipo}: R$ ${context.parsed.y.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+                }
+              }
+            }
+          }
+        }
       });
+
+      // 5. Gráfico de Linha do Tempo de Aquisição Anual
+      const mapaAnos = {};
+      relogios.forEach(r => {
+        let ano = 'Sem Data';
+        if (r.data_compra && r.data_compra.length >= 4) {
+          ano = r.data_compra.substring(0, 4);
+        }
+        mapaAnos[ano] = (mapaAnos[ano] || 0) + 1;
+      });
+
+      const anosOrdenados = Object.keys(mapaAnos).sort((a, b) => {
+        if (a === 'Sem Data') return 1;
+        if (b === 'Sem Data') return -1;
+        return a.localeCompare(b);
+      });
+      const qtdPorAno = anosOrdenados.map(a => mapaAnos[a]);
+
+      if (chartTimelineInst) chartTimelineInst.destroy();
+      const canvasTimeline = document.getElementById('chartTimeline');
+      if (canvasTimeline) {
+        const ctxTimeline = canvasTimeline.getContext('2d');
+        chartTimelineInst = new Chart(ctxTimeline, {
+          type: 'bar',
+          data: {
+            labels: anosOrdenados,
+            datasets: [{
+              label: 'Relógios Adquiridos',
+              data: qtdPorAno,
+              backgroundColor: 'rgba(56, 189, 248, 0.25)',
+              borderColor: '#38bdf8',
+              borderWidth: 1.5,
+              borderRadius: { topLeft: 6, topRight: 6 },
+              barPercentage: 0.45
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: { color: gridColor, drawBorder: false },
+                ticks: { color: textColor, font: { size: 9 }, stepSize: 1, precision: 0 }
+              },
+              x: {
+                grid: { display: false, drawBorder: false },
+                ticks: { color: textColor, font: { size: 10, weight: '600' } }
+              }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: isDark ? 'rgba(11,20,36,0.95)' : 'rgba(255,255,255,0.95)',
+                titleColor: isDark ? '#ffffff' : '#0f172a',
+                bodyColor: '#38bdf8',
+                borderColor: isDark ? '#1e3860' : '#cbd5e1',
+                borderWidth: 1,
+                callbacks: {
+                  label: (ctx) => ` +${ctx.parsed.y} peça(s) no acervo`
+                }
+              }
+            }
+          }
+        });
+      }
+
+      lucide.createIcons();
     }
 
     // ==========================================
