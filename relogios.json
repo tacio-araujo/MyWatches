@@ -9,7 +9,7 @@
       "tipo_aquisicao": "compra",
       "data_compra": "2026-05-22",
       "valor": 346.66,
-      "origem": "Compra",
+      "origem": "LN Grifes",
       "prestigio": 3,
       "afeto": 4,
       "valor_rating": 2,
@@ -237,7 +237,7 @@
       "tipo_aquisicao": "compra",
       "data_compra": "2026-08-17",
       "valor": 1198,
-      "origem": "Compra",
+      "origem": "Amazon",
       "prestigio": 5,
       "afeto": 5,
       "valor_rating": 4,
@@ -270,7 +270,7 @@
       "tipo_aquisicao": "compra",
       "data_compra": "2026-08-28",
       "valor": 857,
-      "origem": "Compra",
+      "origem": "Mercado Livre",
       "prestigio": 4,
       "afeto": 5,
       "valor_rating": 4,
@@ -293,7 +293,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068323752-4-PD17624.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068325238-5-PD17625.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068326674-6-PD17626.jpeg"
-      ]
+      ],
+      "video": null
     },
     {
       "id": "rlg-1792060960507",
@@ -559,7 +560,7 @@
     },
     {
       "id": "box-1793322055591",
-      "nome": "Estojo Couro Viagem",
+      "nome": "Estojo - Couro Viagem",
       "capacidade": 3,
       "data_aquisicao": "2026-09-30",
       "status": "Uso Exclusivo Viagem",
