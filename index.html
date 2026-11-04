@@ -944,24 +944,23 @@ const modoVisitante = urlParams.has('share');
         document.querySelector('[onclick*="acaoBotaoAdicionar"]')?.classList.add('hidden');
 
         // 2. Injeta CSS para sumir botões de editar nos cards e valores no Dashboard
-        const styleVisitante = document.createElement('style');
-        styleVisitante.innerHTML = `
-          /* Esconde botões de edição de relógios e caixas */
-          button[onclick*="editarRelogio"],
-          button[onclick*="editarCaixa"],
-          button[onclick*="abrirModalCaixa"],
-          button[onclick*="abrirModalCadastro"],
-          /* Esconde valores financeiros no Dashboard Geral */
-          #metric-valor-total-acervo,
-          #metric-valor-comprados,
-          #metric-valor-presentes,
-          #metric-preco-medio-real,
-          #chartValores {
-          display: none !important;
-          }
-        `;
-        document.head.appendChild(styleVisitante);
-      }
+  const styleVisitante = document.createElement('style');
+  styleVisitante.innerHTML = `
+    button[onclick*="editarRelogio"],
+    button[onclick*="editarCaixa"],
+    button[onclick*="abrirModalCaixa"],
+    button[onclick*="abrirModalCadastro"],
+    #metric-valor-total-acervo,
+    #metric-valor-comprados,
+    #metric-valor-presentes,
+    #metric-preco-medio-real,
+    #chartValores,
+    .valor-sigiloso {
+      display: none !important;
+    }
+  `;
+  document.head.appendChild(styleVisitante);
+}
 
       const splash = document.getElementById('app-splash-loader');
       if (splash) {
@@ -1053,39 +1052,6 @@ const modoVisitante = urlParams.has('share');
       abrirModalSuave('modal-detalhes');
       lucide.createIcons();
     }
-
-    function renderGerenciadorFotosCaixa() {
-      const container = document.getElementById('caixa-fotos-container');
-      const list = document.getElementById('caixa-fotos-list');
-      if (!container || !list) return;
-      
-      if (fotosCaixaAtual.length === 0) {
-        container.classList.add('hidden');
-        list.innerHTML = '';
-        return;
-      }
-      
-      container.classList.remove('hidden');
-      list.innerHTML = fotosCaixaAtual.map((url, idx) => `
-        <div class="relative group rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-black aspect-square">
-          <img src="${url}" class="w-full h-full object-cover">
-          ${idx === 0 ? '<span class="absolute top-1 left-1 bg-amber-500 text-slate-950 font-bold text-[9px] px-1 rounded shadow">★ Capa</span>' : ''}
-          <button type="button" onclick="excluirFotoGerenciadorCaixa(${idx})" class="absolute top-1 right-1 bg-red-600 hover:bg-red-500 text-white p-1 rounded-md opacity-80 group-hover:opacity-100 transition shadow">
-            <i data-lucide="trash-2" class="w-3 h-3"></i>
-          </button>
-        </div>
-      `).join('');
-      lucide.createIcons();
-    }
-
-    function excluirFotoGerenciadorCaixa(idx) {
-      const removida = fotosCaixaAtual.splice(idx, 1)[0];
-      if (removida && !removida.startsWith('data:')) {
-        fotosCaixaExcluir.push(removida);
-      }
-      renderGerenciadorFotosCaixa();
-    }
-
     function processarDadosRecebidos(json) {
       if (Array.isArray(json)) { 
         bancoDados = { relogios: json, caixas: [] }; 
@@ -1297,7 +1263,7 @@ const modoVisitante = urlParams.has('share');
                   <div class="flex flex-wrap items-center gap-x-2 text-[10px] text-slate-400 mt-0.5">
                     <span>${formatarData(r.data_compra)}</span>
                     ${r.calibre ? `<span class="hidden sm:inline font-mono text-slate-300 dark:text-slate-400">• ${r.calibre}</span>` : ''}
-                    ${r.valor ? `<span class="text-emerald-500 font-semibold">• ${r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>` : ''}
+                    ${(!modoVisitante && r.valor) ? `<span class="text-emerald-500 font-semibold">• ${r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</span>` : ''}
                   </div>
                 </div>
               </div>
@@ -2156,7 +2122,7 @@ const modoVisitante = urlParams.has('share');
         { label: 'Tipo de Fecho', valor: r.tipo_fecho },
         { label: origemLabel, valor: r.origem },
         { label: 'Entrou para a coleção em', valor: formatarData(r.data_compra) },
-        { label: valorLabel, valor: r.valor ? r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) : null, destaqueVerde: true }
+        (!modoVisitante && r.valor) ? { label: valorLabel, valor: r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }), destaqueVerde: true } : null
       ];
 
       grid.innerHTML = campos.filter(c => c.valor && c.valor.toString().trim() !== '').map(c => {
@@ -2546,6 +2512,31 @@ Retorne APENAS o JSON.`;
         boxContainer.classList.add('hidden');
       }
     });
+        // Prévia imediata de fotos ao selecionar no Relógio
+    document.getElementById('fotos-files')?.addEventListener('change', async function(e) {
+      const files = e.target.files;
+      if (!files || files.length === 0) return;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const dataUrlComprimido = await comprimirImagem(file);
+        fotosRelogioAtual.push(dataUrlComprimido);
+      }
+      this.value = ''; // Limpa para permitir selecionar mais fotos se quiser
+      renderGerenciadorFotosRelogio();
+    });
+
+    // Prévia imediata de fotos ao selecionar na Caixa
+    document.getElementById('caixa-fotos-files')?.addEventListener('change', async function(e) {
+      const files = e.target.files;
+      if (!files || files.length === 0) return;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const dataUrlComprimido = await comprimirImagem(file);
+        fotosCaixaAtual.push(dataUrlComprimido);
+      }
+      this.value = '';
+      renderGerenciadorFotosCaixa();
+    });
 
     function removerVideoRelogio() {
       if (videoRelogioAtual) videoRelogioExcluir = videoRelogioAtual;
@@ -2648,13 +2639,21 @@ Retorne APENAS o JSON.`;
         pendingChanges.videosParaEnviar.push({ file: videoFileParaUpload, relogioId: targetId });
         videoRelogioAtual = URL.createObjectURL(videoFileParaUpload);
       }
-      const inputFiles = document.getElementById('fotos-files').files;
-      for (let i = 0; i < inputFiles.length; i++) {
-        const file = inputFiles[i];
-        const dataUrlComprimido = await comprimirImagem(file);
-        fotosRelogioAtual.push(dataUrlComprimido);
-        pendingChanges.fotosParaEnviar.push({ blob: dataUrlToBlob(dataUrlComprimido), nomeOriginal: file.name, itemId: targetId, isCaixa: false, tempUrl: dataUrlComprimido });
+  // Enfileira apenas as fotos novas (base64) do relógio sem duplicar
+  fotosRelogioAtual.forEach((url, i) => {
+    if (url.startsWith('data:')) {
+      const jaEnfileirado = pendingChanges.fotosParaEnviar.some(p => p.tempUrl === url);
+      if (!jaEnfileirado) {
+        pendingChanges.fotosParaEnviar.push({
+          blob: dataUrlToBlob(url),
+          nomeOriginal: `foto_${i}.jpg`,
+          itemId: targetId,
+          isCaixa: false,
+          tempUrl: url
+        });
       }
+    }
+  });
 
       const dadosRelogio = {
         id: targetId,
@@ -2698,40 +2697,53 @@ Retorne APENAS o JSON.`;
       salvarEstadoLocalIndexedDB();
     }
 
-    async function salvarCaixaLocal(e) {
-      e.preventDefault();
-      const editId = document.getElementById('edit-caixa-id').value;
-      const targetId = editId || `box-${Date.now()}`;
-      pendingChanges.fotosParaExcluir.push(...fotosCaixaExcluir);
-      const inputFiles = document.getElementById('caixa-fotos-files').files;
-      for (let i = 0; i < inputFiles.length; i++) {
-        const file = inputFiles[i];
-        const dataUrlComprimido = await comprimirImagem(file);
-        fotosCaixaAtual.push(dataUrlComprimido);
-        pendingChanges.fotosParaEnviar.push({ blob: dataUrlToBlob(dataUrlComprimido), nomeOriginal: file.name, itemId: targetId, isCaixa: true, tempUrl: dataUrlComprimido });
+async function salvarCaixaLocal(e) {
+  e.preventDefault();
+  const editId = document.getElementById('edit-caixa-id').value;
+  const targetId = editId || `box-${Date.now()}`;
+  
+  pendingChanges.fotosParaExcluir.push(...fotosCaixaExcluir);
+
+  // Enfileira apenas as fotos novas (base64) da caixa sem duplicar
+  fotosCaixaAtual.forEach((url, i) => {
+    if (url.startsWith('data:')) {
+      const jaEnfileirado = pendingChanges.fotosParaEnviar.some(p => p.tempUrl === url);
+      if (!jaEnfileirado) {
+        pendingChanges.fotosParaEnviar.push({
+          blob: dataUrlToBlob(url),
+          nomeOriginal: `caixa_${i}.jpg`,
+          itemId: targetId,
+          isCaixa: true,
+          tempUrl: url
+        });
       }
-      const dadosCaixa = {
-        id: targetId,
-        nome: document.getElementById('caixa-nome').value.trim(),
-        capacidade: parseInt(document.getElementById('caixa-capacidade').value) || 0,
-        data_aquisicao: document.getElementById('caixa-data').value,
-        status: document.getElementById('caixa-status').value.trim(),
-        observacoes: document.getElementById('caixa-obs').value.trim(),
-        fotos: fotosCaixaAtual
-      };
-        if (editId) { 
-        const idx = bancoDados.caixas.findIndex(c => c.id === editId); 
-        if (idx !== -1) bancoDados.caixas[idx] = dadosCaixa; 
-      } else { 
-        bancoDados.caixas.push(dadosCaixa); 
-      }
-      bancoDados.caixas.sort((a, b) => new Date(a.data_aquisicao || 0) - new Date(b.data_aquisicao || 0));
-      fecharModalCaixa();
-      atualizarStatusPendencias(true);
-      renderizarTudo();
-      if (abaAtiva === 'geral') carregarDashboardGeral();
-      salvarEstadoLocalIndexedDB();
     }
+  });
+
+  const dadosCaixa = {
+    id: targetId,
+    nome: document.getElementById('caixa-nome').value.trim(),
+    capacidade: parseInt(document.getElementById('caixa-capacidade').value) || 0,
+    data_aquisicao: document.getElementById('caixa-data').value,
+    status: document.getElementById('caixa-status').value.trim(),
+    observacoes: document.getElementById('caixa-obs').value.trim(),
+    fotos: fotosCaixaAtual
+  };
+
+  if (editId) { 
+    const idx = bancoDados.caixas.findIndex(c => c.id === editId); 
+    if (idx !== -1) bancoDados.caixas[idx] = dadosCaixa; 
+  } else { 
+    bancoDados.caixas.push(dadosCaixa); 
+  }
+  bancoDados.caixas.sort((a, b) => new Date(a.data_aquisicao || 0) - new Date(b.data_aquisicao || 0));
+  fecharModalCaixa();
+  atualizarStatusPendencias(true);
+  renderizarTudo();
+  if (abaAtiva === 'geral') carregarDashboardGeral();
+  if (abaAtiva === 'galeria') renderizarGaleria();
+  salvarEstadoLocalIndexedDB();
+}
 
     function removerRelogio(id) {
       const idx = bancoDados.relogios.findIndex(r => r.id === id);
@@ -2816,21 +2828,20 @@ Retorne APENAS o JSON.`;
           }
           const imgData = await res.json();
           const githubUrl = imgData.content.download_url;
-            if (item.isCaixa) {
-            const caixaAlvo = bancoDados.caixas.find(c => c.id === item.itemId);
-            if (caixaAlvo && caixaAlvo.fotos) { 
-              const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl); 
-              if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl; 
-              else caixaAlvo.fotos.push(githubUrl); 
-            }
-          } else {
-          const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
-            if (relogioAlvo && relogioAlvo.fotos) { 
-              const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl); 
-              if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl; 
-              else relogioAlvo.fotos.push(githubUrl); 
-            }
-          }
+// Apenas substitui se ela ainda existir no item (não faça push caso tenha sido excluída)
+if (item.isCaixa) {
+  const caixaAlvo = bancoDados.caixas.find(c => c.id === item.itemId);
+  if (caixaAlvo && caixaAlvo.fotos) { 
+    const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl); 
+    if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl; 
+  }
+} else {
+  const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
+  if (relogioAlvo && relogioAlvo.fotos) { 
+    const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl); 
+    if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl; 
+  }
+}
           pendingChanges.fotosParaEnviar.shift();
         }
             if (pendingChanges.videosParaEnviar) {
@@ -3067,36 +3078,155 @@ Retorne APENAS o JSON.`;
       });
     }
 
+    // ================= GERENCIADOR DE FOTOS: RELÓGIOS =================
     function renderGerenciadorFotosRelogio() {
       const container = document.getElementById('fotos-manager-container');
       const list = document.getElementById('fotos-manager-list');
       if (!container || !list) return;
+
       if (fotosRelogioAtual.length === 0) {
         container.classList.add('hidden');
         list.innerHTML = '';
         return;
       }
+
       container.classList.remove('hidden');
       list.innerHTML = fotosRelogioAtual.map((url, idx) => `
-        <div class="relative group rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-black aspect-square">
+        <div class="relative group rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-black aspect-square flex items-center justify-center">
           <img src="${url}" class="w-full h-full object-cover">
-          ${idx === 0 ? '<span class="absolute top-1 left-1 bg-amber-500 text-slate-950 font-bold text-[9px] px-1 rounded shadow">★ Capa</span>' : ''}
-          <button type="button" onclick="excluirFotoGerenciador(${idx})" class="absolute top-1 right-1 bg-red-600 hover:bg-red-500 text-white p-1 rounded-md opacity-80 group-hover:opacity-100 transition shadow">
-            <i data-lucide="trash-2" class="w-3 h-3"></i>
-          </button>
+          
+          ${idx === 0 
+            ? '<span class="absolute top-1 left-1 bg-sky-500 text-slate-950 font-bold text-[9px] px-1.5 py-0.5 rounded shadow z-10 flex items-center gap-0.5">★ Capa</span>' 
+            : `<button type="button" onclick="definirCapaRelogio(${idx})" title="Tornar Capa Principal" class="absolute top-1 left-1 bg-black/70 hover:bg-sky-500 text-white hover:text-slate-950 p-1 rounded transition text-[10px] font-bold z-10 shadow">
+                 <i data-lucide="star" class="w-3 h-3"></i>
+               </button>`
+          }
+
+          <div class="absolute bottom-1 inset-x-1 flex items-center justify-between gap-1 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition z-10">
+            <div class="flex gap-1">
+              ${idx > 0 ? `
+                <button type="button" onclick="moverFotoRelogio(${idx}, -1)" title="Mover para esquerda" class="bg-black/80 hover:bg-slate-800 text-white p-1 rounded shadow">
+                  <i data-lucide="chevron-left" class="w-3 h-3"></i>
+                </button>
+              ` : ''}
+              ${idx < fotosRelogioAtual.length - 1 ? `
+                <button type="button" onclick="moverFotoRelogio(${idx}, 1)" title="Mover para direita" class="bg-black/80 hover:bg-slate-800 text-white p-1 rounded shadow">
+                  <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                </button>
+              ` : ''}
+            </div>
+            <button type="button" onclick="excluirFotoGerenciadorRelogio(${idx})" title="Excluir Foto" class="bg-red-600/90 hover:bg-red-500 text-white p-1 rounded shadow ml-auto">
+              <i data-lucide="trash-2" class="w-3 h-3"></i>
+            </button>
+          </div>
         </div>
       `).join('');
       lucide.createIcons();
     }
-    function excluirFotoGerenciador(idx) {
-      const removida = fotosRelogioAtual.splice(idx, 1)[0];
-      if (removida && !removida.startsWith('data:')) {
-        fotosRelogioExcluir.push(removida);
-      }
+
+    function definirCapaRelogio(idx) {
+      if (idx <= 0 || idx >= fotosRelogioAtual.length) return;
+      const foto = fotosRelogioAtual.splice(idx, 1)[0];
+      fotosRelogioAtual.unshift(foto);
       renderGerenciadorFotosRelogio();
     }
+
+    function moverFotoRelogio(idx, direcao) {
+      const novoIdx = idx + direcao;
+      if (novoIdx < 0 || novoIdx >= fotosRelogioAtual.length) return;
+      const temp = fotosRelogioAtual[idx];
+      fotosRelogioAtual[idx] = fotosRelogioAtual[novoIdx];
+      fotosRelogioAtual[novoIdx] = temp;
+      renderGerenciadorFotosRelogio();
+    }
+
+function excluirFotoGerenciadorRelogio(idx) {
+  const removida = fotosRelogioAtual.splice(idx, 1)[0];
+  if (removida) {
+    if (removida.startsWith('data:')) {
+      // Remove da fila pendente se ainda não subiu
+      pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(p => p.tempUrl !== removida);
+    } else {
+      fotosRelogioExcluir.push(removida);
+    }
+  }
+  renderGerenciadorFotosRelogio();
+}
+
+    // ================= GERENCIADOR DE FOTOS: CAIXAS =================
+    function renderGerenciadorFotosCaixa() {
+      const container = document.getElementById('caixa-fotos-container');
+      const list = document.getElementById('caixa-fotos-list');
+      if (!container || !list) return;
+
+      if (fotosCaixaAtual.length === 0) {
+        container.classList.add('hidden');
+        list.innerHTML = '';
+        return;
+      }
+
+      container.classList.remove('hidden');
+      list.innerHTML = fotosCaixaAtual.map((url, idx) => `
+        <div class="relative group rounded-lg overflow-hidden border border-slate-300 dark:border-slate-700 bg-black aspect-square flex items-center justify-center">
+          <img src="${url}" class="w-full h-full object-cover">
+
+          ${idx === 0 
+            ? '<span class="absolute top-1 left-1 bg-amber-500 text-slate-950 font-bold text-[9px] px-1.5 py-0.5 rounded shadow z-10 flex items-center gap-0.5">★ Capa</span>' 
+            : `<button type="button" onclick="definirCapaCaixa(${idx})" title="Tornar Capa Principal" class="absolute top-1 left-1 bg-black/70 hover:bg-amber-500 text-white hover:text-slate-950 p-1 rounded transition text-[10px] font-bold z-10 shadow">
+                 <i data-lucide="star" class="w-3 h-3"></i>
+               </button>`
+          }
+
+          <div class="absolute bottom-1 inset-x-1 flex items-center justify-between gap-1 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition z-10">
+            <div class="flex gap-1">
+              ${idx > 0 ? `
+                <button type="button" onclick="moverFotoCaixa(${idx}, -1)" title="Mover para esquerda" class="bg-black/80 hover:bg-slate-800 text-white p-1 rounded shadow">
+                  <i data-lucide="chevron-left" class="w-3 h-3"></i>
+                </button>
+              ` : ''}
+              ${idx < fotosCaixaAtual.length - 1 ? `
+                <button type="button" onclick="moverFotoCaixa(${idx}, 1)" title="Mover para direita" class="bg-black/80 hover:bg-slate-800 text-white p-1 rounded shadow">
+                  <i data-lucide="chevron-right" class="w-3 h-3"></i>
+                </button>
+              ` : ''}
+            </div>
+            <button type="button" onclick="excluirFotoGerenciadorCaixa(${idx})" title="Excluir Foto" class="bg-red-600/90 hover:bg-red-500 text-white p-1 rounded shadow ml-auto">
+              <i data-lucide="trash-2" class="w-3 h-3"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function definirCapaCaixa(idx) {
+      if (idx <= 0 || idx >= fotosCaixaAtual.length) return;
+      const foto = fotosCaixaAtual.splice(idx, 1)[0];
+      fotosCaixaAtual.unshift(foto);
+      renderGerenciadorFotosCaixa();
+    }
+
+    function moverFotoCaixa(idx, direcao) {
+      const novoIdx = idx + direcao;
+      if (novoIdx < 0 || novoIdx >= fotosCaixaAtual.length) return;
+      const temp = fotosCaixaAtual[idx];
+      fotosCaixaAtual[idx] = fotosCaixaAtual[novoIdx];
+      fotosCaixaAtual[novoIdx] = temp;
+      renderGerenciadorFotosCaixa();
+    }
+
+function excluirFotoGerenciadorCaixa(idx) {
+  const removida = fotosCaixaAtual.splice(idx, 1)[0];
+  if (removida) {
+    if (removida.startsWith('data:')) {
+      pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(p => p.tempUrl !== removida);
+    } else {
+      fotosCaixaExcluir.push(removida);
+    }
+  }
+  renderGerenciadorFotosCaixa();
+}
     window.onload = carregarDados;
   </script>
 </body>
 </html>
-
