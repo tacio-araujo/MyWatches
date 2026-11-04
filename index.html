@@ -34,6 +34,33 @@
     ::-webkit-scrollbar-thumb { background: #172842; border-radius: 3px; }
     @keyframes pulse-glow { 0%,100%{opacity:0.6;} 50%{opacity:1; filter:drop-shadow(0 0 12px rgba(56,189,248,0.8));} }
     .deploy-pulse { animation: pulse-glow 2s infinite ease-in-out; }
+
+        /* Transições suaves dos Modais */
+    .modal-backdrop {
+      transition: opacity 0.22s ease-out, visibility 0.22s ease-out;
+    }
+    .modal-backdrop.modal-closed {
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    .modal-backdrop:not(.modal-closed) {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+    .modal-dialog {
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease-out;
+    }
+    .modal-backdrop.modal-closed .modal-dialog {
+      transform: scale(0.96) translateY(8px);
+      opacity: 0;
+    }
+    .modal-backdrop:not(.modal-closed) .modal-dialog {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
   </style>
 </head>
 <body class="bg-[#03060a] text-slate-100 dark:bg-[#03060a] dark:text-slate-100 flex flex-col justify-between select-none sm:select-auto">
@@ -60,6 +87,12 @@
         </div>
       </div>
       <div class="flex items-center gap-1 sm:gap-2">
+                <!-- Indicador de Status de Conexão -->
+        <span id="net-status-badge" class="hidden items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold tracking-wider bg-rose-500/20 text-rose-400 border border-rose-500/40 select-none">
+          <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+          <span>Offline</span>
+        </span>
+
         <button id="btn-sync-all" onclick="sincronizarTudoComGithub()" class="hidden bg-emerald-600/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/50 hover:bg-emerald-600/30 px-2.5 py-1 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.2)]">
           <i data-lucide="cloud-upload" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">Sincronizar</span>
@@ -126,6 +159,10 @@
         <button type="button" onclick="definirModoVisualizacao('grid-3')" id="btn-view-grid-3" title="3 Cards por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold"><i data-lucide="grid-3x3" class="w-3.5 h-3.5"></i></button>
         <button type="button" onclick="definirModoVisualizacao('list')" id="btn-view-list" title="Visualização em Lista" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold"><i data-lucide="list" class="w-3.5 h-3.5"></i></button>
       </div>
+    </div>
+    <!-- Pills de Filtro Rápido (Scroll Horizontal) -->
+    <div id="pills-filtros" class="flex items-center gap-1.5 overflow-x-auto pb-1 mb-2.5 scrollbar-none text-[11px] select-none">
+      <!-- Injetado dinamicamente via JS com contagens em tempo real -->
     </div>
 
     <!-- VIEW 1: Relógios -->
@@ -264,8 +301,8 @@
   </div>
 
   <!-- Modal Configurações GitHub -->
-  <div id="modal-config" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
+  <div id="modal-config" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 modal-backdrop modal-closed">
+  <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-md w-full p-5 sm:p-6 relative shadow-2xl">
       <button onclick="fecharModalConfig()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       
       <h3 class="text-sm font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-1 tracking-wider uppercase">Configurações</h3>
@@ -302,9 +339,9 @@
   </div>
 
   <!-- Modal Cadastro/Edição de Relógio -->
-  <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
-      <button onclick="fecharModalCadastro()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <div id="modal-cadastro" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop modal-closed">
+    <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
+    <button onclick="fecharModalCadastro()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       <h3 id="modal-form-title" class="text-sm sm:text-base font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-4 border-b border-slate-200 dark:border-[#172944] pb-2 tracking-wider">Cadastrar Relógio</h3>
       <form id="form-relogio" onsubmit="salvarRelogioLocal(event)" class="space-y-3.5 text-xs">
         <input type="hidden" id="edit-id" value="">
@@ -433,9 +470,9 @@
   </div>
 
   <!-- Modal Cadastro/Edição de Caixa -->
-  <div id="modal-caixa" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
-      <button onclick="fecharModalCaixa()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
+  <div id="modal-caixa" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop modal-closed">
+    <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-2xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
+    <button onclick="fecharModalCaixa()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       <h3 id="modal-caixa-title" class="text-sm sm:text-base font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-4 border-b border-slate-200 dark:border-[#172944] pb-2 tracking-wider">Cadastrar Caixa</h3>
       <form id="form-caixa" onsubmit="salvarCaixaLocal(event)" class="space-y-3.5 text-xs">
         <input type="hidden" id="edit-caixa-id" value="">
@@ -462,8 +499,8 @@
   </div>
 
   <!-- Modal Fotos & Zoom com Swipe e Botão Zoom -->
-  <div id="modal-galeria" class="fixed inset-0 bg-black/95 backdrop-blur-md z-50 hidden flex items-center justify-center p-2.5 sm:p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col p-3.5 sm:p-5 relative shadow-2xl">
+  <div id="modal-galeria" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-2.5 sm:p-4 modal-backdrop modal-closed">
+    <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-3xl w-full max-h-[92vh] flex flex-col p-3.5 sm:p-5 relative shadow-2xl">
       <div class="flex justify-between items-start mb-2">
         <div>
           <span id="galeria-marca" class="text-[10px] sm:text-[11px] uppercase text-sky-600 dark:text-sky-400 font-serif-lux font-bold tracking-wider"></span>
@@ -494,8 +531,8 @@
   </div>
 
   <!-- Modal Ficha Técnica -->
-  <div id="modal-detalhes" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
+  <div id="modal-detalhes" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop modal-closed">
+    <div class="modal-dialog bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto p-4 sm:p-6 relative shadow-2xl">
       <button onclick="fecharModalDetalhes()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
       <div class="mb-3">
         <span id="detalhe-marca" class="text-xs uppercase text-sky-600 dark:text-sky-400 font-serif-lux font-bold tracking-wider"></span>
@@ -544,6 +581,79 @@
     let chartMarcasInst = null, chartTiposInst = null, chartValoresInst = null, chartMovimentosInst = null;
     let deferredPrompt = null;
     let debounceSearchTimer = null;
+        let filtroPillAtivo = 'todos';
+
+    // ==========================================
+    // INDEXEDDB PARA PERSISTÊNCIA OFFLINE/DRAFTS
+    // ==========================================
+    const DB_NAME = 'MyWatchesDB';
+    const DB_VERSION = 1;
+
+    function abrirDB() {
+      return new Promise((resolve, reject) => {
+        const req = indexedDB.open(DB_NAME, DB_VERSION);
+        req.onupgradeneeded = (e) => {
+          const db = e.target.result;
+          if (!db.objectStoreNames.contains('app_state')) {
+            db.createObjectStore('app_state', { keyPath: 'chave' });
+          }
+        };
+        req.onsuccess = () => resolve(req.result);
+        req.onerror = () => reject(req.error);
+      });
+    }
+
+    async function salvarEstadoLocalIndexedDB() {
+      try {
+        const db = await abrirDB();
+        const tx = db.transaction('app_state', 'readwrite');
+        const store = tx.objectStore('app_state');
+        store.put({ chave: 'bancoDados', valor: bancoDados });
+        store.put({ chave: 'pendingChanges', valor: pendingChanges });
+      } catch (err) {
+        console.warn('Erro ao persistir no IndexedDB:', err);
+      }
+    }
+
+    async function restaurarEstadoLocalIndexedDB() {
+      try {
+        const db = await abrirDB();
+        const tx = db.transaction('app_state', 'readonly');
+        const store = tx.objectStore('app_state');
+        const getBanco = () => new Promise(res => { const r = store.get('bancoDados'); r.onsuccess = () => res(r.result?.valor); });
+        const getPend = () => new Promise(res => { const r = store.get('pendingChanges'); r.onsuccess = () => res(r.result?.valor); });
+        
+        const b = await getBanco();
+        const p = await getPend();
+        return { bancoLocal: b, pendenciasLocais: p };
+      } catch (err) {
+        return { bancoLocal: null, pendenciasLocais: null };
+      }
+    }
+
+    async function limparEstadoLocalIndexedDB() {
+      try {
+        const db = await abrirDB();
+        const tx = db.transaction('app_state', 'readwrite');
+        tx.objectStore('app_state').clear();
+      } catch (err) {}
+    }
+
+    // ==========================================
+    // HELPERS PARA ANIMAÇÃO DE MODAIS
+    // ==========================================
+    function abrirModalSuave(modalId) {
+      const el = document.getElementById(modalId);
+      if (!el) return;
+      el.classList.remove('modal-closed');
+      lucide.createIcons();
+    }
+
+    function fecharModalSuave(modalId) {
+      const el = document.getElementById(modalId);
+      if (!el) return;
+      el.classList.add('modal-closed');
+    }
 
     const CONFIG = { 
       user: localStorage.getItem('gh_user') || 'tacio-araujo', 
@@ -577,13 +687,9 @@
       document.getElementById('cfg-token').value = CONFIG.token;
       document.getElementById('cfg-gemini-key').value = CONFIG.geminiKey;
       document.getElementById('cfg-groq-key').value = CONFIG.groqKey;
-      document.getElementById('modal-config').classList.remove('hidden');
-      lucide.createIcons();
+      abrirModalSuave('modal-config');
     }
-
-    function fecharModalConfig() { 
-      document.getElementById('modal-config').classList.add('hidden'); 
-    }
+    function fecharModalConfig() { fecharModalSuave('modal-config'); }
 
     window.addEventListener('beforeunload', (e) => {
       if (pendingChanges.temPendencia) { 
@@ -750,23 +856,35 @@
     }
 
     async function carregarDados() {
-      try {
-        const resLocal = await fetch(`relogios.json?t=${Date.now()}`);
-        if (!resLocal.ok) throw new Error("Erro local");
-        const json = await resLocal.json();
-        processarDadosRecebidos(json);
-      } catch (e) {
+      atualizarStatusRede();
+      
+      // Verifica se haviam rascunhos pendentes não sincronizados
+      const { bancoLocal, pendenciasLocais } = await restaurarEstadoLocalIndexedDB();
+      if (pendenciasLocais && pendenciasLocais.temPendencia && bancoLocal) {
+        bancoDados = bancoLocal;
+        pendingChanges = pendenciasLocais;
+        atualizarStatusPendencias(true);
+        console.log("Rascunho e pendências restaurados do IndexedDB!");
+      } else {
         try {
-          const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`);
-          const data = await res.json();
-          fileSha = data.sha;
-          const decoded = decodeURIComponent(escape(atob(data.content)));
-          processarDadosRecebidos(JSON.parse(decoded));
-        } catch (err) { 
-          bancoDados = { relogios: [], caixas: [] }; 
+          const resLocal = await fetch(`relogios.json?t=${Date.now()}`);
+          if (!resLocal.ok) throw new Error("Erro local");
+          const json = await resLocal.json();
+          processarDadosRecebidos(json);
+        } catch (e) {
+          try {
+            const res = await fetch(`https://api.github.com/repos/${CONFIG.user}/${CONFIG.repo}/contents/relogios.json`);
+            const data = await res.json();
+            fileSha = data.sha;
+            const decoded = decodeURIComponent(escape(atob(data.content)));
+            processarDadosRecebidos(JSON.parse(decoded));
+          } catch (err) { 
+            bancoDados = { relogios: [], caixas: [] }; 
+          }
         }
       }
       atualizarBotoesModoVisualizacao();
+      renderizarPillsFiltros();
       renderizarTudo();
       alternarAba('relogios');
       
@@ -781,17 +899,11 @@
       document.getElementById('form-caixa').reset();
       document.getElementById('edit-caixa-id').value = '';
       document.getElementById('modal-caixa-title').innerText = "Cadastrar Caixa";
-      fotosCaixaAtual = [];
-      fotosCaixaExcluir = [];
+      fotosCaixaAtual = []; fotosCaixaExcluir = [];
       renderGerenciadorFotosCaixa();
-      document.getElementById('modal-caixa').classList.remove('hidden');
-      lucide.createIcons();
+      abrirModalSuave('modal-caixa');
     }
-
-    function fecharModalCaixa() {
-      const modal = document.getElementById('modal-caixa');
-      if (modal) modal.classList.add('hidden');
-    }
+    function fecharModalCaixa() { fecharModalSuave('modal-caixa'); }
 
     function editarCaixa(id) {
       const c = bancoDados.caixas.find(item => item.id === id);
@@ -812,7 +924,7 @@
       fotosCaixaExcluir = [];
       renderGerenciadorFotosCaixa();
       
-      document.getElementById('modal-caixa').classList.remove('hidden');
+      abrirModalSuave('modal-caixa');
       lucide.createIcons();
     }
 
@@ -1183,10 +1295,10 @@
       });
     }
 
-    function abrirGaleriaRelogio(id) { 
+    function abrirGaleriaRelogio(id, urlFotoEspecifica = null) { 
       const r = bancoDados.relogios.find(item => item.id === id); 
       if (!r || !r.fotos || r.fotos.length === 0) return alert("Nenhuma foto disponível."); 
-      exibirModalGaleria(r.marca, r.modelo, r.fotos); 
+      exibirModalGaleria(r.marca, r.modelo, r.fotos, urlFotoEspecifica); 
     }
     
     function abrirGaleriaCaixa(id) { 
@@ -1206,9 +1318,13 @@
       renderizarGaleria();
     }
 
-    function exibirModalGaleria(titulo, subtitulo, fotos) {
+    function exibirModalGaleria(titulo, subtitulo, fotos, urlFotoInicial = null) {
       fotosGaleriaModal = fotos || [];
-      indiceFotoGaleriaModal = 0;
+      if (urlFotoInicial && fotosGaleriaModal.includes(urlFotoInicial)) {
+        indiceFotoGaleriaModal = fotosGaleriaModal.indexOf(urlFotoInicial);
+      } else {
+        indiceFotoGaleriaModal = 0;
+      }
       zoomAtivoManual = false;
       atualizarEstadoBotaoZoom();
 
@@ -1216,7 +1332,7 @@
       document.getElementById('galeria-modelo').innerText = subtitulo;
       
       atualizarImagemVisualizador();
-      document.getElementById('modal-galeria').classList.remove('hidden');
+      abrirModalSuave('modal-galeria');
       lucide.createIcons();
     }
 
@@ -1283,7 +1399,7 @@
 
     function fecharModalGaleria() {
       desativarZoom();
-      document.getElementById('modal-galeria').classList.add('hidden');
+      fecharModalSuave('modal-galeria');
     }
 
     const touchArea = document.getElementById('touch-area-galeria') || document.querySelector('.img-zoom-box');
@@ -1398,18 +1514,14 @@
         boxVid.classList.add('hidden');
         if (playerVid) playerVid.src = '';
       }
-
-      document.getElementById('modal-detalhes').classList.remove('hidden');
+      abrirModalSuave('modal-detalhes');
       lucide.createIcons();
     }
 
     function fecharModalDetalhes() {
       const player = document.getElementById('detalhe-video-player');
-      if (player) {
-        player.pause();
-        player.currentTime = 0;
-      }
-      document.getElementById('modal-detalhes').classList.add('hidden');
+      if (player) { player.pause(); player.currentTime = 0; }
+      fecharModalSuave('modal-detalhes');
     }
 
     function fecharPlayerModalVideo() {
@@ -1449,6 +1561,22 @@
         reader.readAsDataURL(file);
       });
     }
+        function atualizarStatusRede() {
+      const badge = document.getElementById('net-status-badge');
+      const btnSync = document.getElementById('btn-sync-all');
+      if (!navigator.onLine) {
+        badge.classList.remove('hidden');
+        badge.classList.add('flex');
+        if (btnSync) btnSync.classList.add('opacity-50', 'pointer-events-none');
+      } else {
+        badge.classList.add('hidden');
+        badge.classList.remove('flex');
+        if (btnSync) btnSync.classList.remove('opacity-50', 'pointer-events-none');
+      }
+    }
+    window.addEventListener('online', atualizarStatusRede);
+    window.addEventListener('offline', atualizarStatusRede);
+
 
     function dataUrlToBlob(dataUrl) {
       const [header, base64] = dataUrl.split(',');
@@ -1496,7 +1624,7 @@
           'Authorization': `Bearer ${CONFIG.groqKey}`
         },
         body: JSON.stringify({
-          model: 'openai/gpt-oss-20b',
+          model: 'openai/gpt-oss-120b',
           temperature: 0.2,
           max_tokens: 1000,
           response_format: { type: 'json_object' },
@@ -1791,14 +1919,9 @@ Retorne APENAS o JSON.`;
       document.getElementById('video-manager-container').classList.add('hidden');
       renderGerenciadorFotosRelogio();
       atualizarLabelValor();
-      document.getElementById('modal-cadastro').classList.remove('hidden');
-      lucide.createIcons();
+      abrirModalSuave('modal-cadastro');
     }
-
-    function fecharModalCadastro() {
-      const modal = document.getElementById('modal-cadastro');
-      if (modal) modal.classList.add('hidden');
-    }
+    function fecharModalCadastro() { fecharModalSuave('modal-cadastro'); }
 
     function editarRelogio(id) {
       const r = bancoDados.relogios.find(item => item.id === id);
@@ -1849,7 +1972,7 @@ Retorne APENAS o JSON.`;
 
       renderGerenciadorFotosRelogio();
       atualizarLabelValor();
-      document.getElementById('modal-cadastro').classList.remove('hidden');
+      abrirModalSuave('modal-cadastro');
       lucide.createIcons();
     }
 
@@ -1859,12 +1982,10 @@ Retorne APENAS o JSON.`;
       const targetId = editId || `rlg-${Date.now()}`;
       pendingChanges.fotosParaExcluir.push(...fotosRelogioExcluir);
 
-      // Se havia um vídeo anterior e ele foi excluído explicitamente
       if (videoRelogioExcluir) {
         pendingChanges.videosParaExcluir.push(videoRelogioExcluir);
       }
 
-      // Se enviou um NOVO vídeo substituindo o que já existia na peça
       if (editId && videoFileParaUpload) {
         const relogioAntigo = bancoDados.relogios.find(r => r.id === editId);
         if (relogioAntigo && relogioAntigo.video && !pendingChanges.videosParaExcluir.includes(relogioAntigo.video)) {
@@ -1874,7 +1995,6 @@ Retorne APENAS o JSON.`;
 
       if (videoFileParaUpload) {
         pendingChanges.videosParaEnviar.push({ file: videoFileParaUpload, relogioId: targetId });
-        // Gera preview local temporário para a Ficha Técnica funcionar antes da sincronização
         videoRelogioAtual = URL.createObjectURL(videoFileParaUpload);
       }
 
@@ -1927,6 +2047,7 @@ Retorne APENAS o JSON.`;
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
       if (abaAtiva === 'galeria') renderizarGaleria();
+      salvarEstadoLocalIndexedDB();
     }
 
     async function salvarCaixaLocal(e) {
@@ -1961,6 +2082,7 @@ Retorne APENAS o JSON.`;
       atualizarStatusPendencias(true);
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
+      salvarEstadoLocalIndexedDB();
     }
 
     function removerRelogio(id) {
@@ -1969,7 +2091,6 @@ Retorne APENAS o JSON.`;
       const relogio = bancoDados.relogios[idx];
       if (!confirm(`Remover "${relogio.modelo}" do acervo local? As mídias serão removidas ao sincronizar.`)) return;
 
-      // Limpa pendências de envio que ainda não foram para o GitHub deste item
       pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(f => f.itemId !== id);
       if (pendingChanges.videosParaEnviar) {
         pendingChanges.videosParaEnviar = pendingChanges.videosParaEnviar.filter(v => v.relogioId !== id);
@@ -1985,6 +2106,7 @@ Retorne APENAS o JSON.`;
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
       if (abaAtiva === 'galeria') renderizarGaleria();
+      salvarEstadoLocalIndexedDB();
     }
 
     function removerCaixa(id) {
@@ -1993,7 +2115,6 @@ Retorne APENAS o JSON.`;
       const caixa = bancoDados.caixas[idx];
       if (!confirm(`Remover caixa "${caixa.nome}"? As fotos serão removidas ao sincronizar.`)) return;
 
-      // Limpa fotos pendentes de envio desta caixa
       pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(f => f.itemId !== id);
 
       if (caixa.fotos) pendingChanges.fotosParaExcluir.push(...caixa.fotos);
@@ -2001,14 +2122,16 @@ Retorne APENAS o JSON.`;
       atualizarStatusPendencias(true);
       renderizarTudo();
       if (abaAtiva === 'geral') carregarDashboardGeral();
+      salvarEstadoLocalIndexedDB();
     }
+
     async function sincronizarTudoComGithub() {
       if (!CONFIG.token) { 
         alert("Configure seu Token do GitHub antes de sincronizar!"); 
         abrirModalConfig(); 
         return; 
       }
-
+      
       const btnSync = document.getElementById('btn-sync-all');
       btnSync.disabled = true;
       btnSync.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Sincronizando...</span>`;
@@ -2050,7 +2173,10 @@ Retorne APENAS o JSON.`;
             body: JSON.stringify({ message: `upload: ${nomeLimpo}.jpg`, content: base64Content })
           });
 
-          if (!res.ok) throw new Error(`Falha no upload de imagem: ${nomeLimpo}`);
+          if (!res.ok) {
+            const errJson = await res.json().catch(() => ({}));
+            throw new Error(`Falha no upload da foto (${nomeLimpo}): ` + tratarErroHttpGithub(res, errJson));
+          }
           
           const imgData = await res.json();
           const githubUrl = imgData.content.download_url;
@@ -2087,7 +2213,10 @@ Retorne APENAS o JSON.`;
               body: JSON.stringify({ message: `upload video: ${itemVid.relogioId}`, content: base64Vid })
             });
 
-            if (!resVid.ok) throw new Error(`Falha no upload do vídeo`);
+            if (!resVid.ok) {
+              const errJson = await resVid.json().catch(() => ({}));
+              throw new Error(`Falha no upload do vídeo: ` + tratarErroHttpGithub(resVid, errJson));
+            }
 
             const vidData = await resVid.json();
             const rAlvo = bancoDados.relogios.find(r => r.id === itemVid.relogioId);
@@ -2100,7 +2229,8 @@ Retorne APENAS o JSON.`;
         // 4. Salvar o JSON atualizado
         const shaEsperado = await salvarJsonGithub("chore: sincronização em lote de relógios e caixas");
         
-        // 5. Finalizar pendências e disparar deploy
+        // 5. Finalizar pendências, limpar rascunho local e disparar deploy
+        await limparEstadoLocalIndexedDB();
         atualizarStatusPendencias(false);
         iniciarVerificacaoDeploy(shaEsperado);
 
@@ -2111,8 +2241,8 @@ Retorne APENAS o JSON.`;
         lucide.createIcons();
       }
     }
-
-    async function salvarJsonGithub(mensagemCommit) {
+   
+      async function salvarJsonGithub(mensagemCommit) {
       const updatedJsonContent = btoa(unescape(encodeURIComponent(JSON.stringify(bancoDados, null, 2))));
       const shaEsperado = await calcularShaEsperado(updatedJsonContent);
       
@@ -2122,14 +2252,37 @@ Retorne APENAS o JSON.`;
         body: JSON.stringify({ message: mensagemCommit, content: updatedJsonContent, sha: fileSha })
       });
       
-      if (!res.ok) throw new Error("Erro ao atualizar relogios.json no repositório.");
+      if (!res.ok) {
+        const errJson = await res.json().catch(() => ({}));
+        throw new Error("Erro ao salvar relogios.json: " + tratarErroHttpGithub(res, errJson));
+      }
       
       const resData = await res.json();
       if (resData.content && resData.content.sha) {
         fileSha = resData.content.sha;
       }
-      
       return shaEsperado;
+    }
+
+    function tratarErroHttpGithub(res, corpoErro = {}) {
+      if (res.status === 401) {
+        return "Token do GitHub inválido, revogado ou expirado. Verifique as configurações.";
+      }
+      if (res.status === 403) {
+        const remaining = res.headers.get('x-ratelimit-remaining');
+        if (remaining === '0') {
+          const resetTime = new Date(res.headers.get('x-ratelimit-reset') * 1000).toLocaleTimeString();
+          return `Limite de requisições do GitHub excedido! O limite será liberado às ${resetTime}.`;
+        }
+        return "Acesso proibido (403). Seu Token PAT precisa de permissão de escrita ('repo' ou 'contents:write').";
+      }
+      if (res.status === 404) {
+        return "Repositório ou arquivo não encontrado. Verifique Usuário e Nome do Repositório nas configurações.";
+      }
+      if (res.status === 409) {
+        return "Conflito de versão (409): o arquivo no GitHub foi alterado recentemente. Tente sincronizar novamente.";
+      }
+      return corpoErro.message || `Erro HTTP ${res.status}`;
     }
 
     async function calcularShaEsperado(conteudoBase64) {
@@ -2216,16 +2369,71 @@ Retorne APENAS o JSON.`;
       verificar();
     }
 
+    function definirFiltroPill(pill) {
+      filtroPillAtivo = pill;
+      renderizarPillsFiltros();
+      aplicarFiltrosEOrdem();
+    }
+
+    function renderizarPillsFiltros() {
+      const container = document.getElementById('pills-filtros');
+      if (!container) return;
+
+      const totalTodos = bancoDados.relogios.length;
+      const totalAut = bancoDados.relogios.filter(r => (r.calibre || '').toLowerCase().match(/autom|nh3|miyota/)).length;
+      const totalQtz = bancoDados.relogios.filter(r => (r.calibre || '').toLowerCase().match(/quart|bateria/)).length;
+      const totalPres = bancoDados.relogios.filter(r => r.tipo_aquisicao === 'presente').length;
+      const totalDiver = bancoDados.relogios.filter(r => (r.tipo || '').toLowerCase().includes('diver')).length;
+      const totalCrono = bancoDados.relogios.filter(r => (r.tipo || '').toLowerCase().includes('cron')).length;
+
+      const pills = [
+        { id: 'todos', label: `Todos (${totalTodos})`, icon: 'layers' },
+        { id: 'automatico', label: `Automáticos (${totalAut})`, icon: 'cog' },
+        { id: 'quartzo', label: `Quartzo (${totalQtz})`, icon: 'zap' },
+        { id: 'presente', label: `Presentes (${totalPres})`, icon: 'gift' },
+        { id: 'diver', label: `Diver (${totalDiver})`, icon: 'anchor' },
+        { id: 'cronografo', label: `Cronógrafos (${totalCrono})`, icon: 'timer' }
+      ];
+
+      container.innerHTML = pills.map(p => {
+        const ativo = filtroPillAtivo === p.id;
+        const cls = ativo
+          ? "bg-sky-500 text-slate-950 font-semibold shadow-sm"
+          : "border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white";
+        return `
+          <button type="button" onclick="definirFiltroPill('${p.id}')" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full whitespace-nowrap transition text-[11px] ${cls}">
+            <i data-lucide="${p.icon}" class="w-3 h-3 flex-shrink-0"></i>
+            <span>${p.label}</span>
+          </button>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
     function aplicarFiltrosEOrdem() {
       const termo = (document.getElementById('search').value || '').toLowerCase();
       const criterio = document.getElementById('sort-select').value;
-      let filtrados = bancoDados.relogios.filter(r =>
-        (r.marca && r.marca.toLowerCase().includes(termo)) ||
-        (r.modelo && r.modelo.toLowerCase().includes(termo)) ||
-        (r.tipo && r.tipo.toLowerCase().includes(termo)) ||
-        (r.calibre && r.calibre.toLowerCase().includes(termo)) ||
-        (r.cor_mostrador && r.cor_mostrador.toLowerCase().includes(termo))
-      );
+      
+      let filtrados = bancoDados.relogios.filter(r => {
+        const atendeBusca = (r.marca && r.marca.toLowerCase().includes(termo)) ||
+          (r.modelo && r.modelo.toLowerCase().includes(termo)) ||
+          (r.tipo && r.tipo.toLowerCase().includes(termo)) ||
+          (r.calibre && r.calibre.toLowerCase().includes(termo)) ||
+          (r.cor_mostrador && r.cor_mostrador.toLowerCase().includes(termo));
+        if (!atendeBusca) return false;
+
+        if (filtroPillAtivo === 'todos') return true;
+        if (filtroPillAtivo === 'presente') return r.tipo_aquisicao === 'presente';
+        const cal = (r.calibre || '').toLowerCase();
+        if (filtroPillAtivo === 'automatico') return cal.includes('autom') || cal.includes('nh3') || cal.includes('miyota');
+        if (filtroPillAtivo === 'quartzo') return cal.includes('quart') || cal.includes('bateria');
+        const tip = (r.tipo || '').toLowerCase();
+        if (filtroPillAtivo === 'diver') return tip.includes('diver');
+        if (filtroPillAtivo === 'cronografo') return tip.includes('cron');
+        return true;
+      });
+
       filtrados.sort((a, b) => {
         if (criterio === 'data_asc') return new Date(a.data_compra || 0) - new Date(b.data_compra || 0);
         if (criterio === 'data_desc') return new Date(b.data_compra || 0) - new Date(a.data_compra || 0);
@@ -2236,6 +2444,7 @@ Retorne APENAS o JSON.`;
         if (criterio === 'marca_asc') return (a.marca || '').localeCompare(b.marca || '');
         return 0;
       });
+
       renderRelogios(filtrados);
     }
 
@@ -2288,7 +2497,7 @@ Retorne APENAS o JSON.`;
       grid.innerHTML = midias.map(m => {
         if (m.tipo === 'foto') {
           return `
-            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="abrirGaleriaRelogio('${m.id}')">
+            <div class="card-navy rounded-xl overflow-hidden aspect-square relative group cursor-pointer" onclick="abrirGaleriaRelogio('${m.id}', '${m.url}')">
               <img src="${m.url}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
               <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-1.5 sm:p-2">
                 <p class="text-[9px] sm:text-[10px] text-white font-medium truncate">${m.relogio}</p>
