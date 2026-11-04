@@ -317,17 +317,22 @@
     </div>
     <div class="relative z-10 card-navy border border-sky-500/30 rounded-2xl max-w-sm w-full p-6 sm:p-7 text-center shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col items-center">
       <div class="w-14 h-14 rounded-full bg-sky-500/10 border border-sky-400/40 flex items-center justify-center mb-3.5 deploy-pulse shadow-[0_0_20px_rgba(56,189,248,0.25)]">
-        <svg class="w-9 h-9 text-sky-400" viewBox="0 0 48 48" fill="none" stroke="currentColor">
-          <circle cx="24" cy="24" r="20" stroke-width="1.8" class="opacity-30" />
-          <line x1="24" y1="6" x2="24" y2="9" stroke-width="2" stroke-linecap="round" />
-          <line x1="42" y1="24" x2="39" y2="24" stroke-width="2" stroke-linecap="round" />
-          <line x1="24" y1="42" x2="24" y2="39" stroke-width="2" stroke-linecap="round" />
-          <line x1="6" y1="24" x2="9" y2="24" stroke-width="2" stroke-linecap="round" />
-          <line x1="24" y1="24" x2="31" y2="20" stroke-width="1.8" stroke-linecap="round" class="opacity-40" />
+        <svg class="w-11 h-11 text-sky-400" viewBox="0 0 48 48" fill="none" stroke="currentColor">
+          <!-- Aro interno mais preenchido e próximo -->
+          <circle cx="24" cy="24" r="21.5" stroke-width="1.5" class="opacity-40" />
+          <!-- Índices das horas (12h, 3h, 6h, 9h) bem alinhados à borda -->
+          <line x1="24" y1="3.5" x2="24" y2="7.5" stroke-width="2" stroke-linecap="round" />
+          <line x1="44.5" y1="24" x2="40.5" y2="24" stroke-width="2" stroke-linecap="round" />
+          <line x1="24" y1="44.5" x2="24" y2="40.5" stroke-width="2" stroke-linecap="round" />
+          <line x1="3.5" y1="24" x2="7.5" y2="24" stroke-width="2" stroke-linecap="round" />
+          <!-- Ponteiro de horas -->
+          <line x1="24" y1="24" x2="32" y2="19" stroke-width="2" stroke-linecap="round" class="opacity-50" />
+          <!-- Ponteiro animado de minutos/segundos -->
           <g id="deploy-clock-hand" style="transform-origin: 24px 24px; transform: rotate(0deg); transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);">
-            <line x1="24" y1="24" x2="24" y2="7" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
-            <circle cx="24" cy="7" r="1.5" fill="#38bdf8" />
+            <line x1="24" y1="24" x2="24" y2="5.5" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+            <circle cx="24" cy="5.5" r="1.5" fill="#38bdf8" />
           </g>
+          <!-- Miolo central -->
           <circle cx="24" cy="24" r="2" fill="#38bdf8" />
         </svg>
       </div>
