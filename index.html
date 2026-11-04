@@ -127,17 +127,15 @@
         <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2.5 text-slate-400"></i>
         <input type="text" id="search" placeholder="Buscar no acervo..." class="w-full bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] text-xs rounded-lg pl-8 pr-2 py-1.5 text-slate-800 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:border-sky-500 transition" />
       </div>
-      <div class="w-32 sm:w-56 flex-shrink-0">
-        <select id="sort-select" onchange="aplicarFiltrosEOrdem()" class="w-full bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] text-xs rounded-lg px-2 py-1.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer truncate">
-          <option value="data_desc" selected>Data (Recentes)</option>
-          <option value="data_asc">Data (Cronológica)</option>
-          <option value="ordem_asc">Ordem Pessoal (Cresc.)</option>
-          <option value="ordem_desc">Ordem Pessoal (Decr.)</option>
-          <option value="valor_desc">Maior Valor</option>
-          <option value="valor_asc">Menor Valor</option>
-          <option value="marca_asc">Marca (A-Z)</option>
-        </select>
-      </div>
+          <div class="w-32 sm:w-56 flex-shrink-0">
+            <select id="sort-select" onchange="aplicarFiltrosEOrdem()" class="w-full bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] text-xs rounded-lg px-2 py-1.5 text-slate-800 dark:text-slate-200 focus:outline-none focus:border-sky-500 cursor-pointer truncate">
+              <option value="data_desc" selected>Data de Entrada (Recentes)</option>
+              <option value="data_asc">Data de Entrada (Mais Antigos)</option>
+              <option value="valor_desc">Maior Valor</option>
+              <option value="valor_asc">Menor Valor</option>
+              <option value="marca_asc">Marca (A-Z)</option>
+            </select>
+          </div>
       <div class="flex items-center bg-white dark:bg-[#070e1a] border border-slate-200 dark:border-[#172b47] rounded-lg p-0.5 flex-shrink-0" id="view-mode-selector">
         <button type="button" onclick="definirModoVisualizacao('grid-1')" id="btn-view-grid-1" title="1 Card por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold"><i data-lucide="square" class="w-3.5 h-3.5"></i></button>
         <button type="button" onclick="definirModoVisualizacao('grid-2')" id="btn-view-grid-2" title="2 Cards por linha" class="p-1 sm:p-1.5 rounded transition text-xs font-semibold"><i data-lucide="grid-2x2" class="w-3.5 h-3.5"></i></button>
@@ -383,19 +381,24 @@
       <h3 id="modal-form-title" class="text-sm sm:text-base font-serif-lux font-bold text-sky-600 dark:text-sky-300 mb-4 border-b border-slate-200 dark:border-[#172944] pb-2 tracking-wider">Cadastrar Relógio</h3>
       <form id="form-relogio" onsubmit="salvarRelogioLocal(event)" class="space-y-3.5 text-xs">
         <input type="hidden" id="edit-id" value="">
-        <div class="bg-gradient-to-r from-sky-50 to-blue-50 dark:from-[#0a1628] dark:to-[#0c1e3a] p-3 rounded-lg border border-sky-200 dark:border-sky-900/50 mb-3">
-          <label class="text-sky-700 dark:text-sky-300 font-semibold block mb-1.5 text-[11px] uppercase tracking-wide flex items-center gap-1.5">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Busca Inteligente com IA
-          </label>
-          <div class="flex gap-2">
-            <input type="text" id="busca-ia-referencia" placeholder="Ex: BVLGARI Aluminium, Rolex Submariner 116610LN, ou cole um link..." class="flex-1 bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none text-xs">
-            <button type="button" onclick="buscarComIA()" id="btn-buscar-ia" class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
-              <i data-lucide="search" class="w-3.5 h-3.5"></i>
-              <span>Buscar</span>
-            </button>
-          </div>
-          <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1.5">Insira referência, modelo ou link. A IA preencherá automaticamente os campos técnicos.</p>
-        </div>
+            <div class="bg-gradient-to-r from-sky-50 to-blue-50 dark:from-[#0a1628] dark:to-[#0c1e3a] p-3 rounded-lg border border-sky-200 dark:border-sky-900/50 mb-3">
+              <label class="text-sky-700 dark:text-sky-300 font-semibold block mb-1.5 text-[11px] uppercase tracking-wide flex items-center gap-1.5">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Busca Inteligente com IA
+              </label>
+              <div class="flex gap-2">
+                <input type="text" id="busca-ia-referencia" placeholder="Ex: BVLGARI Aluminium, Rolex Submariner 116610LN, ou cole um link..." class="flex-1 bg-white dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none text-xs">
+                <button type="button" onclick="buscarComIA()" id="btn-buscar-ia" class="bg-sky-500 hover:bg-sky-600 text-white px-3 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+                  <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                  <span>Buscar</span>
+                </button>
+              </div>
+              <!-- Status em Tempo Real da IA -->
+              <div id="busca-ia-status-box" class="hidden mt-2 p-2 rounded-lg bg-sky-500/10 border border-sky-500/20 flex items-center gap-2 text-[11px] text-sky-600 dark:text-sky-300">
+                <i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin flex-shrink-0"></i>
+                <span id="busca-ia-status-txt" class="font-medium">Iniciando análise técnica...</span>
+              </div>
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 mt-1.5">Insira referência, modelo ou link. A IA preencherá automaticamente os campos técnicos.</p>
+            </div>
         <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
           <div class="sm:col-span-4">
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Marca *</label>
@@ -429,12 +432,6 @@
           <div class="sm:col-span-3">
             <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Origem / Quem Deu</label>
             <input type="text" id="origem" placeholder="Onde comprou / Origem" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
-          </div>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
-          <div class="sm:col-span-3">
-            <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Ordem Manual (Opcional)</label>
-            <input type="number" id="ordem" placeholder="Auto por data" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2 text-slate-900 dark:text-white focus:border-sky-500 outline-none">
           </div>
         </div>
         <div class="bg-slate-50 dark:bg-[#070e1a] p-3 rounded-lg border border-slate-200 dark:border-[#162740]">
@@ -2286,11 +2283,25 @@ const modoVisitante = urlParams.has('share');
         abrirModalConfig();
         return;
       }
+
       const btnBuscar = document.getElementById('btn-buscar-ia');
+      const boxStatus = document.getElementById('busca-ia-status-box');
+      const txtStatus = document.getElementById('busca-ia-status-txt');
       const textoOriginal = btnBuscar.innerHTML;
+
+      const setStatus = (msg) => {
+        if (txtStatus) txtStatus.innerText = msg;
+        if (boxStatus) {
+          boxStatus.classList.remove('hidden');
+          boxStatus.classList.add('flex');
+        }
+      };
+
       btnBuscar.disabled = true;
-      btnBuscar.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Buscando...</span>`;
+      btnBuscar.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin"></i><span>Consultando...</span>`;
       lucide.createIcons();
+      setStatus(`Consultando catálogo internacional para "${referencia}"...`);
+
       const prompt = `Você é um especialista em relógios de luxo. Com base na seguinte referência: "${referencia}"
 
 Extraia o máximo de informações técnicas possíveis e retorne APENAS um JSON válido com os campos que conseguir identificar. Use exatamente estes nomes de campos (deixe string vazia se não souber):
@@ -2316,25 +2327,31 @@ Retorne APENAS o JSON.`;
       try {
         if (CONFIG.geminiKey) {
           try {
+            setStatus("Conectando ao Google Gemini (analisando calibre e caixa)...");
             content = await chamarGemini(referencia, prompt);
-            provedorUsado = 'Gemini';
+            provedorUsado = 'Google Gemini';
           } catch (errGemini) {
-            console.warn('Gemini falhou, tentando fallback Groq...', errGemini);
+            console.warn('Gemini falhou ou demorou, tentando fallback Groq...', errGemini);
             if (!CONFIG.groqKey) throw errGemini;
+            setStatus("Gemini indisponível. Acionando Groq AI de alta velocidade...");
           }
         }
 
         if (!content && CONFIG.groqKey) {
+          setStatus("Consultando base através do Groq AI...");
           content = await chamarGroq(referencia, prompt);
-          provedorUsado = 'Groq';
+          provedorUsado = 'Groq AI';
         }
+
         if (!content) throw new Error('Nenhuma resposta recebida dos provedores de IA.');
+        
+        setStatus("Processando ficha técnica e preenchendo o formulário...");
         content = content.trim();
         if (content.startsWith('```')) {
           content = content.replace(/```(?:json)?\n?/g, '').replace(/```$/g, '').trim();
         }
         const jsonMatch = content.match(/\{[\s\S]*\}/);
-        if (!jsonMatch) throw new Error('Nenhum JSON encontrado na resposta da IA.');
+        if (!jsonMatch) throw new Error('Nenhum JSON estruturado encontrado na resposta.');
         let jsonStr = jsonMatch[0].replace(/\\n/g, ' ').replace(/\\r/g, ' ');
         const dadosRelogio = JSON.parse(jsonStr);
         const campos = [
@@ -2354,14 +2371,24 @@ Retorne APENAS o JSON.`;
         });
 
         if (camposPreenchidos === 0) {
-          alert('Não foi possível extrair informações deste relógio. Tente uma referência mais específica.');
+          alert('Não foi possível extrair dados específicos deste relógio. Tente fornecer o nome da marca junto à referência.');
         } else {
-          alert(`✅ ${camposPreenchidos} campo(s) preenchido(s) via ${provedorUsado}!\n\nRevise as informações e ajuste se necessário.`);
+          setStatus(`Ficha preenchida com sucesso via ${provedorUsado}!`);
+          setTimeout(() => {
+            if (boxStatus) {
+              boxStatus.classList.add('hidden');
+              boxStatus.classList.remove('flex');
+            }
+          }, 3500);
         }
 
       } catch (error) {
         console.error('Erro na busca com IA:', error);
-        alert(`Erro na busca com IA: ${error.message}\n\nVerifique suas chaves nas configurações.`);
+        alert(`Erro na busca com IA: ${error.message}\n\nVerifique suas credenciais nas configurações.`);
+        if (boxStatus) {
+          boxStatus.classList.add('hidden');
+          boxStatus.classList.remove('flex');
+        }
       } finally {
         btnBuscar.disabled = false;
         btnBuscar.innerHTML = textoOriginal;
@@ -2583,7 +2610,6 @@ Retorne APENAS o JSON.`;
       document.getElementById('data_compra').value = r.data_compra || '';
       document.getElementById('valor').value = r.valor || '';
       document.getElementById('origem').value = r.origem || '';
-      document.getElementById('ordem').value = r.ordem || '';
       document.getElementById('rating-prestigio').value = r.prestigio || '5';
       document.getElementById('rating-afeto').value = r.afeto || '5';
       document.getElementById('rating-valor').value = r.valor_rating || '5';
@@ -2657,7 +2683,6 @@ Retorne APENAS o JSON.`;
 
       const dadosRelogio = {
         id: targetId,
-        ordem: parseInt(document.getElementById('ordem').value) || 999,
         marca: document.getElementById('marca').value.trim(),
         modelo: document.getElementById('modelo').value.trim(),
         tipo: document.getElementById('tipo').value.trim(),
@@ -3051,12 +3076,10 @@ if (item.isCaixa) {
       filtrados.sort((a, b) => {
         if (criterio === 'data_asc') return new Date(a.data_compra || 0) - new Date(b.data_compra || 0);
         if (criterio === 'data_desc') return new Date(b.data_compra || 0) - new Date(a.data_compra || 0);
-        if (criterio === 'ordem_asc') return (a.ordem || 999) - (b.ordem || 999);
-        if (criterio === 'ordem_desc') return (b.ordem || 999) - (a.ordem || 999);
         if (criterio === 'valor_desc') return (b.valor || 0) - (a.valor || 0);
         if (criterio === 'valor_asc') return (a.valor || 0) - (b.valor || 0);
         if (criterio === 'marca_asc') return (a.marca || '').localeCompare(b.marca || '');
-        return 0;
+        return new Date(b.data_compra || 0) - new Date(a.data_compra || 0);
       });
       renderRelogios(filtrados);
     }
