@@ -640,7 +640,6 @@
     let deferredPrompt = null;
     let debounceSearchTimer = null;
     let filtroPillAtivo = 'todos';
-
 // --- CONTROLE DE MODO VISITANTE (COMPARTILHAMENTO) ---
 const urlParams = new URLSearchParams(window.location.search);
 const modoVisitante = urlParams.has('share');
@@ -694,7 +693,6 @@ const modoVisitante = urlParams.has('share');
         return { bancoLocal: null, pendenciasLocais: null };
       }
     }
-
     async function limparEstadoLocalIndexedDB() {
       try {
         const db = await abrirDB();
