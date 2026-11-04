@@ -815,7 +815,9 @@
       const btnRelogios = document.getElementById('tab-btn-relogios'), btnCaixas = document.getElementById('tab-btn-caixas'), btnGeral = document.getElementById('tab-btn-geral'), btnGaleria = document.getElementById('tab-btn-galeria');
       const badgeRelogios = document.getElementById('badge-count-relogios'), badgeCaixas = document.getElementById('badge-count-caixas');
       const viewRelogios = document.getElementById('view-relogios'), viewCaixas = document.getElementById('view-caixas'), viewGeral = document.getElementById('view-geral'), viewGaleria = document.getElementById('view-galeria');
-      const controlesRelogios = document.getElementById('controles-relogios'), labelBtn = document.getElementById('label-btn-adicionar');
+      const controlesRelogios = document.getElementById('controles-relogios');
+      const pillsFiltros = document.getElementById('pills-filtros');
+      const labelBtn = document.getElementById('label-btn-adicionar');
       
       const estiloBaseInativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400 hover:border-slate-400";
       const estiloAtivoRelogios = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]";
@@ -837,6 +839,7 @@
       if (viewGaleria) viewGaleria.classList.toggle('hidden', aba !== 'galeria');
 
       controlesRelogios.classList.toggle('hidden', aba !== 'relogios');
+      if (pillsFiltros) pillsFiltros.classList.toggle('hidden', aba !== 'relogios');
       if (aba === 'relogios') labelBtn.innerText = "Adicionar Relógio";
       else if (aba === 'caixas') labelBtn.innerText = "Adicionar Caixa";
       else labelBtn.innerText = "Novo Relógio";
@@ -1026,6 +1029,7 @@
     function renderizarTudo() {
       document.getElementById('badge-count-relogios').innerText = bancoDados.relogios.length;
       document.getElementById('badge-count-caixas').innerText = bancoDados.caixas.length;
+      renderizarPillsFiltros(); // <-- Garante que os números das pills sempre reflitam o acervo em tempo real
       aplicarFiltrosEOrdem();
       renderCaixas();
     }
