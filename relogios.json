@@ -95,7 +95,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119361902-1-1000393534.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119368623-5-1000393170.jpg"
       ],
-      "video": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/videos/video-rlg-1792119305427-1793729550023.mp4"
+      "video": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/videos/video-rlg-1792119305427-1793729550023.mp4",
+      "ordem": 999
     },
     {
       "id": "rlg-1792113087155",
@@ -127,7 +128,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113085523-4-1000393416.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113071538-1-1000393421.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792113688646",
@@ -191,7 +193,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792078130718",
@@ -223,7 +226,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792115285419",
@@ -279,7 +283,7 @@
       "tipo_correia": "Flexível",
       "cor_correia": "Laranja",
       "tipo_fecho": "Fivela",
-      "descricao": "Bisel de escala 24 horas unidirecional\nMovimiento automático japonés TMI NH34A, ampla reserva de marcha\nCoroa rosqueável na posição de 3 horas\nIndices e ponteiro com alto nível de lumen\nCaixa de aço inoxidavel e polido\nTratamento anti-arranhões\nCristal de zafira sintético e anti-reflexo\nTampa traseira maciça \nResistencia a agua de 100 metros",
+      "descricao": "Bisel de escala 24 horas unidirecional\nMovimiento automático japonés TMI NH34A, ampla reserva de marcha\nCoroa rosqueável na posição de 3 horas\nIndices e ponteiro com alto nível de lumen\nCaixa de aço inoxidavel e polido\nTratamento anti-arranhões\nCristal de zafira sintético e anti-reflexo\nTampa traseira transparente\nResistencia a agua de 100 metros",
       "historia": "- Primeiro Relogio GMT/Sport\n- Cor diferenciada",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068317185-0-PD17627.webp",
@@ -325,7 +329,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062938084-1-2415DY1A2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062940966-3-2415DY1A4.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792379518259",
@@ -360,9 +365,8 @@
     },
     {
       "id": "rlg-1792073641907",
-      "ordem": 4,
       "marca": "ADDIESDIVE",
-      "modelo": "MY-H3AC BLACK (Bruce Wayne)",
+      "modelo": "MY-H3AC (Bruce Wayne)",
       "tipo": "Diver",
       "tipo_aquisicao": "compra",
       "data_compra": "2026-09-09",
@@ -372,16 +376,16 @@
       "afeto": 5,
       "valor_rating": 4,
       "calibre": "Automatico / NH35A",
-      "cor_mostrador": "",
+      "cor_mostrador": "Preto",
       "diametro": "41",
       "cor_caixa": "Prata",
       "cor_bisel": "Preto",
       "material_correia": "Aço",
-      "tipo_correia": "",
+      "tipo_correia": "Elo Sólido",
       "cor_correia": "Prata",
       "tipo_fecho": "Fecho Dobrável com Trava de Segurança",
       "descricao": "Cristal de safira sintética\nResistência à Água: 200 metros\nLumes: Marcadores e ponteiros luminosos (com aplicação de composto luminoso suíço BGW9 ou C3).\nBisel: Giratório unidirecional em cerâmica ou metal com marcações",
-      "historia": "Primeiro Diver Submariner Inspirado nas cores dos Rolex",
+      "historia": "- Primeiro Diver Submariner Inspirado nas cores dos Rolex",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073628900-4-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073630246-5-MY-H3AC1.jpeg",
@@ -459,11 +463,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290692753-4-1000394526.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792290689229-2-1000394527.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792080353963",
-      "ordem": 999,
       "marca": "Technos",
       "modelo": "Acqua Diver (Pepsi)",
       "tipo": "Diver",
@@ -484,7 +488,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela",
       "descricao": "Referencia: 2415EL1A\nLinha: Acqua\nVidro: Cristal Mineral\nMaterial da Caixa: Aço Inoxidável\nMaterial da Pulseira: Aço Inoxidável\nModelo: Analógico\nMecanismo: Quartzo\nAlimentação: Óxido de Prata\nResistência à Água: 15ATM\nDiâmetro da Caixa: 44,5mm (sem coroa)\nPeso: 155g",
-      "historia": "Presente - Aniversário",
+      "historia": "- Presente - Aniversário\n- Segundo Diver Inspirando Nas Cores do Rolex",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080341486-0-Techonos2415EL1A.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080343179-1-Techonos2415EL1A1.jpeg",
@@ -498,14 +502,13 @@
     },
     {
       "id": "rlg-1793707429868",
-      "ordem": 999,
       "marca": "Casio",
       "modelo": "Duro MDV-106B-1A1VCF (Batman)",
       "tipo": "Diver",
       "tipo_aquisicao": "compra",
       "data_compra": "2026-11-03",
       "valor": 500,
-      "origem": "Compra",
+      "origem": "",
       "prestigio": 5,
       "afeto": 4,
       "valor_rating": 3,
@@ -519,7 +522,7 @@
       "cor_correia": "Preto",
       "tipo_fecho": "Fivela",
       "descricao": "",
-      "historia": "Rifa",
+      "historia": "- Rifa\n- Terceiro Diver Inspirado Nas Cores do Rolex",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1793707470172-0-1000354110.jpg"
       ],
