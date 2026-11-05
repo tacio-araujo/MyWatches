@@ -62,7 +62,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116007546-1-1000342330.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792116005369-0-1000344786.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792119305427",
@@ -193,7 +194,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792078130718",
@@ -230,7 +232,6 @@
     },
     {
       "id": "rlg-1792115285419",
-      "ordem": 999,
       "marca": "Orient",
       "modelo": "Solartech MBSSC288 S1SX",
       "tipo": "Cronógrafo",
@@ -251,7 +252,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fecho com Trava de Segurança",
       "descricao": "Tipo de tela\tAnálogico\nMovimento e energia\tSolar\nTipo de alça\tAço\nProfundidade de resistência à água\t100 Metros\nTipo de esporte\tCasual\nTipo de fecho\tFivela\nNível de resistência à água\tResistente à água\nTipo de fechamento\tFivela\nEstilo\tCronógrafo\nCor da pulseira\tPrata\nCor do mostrador\tBranco\nCor do Inserto da Moldura\tPrata\nCor da Moldura\tPrata",
-      "historia": "Primeiro Relógio de Marca Conceituada",
+      "historia": "- Primeiro Relógio de Marca Conceituada\n- Inspirado no modelo Panda da Rolex",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115568291-0-1000393502.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115569950-1-1000393499.jpg",
@@ -318,7 +319,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela de Gancho",
       "descricao": "Resistência à água de até 150 metros (15 ATM).\nMostrador azul com lupa de calendário e lente antirreflexo.\nMarcadores luminescentes.\nAro giratório unidirecional com aplicação de cor.",
-      "historia": "- Primeiro Technos da Coleção\n- Inspirado no Omega 007",
+      "historia": "- Primeiro Technos da Coleção\n- Inspirado no Omega 007 que é um sonho de consumo\n- Nesse momento, o carinho pelos relógios \n- Comprar um relógio de Inspiração começou a ser melhor do que comprar uma réplica",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792060957934-2415DY1A.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062946064-6-2415DY1A7.jpeg",
@@ -329,8 +330,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062938084-1-2415DY1A2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062940966-3-2415DY1A4.jpeg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792379518259",
@@ -360,7 +360,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379525027-1-1000394796.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379526247-2-1000394798.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792073641907",
@@ -384,7 +385,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fecho Dobrável com Trava de Segurança",
       "descricao": "Cristal de safira sintética\nResistência à Água: 200 metros\nLumes: Marcadores e ponteiros luminosos (com aplicação de composto luminoso suíço BGW9 ou C3).\nBisel: Giratório unidirecional em cerâmica ou metal com marcações",
-      "historia": "- Primeiro Diver Submariner Inspirado nas cores dos Rolex",
+      "historia": "- Primeiro Diver Submariner Inspirado nas cores dos Rolex\n- A vontade aqui era grande de ter um de cada cor",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073628900-4-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073630246-5-MY-H3AC1.jpeg",
@@ -398,8 +399,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792114425209",
@@ -431,7 +431,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114423163-4-1000386337.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114416743-1-1000386329.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792290668615",
@@ -454,8 +455,8 @@
       "tipo_correia": "Forro Têxtil",
       "cor_correia": "Branco e Azul",
       "tipo_fecho": "Velcro",
-      "descricao": "Caixa em Bioceramic branca – leve, resistente e moderna\nDetalhes em Moonshine™ Gold – ponteiros e elementos do mostrador com acabamento dourado exclusivo\nComplicação Earthphase – exibição das fases da Terra, um diferencial raro e especial\nMostrador branco clean com ilustração do Snoopy\nMovimento quartzo suíço de alta precisão\nVelcro strap estilo espacial, inspirado nos trajes de astronautas",
-      "historia": "- Primeiro Relógio Original Suíço\n- Vendido peças exclusivas somente durante o inverno da Suíça\n- Importado/trago pela Steh e Daniel na primeira viagem aos EUA\n- Detalhe da Lua em Ouro\n- Em meio de uma compra, não tão necessária, cartões no momento, com faturas altas, vale a pena comprar um Omega, tão sonhado modelos da Omega é essa a oportunidade que apareceu de forma acessível no momento",
+      "descricao": "Caixa em Bioceramic Branca – leve, resistente e moderna\nDetalhes em Moonshine™ Gold – ponteiros e elementos do mostrador com acabamento dourado exclusivo\nComplicação Earthphase – exibição das fases da Terra, um diferencial raro e especial\nMostrador branco clean com ilustração do Snoopy\nMovimento quartzo suíço de alta precisão\nVelcro strap estilo espacial, inspirado nos trajes de astronautas",
+      "historia": "- Primeiro Relógio Original Suíço\n- Vendido peças exclusivas somente durante o inverno da Suíça\n- Detalhe da Lua em Ouro\n- Importado/trazido pela Steh e Daniel na primeira viagem aos EUA\n- Em meio de uma compra, não tão necessária, cartões no momento, com faturas altas, vale a pena comprar um Omega, tão sonhado modelos da Omega é essa a oportunidade que apareceu de forma acessível no momento",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792340706088-1-1000394685.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792340704871-0-1000394684.webp",
@@ -486,7 +487,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela",
       "descricao": "Referencia: 2415EL1A\nLinha: Acqua\nVidro: Cristal Mineral\nMaterial da Caixa: Aço Inoxidável\nMaterial da Pulseira: Aço Inoxidável\nModelo: Analógico\nMecanismo: Quartzo\nAlimentação: Óxido de Prata\nResistência à Água: 15ATM\nDiâmetro da Caixa: 44,5mm (sem coroa)\nPeso: 155g",
-      "historia": "- Presente - Aniversário\n- União Para um Presente em Conjunto\n- Segundo Diver Inspirando Nas Cores do Rolex",
+      "historia": "- Presente - Aniversário\n- União Simbolizada Para um Presente em Conjunto\n- Segundo Diver Inspirando Nas Cores do Rolex",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080341486-0-Techonos2415EL1A.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080343179-1-Techonos2415EL1A1.jpeg",
@@ -496,8 +497,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080350903-6-Techonos2415EL1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080352409-7-Techonos2415EL1A7.jpeg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1793707429868",
@@ -525,7 +525,8 @@
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1793707470172-0-1000354110.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     }
   ],
   "caixas": [
