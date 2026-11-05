@@ -2216,41 +2216,32 @@ const modoVisitante = urlParams.has('share');
     }
 
 async function chamarGemini(referencia, prompt) {
-  if (!CONFIG.geminiKey || CONFIG.geminiKey.trim() === '') {
-    throw new Error("Chave do Gemini não configurada ou vazia.");
-  }
-
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${CONFIG.geminiKey.trim()}`;
+  // Use o modelo mais recente suportado (ex: gemini-2.5-flash)
+  const MODELO = 'gemini-3.5-flash-lite';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
 
   const response = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-goog-api-key': CONFIG.geminiKey
+    },
     body: JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
-      generationConfig: {
-        temperature: 0.2,
-        maxOutputTokens: 1000,
-        responseMimeType: "application/json"
-      }
+      contents: [
+        {
+          parts: [{ text: prompt }]
+        }
+      ]
     })
   });
 
-  // Se a API recusou (chave errada, cota, modelo inexistente)
   if (!response.ok) {
     const errorData = await response.json().catch(() => ({}));
-    const mensagemErro = errorData.error?.message || `HTTP ${response.status} - ${response.statusText}`;
-    console.error("❌ Falha na API Gemini:", errorData);
-    throw new Error(`Google API: ${mensagemErro}`);
+    throw new Error(errorData.error?.message || `Erro HTTP ${response.status}`);
   }
 
   const data = await response.json();
-  const texto = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-  if (!texto) {
-    throw new Error("Gemini respondeu sem conteúdo de texto.");
-  }
-
-  return texto;
+  return data.candidates[0].content.parts[0].text;
 }
 
     async function chamarGroq(referencia, prompt) {
