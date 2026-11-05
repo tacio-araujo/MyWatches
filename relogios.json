@@ -28,7 +28,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067142157-1-Bulgari1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067140663-0-Bulgari.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792116018462",
@@ -94,7 +95,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119361902-1-1000393534.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119368623-5-1000393170.jpg"
       ],
-      "video": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/videos/video-rlg-1792119305427-1793729550023.mp4"
+      "video": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/videos/video-rlg-1792119305427-1793729550023.mp4",
+      "ordem": 999
     },
     {
       "id": "rlg-1792113087155",
@@ -126,7 +128,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113085523-4-1000393416.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113071538-1-1000393421.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792113688646",
@@ -190,7 +193,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792078130718",
@@ -222,7 +226,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792115285419",
@@ -495,7 +500,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080350903-6-Techonos2415EL1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080352409-7-Techonos2415EL1A7.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1793707429868",
@@ -569,5 +575,10 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/caixa-1793322251683-5-1000401339.jpg"
       ]
     }
-  ]
+  ],
+  "sobre": {
+    "titulo": "Tempo, Memórias & Legado",
+    "conteudo": "Esta coleção não é sobre contagem de horas ou peças guardadas em caixas.\n\nÉ o registro dos caminhos percorridos, das vitórias comemoradas, dos presentes recebidos e dos marcos da minha vida. Cada relógio guarda o eco de um dia e/ou um momento especial.\n\nQue quem ler estas palavras encontre nelas não apenas mostradores e engrenagens, mas um pedaço vivo da minha história.\n\nTentei construir um arquivo de memórias, alguns detalhes que faça lembrar de detalhes que o tempo apaga da memória.\n\nO verdadeiro patrimônio que você está (foi) sendo construindo não são os relógios. São as riquezas das histórias que cada um tem guardadas junto a eles.",
+    "atualizado_em": "04/11/2026"
+  }
 }
