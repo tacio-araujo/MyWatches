@@ -294,7 +294,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068325238-5-PD17625.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068326674-6-PD17626.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792060960507",
@@ -334,7 +335,6 @@
     },
     {
       "id": "rlg-1792379518259",
-      "ordem": 999,
       "marca": "Casio",
       "modelo": "FIFA 2006 Limited Edition",
       "tipo": "Cronógrafo",
@@ -355,7 +355,7 @@
       "cor_correia": "Prateado",
       "tipo_fecho": "Dobrável",
       "descricao": "Oceanus 600WCJ\n\n• Módulo Casio 4329 (Tough Solar Wave Ceptor)\n• Edição Limitada: Foram produzidas apenas 2.006 unidades no mundo todo.\n• Material da Caixa e Pulseira: Titânio completo (leve e resistente à oxidação).\n• Movimento / Energia: Quartzo analógico com energia solar (Tough Solar).\n• Sincronização: Rádio-controlado (Atomic Timekeeping para ajuste de hora via ondas de rádio em regiões suportadas).\n• Vidro: Cristal de safira resistente a arranhões.\n• Resistência à Água: 100 a 200 metros (dependendo da especificação exata do modelo de mergulho/cronógrafo da linha OCW-600).\n• Funções: Cronômetro (cronógrafo), hora mundial (World Time), alarme e indicador de carga da bateria",
-      "historia": "Segundo edicao especial FIFA 2006",
+      "historia": "- Segundo Edicao Limitada FIFA 2006",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379523574-0-1000394795.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379525027-1-1000394796.jpg",
@@ -399,11 +399,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792114425209",
-      "ordem": 999,
       "marca": "Seiko",
       "modelo": "FIFA 2002 Limited Edition",
       "tipo": "Sport",
@@ -423,14 +423,14 @@
       "tipo_correia": "Elo padrao",
       "cor_correia": "Aco",
       "tipo_fecho": "Fivela",
-      "descricao": "Brand: Seiko\nModel: 2002 FIFA World Cup Limited Edition\nLimited Edition: Foram produzidas apenas 2.006 unidades no mundo todo.\nMovement: Quartz (Battery)\nDial Color: White\nCase Size: approx. 37mm (excluding crown)\nWrist Size: approx. 17cm (6.7 inch)\nBand Material: Stainless Steel\nAccessories: Original Box, Manual\nWorking Perfectly\nNew Battery Replaced: May 1, 2026",
-      "historia": "Relogio Raro Colecionador - Hexa",
+      "descricao": "Marca: Seiko\nModel: 2002 FIFA World Cup Limited Edition\nLimited Edition: Foram produzidas apenas 2.006 unidades no mundo todo.\nMovement: Quartz (Battery)\nDial Color: White\nCase Size: approx. 37mm (excluding crown)\nWrist Size: approx. 17cm (6.7 inch)\nBand Material: Stainless Steel\nAccessories: Original Box, Manual\nWorking Perfectly\nNew Battery Replaced: May 1, 2026",
+      "historia": "- Edição Limitada FIFA 2022\n- Relogio Raro Colecionador \n- Hexa do Brasil",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114414890-0-1000386331.jpg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114416743-1-1000386329.jpg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114418958-2-1000386340.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114421114-3-1000386334.jpg",
-        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114423163-4-1000386337.jpg"
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114418958-2-1000386340.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114423163-4-1000386337.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114416743-1-1000386329.jpg"
       ],
       "video": null
     },
@@ -498,7 +498,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080350903-6-Techonos2415EL1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080352409-7-Techonos2415EL1A7.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1793707429868",
@@ -526,7 +527,8 @@
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1793707470172-0-1000354110.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     }
   ],
   "caixas": [
