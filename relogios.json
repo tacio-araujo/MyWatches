@@ -129,7 +129,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113085523-4-1000393416.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113071538-1-1000393421.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792113688646",
@@ -159,7 +160,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114791207-1-1000393462.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114792852-2-1000393464.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792074805018",
@@ -182,7 +184,7 @@
       "tipo_correia": "Diamante",
       "cor_correia": "Prata",
       "tipo_fecho": "Borboleta",
-      "descricao": "Vidro: Hardlex (mais resistente a riscos)\nResistência à água: 3 ATM\nCronômetro de minutos\nCronômetro de segundos\nSubmostrador de 24 horas\nCalendário com exibição de data\nEscala taquímetro no aro (visual esportivo)",
+      "descricao": "• Vidro: Hardlex (mais resistente a riscos)\n• Resistência à água: 3 ATM\n• Cronômetro de minutos\n• Cronômetro de segundos\n• Submostrador de 24 horas\n• Calendário com exibição de data\n• Escala taquímetro no aro (visual esportivo)",
       "historia": "- Presente - Kaique - Dias Dos Pais\n- Foi Comprado Com Dinheiro que Ganhou ao Começar a Trabalhar na Oficina\n- 1° Presente com Dinheiro Próprio Dele",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074803333-4-Poedagar815B5.jpeg",
@@ -192,8 +194,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792078130718",
@@ -225,7 +226,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792115285419",
@@ -248,7 +250,7 @@
       "tipo_correia": "Elo padrao",
       "cor_correia": "Prata",
       "tipo_fecho": "Fecho com Trava de Segurança",
-      "descricao": "Tipo de tela\tAnálogico\nMovimento e energia\tSolar\nTipo de alça\tAço\nProfundidade de resistência à água\t100 Metros\nTipo de esporte\tCasual\nTipo de fecho\tFivela\nNível de resistência à água\tResistente à água\nTipo de fechamento\tFivela\nEstilo\tCronógrafo\nCor da pulseira\tPrata\nCor do mostrador\tBranco\nCor do Inserto da Moldura\tPrata\nCor da Moldura\tPrata",
+      "descricao": "• Tipo de tela:\tAnálogico\n• Movimento e energia: Solar\n• Resistência à água:\t100 Metros",
       "historia": "- Primeiro Relógio de Marca Conceituada\n- Inspirado no modelo Panda da Rolex",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115568291-0-1000393502.jpg",
@@ -257,8 +259,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115573233-3-1000393497.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115574962-4-1000393500.jpg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792068328361",
@@ -382,8 +383,8 @@
       "material_correia": "Aço",
       "tipo_correia": "Elo Sólido",
       "cor_correia": "Prata",
-      "tipo_fecho": "Fecho Dobrável com Trava de Segurança",
-      "descricao": "Cristal de safira sintética\nResistência à Água: 200 metros\nLumes: Marcadores e ponteiros luminosos (com aplicação de composto luminoso suíço BGW9 ou C3).\nBisel: Giratório unidirecional em cerâmica ou metal com marcações",
+      "tipo_fecho": "Dobrável + Trava de Segurança",
+      "descricao": "• Cristal de safira sintética\n• Resistência à Água: 200 metros\n• Marcadores e ponteiros: Luminosos (composto luminoso suíço BGW9 ou C3).\n• Bisel: Giratório unidirecional em cerâmica",
       "historia": "- Primeiro Diver Submariner Inspirado nas cores dos Rolex\n- A vontade aqui era grande de ter um de cada cor",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073628900-4-MY-H3AC.jpeg",
@@ -398,8 +399,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792114425209",
