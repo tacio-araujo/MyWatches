@@ -66,7 +66,6 @@
     },
     {
       "id": "rlg-1792119305427",
-      "ordem": 999,
       "marca": "Curtt",
       "modelo": "Visionárie Black Limited Edition",
       "tipo": "Skeleton",
@@ -87,7 +86,7 @@
       "cor_correia": "Preta",
       "tipo_fecho": "Fivela",
       "descricao": "Mecanismo Automático Seagull ST1601 de alto padrão com duração de até 42 horas e construção Skeleton\n- Ponteiros luminescente Lumi-Vision®\n- Caseback e fecho clasp em aço inox 304L\n- Caixa em liga metálica escovada extremamente reforçada e resistente a riscos\n- Vidro mineral Hardlex, resistente à riscos e extremamente durável\n- Coroa de pressão, com ajuste preciso e acionamento suave\n- Pulseira Rubber-Strap, borracha resistente e confortável\n- Resistência à agua até 30 metros: 3ATM\n- Dimensões: Larg da caixa (bisel): 42 mm; Lug to lug: 48 mm; Espessura da caixa: 11 mm; Larg da pulseira: 22 mm",
-      "historia": "Primeiro Edição Limitada da coleção 022/100",
+      "historia": "- 1° Edição Limitada da Coleção\n- Edição 022/100",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119363704-2-1000393175.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119367116-4-1000393171.jpg",
@@ -100,7 +99,6 @@
     },
     {
       "id": "rlg-1792113087155",
-      "ordem": 999,
       "marca": "Poedagar",
       "modelo": "Nautilus P928",
       "tipo": "Cronógrafo",
@@ -121,7 +119,7 @@
       "cor_correia": "Preta",
       "tipo_fecho": "Fecho com botao oculto",
       "descricao": "Material da Pulseira: Aço Inoxidável\nMaterial da Caixa: Aço Inoxidável\nMovimento: Quartz\nMaterial do Visor: Vidro Hardlex\nDiâmetro da Caixa: 42mm\nEspessura da Caixa: 10mm\nLargura da Pulseira: 22mm\nComprimento da Pulseira: 20cm\nFecho: Fecho com botão oculto\nResistência à Água: Suporta respingos e exposição à chuva leve. Não é indicado para mergulho.\nFunções: Data automática, cronógrafo, ponteiros luminosos",
-      "historia": "Presente - Day - Primeiro",
+      "historia": "1° Presente - Day",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113073417-2-1000393425.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113082854-3-1000393428.jpg",
@@ -164,7 +162,6 @@
     },
     {
       "id": "rlg-1792074805018",
-      "ordem": 2,
       "marca": "POEDAGAR",
       "modelo": "815B",
       "tipo": "Cronógrafo",
@@ -176,7 +173,7 @@
       "afeto": 5,
       "valor_rating": 1,
       "calibre": "Quartzo",
-      "cor_mostrador": "",
+      "cor_mostrador": "Branco e Azul",
       "diametro": "44",
       "cor_caixa": "Prata",
       "cor_bisel": "Azul",
@@ -193,11 +190,11 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074800166-2-Poedagar815B3.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
-      ]
+      ],
+      "video": null
     },
     {
       "id": "rlg-1792078130718",
-      "ordem": 999,
       "marca": "CILOA",
       "modelo": "501",
       "tipo": "Cronógrafo",
@@ -218,7 +215,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela",
       "descricao": "Design: Possui uma forma quadrada\nIluminação: Gás tritium para visibilidade em baixa luz.\nVisualização de ponteiros clássicos com função de calendário.\nResistência à água: desempenho impermeável.\nVidro: Espelho de vidro reforçado mineral protege contra arranhões.\n- Coroa & Fivela: Design da coroa espiral emparelhado com fivela do pino de aço inoxidável.",
-      "historia": "Presente - Day - Dia dos Pais",
+      "historia": "Presente - Day - Dia dos Pais\n2° Relógio",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078125492-2-ciloa2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078127381-3-ciloa3.jpeg",
@@ -263,7 +260,6 @@
     },
     {
       "id": "rlg-1792068328361",
-      "ordem": 2,
       "marca": "Pagani Design",
       "modelo": "PD1762",
       "tipo": "GMT",
@@ -275,7 +271,7 @@
       "afeto": 5,
       "valor_rating": 4,
       "calibre": "Automatico / TMI NH34A",
-      "cor_mostrador": "",
+      "cor_mostrador": "Branco",
       "diametro": "40",
       "cor_caixa": "Cinza",
       "cor_bisel": "Cinza",
@@ -284,7 +280,7 @@
       "cor_correia": "Laranja",
       "tipo_fecho": "Fivela",
       "descricao": "Bisel de escala 24 horas unidirecional\nMovimiento automático japonés TMI NH34A, ampla reserva de marcha\nCoroa rosqueável na posição de 3 horas\nIndices e ponteiro com alto nível de lumen\nCaixa de aço inoxidavel e polido\nTratamento anti-arranhões\nCristal de zafira sintético e anti-reflexo\nTampa traseira maciça \nResistencia a agua de 100 metros",
-      "historia": "Primeiro relogio sport",
+      "historia": "- Primeiro Relogio GMT/Sport\n- Cor diferenciada",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068317185-0-PD17627.webp",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792068318760-1-PD1762.jpeg",
@@ -298,7 +294,6 @@
     },
     {
       "id": "rlg-1792060960507",
-      "ordem": 4,
       "marca": "Technos",
       "modelo": "2415DY/1A",
       "tipo": "Diver",
@@ -319,7 +314,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela de Gancho",
       "descricao": "Resistência à água de até 150 metros (15 ATM).\nMostrador azul com lupa de calendário e lente antirreflexo.\nMarcadores luminescentes.\nAro giratório unidirecional com aplicação de cor.",
-      "historia": "",
+      "historia": "- Primeiro Technos da Coleção\n- Inspirado no Omega 007",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792060957934-2415DY1A.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792062946064-6-2415DY1A7.jpeg",
@@ -438,7 +433,7 @@
     {
       "id": "rlg-1792290668615",
       "marca": "Omega x Swatch",
-      "modelo": "Moonwatch Mission To Earthphase Gold",
+      "modelo": "Mission To Earthphase Moonshine Gold",
       "tipo": "Complicação Astronômica",
       "tipo_aquisicao": "compra",
       "data_compra": "2026-09-15",
