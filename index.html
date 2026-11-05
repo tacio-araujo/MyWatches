@@ -2121,7 +2121,7 @@ const modoVisitante = urlParams.has('share');
         (!modoVisitante && r.valor) ? { label: valorLabel, valor: r.valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }), destaqueVerde: true } : null
       ];
 
-      grid.innerHTML = campos.filter(c => c.valor && c.valor.toString().trim() !== '').map(c => {
+      grid.innerHTML = campos.filter(c => c && c.valor && c.valor.toString().trim() !== '').map(c => {
         let cor = 'text-slate-800 dark:text-slate-100';
         if (c.destaque) cor = 'text-sky-600 dark:text-sky-400 font-semibold';
         else if (c.destaqueVerde) cor = 'text-emerald-600 dark:text-emerald-400 font-semibold';
