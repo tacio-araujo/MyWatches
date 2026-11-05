@@ -121,6 +121,9 @@
       <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
         <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i><span>Geral</span>
       </button>
+        <button onclick="alternarAba('sobre')" id="tab-btn-sobre" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2">
+          <i data-lucide="book-open" class="w-4 h-4"></i><span>Sobre</span>
+        </button>
     </div>
     <div id="controles-relogios" class="flex items-center gap-1.5 sm:gap-2 mb-3">
       <div class="relative flex-1 min-w-0">
@@ -184,17 +187,18 @@
 <section id="view-geral" class="hidden space-y-4">
   <!-- Grid de Métricas Principais -->
   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-4">
- <!-- 1. Valor Total do Acervo -->
-    <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between">
-      <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
-        <i data-lucide="circle-dollar-sign" class="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 flex-shrink-0"></i>
-        <span class="truncate">Valor Total do Acervo</span>
-      </span>
-      <div class="mt-1.5">
-        <span id="metric-valor-total-acervo" class="text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300 block truncate">R$ 0,00</span>
-        <span id="metric-total-relogios" class="block text-[10px] text-slate-400 mt-0.5 truncate">0 peça(s) no acervo</span>
-      </div>
-    </div>
+      <!-- 1. Valor Total do Acervo -->
+        <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between">
+          <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
+            <i data-lucide="circle-dollar-sign" class="w-3.5 h-3.5 text-sky-500 dark:text-sky-400 flex-shrink-0"></i>
+            <span class="truncate">Valor Total do Acervo</span>
+          </span>
+          <div class="mt-1.5">
+            <span id="metric-valor-total-acervo" class="text-lg sm:text-xl font-bold text-sky-600 dark:text-sky-300 block truncate">R$ 0,00</span>
+            <span id="metric-total-relogios" class="block text-[10px] text-slate-400 mt-0.5 truncate">0 peça(s) no acervo</span>
+          </div>
+        </div>
+
     <!-- 2. Patrimônio Investido -->
     <div class="card-navy p-3 sm:p-4 rounded-xl flex flex-col justify-between">
       <span class="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5 font-medium">
@@ -301,12 +305,51 @@
     <button type="button" id="btnTimelineAno" onclick="mudarModoTimeline('ano')" class="px-2.5 py-0.5 text-xs font-semibold rounded text-slate-400 hover:text-white border border-transparent transition-colors">Ano</button>
 </div>
     </div>
-    <div class="h-56">
-      <canvas id="chartTimeline"></canvas>
-    </div>
-  </div>
-</section>
+            <div class="h-56">
+          <canvas id="chartTimeline"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: SOBRE / CARTA -->
+    <section id="view-sobre" class="hidden max-w-4xl mx-auto pb-20">
+      <div class="relative bg-slate-900/60 border border-amber-500/20 rounded-2xl p-6 sm:p-10 shadow-2xl backdrop-blur-md">
+        <!-- Faixa Dourada Decorativa -->
+        <div class="absolute -top-[1px] left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+
+        <!-- Cabeçalho da Carta -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-amber-500/80 font-mono">Arquivo Pessoal & Legado</span>
+            <h2 id="sobre-titulo-view" class="font-serif text-2xl sm:text-3xl text-amber-100 font-bold mt-1 tracking-wide">
+              Tempo, Memórias & Legado
+            </h2>
+            <p id="sobre-data-view" class="text-xs text-slate-500 mt-1 font-mono">Última atualização: --/--/----</p>
+          </div>
+
+          <!-- Botão visível apenas para Admin -->
+          <div id="admin-sobre-actions">
+            <button onclick="abrirModalEditarSobre()" class="px-4 py-2 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg text-xs font-medium transition-all flex items-center gap-2">
+              <i data-lucide="pen-tool" class="w-3.5 h-3.5"></i>
+              <span>Editar Carta</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Conteúdo do Texto -->
+        <div class="mt-8">
+          <div id="sobre-conteudo-view" class="text-slate-300 leading-relaxed space-y-4 font-sans text-base sm:text-lg font-light tracking-wide whitespace-pre-wrap"></div>
+        </div>
+
+        <!-- Assinatura decorativa inferior -->
+        <div class="mt-12 pt-6 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500 italic">
+          <span>MyWatches Arquivo Confidencial</span>
+          <span>Tempo Vivido é História para Compartilhar</span>
+        </div>
+      </div>
+    </section>
   </main>
+
   <!-- Modal Deploy -->
   <div id="modal-deploy" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4 overflow-hidden select-none">
     <div class="absolute inset-0 bg-[#03060a]">
@@ -590,6 +633,42 @@
       </div>
     </div>
   </div>
+  <!-- ==================== MODAL EDITAR SOBRE ==================== -->
+  <div id="modal-sobre" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-amber-500/30 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      
+      <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+        <div class="flex items-center gap-2 text-amber-400">
+          <i data-lucide="book-open" class="w-5 h-5"></i>
+          <h3 class="font-bold text-lg text-slate-100">Editar Sobre / Carta</h3>
+        </div>
+        <button onclick="fecharModalEditarSobre()" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-5 overflow-y-auto space-y-4 flex-1">
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Título</label>
+          <input type="text" id="input-sobre-titulo" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-2.5 text-slate-200 text-sm focus:border-amber-500 outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Mensagem / Texto Livre</label>
+          <textarea id="input-sobre-conteudo" rows="12" placeholder="Escreva sobre o momento atual, o propósito da coleção, pensamentos para quem for ler no futuro..." class="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-slate-200 text-sm focus:border-amber-500 outline-none resize-none leading-relaxed"></textarea>
+        </div>
+      </div>
+
+      <div class="p-4 border-t border-slate-800 bg-slate-950/50 flex justify-end gap-3">
+        <button onclick="fecharModalEditarSobre()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold">Cancelar</button>
+        <button onclick="salvarSobre()" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-lg text-xs font-bold flex items-center gap-2">
+          <i data-lucide="check" class="w-4 h-4"></i>
+          <span>Salvar Alterações</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
 
   <!-- Modal Ficha Técnica -->
   <div id="modal-detalhes" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 modal-backdrop modal-closed">
@@ -629,6 +708,32 @@
     </div>
   </div>
   <footer class="border-t border-slate-200/80 dark:border-[#132238] py-3 text-center text-[11px] text-slate-400 dark:text-slate-500">MyWatches &copy; 2026.</footer>
+  <!-- Modal Editar Carta Sobre -->
+  <div id="modal-sobre" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-2xl w-full p-5 sm:p-6 relative shadow-2xl">
+      <button onclick="fecharModalEditarSobre()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <h3 class="text-sm font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-1 tracking-wider uppercase">Editar Carta / Pensamento</h3>
+      <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-4">Esta carta é geral e representa a introdução ao seu acervo e legado.</p>
+      
+      <div class="space-y-3.5 text-xs">
+        <div>
+          <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Título da Carta</label>
+          <input type="text" id="input-sobre-titulo" placeholder="Ex: Tempo, Memórias & Legado" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2.5 text-slate-900 dark:text-white focus:border-amber-500 outline-none">
+        </div>
+        <div>
+          <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Conteúdo / Mensagem</label>
+          <textarea id="input-sobre-conteudo" rows="8" placeholder="Escreva aqui sua história geral com a coleção..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2.5 text-slate-900 dark:text-white focus:border-amber-500 outline-none leading-relaxed"></textarea>
+        </div>
+        <div class="flex items-center gap-2 pt-2">
+          <button type="button" onclick="fecharModalEditarSobre()" class="px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition font-medium">Cancelar</button>
+          <button type="button" onclick="salvarSobre()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-lg transition tracking-wider uppercase">Salvar Carta</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     let bancoDados = { relogios: [], caixas: [] };
     let fileSha = "";
@@ -863,36 +968,74 @@ const modoVisitante = urlParams.has('share');
 
     function alternarAba(aba) {
       abaAtiva = aba;
-      const btnRelogios = document.getElementById('tab-btn-relogios'), btnCaixas = document.getElementById('tab-btn-caixas'), btnGeral = document.getElementById('tab-btn-geral'), btnGaleria = document.getElementById('tab-btn-galeria');
-      const badgeRelogios = document.getElementById('badge-count-relogios'), badgeCaixas = document.getElementById('badge-count-caixas');
-      const viewRelogios = document.getElementById('view-relogios'), viewCaixas = document.getElementById('view-caixas'), viewGeral = document.getElementById('view-geral'), viewGaleria = document.getElementById('view-galeria');
+      const btnRelogios = document.getElementById('tab-btn-relogios'), 
+            btnCaixas = document.getElementById('tab-btn-caixas'), 
+            btnGeral = document.getElementById('tab-btn-geral'), 
+            btnGaleria = document.getElementById('tab-btn-galeria'),
+            btnSobre = document.getElementById('tab-btn-sobre');
+
+      const badgeRelogios = document.getElementById('badge-count-relogios'), 
+            badgeCaixas = document.getElementById('badge-count-caixas');
+
+      const viewRelogios = document.getElementById('view-relogios'), 
+            viewCaixas = document.getElementById('view-caixas'), 
+            viewGeral = document.getElementById('view-geral'), 
+            viewGaleria = document.getElementById('view-galeria'),
+            viewSobre = document.getElementById('view-sobre');
+
       const controlesRelogios = document.getElementById('controles-relogios');
       const pillsFiltros = document.getElementById('pills-filtros');
       const labelBtn = document.getElementById('label-btn-adicionar');
+      const containerBtnAdicionar = labelBtn ? labelBtn.closest('button') : null;
+
       const estiloBaseInativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400 hover:border-slate-400";
       const estiloAtivoRelogios = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]";
       const estiloAtivoCaixas = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-amber-500 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.2)]";
       const estiloAtivoGeral = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]";
       const estiloAtivoGaleria = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.2)]";
+      const estiloAtivoSobre = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.2)]";
 
-      btnRelogios.className = aba === 'relogios' ? estiloAtivoRelogios : estiloBaseInativo;
-      btnCaixas.className = aba === 'caixas' ? estiloAtivoCaixas : estiloBaseInativo;
-      btnGeral.className = aba === 'geral' ? estiloAtivoGeral : estiloBaseInativo;
+      // Aplica classes de abas
+      if (btnRelogios) btnRelogios.className = aba === 'relogios' ? estiloAtivoRelogios : estiloBaseInativo;
+      if (btnCaixas) btnCaixas.className = aba === 'caixas' ? estiloAtivoCaixas : estiloBaseInativo;
+      if (btnGeral) btnGeral.className = aba === 'geral' ? estiloAtivoGeral : estiloBaseInativo;
       if (btnGaleria) btnGaleria.className = aba === 'galeria' ? estiloAtivoGaleria : estiloBaseInativo;
-      badgeRelogios.className = aba === 'relogios' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
-      badgeCaixas.className = aba === 'caixas' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
-      viewRelogios.classList.toggle('hidden', aba !== 'relogios');
-      viewCaixas.classList.toggle('hidden', aba !== 'caixas');      
-      viewGeral.classList.toggle('hidden', aba !== 'geral');
+      if (btnSobre) btnSobre.className = aba === 'sobre' ? estiloAtivoSobre : estiloBaseInativo;
+
+      // Badges
+      if (badgeRelogios) badgeRelogios.className = aba === 'relogios' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+      if (badgeCaixas) badgeCaixas.className = aba === 'caixas' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+
+      // Exibição de Views
+      if (viewRelogios) viewRelogios.classList.toggle('hidden', aba !== 'relogios');
+      if (viewCaixas) viewCaixas.classList.toggle('hidden', aba !== 'caixas');      
+      if (viewGeral) viewGeral.classList.toggle('hidden', aba !== 'geral');
       if (viewGaleria) viewGaleria.classList.toggle('hidden', aba !== 'galeria');
-      controlesRelogios.classList.toggle('hidden', aba !== 'relogios');
+      if (viewSobre) viewSobre.classList.toggle('hidden', aba !== 'sobre');
+
+      // Controles e filtros (só aparecem na aba relógios)
+      if (controlesRelogios) controlesRelogios.classList.toggle('hidden', aba !== 'relogios');
       if (pillsFiltros) pillsFiltros.classList.toggle('hidden', aba !== 'relogios');
-      if (aba === 'relogios') labelBtn.innerText = "Adicionar Relógio";
-      else if (aba === 'caixas') labelBtn.innerText = "Adicionar Caixa";
-      else labelBtn.innerText = "Novo Relógio";
-      if (aba === 'geral') carregarDashboardGeral();
-      if (aba === 'galeria') renderizarGaleria();
-      lucide.createIcons();    }
+
+      // Botão de adicionar
+      if (labelBtn) {
+        if (aba === 'relogios') labelBtn.innerText = "Adicionar Relógio";
+        else if (aba === 'caixas') labelBtn.innerText = "Adicionar Caixa";
+        else labelBtn.innerText = "Novo Item";
+      }
+
+      // Se estiver em Geral ou Sobre, oculta o botão de adicionar para a tela ficar limpa
+      if (containerBtnAdicionar) {
+        containerBtnAdicionar.classList.toggle('hidden', aba === 'geral' || aba === 'sobre');
+      }
+
+      // Execuções específicas de cada aba
+      if (aba === 'geral' && typeof carregarDashboardGeral === 'function') carregarDashboardGeral();
+      if (aba === 'galeria' && typeof renderizarGaleria === 'function') renderizarGaleria();
+      if (aba === 'sobre' && typeof renderizarSobre === 'function') renderizarSobre();
+
+      if (window.lucide) lucide.createIcons();
+    }
 
     function acaoBotaoAdicionar() {
       if (abaAtiva === 'caixas') {
@@ -1052,10 +1195,15 @@ const modoVisitante = urlParams.has('share');
     }
     function processarDadosRecebidos(json) {
       if (Array.isArray(json)) { 
-        bancoDados = { relogios: json, caixas: [] }; 
+        bancoDados = { relogios: json, caixas: [], sobre: null }; 
       } else { 
-        bancoDados = { relogios: json.relogios || [], caixas: json.caixas || [] }; 
+        bancoDados = { 
+          relogios: json.relogios || [], 
+          caixas: json.caixas || [],
+          sobre: json.sobre || null 
+        }; 
       }
+
       bancoDados.relogios.forEach(r => {
         if (!r.fotos && r.foto) r.fotos = [r.foto];
         if (!r.fotos) r.fotos = [];
@@ -3251,7 +3399,77 @@ function excluirFotoGerenciadorCaixa(idx) {
   }
   renderGerenciadorFotosCaixa();
 }
-    window.onload = carregarDados;
-  </script>
+// Estado padrão caso não exista ainda no JSON
+const SOBRE_PADRAO = {
+  titulo: "Tempo, Memórias & Legado",
+  conteudo: "Esta coleção não é sobre contagem de horas ou peças guardadas em caixas.\n\nÉ o registro dos caminhos percorridos, das vitórias comemoradas, dos presentes recebidos e dos marcos da vida. Cada relógio guarda o eco de um dia especial.\n\nQue quem ler estas palavras encontre nelas não apenas mostradores e engrenagens, mas um pedaço vivo da minha história.",
+  atualizado_em: "04/11/2026"
+};
+
+function renderizarSobre() {
+  // Ajustado: usa bancoDados em vez de dadosApp
+  const dadosSobre = bancoDados?.sobre || SOBRE_PADRAO;
+  
+  const elTitulo = document.getElementById('sobre-titulo-view');
+  const elData = document.getElementById('sobre-data-view');
+  const elConteudo = document.getElementById('sobre-conteudo-view');
+  const elAdminAction = document.getElementById('admin-sobre-actions');
+
+  if (elTitulo) elTitulo.innerText = dadosSobre.titulo || SOBRE_PADRAO.titulo;
+  if (elData) elData.innerText = `Última atualização: ${dadosSobre.atualizado_em || '--/--/----'}`;
+  if (elConteudo) elConteudo.innerText = dadosSobre.conteudo || SOBRE_PADRAO.conteudo;
+
+  // Ajustado: usa modoVisitante (variável real do seu código)
+  if (elAdminAction) {
+    if (modoVisitante) {
+      elAdminAction.classList.add('hidden');
+    } else {
+      elAdminAction.classList.remove('hidden');
+    }
+  }
+
+  if (window.lucide) lucide.createIcons();
+}
+
+function abrirModalEditarSobre() {
+  const dadosSobre = bancoDados?.sobre || SOBRE_PADRAO;
+  document.getElementById('input-sobre-titulo').value = dadosSobre.titulo || '';
+  document.getElementById('input-sobre-conteudo').value = dadosSobre.conteudo || '';
+  document.getElementById('modal-sobre').classList.remove('hidden');
+  if (window.lucide) lucide.createIcons();
+}
+
+function fecharModalEditarSobre() {
+  document.getElementById('modal-sobre').classList.add('hidden');
+}
+
+async function salvarSobre() {
+  const titulo = document.getElementById('input-sobre-titulo').value.trim();
+  const conteudo = document.getElementById('input-sobre-conteudo').value.trim();
+  const hoje = new Date().toLocaleDateString('pt-BR');
+
+  // Atualiza os dados no banco
+  if (!bancoDados.sobre) bancoDados.sobre = {};
+  bancoDados.sobre.titulo = titulo || SOBRE_PADRAO.titulo;
+  bancoDados.sobre.conteudo = conteudo;
+  bancoDados.sobre.atualizado_em = hoje;
+
+  // 1. Marca a pendência primeiro
+  atualizarStatusPendencias(true);
+
+  // 2. Persiste localmente no IndexedDB
+  await salvarEstadoLocalIndexedDB();
+
+  fecharModalEditarSobre();
+  renderizarSobre();
+
+  // 3. Sincroniza automaticamente (se você quiser sincronizar na hora):
+  if (typeof sincronizarTudoComGithub === 'function') {
+    sincronizarTudoComGithub();
+  }
+}
+
+window.onload = carregarDados;
+</script>
 </body>
 </html>
