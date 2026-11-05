@@ -22,7 +22,7 @@
       "cor_correia": "Cinza",
       "tipo_fecho": "Fivela",
       "descricao": "Réplica - Mostrador Branco",
-      "historia": "Primeiro da coleção",
+      "historia": "- Primeiro da coleção\n- Marca o início independente do valor e o status do item",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067143986-2-Bulgari2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792067142157-1-Bulgari1.jpeg",
@@ -85,7 +85,7 @@
       "cor_correia": "Preta",
       "tipo_fecho": "Fivela",
       "descricao": "Mecanismo Automático Seagull ST1601 de alto padrão com duração de até 42 horas e construção Skeleton\n- Ponteiros luminescente Lumi-Vision®\n- Caseback e fecho clasp em aço inox 304L\n- Caixa em liga metálica escovada extremamente reforçada e resistente a riscos\n- Vidro mineral Hardlex, resistente à riscos e extremamente durável\n- Coroa de pressão, com ajuste preciso e acionamento suave\n- Pulseira Rubber-Strap, borracha resistente e confortável\n- Resistência à agua até 30 metros: 3ATM\n- Dimensões: Larg da caixa (bisel): 42 mm; Lug to lug: 48 mm; Espessura da caixa: 11 mm; Larg da pulseira: 22 mm",
-      "historia": "- 1° Edição Limitada da Coleção\n- Edição 022/100",
+      "historia": "- 1° Edição Limitada da Coleção\n- Edição 022/100\n- Interessante Participar de Uma Compra Limitada e Acessível",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119363704-2-1000393175.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119367116-4-1000393171.jpg",
@@ -94,8 +94,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119361902-1-1000393534.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792119368623-5-1000393170.jpg"
       ],
-      "video": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/videos/video-rlg-1792119305427-1793729550023.mp4",
-      "ordem": 999
+      "video": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/videos/video-rlg-1792119305427-1793729550023.mp4"
     },
     {
       "id": "rlg-1792113087155",
@@ -119,7 +118,7 @@
       "cor_correia": "Preta",
       "tipo_fecho": "Fecho com botao oculto",
       "descricao": "Material da Pulseira: Aço Inoxidável\nMaterial da Caixa: Aço Inoxidável\nMovimento: Quartz\nMaterial do Visor: Vidro Hardlex\nDiâmetro da Caixa: 42mm\nEspessura da Caixa: 10mm\nLargura da Pulseira: 22mm\nComprimento da Pulseira: 20cm\nFecho: Fecho com botão oculto\nResistência à Água: Suporta respingos e exposição à chuva leve. Não é indicado para mergulho.\nFunções: Data automática, cronógrafo, ponteiros luminosos",
-      "historia": "1° Presente - Day",
+      "historia": "- 1° Presente - Day\n- Um Registro de Carinho \n- Um Breve Nervoso com a Importação Demorada",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113073417-2-1000393425.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113082854-3-1000393428.jpg",
@@ -127,8 +126,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113085523-4-1000393416.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792113071538-1-1000393421.jpg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792113688646",
@@ -183,7 +181,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Borboleta",
       "descricao": "Vidro: Hardlex (mais resistente a riscos)\nResistência à água: 3 ATM\nCronômetro de minutos\nCronômetro de segundos\nSubmostrador de 24 horas\nCalendário com exibição de data\nEscala taquímetro no aro (visual esportivo)",
-      "historia": "Presente - Kaique - Dias Dos Pais",
+      "historia": "- Presente - Kaique - Dias Dos Pais\n- Foi Comprado Com Dinheiro que Ganhou ao Começar a Trabalhar na Oficina\n- 1° Presente com Dinheiro Próprio",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074803333-4-Poedagar815B5.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074798367-1-Poedagar815B2.jpeg",
@@ -192,8 +190,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792078130718",
@@ -217,7 +214,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela",
       "descricao": "Design: Possui uma forma quadrada\nIluminação: Gás tritium para visibilidade em baixa luz.\nVisualização de ponteiros clássicos com função de calendário.\nResistência à água: desempenho impermeável.\nVidro: Espelho de vidro reforçado mineral protege contra arranhões.\n- Coroa & Fivela: Design da coroa espiral emparelhado com fivela do pino de aço inoxidável.",
-      "historia": "Presente - Day - Dia dos Pais\n2° Relógio",
+      "historia": "- Presente - Day - Dia dos Pais\n- 2° Relógio\n- Cor Diferenciada e Específica no Carinho",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078125492-2-ciloa2.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078127381-3-ciloa3.jpeg",
@@ -225,8 +222,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078129119-4-ciloa4.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792078123926-1-ciloa1.jpeg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1792115285419",
@@ -360,7 +356,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379525027-1-1000394796.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1792379526247-2-1000394798.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792073641907",
@@ -431,7 +428,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114423163-4-1000386337.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792114416743-1-1000386329.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792290668615",
@@ -487,7 +485,7 @@
       "cor_correia": "Prata",
       "tipo_fecho": "Fivela",
       "descricao": "Referencia: 2415EL1A\nLinha: Acqua\nVidro: Cristal Mineral\nMaterial da Caixa: Aço Inoxidável\nMaterial da Pulseira: Aço Inoxidável\nModelo: Analógico\nMecanismo: Quartzo\nAlimentação: Óxido de Prata\nResistência à Água: 15ATM\nDiâmetro da Caixa: 44,5mm (sem coroa)\nPeso: 155g",
-      "historia": "- Presente - Aniversário\n- Segundo Diver Inspirando Nas Cores do Rolex",
+      "historia": "- Presente - Aniversário\n- União Para um Presente em Conjunto\n- Segundo Diver Inspirando Nas Cores do Rolex",
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080341486-0-Techonos2415EL1A.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080343179-1-Techonos2415EL1A1.jpeg",
@@ -497,8 +495,7 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080350903-6-Techonos2415EL1A6.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792080352409-7-Techonos2415EL1A7.jpeg"
       ],
-      "video": null,
-      "ordem": 999
+      "video": null
     },
     {
       "id": "rlg-1793707429868",
