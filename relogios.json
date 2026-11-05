@@ -1,6 +1,32 @@
 {
   "relogios": [
     {
+      "id": "rlg-1793921684993",
+      "marca": "Apple",
+      "modelo": "Watch SE",
+      "tipo": "Smartwatch",
+      "tipo_aquisicao": "compra",
+      "data_compra": "2023-12-05",
+      "valor": 1890,
+      "origem": "Day",
+      "prestigio": 5,
+      "afeto": 5,
+      "valor_rating": 5,
+      "calibre": "Apple S8 (ou similar da linha SE)",
+      "cor_mostrador": "Digital (Display OLED)",
+      "diametro": "44mm",
+      "cor_caixa": "Starlight (Estelar / Dourado claro)",
+      "cor_bisel": "",
+      "material_correia": "Fluoroelastômero",
+      "tipo_correia": "Correia",
+      "cor_correia": "Starlight (Estelar)",
+      "tipo_fecho": "Pin-and-tuck (Pino)",
+      "descricao": "Apple Watch SE com caixa de 44mm na cor Starlight (Dourado Estelar), smartwatch com recursos avançados de monitoramento de saúde e fitness.",
+      "historia": "- Presente - Aniversário - Day\n- Mudança para Apple",
+      "fotos": [],
+      "video": null
+    },
+    {
       "id": "rlg-1792067145760",
       "marca": "Bvlgari",
       "modelo": "Aluminium",
@@ -194,7 +220,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792074796923-0-Poedagar815B1.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792075508893-0-Poedagar815B.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792078130718",
@@ -259,7 +286,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115573233-3-1000393497.jpg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792115574962-4-1000393500.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792068328361",
@@ -399,7 +427,8 @@
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073621887-0-caixa1-MY-H3AC.jpeg",
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/1792073627308-3-caixa-MY-H3AC.jpeg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792114425209",
