@@ -48,7 +48,7 @@
   <div class="bg-luxury-pattern"></div>
       <!-- Splash Screen Tela Cheia -->
       <div id="app-splash-loader" class="fixed inset-0 z-[200] bg-[#03060a] flex flex-col justify-between items-center transition-opacity duration-700 py-12 sm:py-16 px-4">
-        <img src="images/relogiocapa.jpeg" alt="Carregando Acervo" class="absolute inset-0 w-full h-full object-cover opacity-60">
+        <img src="images/relogiocapa.jpeg" alt="Carregando Todos os Itens" class="absolute inset-0 w-full h-full object-cover opacity-60">
         <div class="absolute inset-0 bg-gradient-to-t from-[#03060a] via-black/30 to-[#03060a]/85 pointer-events-none"></div>
         
         <!-- Topo: Título da Coleção -->
@@ -77,7 +77,7 @@
               <circle cx="24" cy="24" r="2" fill="#38bdf8" />
             </svg>
           </div>
-          <p class="text-xs text-sky-400 tracking-widest uppercase font-semibold drop-shadow">Carregando Acervo...</p>
+          <p class="text-xs text-sky-400 tracking-widest uppercase font-semibold drop-shadow">Carregando Todos os Itens ...</p>
         </div>
       </div>
 
@@ -733,31 +733,6 @@
     </div>
   </div>
   <footer class="border-t border-slate-200/80 dark:border-[#132238] py-3 text-center text-[11px] text-slate-400 dark:text-slate-500">MyWatches &copy; 2026.</footer>
-  <!-- Modal Editar Carta Sobre -->
-  <div id="modal-sobre" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white dark:bg-[#0b1424] border border-slate-200 dark:border-[#1d3356] rounded-2xl max-w-2xl w-full p-5 sm:p-6 relative shadow-2xl">
-      <button onclick="fecharModalEditarSobre()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-white">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-      <h3 class="text-sm font-serif-lux font-bold text-amber-600 dark:text-amber-400 mb-1 tracking-wider uppercase">Editar Carta / Pensamento</h3>
-      <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-4">Esta carta é geral e representa a introdução ao seu acervo e legado.</p>
-      
-      <div class="space-y-3.5 text-xs">
-        <div>
-          <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Título da Carta</label>
-          <input type="text" id="input-sobre-titulo" placeholder="Ex: Tempo, Memórias & Legado" class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2.5 text-slate-900 dark:text-white focus:border-amber-500 outline-none">
-        </div>
-        <div>
-          <label class="text-slate-600 dark:text-slate-400 block mb-1 font-medium">Conteúdo / Mensagem</label>
-          <textarea id="input-sobre-conteudo" rows="8" placeholder="Escreva aqui sua história geral com a coleção..." class="w-full bg-slate-50 dark:bg-[#060c16] border border-slate-200 dark:border-[#1b2f4d] rounded-lg p-2.5 text-slate-900 dark:text-white focus:border-amber-500 outline-none leading-relaxed"></textarea>
-        </div>
-        <div class="flex items-center gap-2 pt-2">
-          <button type="button" onclick="fecharModalEditarSobre()" class="px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition font-medium">Cancelar</button>
-          <button type="button" onclick="salvarSobre()" class="flex-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2.5 rounded-lg transition tracking-wider uppercase">Salvar Carta</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script>
     let bancoDados = { relogios: [], caixas: [] };
@@ -1131,7 +1106,7 @@ const modoVisitante = urlParams.has('share');
       const splash = document.getElementById('app-splash-loader');
       if (splash) {
         const tempoDecorrido = Date.now() - tempoInicioCarregamento;
-        const tempoRestante = Math.max(0, 3000 - tempoDecorrido);
+        const tempoRestante = Math.max(0, 5000 - tempoDecorrido);
         setTimeout(() => {
           splash.classList.add('opacity-0');
           setTimeout(() => splash.classList.add('hidden'), 700);
@@ -3522,6 +3497,7 @@ async function salvarSobre() {
 
   // 2. Persiste localmente no IndexedDB
   await salvarEstadoLocalIndexedDB();
+
   fecharModalEditarSobre();
   renderizarSobre();
 
