@@ -2873,6 +2873,7 @@ async function salvarSobre() {
 }
   
     // ================= RENDERIZAR ARQUIVO / EX-COLEÇÃO =================
+    // ================= RENDERIZAR ARQUIVO / EX-COLEÇÃO =================
     function renderizarExColecao() {
       const grid = document.getElementById('grid-ex-colecao');
       if (!grid) return;
@@ -2890,39 +2891,72 @@ async function salvarSobre() {
         return;
       }
 
-      grid.innerHTML = lista.map(item => `
-        <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between border border-slate-200/50 dark:border-[#132238]">
-          <div class="relative h-52 sm:h-56 bg-slate-900 overflow-hidden flex items-center justify-center">
-            <img src="${item.foto || 'https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'}" alt="${item.modelo}" class="w-full h-full object-cover filter grayscale-[25%] hover:grayscale-0 transition duration-300" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
-            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2 py-0.5 rounded text-[10px] font-mono text-slate-300">
-              Saída: ${item.anoSaida || 'N/A'}
-            </span>
-            ${item.motivo ? `<span class="absolute bottom-2.5 left-2.5 bg-rose-500/80 text-white text-[10px] px-2 py-0.5 rounded font-medium">${item.motivo}</span>` : ''}
-          </div>
-          <div class="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
-            <div>
-              <div class="flex justify-between items-baseline">
-                <p class="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold">${item.marca}</p>
-                <span class="text-[10px] text-slate-400 font-mono">${item.movimento || ''}</span>
-              </div>
-              <h3 class="text-sm font-semibold text-slate-900 dark:text-white mt-0.5">${item.modelo}</h3>
-              ${item.notas ? `<p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed bg-slate-100/50 dark:bg-slate-900/50 p-2.5 rounded-lg border border-slate-200/40 dark:border-slate-800/80 italic">"${item.notas}"</p>` : ''}
-            </div>
+      grid.innerHTML = lista.map(item => {
+        const fotoCapa = (item.fotos && item.fotos[0]) || item.foto || 'https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto';
 
-            <div class="mt-3 pt-2 border-t border-slate-200/80 dark:border-[#132238] flex items-center justify-end">
-              ${!modoVisitante ? `
-                <button onclick="editarExColecao('${item.id}')" title="Editar Peça do Arquivo" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-[#0c182b] transition flex items-center gap-1 text-[11px]">
-                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                  <span>Editar</span>
-                </button>
-              ` : ''}
+        return `
+          <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between border border-slate-200/50 dark:border-[#132238]">
+            <div class="relative h-52 sm:h-56 bg-slate-900 overflow-hidden flex items-center justify-center group">
+              <img src="${fotoCapa}" alt="${item.modelo}" 
+                   class="w-full h-full object-cover cursor-pointer hover:scale-105 transition duration-300" 
+                   onclick="abrirGaleriaExColecao('${item.id}')" 
+                   onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
+              <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2 py-0.5 rounded text-[10px] font-mono text-slate-300">
+                Saída: ${item.anoSaida || 'N/A'}
+              </span>
+              ${item.motivo ? `<span class="absolute bottom-2.5 left-2.5 bg-rose-500/80 text-white text-[10px] px-2 py-0.5 rounded font-medium">${item.motivo}</span>` : ''}
+            </div>
+            <div class="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
+              <div>
+                <div class="flex justify-between items-baseline">
+                  <p class="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold">${item.marca}</p>
+                  <span class="text-[10px] text-slate-400 font-mono">${item.movimento || ''}</span>
+                </div>
+                <h3 class="text-sm font-semibold text-slate-900 dark:text-white mt-0.5">${item.modelo}</h3>
+                ${item.notas ? `<p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed bg-slate-100/50 dark:bg-slate-900/50 p-2.5 rounded-lg border border-slate-200/40 dark:border-slate-800/80 italic">"${item.notas}"</p>` : ''}
+              </div>
+
+              <div class="mt-3 pt-2 border-t border-slate-200/80 dark:border-[#132238] flex items-center justify-end">
+                ${!modoVisitante ? `
+                  <button onclick="editarExColecao('${item.id}')" title="Editar Peça do Arquivo" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-[#0c182b] transition flex items-center gap-1 text-[11px]">
+                    <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                    <span>Editar</span>
+                  </button>
+                ` : ''}
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
 
       if (window.lucide) lucide.createIcons();
     }
+
+    // ================= VISUALIZADOR DE FOTOS (MESMO MODAL DE RELÓGIOS E CAIXAS) =================
+    function abrirGaleriaExColecao(id) {
+      const item = (bancoDados.ex_colecao || []).find(x => String(x.id) === String(id));
+      if (!item) return;
+
+      // Suporta tanto array de fotos quanto foto única
+      const fotos = Array.isArray(item.fotos) && item.fotos.length > 0
+        ? item.fotos
+        : (item.foto ? [item.foto] : []);
+
+      if (fotos.length === 0) {
+        return alert("Nenhuma foto cadastrada para esta peça.");
+      }
+
+      const lista = fotos.map(url => ({
+        tipo: 'foto',
+        url: url,
+        marca: item.marca || 'Arquivo Histórico',
+        modelo: item.modelo || '',
+        relogioId: null
+      }));
+
+      iniciarVisualizadorMidas(lista, 0);
+    }
+
     // ================= CRUD: ARQUIVO / EX-COLEÇÃO =================
     let fotoExColecaoAtual = '';
 
@@ -2970,7 +3004,6 @@ async function salvarSobre() {
       document.getElementById('ex-movimento').value = item.movimento || '';
       document.getElementById('ex-ano-saida').value = item.anoSaida || '';
       document.getElementById('ex-motivo').value = item.motivo || '';
-      document.getElementById('ex-foto-url').value = item.foto && !item.foto.startsWith('data:') ? item.foto : '';
       document.getElementById('ex-notas').value = item.notas || '';
 
       const btnDel = document.getElementById('btn-excluir-modal-ex');
@@ -3005,14 +3038,10 @@ async function salvarSobre() {
       e.preventDefault();
       const editId = document.getElementById('edit-ex-id').value;
       const targetId = editId || `ex-${Date.now()}`;
-      const urlDigitada = document.getElementById('ex-foto-url').value.trim();
 
       let fotoFinal = fotoExColecaoAtual;
-      if (urlDigitada && (!fotoFinal || !fotoFinal.startsWith('data:'))) {
-        fotoFinal = urlDigitada;
-      }
 
-      // Se editou e trocou a foto antiga remota, agenda exclusão da anterior
+      // Se editou e trocou a foto antiga remota, agenda exclusão da anterior no GitHub
       if (editId) {
         const itemAntigo = (bancoDados.ex_colecao || []).find(x => String(x.id) === String(editId));
         if (itemAntigo && itemAntigo.foto && itemAntigo.foto !== fotoFinal && !itemAntigo.foto.startsWith('data:')) {
@@ -3068,10 +3097,8 @@ async function salvarSobre() {
       const item = bancoDados.ex_colecao[idx];
       if (!confirm(`Remover "${item.modelo}" do arquivo histórico?`)) return;
 
-      // Limpa da fila de envio se ainda não subiu
       pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(f => f.itemId !== id);
 
-      // Agenda deleção física se for URL salva no repositório
       if (item.foto && !item.foto.startsWith('data:') && !item.foto.startsWith('blob:')) {
         pendingChanges.fotosParaExcluir.push(item.foto);
       }
