@@ -1,0 +1,25 @@
+  <style>
+    body { font-family: 'Inter', sans-serif; min-height: 100vh; position: relative; }
+    .bg-luxury-pattern { position: fixed; inset: 0; background-image: radial-gradient(circle at center, rgba(3,6,10,0.55) 0%, rgba(3,6,10,0.88) 65%, rgba(3,6,10,0.98) 100%), url('images/relogiocapa.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; pointer-events: none; z-index: -1; opacity: 0.65; }
+    .font-serif-lux { font-family: 'Cinzel', serif; }
+
+    /* Card Navy fixo no tema escuro */
+    .card-navy { background: linear-gradient(180deg, rgba(11,20,36,0.88) 0%, rgba(6,12,22,0.96) 100%); border: 1px solid rgba(30,52,84,0.6); backdrop-filter: blur(12px); }
+    .card-navy:hover { border-color: rgba(96,165,250,0.45); box-shadow: 0 10px 30px -10px rgba(15,41,77,0.8), 0 0 20px rgba(59,130,246,0.12); }
+
+    .img-zoom-box { overflow: hidden; cursor: crosshair; touch-action: none; }
+    .img-zoom-box img { transition: transform 0.12s ease-out; will-change: transform; }
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #172842; border-radius: 3px; }
+    @keyframes pulse-glow { 0%,100%{opacity:0.6;} 50%{opacity:1; filter:drop-shadow(0 0 12px rgba(56,189,248,0.8));} }
+    .deploy-pulse { animation: pulse-glow 2s infinite ease-in-out; }
+
+    /* Transições suaves dos Modais */
+    .modal-backdrop { transition: opacity 0.22s ease-out, visibility 0.22s ease-out; }
+    .modal-backdrop.modal-closed { opacity: 0; pointer-events: none; visibility: hidden; }
+    .modal-backdrop:not(.modal-closed) { opacity: 1; pointer-events: auto; visibility: visible; }
+    .modal-dialog { transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease-out; }
+    .modal-backdrop.modal-closed .modal-dialog { transform: scale(0.96) translateY(8px); opacity: 0; }
+    .modal-backdrop:not(.modal-closed) .modal-dialog { transform: scale(1) translateY(0); opacity: 1; }
+  </style>
