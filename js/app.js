@@ -328,9 +328,10 @@ const modoVisitante = urlParams.has('share');
             const decoded = decodeURIComponent(escape(atob(data.content)));
             processarDadosRecebidos(JSON.parse(decoded));
           } catch (err) { 
-            bancoDados = { relogios: [], caixas: [] }; 
+            bancoDados = { relogios: [], caixas: [], ex_colecao: [], sobre: null }; 
           }
         }
+
       }
       atualizarBotoesModoVisualizacao();
       atualizarBotoesFiltroGaleria();
@@ -454,9 +455,9 @@ const modoVisitante = urlParams.has('share');
         boxDesc.classList.add('hidden');
       }
 
-      document.getElementById('detalhe-box-historia').classList.add('hidden');
-      const boxVid = document.getElementById('detalhe-box-video');
-      if (boxVid) boxVid.classList.add('hidden');
+    document.getElementById('detalhe-box-historia').classList.add('hidden');
+    const boxVid = document.getElementById('detalhe-box-video');
+    if (boxVid) boxVid.classList.add('hidden');
 
       abrirModalSuave('modal-detalhes');
       lucide.createIcons();
@@ -1752,7 +1753,6 @@ async function converterHeicSeNecessario(file) {
     }
 
 async function chamarGemini(referencia, prompt) {
-  // Use o modelo mais recente suportado (ex: gemini-2.5-flash)
   const MODELO = 'gemini-3.5-flash-lite';
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODELO}:generateContent`;
 
@@ -1767,7 +1767,11 @@ async function chamarGemini(referencia, prompt) {
         {
           parts: [{ text: prompt }]
         }
-      ]
+      ],
+      generationConfig: {
+        responseMimeType: "application/json",
+        temperature: 0.2
+      }
     })
   });
 
@@ -1777,7 +1781,14 @@ async function chamarGemini(referencia, prompt) {
   }
 
   const data = await response.json();
-  return data.candidates[0].content.parts[0].text;
+  const partes = data.candidates?.[0]?.content?.parts || [];
+  const texto = partes.map(p => p.text || '').filter(Boolean).join('');
+
+  if (!texto) {
+    throw new Error('O Gemini não retornou texto válido. A resposta pode ter sido filtrada.');
+  }
+
+  return texto;
 }
 
     async function chamarGroq(referencia, prompt) {
@@ -2376,7 +2387,12 @@ async function salvarCaixaLocal(e) {
           const item = pendingChanges.fotosParaEnviar[0];
           const nomeBase = (item.nomeOriginal || item.file?.name || 'foto.jpg').replace(/\.[^/.]+$/, '');
           const nomeLimpo = nomeBase.replace(/[^a-zA-Z0-9._-]/g, '_');
-          const prefixo = item.isCaixa ? 'caixa' : 'watch';
+          
+          // CORRIGIDO: Suporte ao prefixo ex-
+          let prefixo = 'watch';
+          if (item.isCaixa) prefixo = 'caixa';
+          else if (item.isExColecao) prefixo = 'ex';
+
           const nomeArquivo = `images/${prefixo}-${Date.now()}-${nomeLimpo}.jpg`;
           const blobParaEnviar = item.blob || item.file;
           const base64Content = await toBase64(blobParaEnviar);
@@ -2385,33 +2401,34 @@ async function salvarCaixaLocal(e) {
             headers: { Authorization: `token ${CONFIG.token}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({ message: `upload: ${nomeLimpo}.jpg`, content: base64Content })
           });
-            if (!res.ok) {
+          if (!res.ok) {
             const errJson = await res.json().catch(() => ({}));
             throw new Error(`Falha no upload da foto (${nomeLimpo}): ` + tratarErroHttpGithub(res, errJson));
           }
           const imgData = await res.json();
           const githubUrl = imgData.content.download_url;
-// Apenas substitui se ela ainda existir no item (não faça push caso tenha sido excluída)
-if (item.isCaixa) {
-  const caixaAlvo = bancoDados.caixas.find(c => c.id === item.itemId);
-  if (caixaAlvo && caixaAlvo.fotos) { 
-    const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl); 
-    if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl; 
-  }
-} else if (item.isExColecao) {
-  const exAlvo = (bancoDados.ex_colecao || []).find(x => String(x.id) === String(item.itemId));
-  if (exAlvo && exAlvo.foto === item.tempUrl) {
-    exAlvo.foto = githubUrl;
-  }
-} else {
-  const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
-  if (relogioAlvo && relogioAlvo.fotos) { 
-    const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl); 
-    if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl; 
-  }
-}
+
+          if (item.isCaixa) {
+            const caixaAlvo = bancoDados.caixas.find(c => c.id === item.itemId);
+            if (caixaAlvo && caixaAlvo.fotos) { 
+              const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl); 
+              if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl; 
+            }
+          } else if (item.isExColecao) {
+            const exAlvo = (bancoDados.ex_colecao || []).find(x => String(x.id) === String(item.itemId));
+            if (exAlvo && exAlvo.foto === item.tempUrl) {
+              exAlvo.foto = githubUrl;
+            }
+          } else {
+            const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
+            if (relogioAlvo && relogioAlvo.fotos) { 
+              const idxFoto = relogioAlvo.fotos.indexOf(item.tempUrl); 
+              if (idxFoto !== -1) relogioAlvo.fotos[idxFoto] = githubUrl; 
+            }
+          }
           pendingChanges.fotosParaEnviar.shift();
         }
+
             if (pendingChanges.videosParaEnviar) {
             while (pendingChanges.videosParaEnviar.length > 0) {
             const itemVid = pendingChanges.videosParaEnviar[0];
@@ -2841,25 +2858,16 @@ async function salvarSobre() {
   const conteudo = document.getElementById('input-sobre-conteudo').value.trim();
   const hoje = new Date().toLocaleDateString('pt-BR');
 
-  // Atualiza os dados no banco
   if (!bancoDados.sobre) bancoDados.sobre = {};
   bancoDados.sobre.titulo = titulo || SOBRE_PADRAO.titulo;
   bancoDados.sobre.conteudo = conteudo;
   bancoDados.sobre.atualizado_em = hoje;
 
-  // 1. Marca a pendência primeiro
   atualizarStatusPendencias(true);
-
-  // 2. Persiste localmente no IndexedDB
   await salvarEstadoLocalIndexedDB();
 
   fecharModalEditarSobre();
   renderizarSobre();
-
-  // 3. Sincroniza automaticamente (se você quiser sincronizar na hora):
-  if (typeof sincronizarTudoComGithub === 'function') {
-    sincronizarTudoComGithub();
-  }
 }
   
     // ================= RENDERIZAR ARQUIVO / EX-COLEÇÃO =================
@@ -2997,13 +3005,20 @@ async function salvarSobre() {
       const targetId = editId || `ex-${Date.now()}`;
       const urlDigitada = document.getElementById('ex-foto-url').value.trim();
 
-      // Usa link digitado se não fez upload novo
       let fotoFinal = fotoExColecaoAtual;
       if (urlDigitada && (!fotoFinal || !fotoFinal.startsWith('data:'))) {
         fotoFinal = urlDigitada;
       }
 
-      // Se for imagem local base64 nova, enfileira para upload no GitHub
+      // Se editou e trocou a foto antiga remota, agenda exclusão da anterior
+      if (editId) {
+        const itemAntigo = (bancoDados.ex_colecao || []).find(x => String(x.id) === String(editId));
+        if (itemAntigo && itemAntigo.foto && itemAntigo.foto !== fotoFinal && !itemAntigo.foto.startsWith('data:')) {
+          pendingChanges.fotosParaExcluir.push(itemAntigo.foto);
+        }
+      }
+
+      // Se for imagem local base64 nova, enfileira para upload
       if (fotoFinal && fotoFinal.startsWith('data:')) {
         const jaEnfileirado = pendingChanges.fotosParaEnviar.some(p => p.tempUrl === fotoFinal);
         if (!jaEnfileirado) {
@@ -3051,7 +3066,11 @@ async function salvarSobre() {
       const item = bancoDados.ex_colecao[idx];
       if (!confirm(`Remover "${item.modelo}" do arquivo histórico?`)) return;
 
-      if (item.foto && !item.foto.startsWith('data:') && item.foto.includes('github')) {
+      // Limpa da fila de envio se ainda não subiu
+      pendingChanges.fotosParaEnviar = pendingChanges.fotosParaEnviar.filter(f => f.itemId !== id);
+
+      // Agenda deleção física se for URL salva no repositório
+      if (item.foto && !item.foto.startsWith('data:') && !item.foto.startsWith('blob:')) {
         pendingChanges.fotosParaExcluir.push(item.foto);
       }
 
