@@ -16,17 +16,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Conversor de HEIC para JPG no navegador -->
+  <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
   <script src="https://unpkg.com/lucide@latest" onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/lucide@latest';"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js" onerror="this.onerror=null;this.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js';"></script>
   <style>
-    body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; min-height: 100vh; position: relative; }
-    .bg-luxury-pattern { position: fixed; inset: 0; background-image: radial-gradient(circle at center, rgba(3,6,10,0.55) 0%, rgba(3,6,10,0.88) 65%, rgba(3,6,10,0.98) 100%), url('images/relogiocapa.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; pointer-events: none; z-index: -1; opacity: 0.65; transition: opacity 0.3s ease; }
-    html:not(.dark) .bg-luxury-pattern { background-image: radial-gradient(circle at center, rgba(248,250,252,0.7) 0%, rgba(241,245,249,0.92) 65%, rgba(226,232,240,0.98) 100%), url('images/relogiocapa.jpeg'); opacity: 0.3; }
+    body { font-family: 'Inter', sans-serif; min-height: 100vh; position: relative; }
+    .bg-luxury-pattern { position: fixed; inset: 0; background-image: radial-gradient(circle at center, rgba(3,6,10,0.55) 0%, rgba(3,6,10,0.88) 65%, rgba(3,6,10,0.98) 100%), url('images/relogiocapa.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; pointer-events: none; z-index: -1; opacity: 0.65; }
     .font-serif-lux { font-family: 'Cinzel', serif; }
-    .dark .card-navy { background: linear-gradient(180deg, rgba(11,20,36,0.88) 0%, rgba(6,12,22,0.96) 100%); border: 1px solid rgba(30,52,84,0.6); backdrop-filter: blur(12px); }
-    .dark .card-navy:hover { border-color: rgba(96,165,250,0.45); box-shadow: 0 10px 30px -10px rgba(15,41,77,0.8), 0 0 20px rgba(59,130,246,0.12); }
-    html:not(.dark) .card-navy { background: rgba(255,255,255,0.92); border: 1px solid rgba(203,213,225,0.8); backdrop-filter: blur(12px); box-shadow: 0 4px 15px -3px rgba(0,0,0,0.05); }
-    html:not(.dark) .card-navy:hover { border-color: rgba(14,165,233,0.5); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
+
+    /* Card Navy fixo no tema escuro */
+    .card-navy { background: linear-gradient(180deg, rgba(11,20,36,0.88) 0%, rgba(6,12,22,0.96) 100%); border: 1px solid rgba(30,52,84,0.6); backdrop-filter: blur(12px); }
+    .card-navy:hover { border-color: rgba(96,165,250,0.45); box-shadow: 0 10px 30px -10px rgba(15,41,77,0.8), 0 0 20px rgba(59,130,246,0.12); }
+
     .img-zoom-box { overflow: hidden; cursor: crosshair; touch-action: none; }
     .img-zoom-box img { transition: transform 0.12s ease-out; will-change: transform; }
     ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -43,6 +45,7 @@
     .modal-backdrop.modal-closed .modal-dialog { transform: scale(0.96) translateY(8px); opacity: 0; }
     .modal-backdrop:not(.modal-closed) .modal-dialog { transform: scale(1) translateY(0); opacity: 1; }
   </style>
+
 </head>
 <body class="bg-[#03060a] text-slate-100 dark:bg-[#03060a] dark:text-slate-100 flex flex-col justify-between select-none sm:select-auto">
   <div class="bg-luxury-pattern"></div>
@@ -113,10 +116,6 @@
         <button id="btn-pwa-install" onclick="instalarPWA()" class="hidden bg-slate-200 dark:bg-[#0c182b] text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-[#1b2f4d] px-2 py-1 rounded-lg text-xs font-semibold tracking-wider transition items-center gap-1">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span class="hidden sm:inline">App</span>
-        </button>
-        <button onclick="alternarTema()" id="btn-theme-toggle" title="Alternar Modo Claro/Escuro" class="p-1.5 sm:p-2 text-slate-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-300 transition rounded-lg hover:bg-slate-100 dark:hover:bg-[#0c182b]">
-          <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
-          <i data-lucide="moon" class="w-4 h-4 block dark:hidden"></i>
         </button>
         <button onclick="abrirModalConfig()" title="Configurações de Acesso" class="p-1.5 sm:p-2 text-slate-600 dark:text-slate-400 hover:text-sky-500 dark:hover:text-sky-300 transition rounded-lg hover:bg-slate-100 dark:hover:bg-[#0c182b]">
           <i data-lucide="settings" class="w-4 h-4"></i>
@@ -546,7 +545,7 @@
             <label class="text-sky-600 dark:text-sky-300 font-semibold block text-[11px] uppercase tracking-wide">Fotos do Relógio</label>
             <span class="text-[10px] text-slate-400">Marcada com estrela será a capa</span>
           </div>
-          <input type="file" id="fotos-files" accept="image/*" multiple class="w-full text-slate-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:bg-sky-100 dark:file:bg-[#12233b] file:text-sky-700 dark:file:text-sky-300 cursor-pointer">
+          <input type="file" id="fotos-files" accept="image/*,.heic,.HEIC,.heif,.HEIF" multiple class="w-full text-slate-500 text-xs file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:bg-[#12233b] file:text-sky-300 cursor-pointer">
           <div id="fotos-manager-container" class="mt-3 hidden"><div id="fotos-manager-list" class="grid grid-cols-2 sm:grid-cols-4 gap-2"></div></div>
         </div>
         <div class="bg-slate-50 dark:bg-[#070e1a] p-3 rounded-lg border border-slate-200 dark:border-[#162740]">
@@ -912,20 +911,6 @@ const modoVisitante = urlParams.has('share');
         document.getElementById('meta-theme-color').setAttribute('content', '#03060a'); 
       }
     }
-
-    function alternarTema() {
-      const html = document.documentElement;
-      const isDark = html.classList.toggle('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
-      document.getElementById('meta-theme-color').setAttribute('content', isDark ? '#03060a' : '#f8fafc');
-      lucide.createIcons();
-        if (abaAtiva === 'geral') carregarDashboardGeral(); }
-          inicializarTema();
-            if ('serviceWorker' in navigator) {
-              window.addEventListener('load', () => {
-              navigator.serviceWorker.register('./sw.js').then(reg => console.log('ServiceWorker PWA pronto:', reg.scope)).catch(err => console.log('Falha no PWA SW:', err));});
-    }
-
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault(); 
       deferredPrompt = e;
@@ -2349,6 +2334,89 @@ const modoVisitante = urlParams.has('share');
       if (player) { player.pause(); player.currentTime = 0; }
       fecharModalSuave('modal-detalhes');
     }
+    async function processarArquivoParaBase64(file) {
+  let arquivoFinal = file;
+
+  // Se for HEIC ou HEIF (fotos de iPhone)
+  const isHeic = file.name.toLowerCase().endsWith('.heic') || 
+                 file.name.toLowerCase().endsWith('.heif') || 
+                 file.type.toLowerCase().includes('heic') || 
+                 file.type.toLowerCase().includes('heif');
+
+  if (isHeic && typeof heic2any !== 'undefined') {
+    try {
+      const blobJpg = await heic2any({
+        blob: file,
+        toType: 'image/jpeg',
+        quality: 0.85
+      });
+      // Converte o retorno em File (caso retorne array de blobs ou blob único)
+      const blobReal = Array.isArray(blobJpg) ? blobJpg[0] : blobJpg;
+      const novoNome = file.name.replace(/\.(heic|heif)$/i, '.jpg');
+      arquivoFinal = new File([blobReal], novoNome, { type: 'image/jpeg' });
+    } catch (e) {
+      console.warn('Falha ao converter HEIC com heic2any:', e);
+    }
+  }
+
+  // Prossegue para a compressão ou FileReader existente
+  return await comprimirImagem(arquivoFinal);
+}
+
+async function converterHeicSeNecessario(file) {
+  const isHeic = file.name.toLowerCase().endsWith('.heic') || 
+                 file.name.toLowerCase().endsWith('.heif') || 
+                 file.type.toLowerCase().includes('heic') || 
+                 file.type.toLowerCase().includes('heif');
+
+  if (isHeic && typeof heic2any !== 'undefined') {
+    try {
+      const resultado = await heic2any({
+        blob: file,
+        toType: 'image/jpeg',
+        quality: 0.85
+      });
+      const blob = Array.isArray(resultado) ? resultado[0] : resultado;
+      return new File([blob], file.name.replace(/\.(heic|heif)$/i, '.jpg'), { type: 'image/jpeg' });
+    } catch (e) {
+      console.warn("Falha na conversão HEIC:", e);
+      return file;
+    }
+  }
+  return file;
+}
+
+    async function processarArquivoFoto(file) {
+  // Verifica se é HEIC (pela extensão ou mime type)
+  const isHeic = file.name.toLowerCase().endsWith('.heic') || 
+                 file.name.toLowerCase().endsWith('.heif') || 
+                 file.type === 'image/heic' || 
+                 file.type === 'image/heif';
+
+  let arquivoParaComprimir = file;
+
+  if (isHeic) {
+    try {
+      // Converte HEIC para Blob JPEG
+      const blobJpg = await heic2any({
+        blob: file,
+        toType: 'image/jpeg',
+        quality: 0.9
+      });
+
+      // Cria um File válido a partir do blob convertido
+      const novoNome = file.name.replace(/\.(heic|heif)$/i, '.jpg');
+      arquivoParaComprimir = new File([blobJpg], novoNome, { type: 'image/jpeg' });
+    } catch (err) {
+      console.error('Erro ao converter HEIC:', err);
+      alert('Não foi possível processar a foto HEIC. Tente tirar a foto em JPEG ou converter antes.');
+      return null;
+    }
+  }
+
+  // Agora envia para a sua função existente
+  return await comprimirImagem(arquivoParaComprimir);
+}
 
     function comprimirImagem(file, maxDimensao = 1200, qualidade = 0.82) {
       return new Promise((resolve, reject) => {
