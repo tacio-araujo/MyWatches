@@ -26,7 +26,8 @@
       "fotos": [
         "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1794185313273-foto_0.jpg"
       ],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1793921945837",
@@ -51,9 +52,11 @@
       "tipo_fecho": "Fivela",
       "descricao": "- Smartwatch com tela Super AMOLED redondo\n- Processador Exynos W930 dual-core de 1.4 GHz\n- Sensores de saúde avançados (frequência cardíaca, ECG, bioimpedância)\n- Certificação IP68\n- Resistência à água de 5 ATM.",
       "historia": "- Presente - Natal - Day",
-      "fotos": [],
-      "video": null,
-      "ordem": 999
+      "fotos": [
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1794185470457-foto_0.jpg",
+        "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/watch-1794185471849-foto_1.jpg"
+      ],
+      "video": null
     },
     {
       "id": "rlg-1792067145760",
