@@ -1,6 +1,6 @@
   <style>
     body { font-family: 'Inter', sans-serif; min-height: 100vh; position: relative; }
-    .bg-luxury-pattern { position: fixed; inset: 0; background-image: radial-gradient(circle at center, rgba(3,6,10,0.55) 0%, rgba(3,6,10,0.88) 65%, rgba(3,6,10,0.98) 100%), url('images/relogiocapa.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; pointer-events: none; z-index: -1; opacity: 0.65; }
+    .bg-luxury-pattern { position: fixed; inset: 0; background-image: radial-gradient(circle at center, rgba(3,6,10,0.55) 0%, rgba(3,6,10,0.88) 65%, rgba(3,6,10,0.98) 100%), url('../images/relogiocapa.jpeg'); background-size: cover; background-position: center center; background-repeat: no-repeat; pointer-events: none; z-index: -1; opacity: 0.65; }
     .font-serif-lux { font-family: 'Cinzel', serif; }
 
     /* Card Navy fixo no tema escuro */
