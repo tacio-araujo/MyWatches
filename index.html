@@ -121,6 +121,11 @@
       <button onclick="alternarAba('geral')" id="tab-btn-geral" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
         <i data-lucide="bar-chart-2" class="w-3.5 h-3.5"></i><span>Geral</span>
       </button>
+            <!-- COLE ESTE BLOCO LOGO ANTES DO BOTÃO 'SOBRE' -->
+      <button onclick="alternarAba('ex-colecao')" id="tab-btn-ex-colecao" class="flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition">
+        <i data-lucide="archive" class="w-3.5 h-3.5"></i><span>Arquivo</span>
+        <span id="badge-count-ex-colecao" class="ml-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold">0</span>
+      </button>
         <button onclick="alternarAba('sobre')" id="tab-btn-sobre" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-2">
           <i data-lucide="book-open" class="w-4 h-4"></i><span>Sobre</span>
         </button>
@@ -309,6 +314,23 @@
           <canvas id="chartTimeline"></canvas>
         </div>
       </div>
+    </section>
+
+        <!-- VIEW ARQUIVO / EX-COLEÇÃO -->
+    <section id="view-ex-colecao" class="hidden space-y-4">
+      <div class="card-navy p-3 sm:p-4 rounded-xl flex items-center justify-between border border-slate-200/40 dark:border-[#132238]">
+        <div>
+          <h3 class="text-sm sm:text-base font-serif-lux font-bold text-slate-800 dark:text-slate-100 uppercase tracking-wider">
+            Arquivo & Histórico
+          </h3>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400">
+            Peças que já passaram pelo acervo e suas histórias
+          </p>
+        </div>
+      </div>
+
+      <!-- O JavaScript preencherá este grid com os cards -->
+      <div id="grid-ex-colecao" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"></div>
     </section>
 
     <!-- VIEW 4: SOBRE / CARTA -->
