@@ -1,4 +1,4 @@
-    let bancoDados = { relogios: [], caixas: [] };
+    let bancoDados = { relogios: [], caixas: [], ex_colecao: [], sobre: null };
     let fileSha = "";
     let abaAtiva = 'relogios';
     let modoVisualizacao = localStorage.getItem('mywatches_view_mode') || 'grid-1';
@@ -221,15 +221,18 @@ const modoVisitante = urlParams.has('share');
             btnCaixas = document.getElementById('tab-btn-caixas'), 
             btnGeral = document.getElementById('tab-btn-geral'), 
             btnGaleria = document.getElementById('tab-btn-galeria'),
+            btnExColecao = document.getElementById('tab-btn-ex-colecao'),
             btnSobre = document.getElementById('tab-btn-sobre');
 
       const badgeRelogios = document.getElementById('badge-count-relogios'), 
-            badgeCaixas = document.getElementById('badge-count-caixas');
+            badgeCaixas = document.getElementById('badge-count-caixas'),
+            badgeExColecao = document.getElementById('badge-count-ex-colecao');
 
       const viewRelogios = document.getElementById('view-relogios'), 
             viewCaixas = document.getElementById('view-caixas'), 
             viewGeral = document.getElementById('view-geral'), 
             viewGaleria = document.getElementById('view-galeria'),
+            viewExColecao = document.getElementById('view-ex-colecao'),
             viewSobre = document.getElementById('view-sobre');
 
       const controlesRelogios = document.getElementById('controles-relogios');
@@ -240,8 +243,9 @@ const modoVisitante = urlParams.has('share');
       const estiloBaseInativo = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-200 dark:border-[#1b2f4d] bg-white dark:bg-[#070e1a] text-slate-600 dark:text-slate-400 hover:border-slate-400";
       const estiloAtivoRelogios = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-sky-500 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 shadow-[0_0_15px_rgba(56,189,248,0.2)]";
       const estiloAtivoCaixas = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-amber-500 bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.2)]";
-      const estiloAtivoGeral = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 shadow-[0_0_15px_rgba(16,185,129,0.2)]";
+      const estiloAtivoGeral = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 shadow-[0_0_15px_rgba(160,185,129,0.2)]";
       const estiloAtivoGaleria = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-purple-500 bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 shadow-[0_0_15px_rgba(168,85,247,0.2)]";
+      const estiloAtivoExColecao = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-slate-400 bg-slate-100 dark:bg-slate-800/60 text-slate-800 dark:text-slate-200 shadow-[0_0_15px_rgba(148,163,184,0.15)]";
       const estiloAtivoSobre = "flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-lg text-xs font-semibold uppercase tracking-wider transition border border-rose-500 bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.2)]";
 
       // Aplica classes de abas
@@ -249,17 +253,20 @@ const modoVisitante = urlParams.has('share');
       if (btnCaixas) btnCaixas.className = aba === 'caixas' ? estiloAtivoCaixas : estiloBaseInativo;
       if (btnGeral) btnGeral.className = aba === 'geral' ? estiloAtivoGeral : estiloBaseInativo;
       if (btnGaleria) btnGaleria.className = aba === 'galeria' ? estiloAtivoGaleria : estiloBaseInativo;
+      if (btnExColecao) btnExColecao.className = aba === 'ex-colecao' ? estiloAtivoExColecao : estiloBaseInativo;
       if (btnSobre) btnSobre.className = aba === 'sobre' ? estiloAtivoSobre : estiloBaseInativo;
 
       // Badges
       if (badgeRelogios) badgeRelogios.className = aba === 'relogios' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-sky-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
       if (badgeCaixas) badgeCaixas.className = aba === 'caixas' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-amber-500 text-white dark:text-slate-950 font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
+      if (badgeExColecao) badgeExColecao.className = aba === 'ex-colecao' ? "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-500 text-white font-bold" : "ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300";
 
       // Exibição de Views
       if (viewRelogios) viewRelogios.classList.toggle('hidden', aba !== 'relogios');
       if (viewCaixas) viewCaixas.classList.toggle('hidden', aba !== 'caixas');      
       if (viewGeral) viewGeral.classList.toggle('hidden', aba !== 'geral');
       if (viewGaleria) viewGaleria.classList.toggle('hidden', aba !== 'galeria');
+      if (viewExColecao) viewExColecao.classList.toggle('hidden', aba !== 'ex-colecao');
       if (viewSobre) viewSobre.classList.toggle('hidden', aba !== 'sobre');
 
       // Controles e filtros (só aparecem na aba relógios)
@@ -273,14 +280,15 @@ const modoVisitante = urlParams.has('share');
         else labelBtn.innerText = "Novo Item";
       }
 
-      // Se estiver em Geral ou Sobre, oculta o botão de adicionar para a tela ficar limpa
+      // Oculta o botão adicionar em abas que não têm criação rápida
       if (containerBtnAdicionar) {
-        containerBtnAdicionar.classList.toggle('hidden', aba === 'geral' || aba === 'sobre');
+        containerBtnAdicionar.classList.toggle('hidden', aba === 'geral' || aba === 'sobre' || aba === 'ex-colecao');
       }
 
       // Execuções específicas de cada aba
       if (aba === 'geral' && typeof carregarDashboardGeral === 'function') carregarDashboardGeral();
       if (aba === 'galeria' && typeof renderizarGaleria === 'function') renderizarGaleria();
+      if (aba === 'ex-colecao' && typeof renderizarExColecao === 'function') renderizarExColecao();
       if (aba === 'sobre' && typeof renderizarSobre === 'function') renderizarSobre();
 
       if (window.lucide) lucide.createIcons();
@@ -449,11 +457,12 @@ const modoVisitante = urlParams.has('share');
     }
     function processarDadosRecebidos(json) {
       if (Array.isArray(json)) { 
-        bancoDados = { relogios: json, caixas: [], sobre: null }; 
+        bancoDados = { relogios: json, caixas: [], ex_colecao: [], sobre: null }; 
       } else { 
         bancoDados = { 
           relogios: json.relogios || [], 
           caixas: json.caixas || [],
+          ex_colecao: json.ex_colecao || [],
           sobre: json.sobre || null 
         }; 
       }
@@ -518,9 +527,12 @@ const modoVisitante = urlParams.has('share');
     function renderizarTudo() {
       document.getElementById('badge-count-relogios').innerText = bancoDados.relogios.length;
       document.getElementById('badge-count-caixas').innerText = bancoDados.caixas.length;
+      const badgeEx = document.getElementById('badge-count-ex-colecao');
+      if (badgeEx) badgeEx.innerText = (bancoDados.ex_colecao || []).length;
       renderizarPillsFiltros();
       aplicarFiltrosEOrdem();
       renderCaixas();
+      if (typeof renderizarExColecao === 'function') renderizarExColecao();
     }
 
     function mudarFotoCard(id, direcao, event) {
@@ -2838,6 +2850,46 @@ async function salvarSobre() {
     sincronizarTudoComGithub();
   }
 }
+    // ================= RENDERIZAR ARQUIVO / EX-COLEÇÃO =================
+    function renderizarExColecao() {
+      const grid = document.getElementById('grid-ex-colecao');
+      if (!grid) return;
+
+      const lista = bancoDados.ex_colecao || [];
+
+      if (lista.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-500">
+            <i data-lucide="archive" class="w-10 h-10 mx-auto mb-2 opacity-40"></i>
+            <p>Nenhuma peça no arquivo histórico.</p>
+          </div>`;
+        if (window.lucide) lucide.createIcons();
+        return;
+      }
+
+      grid.innerHTML = lista.map(item => `
+        <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between border border-slate-200/50 dark:border-[#132238]">
+          <div class="relative h-52 sm:h-56 bg-slate-900 overflow-hidden flex items-center justify-center">
+            <img src="${item.foto}" alt="${item.modelo}" class="w-full h-full object-cover filter grayscale-[25%] hover:grayscale-0 transition duration-300" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
+            <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2 py-0.5 rounded text-[10px] font-mono text-slate-300">
+              Saída: ${item.anoSaida || 'N/A'}
+            </span>
+            ${item.motivo ? `<span class="absolute bottom-2.5 left-2.5 bg-rose-500/80 text-white text-[10px] px-2 py-0.5 rounded font-medium">${item.motivo}</span>` : ''}
+          </div>
+          <div class="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-baseline">
+                <p class="text-[11px] uppercase tracking-widest text-slate-500 dark:text-slate-400 font-bold">${item.marca}</p>
+                <span class="text-[10px] text-slate-400 font-mono">${item.movimento || ''}</span>
+              </div>
+              <h3 class="text-sm font-semibold text-slate-900 dark:text-white mt-0.5">${item.modelo}</h3>
+              ${item.notas ? `<p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed bg-slate-100/50 dark:bg-slate-900/50 p-2.5 rounded-lg border border-slate-200/40 dark:border-slate-800/80 italic">"${item.notas}"</p>` : ''}
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      if (window.lucide) lucide.createIcons();
+    }
 
 window.onload = carregarDados;
-
