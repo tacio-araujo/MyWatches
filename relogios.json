@@ -639,6 +639,18 @@
       ]
     }
   ],
+    "ex_colecao": [
+    {
+      "id": 101,
+      "marca": "Casio",
+      "modelo": "G-Shock DW-5600",
+      "foto": "images/gshock.jpeg",
+      "movimento": "Quartzo",
+      "anoSaida": "2023",
+      "motivo": "Venda",
+      "notas": "Primeiro relógio da coleção, vendido para financiar o Seiko."
+    }
+  ]
   "sobre": {
     "titulo": "Tempo, Memórias & Legado",
     "conteudo": "Esta coleção não é sobre contagem de horas, peças guardadas em caixas ou valor patrimonial.\n\nÉ sobre o registro dos caminhos percorridos, das vitórias comemoradas, dos presentes recebidos e dos marcos da vida. Cada relógio guarda o eco de um dia e/ou um momento especial vivido uma única vez.\n\nEssas palavras foram escritas para encontrar nelas, não apenas mostradores, engrenagens, patrimônio ou algo assim, mas um pedaço vivo da minha e de quem fez parte da história ao longo do tempo.\n\nFoi uma tentativa de  construir um arquivo de memórias, alguns detalhes que faça lembrar de momentos singulares que o tempo apaga da nossa memória.\n\nO verdadeiro patrimônio que você está (foi) sendo construindo não são os relógios. São as riquezas das histórias que cada um tem guardadas junto a eles.",
