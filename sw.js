@@ -2,6 +2,8 @@ const CACHE_NAME = 'mywatches-v1';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
+  './css/style.css',   // <-- Adicione
+  './js/app.js',       // <-- Adicione
   './manifest.json',
   './images/relogiocapa.jpeg'
 ];
