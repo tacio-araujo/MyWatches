@@ -50,7 +50,8 @@
       "descricao": "- Smartwatch com tela Super AMOLED redondo\n- Processador Exynos W930 dual-core de 1.4 GHz\n- Sensores de saúde avançados (frequência cardíaca, ECG, bioimpedância)\n- Certificação IP68\n- Resistência à água de 5 ATM.",
       "historia": "- Presente - Natal - Day",
       "fotos": [],
-      "video": null
+      "video": null,
+      "ordem": 999
     },
     {
       "id": "rlg-1792067145760",
