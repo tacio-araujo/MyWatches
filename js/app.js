@@ -71,19 +71,21 @@ const modoVisitante = urlParams.has('share');
         tx.objectStore('app_state').clear();
       } catch (err) {}
     }
-     // HELPERS PARA ANIMAÇÃO DE MODAIS
-    function abrirModalSuave(modalId) {
-      const el = document.getElementById(modalId);
-      if (!el) return;
-      el.classList.remove('modal-closed');
-      lucide.createIcons();
-    }
+// HELPERS PARA ANIMAÇÃO DE MODAIS
+function abrirModalSuave(modalId) {
+  const el = document.getElementById(modalId);
+  if (!el) return;
+  el.classList.remove('hidden');
+  el.classList.remove('modal-closed');
+  if (window.lucide) lucide.createIcons();
+}
 
-    function fecharModalSuave(modalId) {
-      const el = document.getElementById(modalId);
-      if (!el) return;
-      el.classList.add('modal-closed');
-    }
+function fecharModalSuave(modalId) {
+  const el = document.getElementById(modalId);
+  if (!el) return;
+  el.classList.add('modal-closed');
+  el.classList.add('hidden');
+}
 
     const CONFIG = { 
       user: localStorage.getItem('gh_user') || 'tacio-araujo', 
