@@ -277,12 +277,14 @@ const modoVisitante = urlParams.has('share');
       if (labelBtn) {
         if (aba === 'relogios') labelBtn.innerText = "Adicionar Relógio";
         else if (aba === 'caixas') labelBtn.innerText = "Adicionar Caixa";
+        else if (aba === 'ex-colecao') labelBtn.innerText = "Adicionar ao Arquivo";
         else labelBtn.innerText = "Novo Item";
       }
 
       // Oculta o botão adicionar em abas que não têm criação rápida
+      // Se estiver em Geral ou Sobre, oculta o botão de adicionar para a tela ficar limpa
       if (containerBtnAdicionar) {
-        containerBtnAdicionar.classList.toggle('hidden', aba === 'geral' || aba === 'sobre' || aba === 'ex-colecao');
+        containerBtnAdicionar.classList.toggle('hidden', aba === 'geral' || aba === 'sobre');
       }
 
       // Execuções específicas de cada aba
@@ -297,11 +299,15 @@ const modoVisitante = urlParams.has('share');
     function acaoBotaoAdicionar() {
       if (abaAtiva === 'caixas') {
         abrirModalCaixa();
+      } else if (abaAtiva === 'ex-colecao') {
+        abrirModalExColecao();
       } else {
         if (abaAtiva !== 'relogios') alternarAba('relogios');
-        abrirModalCadastro();      }    }
+        abrirModalCadastro();
+      }
+    }
 
-        async function carregarDados() {
+  async function carregarDados() {
       const tempoInicioCarregamento = Date.now();
       const { bancoLocal, pendenciasLocais } = await restaurarEstadoLocalIndexedDB();
       if (pendenciasLocais && pendenciasLocais.temPendencia && bancoLocal) {
@@ -2392,6 +2398,11 @@ if (item.isCaixa) {
     const idxFoto = caixaAlvo.fotos.indexOf(item.tempUrl); 
     if (idxFoto !== -1) caixaAlvo.fotos[idxFoto] = githubUrl; 
   }
+} else if (item.isExColecao) {
+  const exAlvo = (bancoDados.ex_colecao || []).find(x => String(x.id) === String(item.itemId));
+  if (exAlvo && exAlvo.foto === item.tempUrl) {
+    exAlvo.foto = githubUrl;
+  }
 } else {
   const relogioAlvo = bancoDados.relogios.find(r => r.id === item.itemId);
   if (relogioAlvo && relogioAlvo.fotos) { 
@@ -2850,6 +2861,7 @@ async function salvarSobre() {
     sincronizarTudoComGithub();
   }
 }
+  
     // ================= RENDERIZAR ARQUIVO / EX-COLEÇÃO =================
     function renderizarExColecao() {
       const grid = document.getElementById('grid-ex-colecao');
@@ -2862,6 +2874,7 @@ async function salvarSobre() {
           <div class="col-span-full py-16 text-center text-slate-500">
             <i data-lucide="archive" class="w-10 h-10 mx-auto mb-2 opacity-40"></i>
             <p>Nenhuma peça no arquivo histórico.</p>
+            <button onclick="abrirModalExColecao()" class="mt-2 text-sky-400 hover:underline text-xs">Adicionar a primeira peça</button>
           </div>`;
         if (window.lucide) lucide.createIcons();
         return;
@@ -2870,7 +2883,7 @@ async function salvarSobre() {
       grid.innerHTML = lista.map(item => `
         <div class="card-navy rounded-xl overflow-hidden flex flex-col justify-between border border-slate-200/50 dark:border-[#132238]">
           <div class="relative h-52 sm:h-56 bg-slate-900 overflow-hidden flex items-center justify-center">
-            <img src="${item.foto}" alt="${item.modelo}" class="w-full h-full object-cover filter grayscale-[25%] hover:grayscale-0 transition duration-300" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
+            <img src="${item.foto || 'https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'}" alt="${item.modelo}" class="w-full h-full object-cover filter grayscale-[25%] hover:grayscale-0 transition duration-300" onerror="this.src='https://placehold.co/600x600/0a1322/38bdf8?text=Sem+Foto'">
             <span class="absolute top-2.5 right-2.5 bg-black/80 backdrop-blur border border-slate-700/60 px-2 py-0.5 rounded text-[10px] font-mono text-slate-300">
               Saída: ${item.anoSaida || 'N/A'}
             </span>
@@ -2885,11 +2898,167 @@ async function salvarSobre() {
               <h3 class="text-sm font-semibold text-slate-900 dark:text-white mt-0.5">${item.modelo}</h3>
               ${item.notas ? `<p class="text-xs text-slate-600 dark:text-slate-300 mt-2 leading-relaxed bg-slate-100/50 dark:bg-slate-900/50 p-2.5 rounded-lg border border-slate-200/40 dark:border-slate-800/80 italic">"${item.notas}"</p>` : ''}
             </div>
+
+            <div class="mt-3 pt-2 border-t border-slate-200/80 dark:border-[#132238] flex items-center justify-end">
+              ${!modoVisitante ? `
+                <button onclick="editarExColecao('${item.id}')" title="Editar Peça do Arquivo" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-400 hover:bg-slate-100 dark:hover:bg-[#0c182b] transition flex items-center gap-1 text-[11px]">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                  <span>Editar</span>
+                </button>
+              ` : ''}
+            </div>
           </div>
         </div>
       `).join('');
 
       if (window.lucide) lucide.createIcons();
+    }
+    // ================= CRUD: ARQUIVO / EX-COLEÇÃO =================
+    let fotoExColecaoAtual = '';
+
+    document.getElementById('ex-foto-file')?.addEventListener('change', async function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const dataUrl = await comprimirImagem(file);
+      fotoExColecaoAtual = dataUrl;
+      const prevBox = document.getElementById('ex-foto-preview-box');
+      const prevImg = document.getElementById('ex-foto-preview');
+      if (prevBox && prevImg) {
+        prevImg.src = dataUrl;
+        prevBox.classList.remove('hidden');
+        prevBox.classList.add('flex');
+      }
+    });
+
+    function abrirModalExColecao() {
+      document.getElementById('form-ex-colecao').reset();
+      document.getElementById('edit-ex-id').value = '';
+      document.getElementById('modal-ex-colecao-title').innerText = "Adicionar Peça Histórica";
+      const btnDel = document.getElementById('btn-excluir-modal-ex');
+      if (btnDel) {
+        btnDel.classList.add('hidden');
+        btnDel.classList.remove('flex');
+      }
+      fotoExColecaoAtual = '';
+      const prevBox = document.getElementById('ex-foto-preview-box');
+      if (prevBox) prevBox.classList.add('hidden');
+      abrirModalSuave('modal-ex-colecao');
+    }
+
+    function fecharModalExColecao() {
+      fecharModalSuave('modal-ex-colecao');
+    }
+
+    function editarExColecao(id) {
+      const item = (bancoDados.ex_colecao || []).find(x => String(x.id) === String(id));
+      if (!item) return;
+
+      document.getElementById('modal-ex-colecao-title').innerText = `Editar: ${item.marca} ${item.modelo}`;
+      document.getElementById('edit-ex-id').value = item.id;
+      document.getElementById('ex-marca').value = item.marca || '';
+      document.getElementById('ex-modelo').value = item.modelo || '';
+      document.getElementById('ex-movimento').value = item.movimento || '';
+      document.getElementById('ex-ano-saida').value = item.anoSaida || '';
+      document.getElementById('ex-motivo').value = item.motivo || '';
+      document.getElementById('ex-foto-url').value = item.foto && !item.foto.startsWith('data:') ? item.foto : '';
+      document.getElementById('ex-notas').value = item.notas || '';
+
+      const btnDel = document.getElementById('btn-excluir-modal-ex');
+      if (btnDel) {
+        btnDel.classList.remove('hidden');
+        btnDel.classList.add('flex');
+      }
+
+      fotoExColecaoAtual = item.foto || '';
+      const prevBox = document.getElementById('ex-foto-preview-box');
+      const prevImg = document.getElementById('ex-foto-preview');
+      if (item.foto && prevBox && prevImg) {
+        prevImg.src = item.foto;
+        prevBox.classList.remove('hidden');
+        prevBox.classList.add('flex');
+      } else if (prevBox) {
+        prevBox.classList.add('hidden');
+      }
+
+      abrirModalSuave('modal-ex-colecao');
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function excluirExColecaoModalAtual() {
+      const id = document.getElementById('edit-ex-id').value;
+      if (!id) return;
+      fecharModalExColecao();
+      removerExColecao(id);
+    }
+
+    async function salvarExColecaoLocal(e) {
+      e.preventDefault();
+      const editId = document.getElementById('edit-ex-id').value;
+      const targetId = editId || `ex-${Date.now()}`;
+      const urlDigitada = document.getElementById('ex-foto-url').value.trim();
+
+      // Usa link digitado se não fez upload novo
+      let fotoFinal = fotoExColecaoAtual;
+      if (urlDigitada && (!fotoFinal || !fotoFinal.startsWith('data:'))) {
+        fotoFinal = urlDigitada;
+      }
+
+      // Se for imagem local base64 nova, enfileira para upload no GitHub
+      if (fotoFinal && fotoFinal.startsWith('data:')) {
+        const jaEnfileirado = pendingChanges.fotosParaEnviar.some(p => p.tempUrl === fotoFinal);
+        if (!jaEnfileirado) {
+          pendingChanges.fotosParaEnviar.push({
+            blob: dataUrlToBlob(fotoFinal),
+            nomeOriginal: `ex_${Date.now()}.jpg`,
+            itemId: targetId,
+            isExColecao: true,
+            tempUrl: fotoFinal
+          });
+        }
+      }
+
+      const itemHistorico = {
+        id: targetId,
+        marca: document.getElementById('ex-marca').value.trim(),
+        modelo: document.getElementById('ex-modelo').value.trim(),
+        movimento: document.getElementById('ex-movimento').value.trim(),
+        anoSaida: document.getElementById('ex-ano-saida').value.trim(),
+        motivo: document.getElementById('ex-motivo').value.trim(),
+        foto: fotoFinal,
+        notas: document.getElementById('ex-notas').value.trim()
+      };
+
+      if (!bancoDados.ex_colecao) bancoDados.ex_colecao = [];
+
+      if (editId) {
+        const idx = bancoDados.ex_colecao.findIndex(x => String(x.id) === String(editId));
+        if (idx !== -1) bancoDados.ex_colecao[idx] = itemHistorico;
+      } else {
+        bancoDados.ex_colecao.push(itemHistorico);
+      }
+
+      fecharModalExColecao();
+      atualizarStatusPendencias(true);
+      renderizarTudo();
+      salvarEstadoLocalIndexedDB();
+    }
+
+    function removerExColecao(id) {
+      if (!bancoDados.ex_colecao) return;
+      const idx = bancoDados.ex_colecao.findIndex(x => String(x.id) === String(id));
+      if (idx === -1) return;
+
+      const item = bancoDados.ex_colecao[idx];
+      if (!confirm(`Remover "${item.modelo}" do arquivo histórico?`)) return;
+
+      if (item.foto && !item.foto.startsWith('data:') && item.foto.includes('github')) {
+        pendingChanges.fotosParaExcluir.push(item.foto);
+      }
+
+      bancoDados.ex_colecao.splice(idx, 1);
+      atualizarStatusPendencias(true);
+      renderizarTudo();
+      salvarEstadoLocalIndexedDB();
     }
 
 window.onload = carregarDados;
