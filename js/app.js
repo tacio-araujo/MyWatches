@@ -1,4 +1,3 @@
-  <script>
     let bancoDados = { relogios: [], caixas: [] };
     let fileSha = "";
     let abaAtiva = 'relogios';
@@ -2841,4 +2840,4 @@ async function salvarSobre() {
 }
 
 window.onload = carregarDados;
-</script>
+
