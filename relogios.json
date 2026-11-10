@@ -660,6 +660,16 @@
       "motivo": "Mal Funcionamento",
       "foto": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/ex-1794229333054-ex_1794229327055.jpg",
       "notas": "Presente do Denis por meados de 2016"
+    },
+    {
+      "id": "ex-1794280006935",
+      "marca": "Skmei",
+      "modelo": "1155",
+      "movimento": "AnaDigi",
+      "anoSaida": "2021",
+      "motivo": "Sem Bateria",
+      "foto": "https://raw.githubusercontent.com/tacio-araujo/MyWatches/main/images/ex-1794280035410-ex_1794280006936.jpg",
+      "notas": "Peça importada do AliExpress, pouco uso e pouca durabilidade"
     }
   ],
   "sobre": {
